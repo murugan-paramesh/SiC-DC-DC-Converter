@@ -309,7 +309,9 @@ class NegotiatedRouter(Router):
         """Chebyshev halo radius (cells) of this net's tracks and vias against a typical neighbour."""
         # halo = own half width + half the clearance (+0.01 mm guard): two halos touch exactly when the
         # centre spacing equals hw_a + hw_b + clearance, i.e. the DRC limit
-        clr = max(self.clearance_fn(net, other) for other in self._class_samples)
+        # clearance against nets of the same class (routed signal nets only meet signal nets of their
+        # own side; cross-side isolation distances are enforced by the static obstacle maps)
+        clr = self.clearance_fn(net, net)
         hw = self.width_fn(net) / 2
         r_track = int(math.ceil((hw + clr / 2 + 0.01) / GRID))
         r_via = int(math.ceil((self.via_size / 2 + clr / 2 + 0.01) / GRID))
