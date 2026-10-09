@@ -37,10 +37,10 @@ P("C5", 36, 38); P("C6", 46, 38); P("C7", 82, 38); P("C8", 92, 38)
 P("J1", 14, 70); P("F1", 54, 70); P("J2", 14, 100)
 for i, y in zip((1, 2, 3, 4), (100, 139, 178, 217)):
     P(f"C{i}", 60, y, 0)
-P("J4", 104, 52); P("J3", 100, 105); P("J9", 100, 150)
+P("J4", 104, 52); P("J3", 92, 105); P("J9", 100, 150)   # J3 west of the SW_A_CT strip (x 103-109)
 P("R1", 106, 170); P("R2", 106, 177); P("R3", 106, 184); P("R4", 106, 191)
 P("CY1", 24, 241, 0); P("CY2", 60, 241, 0); P("J21", 14, 125, 0)   # PE lug: >= 8.5 mm from HV pads (J2 stud, C1); the HV_N pour recedes by rule
-P("TP1", 96, 110); P("TP2", 104, 64); P("TP3", 30, 60)   # TP1 over the SW_A B.Cu strip, clear of the SW_A_CT pour
+P("TP1", 96, 118); P("TP2", 104, 64); P("TP3", 30, 56)   # TP1 below J3 (joined to the SW_A pour by a short track), TP3 clear of the fuse stud
 # ------------------------------------------------------------------ HV barrier (x = 126)
 P("U1", BAR1, 20, 180); P("U2", BAR1, 34, 180)
 P("PS1", BAR1, 48, 180); P("PS2", BAR1, 58, 180); P("PS3", BAR1, 68, 180); P("PS4", BAR1, 78, 180)
@@ -50,7 +50,7 @@ P("U5", BAR1, 124, 0); P("PS9", BAR1, 136, 180)
 for q, qx in zip((5, 6, 7, 8), (246, 268, 292, 314)):
     P(f"Q{q}", qx, 14, 0)
 P("C13", 252, 38); P("C14", 262, 38); P("C15", 298, 38); P("C16", 308, 38)
-P("J8", 300, 52); P("J7", 232, 60)
+P("J8", 300, 52); P("J7", 232, 36)   # SW_C stud clear of the PS5-PS8 module bodies
 for i, (x, y) in zip((9, 10, 11, 12), ((250, 95), (295, 95), (250, 122), (295, 122))):
     P(f"C{i}", x, y, 0)
 P("F2", 270, 160); P("J5", 312, 160); P("R7", 280, 200); P("J6", 312, 200)
@@ -64,13 +64,13 @@ P("U6", BAR2, 100, 180); P("U7", BAR2, 114, 180); P("PS10", BAR2, 128, 0)
 # ------------------------------------------------------------------ control region (x 134-205)
 P("J10", 146, 150, 0); P("J11", 199.9, 150, 0); P("J12", 170, 150, 0)
 P("U8", 150, 62); P("U9", 150, 80); P("U10", 168, 62); P("U11", 168, 80); P("U12", 186, 70)
-P("D30", 140, 108); P("D31", 140, 114)
+P("D30", 146, 108); P("D31", 146, 114)   # clear of the CT1 secondary pins / body
 P("U13", 150, 212, 0); P("U14", 166, 212, 0); P("U15", 182, 212, 0)   # U15 tab pad clear of the y=202 passive row
 P("U16", 150, 190); P("J14", 141, 232, 0); P("J15", 192, 232, 0); P("J13", 160, 232, 0)
-P("U17", 176, 190, 0); P("J16", 196, 174, 0); P("U18", 150, 181, 0); P("U19", 162, 181, 0); P("J17", 140, 160, 0)   # optocouplers clear of the J10 pin rows
-P("J18", 196, 232, 0); P("J19", 200, 232, 0); P("J20", 140, 243, 0)
+P("U17", 176, 186, 0); P("J16", 196, 174, 0); P("U18", 150, 181, 0); P("U19", 162, 181, 0); P("J17", 140, 160, 0)   # optocouplers clear of the J10 pin rows
+P("J18", 196, 232, 0); P("J19", 200, 232, 0); P("J20", 152, 242, 0)
 P("D34", 140, 120); P("D35", 140, 126); P("D32", 170, 224); P("D33", 180, 224)
-P("TP7", 145, 56); P("TP8", 190, 56); P("TP9", 145, 90); P("TP10", 198, 90); P("TP11", 140, 200); P("TP12", 140, 206); P("TP13", 140, 212)
+P("TP7", 145, 56); P("TP8", 190, 56); P("TP9", 145, 90); P("TP10", 199, 84); P("TP11", 140, 200); P("TP12", 140, 206); P("TP13", 140, 212)
 for i, (x, y) in enumerate(((7, 7), (333, 7), (7, 243), (333, 243), (170, 7), (170, 243)), start=1):
     P(f"H{i}", x, y)
 
@@ -111,7 +111,7 @@ def place_generated(comps):
                 u = ["U1", "U2", "U3", "U4"][k % 4]; P(c.ref, 140 if u in ("U1", "U2") else 199, yb[u] + 3)
             elif "+12V" in nets and "GND" in nets:       # bias input caps next to each module
                 k = sum(1 for r in PL if r.startswith("C") and PL[r][0] in (139, 199))
-                side, y = (139, 48 + 10 * k) if k < 4 else ((199, 48 + 10 * (k - 4)) if k < 8 else (139, 88 + 10 * (k - 8)))
+                side, y = (139, 48 + 10 * k) if k < 4 else ((199, 48 + 10 * (k - 4)) if k < 8 else (145, 98 + 6 * (k - 8)))
                 P(c.ref, side, y)   # x = 138 / 199: clear of the driver and sense-amplifier fan-out corridors
     # sensing sheet passives: rows in the control region near their function
     rows = {"hv": (x for x in [108, 108, 108, 108, 108, 108, 108, 108]), }
@@ -126,7 +126,7 @@ def place_generated(comps):
         else:
             x, y = next(ctrl_slots); P(c.ref, x, y)
     ctrl_slots2 = iter([(x, y) for y in (196, 202, 218, 224) for x in (146, 151, 156, 161, 166, 171, 176, 181, 186, 191)])
-    tht_row = iter([(152 + 9 * k, 90) for k in range(5)])
+    tht_row = iter([(150 + 10 * k, 90) for k in range(5)])
     for c in comps:
         if c.ref in PL: continue
         if c.sheet == "ctrl":
@@ -147,16 +147,16 @@ ZONES = [
     ("LV_N", "F.Cu", [LVR], 0, THERM), ("LV_N", "B.Cu", [LVR], 0, THERM), ("LV_N", "In1.Cu", [LVR], 0, THERM), ("LV_N", "In3.Cu", [LVR], 0, THERM),
     ("LV_P", "In2.Cu", [LVR], 0, FULL), ("LV_P", "In4.Cu", [LVR], 0, FULL),
     # switch-node strips on B.Cu (10 A rms HV side, 20 A rms LV side)
-    ("SW_A", "B.Cu", [(32, 11, 36.2, 20), (49, 11, 52.6, 20), (32, 17, 52.6, 20), (43.5, 17, 48, 100), (92, 97, 108, 113)], 2, FULL),
-    ("SW_A", "B.Cu", [(43.5, 97, 108, 103)], 2, FULL),
+    ("SW_A", "B.Cu", [(32, 11, 36.2, 20), (49, 11, 52.6, 20), (32, 17, 52.6, 20), (43.5, 17, 48, 100), (84, 97, 100, 113)], 2, FULL),
+    ("SW_A", "B.Cu", [(43.5, 97, 100, 103)], 2, FULL),
     ("SW_B", "B.Cu", [(78, 11, 82.2, 20), (95, 11, 98.6, 20), (78, 17, 98.6, 20), (86, 17, 90, 46), (86, 44, 112, 60)], 2, FULL),
     ("SW_C", "B.Cu", [(248, 11, 252.2, 20), (265, 11, 268.6, 20), (248, 17, 268.6, 20), (254, 17, 260, 54), (224, 52, 260, 68)], 2, FULL),
     ("SW_D", "B.Cu", [(294, 11, 298.2, 20), (311, 11, 314.6, 20), (294, 17, 314.6, 20), (300, 17, 306, 46), (292, 44, 308, 60)], 2, FULL),
     ("HV_IN", "F.Cu", [(8, 64, 40, 76)], 2, FULL), ("HV_IN", "B.Cu", [(8, 64, 40, 76)], 2, FULL),
-    ("LV_IN", "F.Cu", [(244, 154, 320, 166)], 2, FULL), ("LV_IN", "B.Cu", [(244, 154, 320, 166)], 2, FULL),
+    ("LV_IN", "F.Cu", [(244, 154, 320, 166), (276, 166, 304, 174)], 2, FULL), ("LV_IN", "B.Cu", [(244, 154, 320, 166), (276, 166, 304, 174)], 2, FULL),   # loop below the fuse LV_P stud keeps the pour in one piece
     ("SH_N", "F.Cu", [(286, 194, 320, 206)], 2, FULL), ("SH_N", "B.Cu", [(286, 194, 320, 206)], 2, FULL),
     ("SW_A_CT", "F.Cu", [(92, 90, 114, 100)], 2, FULL),   # CT primary pad 2 (SW_A_CT) -> J9 stud via pour; pad1 (SW_A) joins the SW_A pour by via stitching
-    ("SW_A_CT", "F.Cu", [(92, 142, 108, 158)], 2, FULL), ("SW_A_CT", "F.Cu", [(100, 95, 106, 150)], 2, FULL),
+    ("SW_A_CT", "F.Cu", [(92, 142, 108, 158)], 2, FULL), ("SW_A_CT", "F.Cu", [(103, 95, 109, 150)], 2, FULL),   # strip between J3 (SW_A) and CT pad 1
 ]
 TRACKS = []
 

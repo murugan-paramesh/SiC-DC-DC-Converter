@@ -207,6 +207,8 @@ class BoardGen:
     def stitch_vias(self, board, nets, pads, router, extra_occupied=()):
         cfg = self.cfg
         occupied = [p[3] for p in pads] + list(extra_occupied)
+        # never stitch inside a pour rectangle of another net (a via plus its clearance would cut a strip)
+        zone_occ = [(net_, Rect(*r_).expand(1.0)) for net_, layer_, rects_, prio_, conn_ in cfg.zones if prio_ > 0 for r_ in rects_]
         def free(x, y, r=0.45):
             rr = Rect(x - r, y - r, x + r, y + r)
             for o in occupied:
@@ -231,7 +233,7 @@ class BoardGen:
                 else:
                     cands = [(cx, cy + h / 2 + d), (cx, cy - h / 2 - d), (cx + (w / 2 + d) * (1 if cx >= fx else -1), cy)]
             for (vx, vy) in cands:
-                if not free(vx, vy):
+                if not free(vx, vy) or any(zn != net and zr.contains(vx, vy) for zn, zr in zone_occ):
                     continue
                 self.add_via(board, nets[net], vx, vy)
                 self.add_track(board, nets[net], "F.Cu", cx, cy, vx, vy, min(0.6, max(0.3, min(w, h) - 0.1)))
