@@ -1,0 +1,32 @@
+{
+ "failed_terminals": [
+  [
+   "PROT_DIS",
+   0,
+   0
+  ],
+  [
+   "V2_OUTP",
+   0,
+   0
+  ]
+ ],
+ "drc_kinds": {
+  "silk_overlap": 105,
+  "silk_over_copper": 152,
+  "solder_mask_bridge": 6,
+  "starved_thermal": 7,
+  "lib_footprint_issues": 199,
+  "silk_edge_clearance": 22,
+  "copper_edge_clearance": 8,
+  "courtyards_overlap": 25,
+  "clearance": 16,
+  "track_dangling": 11,
+  "unconnected_items": 27
+ },
+ "severities": {
+  "warning": 489,
+  "error": 89
+ },
+ "unconnected": 27
+}
