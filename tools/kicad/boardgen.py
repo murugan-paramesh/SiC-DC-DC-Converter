@@ -161,10 +161,10 @@ class BoardGen:
             ref = fp.Reference()
             ref.SetTextSize(pcbnew.VECTOR2I(MM(0.9), MM(0.9))); ref.SetTextThickness(MM(0.15))
             # reference designator just above the courtyard (clear of the pads, readable silk)
-            cy_bb = fp.GetCourtyard(pcbnew.F_CrtYd).BBox() if hasattr(fp, "GetCourtyard") else None
-            if cy_bb is not None and cy_bb.GetHeight() > 0:
-                ref.SetPosition(pcbnew.VECTOR2I(cy_bb.GetCenter().x, cy_bb.GetTop() - MM(0.7)))
-                ref.SetTextAngleDegrees(0)
+            bb = fp.GetBoundingBox(False, False)       # pads + graphics (courtyard), no text
+            if bb.GetHeight() > 0:
+                ref.SetPosition(pcbnew.VECTOR2I(bb.GetCenter().x, bb.GetTop() - MM(0.8)))
+                ref.SetKeepUpright(True)
             for pad in fp.Pads():
                 net = c.pins.get(pad.GetNumber())
                 if net and not net.startswith("NC_"):

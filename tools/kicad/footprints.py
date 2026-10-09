@@ -152,7 +152,8 @@ def build_library():
     for i in (0, 1, 4, 5, 6):
         x = (i - 3) * 2.54
         sip.th_pad(i + 1, x, 0, 1.7, 1.0, shape="oval", h=2.2, square=(i == 0))
-    sip.rect(-9.8, -3.6, 9.8, 2.6, layer="F.Fab", w=0.1); sip.rect(-9.8, -3.6, 9.8, 2.6, layer="F.SilkS"); sip.rect(-10.3, -4.1, 10.3, 3.1)
+    sip.rect(-9.8, -3.6, 9.8, 2.6, layer="F.Fab", w=0.1); sip.rect(-10.3, -4.1, 10.3, 3.1)
+    sip.rect(-9.8, -3.6, -1.4, 2.6, layer="F.SilkS"); sip.rect(1.4, -3.6, 9.8, 2.6, layer="F.SilkS")   # silk split at the milled slot
     sip.text("iso slot", 0, -5.0, size=0.7)
     fps.append(sip)
 

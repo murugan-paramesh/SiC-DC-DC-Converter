@@ -1,0 +1,12 @@
+{
+ "failed_terminals": [],
+ "drc_kinds": {
+  "silk_overlap": 13,
+  "silk_over_copper": 18,
+  "silk_edge_clearance": 9
+ },
+ "severities": {
+  "warning": 40
+ },
+ "unconnected": 0
+}
