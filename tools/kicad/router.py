@@ -315,7 +315,7 @@ class NegotiatedRouter(Router):
         r_via = int(math.ceil((self.via_size / 2 + clr / 2 + 0.01) / GRID))
         return r_track, r_via
 
-    def route_all(self, tasks, max_iter=14, pres_fac0=1.0, pres_growth=1.7, hist_fac=0.5, via_cost=25, turn_cost=0.6, max_nodes=2_500_000, log=print):
+    def route_all(self, tasks, max_iter=14, pres_fac0=1.0, pres_growth=1.7, hist_fac=0.5, via_cost=25, turn_cost=0.6, max_nodes=2_500_000, log=print, debug_dir=None):
         H, W = self.H, self.W
         self._class_samples = sorted({t[0] for t in tasks})[:12]
         usage = np.zeros((2, H, W), dtype=np.int16)      # number of nets occupying (halo) each cell
@@ -387,6 +387,17 @@ class NegotiatedRouter(Router):
                         conflict_nets.add(net); break
             history += hist_fac * over.astype(np.float32)
             n_over = int(over.sum())
+            if debug_dir:
+                import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
+                fig, ax = plt.subplots(1, 2, figsize=(14, 5))
+                for L in (0, 1):
+                    ax[L].imshow(np.where(over[L], 2, np.minimum(usage[L], 1)), origin="upper", cmap="hot", interpolation="nearest"); ax[L].set_title(f"iter {it} layer {L}: usage (1) and overlap (2)")
+                fig.savefig(f"{debug_dir}/overlap_iter{it}.png", dpi=90); plt.close(fig)
+                counts = []
+                for net, cells in paths.items():
+                    cnt = sum(1 for (L, j, i) in cells if over[L, j, i])
+                    if cnt: counts.append((cnt, net))
+                log("    worst nets by overlapped path cells: " + str(sorted(counts, reverse=True)[:12]))
             incomplete = [n for n, v in owner_count.items() if not v[2]]
             log(f"  negotiation iter {it}: rerouted {n_rerouted}, overlapping cells {n_over}, conflicting nets {len(conflict_nets)}, incomplete nets {len(incomplete)}")
             if not conflict_nets and not incomplete:
