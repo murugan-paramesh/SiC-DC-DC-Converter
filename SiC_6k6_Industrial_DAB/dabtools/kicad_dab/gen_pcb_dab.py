@@ -39,7 +39,7 @@ for i, y in zip((1, 2, 3, 4), (100, 139, 178, 217)):
     P(f"C{i}", 60, y, 0)
 P("J4", 104, 52); P("J3", 100, 105); P("J9", 100, 150)
 P("R1", 106, 170); P("R2", 106, 177); P("R3", 106, 184); P("R4", 106, 191)
-P("CY1", 24, 241, 0); P("CY2", 60, 241, 0); P("J21", 96, 241, 0)   # PE lug >= 8.5 mm from the HV pads, clear of C4
+P("CY1", 24, 241, 0); P("CY2", 60, 241, 0); P("J21", 12, 40, 0)   # PE lug >= 8.5 mm from HV copper (pour recedes by rule)
 P("TP1", 96, 110); P("TP2", 104, 64); P("TP3", 30, 60)   # TP1 over the SW_A B.Cu strip, clear of the SW_A_CT pour
 # ------------------------------------------------------------------ HV barrier (x = 126)
 P("U1", BAR1, 20, 180); P("U2", BAR1, 34, 180)
@@ -91,8 +91,9 @@ def place_generated(comps):
         # row 1 (y = 22): Rg_on, Rg_off, D, Rgs ; row 2 (y = 28): caps
         r1 = [c for c in parts if c.footprint in ("R_1206", "D_SMA", "R_0603") and c.symbol in ("R", "D_SCHOTTKY")]
         r2 = [c for c in parts if c.symbol == "C"]
-        xs1 = (x0 - 9.5, x0 - 3.5, x0 + 3.5, x0 + 10.5)   # SMA + 1206 parts need 7 mm pitch
-        for c, x in zip(sorted(r1, key=lambda c: ("R" not in c.ref, c.ref)), xs1):
+        xs1 = (x0 - 9.5, x0 - 3.5, x0 + 3.0, x0 + 9.5)    # SMA + 1206 parts need >= 6.5 mm pitch; SMA inside
+        rs = sorted([c for c in r1 if c.symbol == "R"], key=lambda c: c.ref); ds = [c for c in r1 if c.symbol != "R"]
+        for c, x in zip(rs[:2] + ds + rs[2:], xs1):
             P(c.ref, x, 22)
         for c, x in zip(r2, (x0 - 7, x0 - 3, x0 + 0.5, x0 + 4)):
             P(c.ref, x, 28)

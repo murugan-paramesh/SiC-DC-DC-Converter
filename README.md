@@ -6,7 +6,7 @@ obtained (calculation, simulation, software-in-the-loop, DRC).
 
 | Design | Where | Status |
 |---|---|---|
-| **PSFB 3 kW**, 400 V -> 48 V, SiC primary, synchronous rectification, UCC28951 | `hardware/kicad/SiC_PSFB_3kW.kicad_pro`, `docs/`, `tools/`, `simulation/` | schematic generated and netlist-verified; PCB generated with zones/planes and auto-routed signals (DRC state in `hardware/kicad/drc_summary.json`); switched simulation agrees with the design |
+| **PSFB 3 kW**, 400 V -> 48 V, SiC primary, synchronous rectification, UCC28951 | `hardware/kicad/SiC_PSFB_3kW.kicad_pro`, `docs/`, `tools/`, `simulation/` | schematic generated and netlist-verified; 4-layer PCB generated, fully routed, KiCad DRC 0 errors / 0 unconnected (`hardware/kicad/drc_summary.json`); gerbers/drill/pos in `hardware/outputs/`; switched simulation agrees with the design |
 | **DAB 6.6 kW**, 650-850 V <-> 300-450 V bidirectional, SiC both bridges, C2000 control | `SiC_6k6_Industrial_DAB/` (see its README) | full research/engineering chain: requirements, models, design, simulation (Python + ngspice), control + firmware (SIL-tested), 6-layer KiCad PCB, thermal/EMI/safety/FMEA, optimisation, BOM, manufacturing outputs, verification report, research report, lab plan |
 
 Shared tooling: `tools/kicad/` (symbol/footprint generators, hierarchical schematic generator,
