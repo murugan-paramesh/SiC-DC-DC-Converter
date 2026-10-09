@@ -33,14 +33,14 @@ def P(ref, x, y, r=0): PL[ref] = (x, y, r)
 # ------------------------------------------------------------------ HV region
 for q, qx in zip((1, 2, 3, 4), (30, 52, 76, 98)):
     P(f"Q{q}", qx, 14, 0)
-P("C5", 36, 38); P("C6", 46, 38); P("C7", 82, 38); P("C8", 92, 38)
+P("C5", 36, 38); P("C6", 46, 38); P("C7", 82, 38); P("C8", 96, 38)   # HV_P pads clear of the SW_B strip so the plane via fits
 P("J1", 14, 70); P("F1", 54, 70); P("J2", 14, 100)
 for i, y in zip((1, 2, 3, 4), (100, 139, 178, 217)):
     P(f"C{i}", 60, y, 0)
-P("J4", 104, 52); P("J3", 92, 105); P("J9", 100, 150)   # J3 west of the SW_A_CT strip (x 103-109)
+P("J4", 104, 52); P("J3", 93, 73); P("J9", 100, 150)   # J3 above C1, west of the SW_A_CT strip (x 103-109)
 P("R1", 106, 170); P("R2", 106, 177); P("R3", 106, 184); P("R4", 106, 191)
 P("CY1", 24, 241, 0); P("CY2", 60, 241, 0); P("J21", 14, 125, 0)   # PE lug: >= 8.5 mm from HV pads (J2 stud, C1); the HV_N pour recedes by rule
-P("TP1", 96, 118); P("TP2", 104, 64); P("TP3", 30, 56)   # TP1 below J3 (joined to the SW_A pour by a short track), TP3 clear of the fuse stud
+P("TP1", 96, 86); P("TP2", 104, 64); P("TP3", 30, 56)   # TP1 on the SW_A stud pour, TP3 clear of the fuse stud
 # ------------------------------------------------------------------ HV barrier (x = 126)
 P("U1", BAR1, 20, 180); P("U2", BAR1, 34, 180)
 P("PS1", BAR1, 48, 180); P("PS2", BAR1, 58, 180); P("PS3", BAR1, 68, 180); P("PS4", BAR1, 78, 180)
@@ -49,7 +49,7 @@ P("U5", BAR1, 124, 0); P("PS9", BAR1, 136, 180)
 # ------------------------------------------------------------------ LV region (mirror)
 for q, qx in zip((5, 6, 7, 8), (246, 268, 292, 314)):
     P(f"Q{q}", qx, 14, 0)
-P("C13", 252, 38); P("C14", 262, 38); P("C15", 298, 38); P("C16", 308, 38)
+P("C13", 248, 38); P("C14", 266, 38); P("C15", 294, 38); P("C16", 312, 38)   # LV_P pads clear of the SW_C/SW_D strips
 P("J8", 300, 52); P("J7", 236, 60)   # SW_C stud: 5 mm from the PS6 body, clear of the U4 fan-out
 for i, (x, y) in zip((9, 10, 11, 12), ((250, 95), (295, 95), (250, 122), (295, 122))):
     P(f"C{i}", x, y, 0)
@@ -68,9 +68,9 @@ P("D30", 146, 108); P("D31", 146, 114)   # clear of the CT1 secondary pins / bod
 P("U13", 150, 212, 0); P("U14", 166, 212, 0); P("U15", 182, 212, 0)   # U15 tab pad clear of the y=202 passive row
 P("U16", 150, 190); P("J14", 141, 232, 0); P("J15", 192, 232, 0); P("J13", 160, 232, 0)
 P("U17", 176, 186, 0); P("J16", 196, 174, 0); P("U18", 150, 181, 0); P("U19", 162, 181, 0); P("J17", 140, 160, 0)   # optocouplers clear of the J10 pin rows
-P("J18", 196, 232, 0); P("J19", 200, 232, 0); P("J20", 152, 242, 0)
+P("J18", 196, 232, 0); P("J19", 200, 232, 0); P("J20", 150, 242, 0)
 P("D34", 140, 120); P("D35", 140, 126); P("D32", 170, 224); P("D33", 180, 224)
-P("TP7", 145, 56); P("TP8", 190, 56); P("TP9", 145, 90); P("TP10", 199, 84); P("TP11", 140, 200); P("TP12", 140, 206); P("TP13", 140, 212)
+P("TP7", 145, 56); P("TP8", 190, 56); P("TP9", 143, 84); P("TP10", 199, 84); P("TP11", 140, 200); P("TP12", 140, 206); P("TP13", 140, 212)
 for i, (x, y) in enumerate(((7, 7), (333, 7), (7, 243), (333, 243), (170, 7), (170, 243)), start=1):
     P(f"H{i}", x, y)
 
@@ -110,7 +110,7 @@ def place_generated(comps):
                 k = sum(1 for r in PL if r.startswith("C") and PL[r][1] in (23, 37) and PL[r][0] in (140, 199))
                 u = ["U1", "U2", "U3", "U4"][k % 4]; P(c.ref, 140 if u in ("U1", "U2") else 199, yb[u] + 3)
             elif "+12V" in nets and "GND" in nets:       # bias input caps next to each module
-                k = sum(1 for r in PL if r.startswith("C") and PL[r][0] in (139, 199))
+                k = sum(1 for r in PL if r.startswith("C") and PL[r][0] in (139, 145, 199))
                 side, y = (139, 48 + 10 * k) if k < 4 else ((199, 48 + 10 * (k - 4)) if k < 8 else (145, 98 + 6 * (k - 8)))
                 P(c.ref, side, y)   # x = 138 / 199: clear of the driver and sense-amplifier fan-out corridors
     # sensing sheet passives: rows in the control region near their function
@@ -147,7 +147,7 @@ ZONES = [
     ("LV_N", "F.Cu", [LVR], 0, THERM), ("LV_N", "B.Cu", [LVR], 0, THERM), ("LV_N", "In1.Cu", [LVR], 0, THERM), ("LV_N", "In3.Cu", [LVR], 0, THERM),
     ("LV_P", "In2.Cu", [LVR], 0, FULL), ("LV_P", "In4.Cu", [LVR], 0, FULL),
     # switch-node strips on B.Cu (10 A rms HV side, 20 A rms LV side)
-    ("SW_A", "B.Cu", [(32, 11, 36.2, 20), (49, 11, 52.6, 20), (32, 17, 52.6, 20), (43.5, 17, 48, 100), (84, 97, 100, 113)], 2, FULL),
+    ("SW_A", "B.Cu", [(32, 11, 36.2, 20), (49, 11, 52.6, 20), (32, 17, 52.6, 20), (43.5, 17, 48, 100), (85, 65, 101, 103)], 2, FULL),
     ("SW_A", "B.Cu", [(43.5, 97, 100, 103)], 2, FULL),
     ("SW_B", "B.Cu", [(78, 11, 82.2, 20), (95, 11, 98.6, 20), (78, 17, 98.6, 20), (86, 17, 90, 46), (86, 44, 112, 60)], 2, FULL),
     ("SW_C", "B.Cu", [(248, 11, 252.2, 20), (265, 11, 268.6, 20), (248, 17, 268.6, 20), (254, 17, 260, 54), (224, 52, 260, 68)], 2, FULL),
@@ -247,7 +247,7 @@ def config():
                        dru_header="# Generated by dabtools/kicad_dab/gen_pcb_dab.py. Clearance classes by net name; later rules take precedence.\n# Isolation design values from 15_Safety_Reliability/01_insulation_coordination.md.\n",
                        via_forbidden=via_forbidden, edge_slots=slots, texts=texts, lines=lines, max_passes=14,
                        route_priority={"+12V": 0, "+5V": 1, "+3V3": 2, "+24V": 3, "PROT_DIS": 4}, zone_fallback_nets=[], board_thickness=2.4,
-                       solid_zone_pads=[("U13", "2"), ("U14", "2"), ("U15", "1"), ("J12", "5"), ("J12", "7")])
+                       solid_zone_pads=[("U13", "2"), ("U14", "2"), ("U15", "1"), ("J12", "5"), ("J12", "7"), ("J16", "7"), ("U19", "3"), ("C159", "2"), ("J10", "20")])
 
 def main(do_route=True):
     return BoardGen(config()).main(do_route=do_route)

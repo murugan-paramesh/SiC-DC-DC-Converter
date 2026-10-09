@@ -9,7 +9,8 @@ import heapq, math, os
 import numpy as np
 
 GRID = 0.25
-MOUTH_COST = 12.0   # extra cost of a vertical F.Cu step in the 1.5 mm band outside a fan-out corridor mouth
+MOUTH_COST = 40.0
+TERM_COST = 15.0    # extra cost per cell within 1 mm of another net's terminal (stub exit, pad, pour goal)   # extra cost of a vertical F.Cu step in the 1.5 mm band outside a fan-out corridor mouth
 F, B = 0, 1
 LAYER_NAMES = {F: "F.Cu", B: "B.Cu"}
 DIRS4 = ((1, 0), (-1, 0), (0, 1), (0, -1))
@@ -103,8 +104,8 @@ class Router:
         for rect, allowed in self.private:
             if net not in allowed:
                 self._rasterize(blocked[F], rect); self._rasterize(blocked[B], rect); self._rasterize(novia, rect)
-        for rect in self.h_only:
-            self._rasterize(novia, rect.expand(self.via_size / 2))
+        for rect in self.h_only + self.h_soft:          # no vias in the corridors nor in the mouth bands:
+            self._rasterize(novia, rect.expand(self.via_size / 2))   # a via halo at the mouth seals the neighbouring exits
         # board edge
         m = int(round(1.0 / GRID))
         blocked[:, :m, :] = True; blocked[:, -m:, :] = True; blocked[:, :, :m] = True; blocked[:, :, -m:] = True
@@ -377,6 +378,17 @@ class NegotiatedRouter(Router):
             st.static_blocked[net], st.static_novia[net] = self.build_blocked(net)
         return st.static_blocked[net], st.static_novia[net]
 
+    def _add_term_cost(self, arr, terms, val, r=4):
+        H, W = self.H, self.W
+        for (x, y, layers) in terms:
+            i, j = self._to_cell(x, y)
+            arr[:, max(0, j - r):j + r + 1, max(0, i - r):i + r + 1] += val
+
+    def _term_cost_for(self, st, net):
+        tc = st.term_cost.copy()
+        self._add_term_cost(tc, st.task_of.get(net, []), -TERM_COST)
+        return np.maximum(tc, 0.0)
+
     def _halo_of(self, nets, st):
         """FULL-halo union mask (2,H,W) of the given routed nets."""
         tmp = self._State(); tmp.usage = np.zeros((2, self.H, self.W), dtype=np.int16); tmp.usage_s = tmp.usage.copy()
@@ -402,7 +414,7 @@ class NegotiatedRouter(Router):
         # every other halo inside that window, so the cost seen by A* is the Chebyshev max-filter of
         # (usage, history) with the net's own halo radius (not the raw per-cell value)
         r_t, r_v = self._halo_cells(net)
-        base = st.usage.astype(np.float32) * st.pres_fac + st.history
+        base = st.usage.astype(np.float32) * st.pres_fac + st.history + self._term_cost_for(st, net)
         cost_map = _maxfilt(base, r_t - 1)
         cm_v = _maxfilt(base, r_v - 1); cost_map_via = np.maximum(cm_v[0], cm_v[1])
         res = self._route_net_cost(net, terms, blocked, novia, st.honly, (cost_map, cost_map_via), st.via_cost, st.turn_cost, st.max_nodes)
@@ -418,7 +430,7 @@ class NegotiatedRouter(Router):
         blocked, novia = self._blocked_for(st, net)
         r_t, r_v = self._halo_cells(net)
         occ = (st.usage > 0).astype(np.float32)
-        cost = np.zeros((2, H, W), dtype=np.float32)
+        cost = _maxfilt(self._term_cost_for(st, net), r_t - 1)
         if avoid:
             tmp = self._State(); tmp.usage = np.zeros((2, H, W), dtype=np.int16); tmp.usage_s = tmp.usage.copy()
             for n, cells in avoid.items():
@@ -426,7 +438,7 @@ class NegotiatedRouter(Router):
             if avoid_hard:
                 occ = np.maximum(occ, (tmp.usage > 0).astype(np.float32))
             else:
-                cost = _maxfilt(tmp.usage.astype(np.float32) * 50.0, r_t - 1)
+                cost = cost + _maxfilt(tmp.usage.astype(np.float32) * 50.0, r_t - 1)
         hard_b = blocked | (_maxfilt(occ, r_t - 1) > 0)
         nv = _maxfilt(occ, r_v - 1) > 0
         hard_nv = novia | nv[0] | nv[1]
@@ -453,6 +465,18 @@ class NegotiatedRouter(Router):
                 if over[L, j1:j2 + 1, i1:i2 + 1].any():
                     out.add(net); break
         return out, over
+
+    def _sealers_of(self, st, net, terms, reach=1.25):
+        """Routed nets with copper within `reach` mm of one of this net's terminals (they can seal a
+        stub exit without ever overlapping the soft path, so the rip-up must include them)."""
+        r = int(round(reach / GRID)); out = set()
+        tcells = [self._to_cell(t[0], t[1]) for t in terms]
+        for other, cells in st.paths.items():
+            if other == net: continue
+            for (L, j, i) in cells:
+                if any(abs(j - tj) <= r and abs(i - ti) <= r for (ti, tj) in tcells):
+                    out.add(other); break
+        return out
 
     def _victims_of(self, st, net, cells):
         """Nets whose halo would overlap the halo of `cells` if they were marked for `net`."""
@@ -482,6 +506,11 @@ class NegotiatedRouter(Router):
                     merged[net].append(t)
         st.order = [(net, terms) for net, terms in merged.items()]
         st.task_of = dict(st.order)
+        # soft cost around every terminal (stub exits, pads, pour goals): a track or via parked next to
+        # another net's exit seals it; routes prefer to pass >= 1 mm away when they can
+        st.term_cost = np.zeros((2, H, W), dtype=np.float32)
+        for net, terms in st.order:
+            self._add_term_cost(st.term_cost, terms, +TERM_COST)
         st.pres_fac = pres_fac0
         self.failed_terms = []
         conflict_nets = {t[0] for t in st.order}
@@ -534,7 +563,7 @@ class NegotiatedRouter(Router):
                 self.failed.append((net, tracks[0][2:4] if tracks else (0, 0)))
         return not conflict_nets and not [n for n, v in st.owner_count.items() if not v[2]]
 
-    def hard_pass(self, st, log=print, max_victims=10, depth=2):
+    def hard_pass(self, st, log=print, max_victims=12, depth=4):
         """
         Final pass for the nets still in conflict after the negotiation (st.pending): each is ripped up
         and re-routed against the other routed copper as hard obstacles, most constrained (most
@@ -572,9 +601,10 @@ class NegotiatedRouter(Router):
             soft, _, _, sok = self._route_soft(st, net, terms, hard_nets=protected)
             if not soft or not sok:
                 trace.append(("no-soft-path", net)); return False
-            vict_all = self._victims_of(st, net, soft); vict = vict_all - protected
-            if not vict or len(vict) > max_victims or (vict_all & protected):
-                trace.append(("blocked", net, sorted(vict_all)[:12]))
+            vict_soft = self._victims_of(st, net, soft)
+            vict = (vict_soft | self._sealers_of(st, net, terms)) - protected
+            if not vict or len(vict) > max_victims or (vict_soft & protected):
+                trace.append(("blocked", net, sorted(vict_soft | protected)[:12]))
                 return False
             snap = snapshot()
             old_paths = {v: st.paths[v] for v in vict if v in st.paths}
