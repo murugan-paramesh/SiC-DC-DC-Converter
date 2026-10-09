@@ -331,19 +331,22 @@ class NegotiatedRouter(Router):
             return static_blocked[net], static_novia[net]
 
         def mark(net, cells, sign):
+            """Add/remove this net's halo as a UNION mask (one count per net per cell)."""
             r_t, r_v = self._halo_cells(net)
-            boxes = []
+            mask = np.zeros((2, H, W), dtype=bool)
             prev = None
             for (L, j, i) in cells:
-                r = r_t
                 if prev is not None and prev[0] != L:      # via: halo on both layers
-                    for LL in (0, 1):
-                        j1, j2, i1, i2 = max(0, j - r_v), min(H - 1, j + r_v), max(0, i - r_v), min(W - 1, i + r_v)
-                        usage[LL, j1:j2 + 1, i1:i2 + 1] += sign; boxes.append((LL, j1, j2, i1, i2))
-                j1, j2, i1, i2 = max(0, j - r), min(H - 1, j + r), max(0, i - r), min(W - 1, i + r)
-                usage[L, j1:j2 + 1, i1:i2 + 1] += sign; boxes.append((L, j1, j2, i1, i2))
+                    j1, j2, i1, i2 = max(0, j - r_v), min(H - 1, j + r_v), max(0, i - r_v), min(W - 1, i + r_v)
+                    mask[:, j1:j2 + 1, i1:i2 + 1] = True
+                j1, j2, i1, i2 = max(0, j - r_t), min(H - 1, j + r_t), max(0, i - r_t), min(W - 1, i + r_t)
+                mask[L, j1:j2 + 1, i1:i2 + 1] = True
                 prev = (L, j, i)
-            return boxes
+            if sign > 0:
+                usage[mask] += 1
+            else:
+                usage[mask] -= 1
+            return None
 
         def route_one(net, terms, pres_fac):
             blocked, novia = blocked_for(net)
