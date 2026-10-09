@@ -245,13 +245,15 @@ class BoardGen:
             xs, ys = [], []
             for k, (cy, cx, num, net) in enumerate(plist):
                 L_ = short if k % 2 == 0 else long_
+                if net in cfg.plane_nets:
+                    L_ = long_          # plane via sits beyond the stub field, clear of the neighbours' long stubs
                 ex = cx + d * L_
                 if net:
                     self.add_track(board, nets[net], "F.Cu", cx, cy, ex, cy, w)
                     rr = Rect(min(cx, ex) - w / 2, cy - w / 2, max(cx, ex) + w / 2, cy + w / 2)
                     router.add_item(net, [F], rr); stub_rects.append(rr)
                     if net in cfg.plane_nets:
-                        vx = ex + d * 0.6
+                        vx = ex + d * 1.2      # 1.2 mm beyond the long stubs: clear of the neighbouring stub exits
                         self.add_via(board, nets[net], vx, cy); router.register_via(net, vx, cy)
                         self.add_track(board, nets[net], "F.Cu", ex, cy, vx, cy, w)
                         stub_rects.append(Rect(vx - 0.5, cy - 0.5, vx + 0.5, cy + 0.5))
@@ -263,7 +265,7 @@ class BoardGen:
             outer = (min(xs) if d < 0 else max(xs)) + d * (short - 0.7)
             x1, x2 = sorted((inner, outer))
             router.keepouts.append(Rect(x1, min(ys) - 0.6, x2, max(ys) + 0.6))
-            far = (min(xs) if d < 0 else max(xs)) + d * (long_ + 3.0)
+            far = (min(xs) if d < 0 else max(xs)) + d * (long_ + 1.5)
             cx1, cx2 = sorted((outer, far))
             router.h_only.append(Rect(cx1, min(ys) - 1.0, cx2, max(ys) + 1.0))
         return terminals, stub_rects

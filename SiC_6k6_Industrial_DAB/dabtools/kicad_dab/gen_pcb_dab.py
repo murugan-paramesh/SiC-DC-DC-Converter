@@ -103,11 +103,11 @@ def place_generated(comps):
         nets = list(c.pins.values())
         for u, y in yb.items():
             if f"DT_{u}" in nets:
-                P(c.ref, 137 if u in ("U1", "U2") else 202, y - 2); break
+                P(c.ref, 140 if u in ("U1", "U2") else 199, y - 2); break   # clear of the driver fan-out corridors
         else:
             if "+5V" in nets and "GND" in nets:          # VCCI caps: assign to drivers in order
-                k = sum(1 for r in PL if r.startswith("C") and PL[r][1] in (23, 37) and PL[r][0] in (137, 202))
-                u = ["U1", "U2", "U3", "U4"][k % 4]; P(c.ref, 137 if u in ("U1", "U2") else 202, yb[u] + 3)
+                k = sum(1 for r in PL if r.startswith("C") and PL[r][1] in (23, 37) and PL[r][0] in (140, 199))
+                u = ["U1", "U2", "U3", "U4"][k % 4]; P(c.ref, 140 if u in ("U1", "U2") else 199, yb[u] + 3)
             elif "+12V" in nets and "GND" in nets:       # bias input caps next to each module
                 k = sum(1 for r in PL if r.startswith("C") and PL[r][0] in (140, 199))
                 side, y = (140, 48 + 10 * k) if k < 4 else (199, 48 + 10 * (k - 4)); P(c.ref, side, y)
@@ -163,8 +163,8 @@ def barrier_keepouts(x1, x2, straddlers):
         y0 = max(y0, b)
     rects.append((x1, y0, x2, BH - 3))
     return rects
-STRADDLE_HV = [(20, 5.5), (34, 5.5), (48, 4.2), (58, 4.2), (68, 4.2), (78, 4.2), (100, 11.5), (124, 4.5), (136, 3.6)]
-STRADDLE_LV = [(20, 5.5), (34, 5.5), (48, 4.2), (58, 4.2), (68, 4.2), (78, 4.2), (100, 4.5), (114, 4.5), (128, 3.6)]
+STRADDLE_HV = [(20, 5.5), (34, 5.5), (48, 4.2), (58, 4.2), (68, 4.2), (78, 4.2), (100, 11.5), (124, 4.5), (136, 4.2)]
+STRADDLE_LV = [(20, 5.5), (34, 5.5), (48, 4.2), (58, 4.2), (68, 4.2), (78, 4.2), (100, 4.5), (114, 4.5), (128, 4.2)]
 KEEPOUTS = barrier_keepouts(HV_X2, C_X1, STRADDLE_HV) + barrier_keepouts(C_X2, LV_X1, STRADDLE_LV)
 # the switch-node pours of the HV region must not reach the SW_A CT pour: handled by distinct rectangles above
 
@@ -189,7 +189,7 @@ def pair_clearance(a, b):
     return 0.2
 def track_width(net):
     c = cls(net)
-    if net in ("+12V", "+24V", "+5V"): return 0.8
+    if net in ("+12V", "+24V", "+5V"): return 0.5   # <= 2 A on 70 um Cu (IPC-2221 ~2.6 A at 20 K); fits the 1.27 mm SOIC fan-out
     if c in ("HV_GATE", "LV_GATE"): return 0.5
     if net.startswith(("RELAY", "FAN_OUT")): return 0.8
     return 0.3
@@ -212,7 +212,7 @@ def config():
     comps = D.build()
     place_generated(comps)
     all_nets = [n for n in D.nets_of(comps) if not n.startswith("NC_")]
-    slots = [(BAR1 - 1.6 + 0.0, y - 4, BAR1 + 0.2, y + 4) for y in (48, 58, 68, 78)] + [(BAR2 - 0.2, y - 4, BAR2 + 1.6, y + 4) for y in (48, 58, 68, 78)]
+    slots = [(BAR1 - 1.6 + 0.0, y - 4, BAR1 + 0.2, y + 4) for y in (48, 58, 68, 78, 136)] + [(BAR2 - 0.2, y - 4, BAR2 + 1.6, y + 4) for y in (48, 58, 68, 78, 128)]
     texts = [("SiC 6.6 kW BIDIRECTIONAL DUAL ACTIVE BRIDGE  800 V <-> 400 V", 60, 245, pcbnew.F_SilkS, 2.5, 0.4, 0),
              ("DANGER: HV LINK 850 VDC", 60, 241, pcbnew.F_SilkS, 2.0, 0.35, 0), ("DANGER: LV LINK 450 VDC", 280, 241, pcbnew.F_SilkS, 2.0, 0.35, 0),
              ("CONTROL (SELV)", 170, 245, pcbnew.F_SilkS, 1.5, 0.25, 0), ("rev A  2026-10  open hardware", 170, 241, pcbnew.F_SilkS, 1.2, 0.2, 0),
@@ -220,7 +220,8 @@ def config():
     lines = [(HV_X2, 2, HV_X2, BH - 2, pcbnew.Dwgs_User, 0.2), (C_X1, 2, C_X1, BH - 2, pcbnew.Dwgs_User, 0.2), (C_X2, 2, C_X2, BH - 2, pcbnew.Dwgs_User, 0.2), (LV_X1, 2, LV_X1, BH - 2, pcbnew.Dwgs_User, 0.2)]
     fan = {f"U{i}": (2.2, 4.4, 0.3) for i in range(1, 5)}
     fan.update({"U5": (2.2, 4.4, 0.3), "U6": (2.2, 4.4, 0.3), "U7": (2.2, 4.4, 0.3), "U8": (1.8, 3.6, 0.3), "U9": (1.8, 3.6, 0.3), "U10": (1.8, 3.6, 0.3), "U11": (1.8, 3.6, 0.3), "U12": (1.8, 3.6, 0.3), "U16": (1.8, 3.6, 0.3), "U17": (1.8, 3.6, 0.3)})
-    priv = [((118.5, 42, 133.5, 84), ["PS1", "PS2", "PS3", "PS4"]), ((205.5, 42, 220.5, 84), ["PS5", "PS6", "PS7", "PS8"])]
+    priv = [((118.5, 42, 133.5, 84), ["PS1", "PS2", "PS3", "PS4"]), ((205.5, 42, 220.5, 84), ["PS5", "PS6", "PS7", "PS8"]),
+            ((118.5, 131, 133.5, 141), ["PS9"]), ((205.5, 123, 220.5, 133), ["PS10"])]
     def via_forbidden(x, y):
         return (HV_X2 - 0.6 < x < C_X1 + 0.6) or (C_X2 - 0.6 < x < LV_X1 + 0.6)
     return BoardConfig(project=D.PROJECT, lib=D.LIB, outdir=OUT, libdir=LIBDIR, design=D, BW=BW, BH=BH, layers=6,

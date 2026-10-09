@@ -326,16 +326,24 @@ class NegotiatedRouter(Router):
         # centre spacing equals hw_a + hw_b + clearance, i.e. the DRC limit
         # clearance against nets of the same class (routed signal nets only meet signal nets of their
         # own side; cross-side isolation distances are enforced by the static obstacle maps)
+        # Each net marks a FULL halo (radius r) and a SMALL halo (radius r-1).  Two nets A, B whose
+        # centre lines are d cells apart conflict when a cell lies in A_full & B_small (or vice versa),
+        # i.e. when d <= r_A + r_B - 1  <=>  d < r_A + r_B.  With r = ceil(x - 0.5), x = (half-size +
+        # clearance/2)/GRID, this flags exactly the pairs with d*GRID < hw_A + hw_B + clearance (the
+        # DRC limit) for same-class pairs and is at most one cell conservative for mixed widths.
         clr = self.clearance_fn(net, net)
         hw = self.width_fn(net) / 2
-        r_track = int(math.ceil((hw + clr / 2 + 0.01) / GRID))
-        r_via = int(math.ceil((self.via_size / 2 + clr / 2 + 0.01) / GRID))
+        # r = ceil(x): ceil(x_A) + ceil(x_B) >= ceil(x_A + x_B), so the criterion is never permissive and
+        # at most one cell conservative for mixed widths/classes.
+        r_track = max(1, int(math.ceil((hw + clr / 2) / GRID - 1e-9)))
+        r_via = max(1, int(math.ceil((self.via_size / 2 + clr / 2) / GRID - 1e-9)))
         return r_track, r_via
 
     def route_all(self, tasks, max_iter=14, pres_fac0=1.0, pres_growth=1.7, hist_fac=0.5, via_cost=25, turn_cost=0.6, max_nodes=2_500_000, log=print, debug_dir=None):
         H, W = self.H, self.W
         self._class_samples = sorted({t[0] for t in tasks})[:12]
-        usage = np.zeros((2, H, W), dtype=np.int16)      # number of nets occupying (halo) each cell
+        usage = np.zeros((2, H, W), dtype=np.int16)      # number of nets whose FULL halo covers each cell
+        usage_s = np.zeros((2, H, W), dtype=np.int16)    # ... whose SMALL halo (r-1) covers each cell
         owner_count = {}                                   # net -> cells list
         history = np.zeros((2, H, W), dtype=np.float32)
         paths = {}                                         # net -> list of (layer, j, i) full path cells (all segments)
@@ -350,19 +358,21 @@ class NegotiatedRouter(Router):
         def mark(net, cells, sign):
             """Add/remove this net's halo as a UNION mask (one count per net per cell)."""
             r_t, r_v = self._halo_cells(net)
-            mask = np.zeros((2, H, W), dtype=bool)
+            mask = np.zeros((2, H, W), dtype=bool); mask_s = np.zeros((2, H, W), dtype=bool)
             prev = None
             for (L, j, i) in cells:
                 if prev is not None and prev[0] != L:      # via: halo on both layers
-                    j1, j2, i1, i2 = max(0, j - r_v), min(H - 1, j + r_v), max(0, i - r_v), min(W - 1, i + r_v)
-                    mask[:, j1:j2 + 1, i1:i2 + 1] = True
-                j1, j2, i1, i2 = max(0, j - r_t), min(H - 1, j + r_t), max(0, i - r_t), min(W - 1, i + r_t)
-                mask[L, j1:j2 + 1, i1:i2 + 1] = True
+                    for m, r in ((mask, r_v), (mask_s, r_v - 1)):
+                        j1, j2, i1, i2 = max(0, j - r), min(H - 1, j + r), max(0, i - r), min(W - 1, i + r)
+                        m[:, j1:j2 + 1, i1:i2 + 1] = True
+                for m, r in ((mask, r_t), (mask_s, r_t - 1)):
+                    j1, j2, i1, i2 = max(0, j - r), min(H - 1, j + r), max(0, i - r), min(W - 1, i + r)
+                    m[L, j1:j2 + 1, i1:i2 + 1] = True
                 prev = (L, j, i)
             if sign > 0:
-                usage[mask] += 1
+                usage[mask] += 1; usage_s[mask_s] += 1
             else:
-                usage[mask] -= 1
+                usage[mask] -= 1; usage_s[mask_s] -= 1
             return None
 
         def route_one(net, terms, pres_fac):
@@ -374,15 +384,19 @@ class NegotiatedRouter(Router):
             # a path cell at (j,i) puts this net's halo over [j-r, j+r] x [i-r, i+r]: it conflicts with
             # every other halo inside that window, so the cost seen by A* is the Chebyshev max-filter of
             # (usage, history) with the net's own halo radius (not the raw per-cell value)
-            r_t, _ = self._halo_cells(net)
-            cost_map = _maxfilt(usage.astype(np.float32) * pres_fac + history, r_t)
-            res = self._route_net_cost(net, terms, blocked, novia, honly, cost_map, via_cost, turn_cost, max_nodes)
+            r_t, r_v = self._halo_cells(net)
+            base = usage.astype(np.float32) * pres_fac + history
+            cost_map = _maxfilt(base, r_t - 1)
+            # a via has a larger halo than a track: its placement cost looks further (both layers)
+            cm_v = _maxfilt(base, r_v - 1); cost_map_via = np.maximum(cm_v[0], cm_v[1])
+            res = self._route_net_cost(net, terms, blocked, novia, honly, (cost_map, cost_map_via), via_cost, turn_cost, max_nodes)
             if own:
                 mark(net, own, +1)
             return res
 
         order = list(tasks)
         pres_fac = pres_fac0
+        self.failed_terms = []
         conflict_nets = {t[0] for t in order}
         for it in range(1, max_iter + 1):
             n_rerouted = 0
@@ -395,10 +409,10 @@ class NegotiatedRouter(Router):
                 if cells:
                     paths[net] = cells
                     mark(net, cells, +1)
-                    owner_count[net] = (tracks, vias, ok)
+                owner_count[net] = (tracks, vias, ok)   # also when nothing could be routed (stays incomplete)
                 n_rerouted += 1
             # find conflicts: nets whose halo covers a cell used by >= 2 nets
-            over = usage >= 2
+            over = (usage >= 2) & (usage_s >= 1)
             conflict_nets = set()
             for net, cells in paths.items():
                 r_t, r_v = self._halo_cells(net)
@@ -420,20 +434,109 @@ class NegotiatedRouter(Router):
                     if cnt: counts.append((cnt, net))
                 log("    worst nets by overlapped path cells: " + str(sorted(counts, reverse=True)[:12]))
             incomplete = [n for n, v in owner_count.items() if not v[2]]
+            if self.failed_terms:
+                log("    unreachable terminals: " + str(self.failed_terms[:8])); self.failed_terms = []
             log(f"  negotiation iter {it}: rerouted {n_rerouted}, overlapping cells {n_over}, conflicting nets {len(conflict_nets)}, incomplete nets {len(incomplete)}")
             if not conflict_nets and not incomplete:
                 break
             conflict_nets |= set(incomplete)
             pres_fac *= pres_growth
+        # final hard pass: nets still in conflict are ripped up and re-routed one by one against the
+        # other routed copper treated as hard obstacles (full halo + own radius), so the emitted copper
+        # never violates the clearance model; a net that cannot be routed this way is left unrouted
+        # (reported as unconnected by DRC) rather than emitted with a clearance violation.
+        def route_hard(net, terms):
+            """Route against the other routed copper as hard obstacles; returns (cells, tracks, vias, ok)."""
+            blocked, novia = blocked_for(net)
+            r_t, r_v = self._halo_cells(net)
+            occ = (usage > 0).astype(np.float32)
+            hard_b = blocked | (_maxfilt(occ, r_t - 1) > 0)
+            nv = _maxfilt(occ, r_v - 1) > 0
+            hard_nv = novia | nv[0] | nv[1]
+            zero = np.zeros((2, H, W), dtype=np.float32)
+            return self._route_net_cost(net, terms, hard_b, hard_nv, honly, (zero, zero[0]), via_cost, turn_cost, max_nodes)
+
+        def unroute(net):
+            if net in paths:
+                mark(net, paths[net], -1); del paths[net]
+            owner_count.pop(net, None)
+
+        def victims_of(net, cells):
+            """Nets whose halo overlaps the halo of `cells` (temporarily marked)."""
+            mark(net, cells, +1)
+            over_ = (usage >= 2) & (usage_s >= 1)
+            out = set()
+            for other, ocells in paths.items():
+                if other == net: continue
+                r_o, _ = self._halo_cells(other)
+                for (L, j, i) in ocells[::max(1, r_o)]:
+                    j1, j2, i1, i2 = max(0, j - r_o), min(H - 1, j + r_o), max(0, i - r_o), min(W - 1, i + r_o)
+                    if over_[L, j1:j2 + 1, i1:i2 + 1].any():
+                        out.add(other); break
+            mark(net, cells, -1)
+            return out
+
+        if conflict_nets:
+            task_of = dict(order)
+            pending = [t for t in order if t[0] in conflict_nets]
+            pending.sort(key=lambda t: len(t[1]))
+            # round 1: plain hard re-route, shortest nets first
+            still = []
+            for net, terms in pending:
+                unroute(net)
+                cells, tracks, vias, ok = route_hard(net, terms)
+                if cells and ok:
+                    paths[net] = cells; mark(net, cells, +1); owner_count[net] = (tracks, vias, True)
+                else:
+                    still.append((net, terms))
+            log(f"  hard pass 1: {len(pending) - len(still)} of {len(pending)} conflicting nets re-routed cleanly")
+            if self.failed_terms:
+                log("    unreachable terminals (hard pass): " + str(self.failed_terms[:8])); self.failed_terms = []
+            # round 2: bounded rip-up-and-retry.  Route the failed net softly (cost = other copper),
+            # rip up the nets it overlaps, route it hard, then re-route the victims hard; the swap is
+            # kept only if every victim routes cleanly, otherwise the previous state is restored.
+            pending, still = still, []
+            for net, terms in pending:
+                unroute(net)
+                soft, _, _, sok = route_one(net, terms, pres_fac)
+                if not soft or not sok:
+                    still.append((net, terms)); continue
+                vict = victims_of(net, soft)
+                if not vict or len(vict) > 6:
+                    still.append((net, terms)); continue
+                saved = {v: (paths[v], owner_count[v]) for v in vict if v in paths}
+                for v in vict: unroute(v)
+                cells, tracks, vias, ok = route_hard(net, terms)
+                good = bool(cells) and ok
+                routed_v = {}
+                if good:
+                    paths[net] = cells; mark(net, cells, +1); owner_count[net] = (tracks, vias, True)
+                    for v in sorted(vict, key=lambda n: len(task_of[n][1])):
+                        vc, vt, vv, vok = route_hard(v, task_of[v][1])
+                        if vc and vok:
+                            paths[v] = vc; mark(v, vc, +1); owner_count[v] = (vt, vv, True); routed_v[v] = True
+                        else:
+                            good = False; break
+                if good:
+                    log(f"    rip-up retry: {net} routed after re-routing {sorted(vict)}")
+                else:
+                    unroute(net)
+                    for v in routed_v: unroute(v)
+                    for v, (pc, oc) in saved.items():
+                        paths[v] = pc; mark(v, pc, +1); owner_count[v] = oc
+                    still.append((net, terms))
+                self.failed_terms = []
+            log(f"  hard pass 2 (rip-up retry): {len(pending) - len(still)} of {len(pending)} re-routed cleanly")
+            pending = still
+            conflict_nets = {n for n, _ in pending}
+            for net, _ in pending:
+                owner_count[net] = ([], [], False)
         # emit
         self.tracks_out, self.vias_out, self.failed = [], [], []
         for net, (tracks, vias, ok) in owner_count.items():
             self.tracks_out += tracks; self.vias_out += vias
             if not ok:
                 self.failed.append((net, tracks[0][2:4] if tracks else (0, 0)))
-        if conflict_nets:
-            for net in conflict_nets:
-                self.failed.append((net, (-1, -1)))
         return not conflict_nets and not [n for n, v in owner_count.items() if not v[2]]
 
     def _route_net_cost(self, net, terminals, blocked, novia, honly, cost_map, via_cost, turn_cost, max_nodes):
@@ -460,6 +563,7 @@ class NegotiatedRouter(Router):
             path = self._astar_cost(tree, goal, blocked, novia, honly, cost_map, via_cost, turn_cost, max_nodes)
             if path is None:
                 ok = False
+                self.failed_terms.append((net, best))
                 for L in best[2]: tree.add((L, gj, gi))
                 continue
             # segments
@@ -480,6 +584,7 @@ class NegotiatedRouter(Router):
 
     def _astar_cost(self, sources, goals, blocked, novia, honly, cost_map, via_cost, turn_cost, max_nodes):
         H, W = self.H, self.W
+        cost_map, cost_map_via = cost_map
         INF = np.float32(1e30)
         g = np.full((2, H, W), INF, dtype=np.float32)
         parent = np.full((2, H, W), -1, dtype=np.int64)
@@ -512,7 +617,7 @@ class NegotiatedRouter(Router):
                     heapq.heappush(heap, (c + h(nj, ni), c, L, nj, ni))
             oL = 1 - L
             if not novia[j, i] and not blocked[oL, j, i]:
-                c = gc + via_cost + float(cost_map[oL, j, i]) * 4
+                c = gc + via_cost + float(cost_map_via[j, i]) * 4
                 if c < g[oL, j, i]:
                     g[oL, j, i] = c; parent[oL, j, i] = L * H * W + j * W + i
                     heapq.heappush(heap, (c + h(j, i), c, oL, j, i))

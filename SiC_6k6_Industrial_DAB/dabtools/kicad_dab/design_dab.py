@@ -129,7 +129,7 @@ def build():
     G("HV link voltage sense: divider -> AMC1301 (isolated), isolated 5 V from a 1 W SIP module")
     add("U5", "AMC1301", "AMC1301", "SOIC-8W", "sense", {1: "HV_ISO5V", 2: "HV_SENSE_P", 3: "HV_SENSE_N", 4: "HV_ISOGND", 5: "GND", 6: "V1_OUTN", 7: "V1_OUTP", 8: "+5V"},
         mpn="TI AMC1301DWV", desc="Reinforced isolated amplifier, +/-250 mV input, HV link voltage", pin_verified=False)
-    add("PS9", "R1SE-0505", "ISO_DCDC_SIP4", "SIP-4_IsoDCDC", "sense", {1: "+5V", 2: "GND", 3: "HV_ISOGND", 4: "HV_ISO5V"}, mpn="RECOM R1SE-0505/H (verify pinout)", desc="1 W isolated 5 V for the HV-side sensor", pin_verified=False)
+    add("PS9", "ISO 5V/5V 1W SIP-7", "ISO_DCDC_SIP4", "SIP-7_IsoDCDC_1W", "sense", {1: "+5V", 2: "GND", 3: "HV_ISOGND", 4: "HV_ISO5V"}, mpn="TBD - 1 W 5 V->5 V isolated module, SIP-7 outline with >= 7.6 mm input/output pin gap, reinforced-rated (a 2.54 mm pitch SIP-4 such as R1SE cannot meet the 5.5 mm module creepage rule)", desc="1 W isolated 5 V for the HV-side sensor", pin_verified=False)
     add(Rn(), "1M/1206x4", "R", "R_1206", "sense", {1: "HV_P", 2: "HV_DIV"}, desc="HV divider upper (4 x 1 M in series, 2 shown as one value; 1000 V FS -> 250 mV)")
     add(Rn(), "1M", "R", "R_1206", "sense", {1: "HV_DIV", 2: "HV_SENSE_P"}, desc="HV divider upper 2")
     add(Rn(), "499R", "R", "R_0603", "sense", {1: "HV_SENSE_P", 2: "HV_ISOGND"}, desc="HV divider lower (HV_ISOGND = HV_N reference)")
@@ -139,7 +139,7 @@ def build():
     add(Cn(), "100nF", "C", "C_0603", "sense", {1: "HV_ISO5V", 2: "HV_ISOGND"}, desc="AMC1301 VDD1 decoupling"); add(Cn(), "100nF", "C", "C_0603", "sense", {1: "+5V", 2: "GND"}, desc="AMC1301 VDD2 decoupling")
     G("LV link voltage sense: divider -> AMC1301")
     add("U6", "AMC1301", "AMC1301", "SOIC-8W", "sense", {1: "LV_ISO5V", 2: "LV_SENSE_P", 3: "LV_SENSE_N", 4: "LV_ISOGND", 5: "GND", 6: "V2_OUTN", 7: "V2_OUTP", 8: "+5V"}, mpn="TI AMC1301DWV", desc="Isolated amplifier, LV link voltage", pin_verified=False)
-    add("PS10", "R1SE-0505", "ISO_DCDC_SIP4", "SIP-4_IsoDCDC", "sense", {1: "+5V", 2: "GND", 3: "LV_ISOGND", 4: "LV_ISO5V"}, mpn="RECOM R1SE-0505/H", desc="1 W isolated 5 V for the LV-side sensors", pin_verified=False)
+    add("PS10", "ISO 5V/5V 1W SIP-7", "ISO_DCDC_SIP4", "SIP-7_IsoDCDC_1W", "sense", {1: "+5V", 2: "GND", 3: "LV_ISOGND", 4: "LV_ISO5V"}, mpn="TBD - as PS9", desc="1 W isolated 5 V for the LV-side sensors", pin_verified=False)
     add(Rn(), "1M", "R", "R_1206", "sense", {1: "LV_P", 2: "LV_DIV"}, desc="LV divider upper 1 (500 V FS -> 250 mV)")
     add(Rn(), "1M", "R", "R_1206", "sense", {1: "LV_DIV", 2: "LV_SENSE_P"}, desc="LV divider upper 2")
     add(Rn(), "1k", "R", "R_0603", "sense", {1: "LV_SENSE_P", 2: "LV_ISOGND"}, desc="LV divider lower")

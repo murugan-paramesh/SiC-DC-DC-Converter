@@ -53,6 +53,7 @@ the creepage of basic insulation.
 | UCC21710 (x8) | gate driver | 5.7 kVrms reinforced (VDE 0884-11, UL 1577), 8 mm creepage package | the PCB creepage between pin rows (~8.5 mm) relies on the certified component; a 1.6 mm slot is routed under each driver to raise the PCB creepage to > 12 mm |
 | Isolated gate bias modules (x8, 2 W, +15/-4 V) | driver supply | 5.2 kVDC/1 min class (RECOM R12P2 / Murata MGJ2) - **basic-class component**; two in series are not used, so the bias module isolation must be upgraded to a reinforced-rated part (e.g. Murata MGJ3 reinforced series) or a transformer-based bias with reinforced construction | **open item for the safety review** |
 | AMC1311 (x2) | DC-link voltage sense | 7 kVpk reinforced (DWV package, 8.5 mm creepage) | |
+| Sensor-side isolated 5 V supplies PS9/PS10 (1 W) | isolated-amplifier bias | part to be selected: reinforced-rated, SIP-7 outline with >= 7.6 mm pin gap | a 2.54 mm pitch SIP-4 (R1SE class) was rejected: its pad-to-pad spacing (< 1 mm) cannot meet the 5.5 mm module rule on the PCB; footprint SIP-7_IsoDCDC_1W with milled slot |
 | CT (series-inductor current) | current sense | one-turn TIW primary through a toroid, 8 mm spacing | |
 | CAN isolator ISO1042 | fieldbus | 5 kVrms reinforced | |
 | Transformer | HV-LV power | basic 850 V: 3 x 50 um polyimide, margins 6 mm, 2.5 kVrms test | core on PE: basic to both windings |

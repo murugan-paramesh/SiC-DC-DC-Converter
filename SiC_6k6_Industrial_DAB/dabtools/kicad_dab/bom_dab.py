@@ -11,7 +11,7 @@ RATINGS = {  # value pattern -> (rating/derating note, datasheet or manufacturer
     "UCC21520DW": ("5.7 kVrms reinforced, 4 A/6 A, VDD 25 V max; used at 18 V", "https://www.ti.com/product/UCC21520"),
     "R12P21503D": ("2 W, 5.2 kVDC isolation (basic class) - open item 15.1", "https://recom-power.com/"),
     "AMC1301": ("+/-250 mV, 7 kVpk reinforced", "https://www.ti.com/product/AMC1301"),
-    "R1SE-0505": ("1 W, 3 kVDC isolation (verify)", "https://recom-power.com/"),
+    "ISO 5V/5V 1W SIP-7": ("1 W isolated 5 V module, SIP-7 outline, reinforced-rated part to be selected (open item 15.1)", ""),
     "LM393": ("36 V, open collector", "https://www.ti.com/product/LM393"),
     "TLV9062": ("5.5 V RRIO 10 MHz", "https://www.ti.com/product/TLV9062"),
     "74HC32": ("2-6 V", "https://www.ti.com/product/SN74HC32"),
