@@ -1,0 +1,31 @@
+req_id,requirement,design_artifact,analysis_or_simulation,test_reference,verification_level_planned,status
+EL-01,6.6 kW rated power both directions,04_Design_Calculations/dab_design.py,05_Simulation,18_Verification/verification_report.md,calc,open
+EL-02,HV port 650-850 V,04_Design_Calculations (envelope),05_Simulation,18_Verification,calc,open
+EL-03,LV port 300-450 V,04_Design_Calculations (envelope),05_Simulation,18_Verification,calc,open
+EL-04,Full-power envelope and derating map,04_Design_Calculations/img/derating_map.png,-,18_Verification,calc,open
+EL-05,100 kHz switching,"04_Design_Calculations, 12_Optimization",05_Simulation,18_Verification,calc,open
+EL-06,Peak efficiency >= 97.5 %,04_Design_Calculations (loss model),05_Simulation,20_Experimental_Test_Plan,calc only; measurement required,open
+EL-07,Full-load efficiency >= 96.5 %,04_Design_Calculations,05_Simulation,20_Experimental_Test_Plan,calc only,open
+EL-08,+/-1 % regulation,11_Control_Algorithms,05_Simulation (closed loop),20_Experimental_Test_Plan,sim,open
+EL-09,<= 1 % ripple,04_Design_Calculations (DC link),05_Simulation,-,calc,open
+EL-10,50 % load step,11_Control_Algorithms,05_Simulation (closed loop),20_Experimental_Test_Plan,sim,open
+EL-11,Power reversal < 20 ms,11_Control_Algorithms,05_Simulation,20_Experimental_Test_Plan,sim,open
+EL-12,Cycle-by-cycle current limit,07_KiCad_Schematics (comparator -> TZ),10_Firmware,20_Experimental_Test_Plan,design,open
+EL-13,DC-link ripple <= 2 %,04_Design_Calculations,05_Simulation,-,calc,open
+EL-14,C2000 digital control,"07_KiCad_Schematics, 10_Firmware",10_Firmware/sil,-,SIL,open
+EL-15,CAN + UART,"07_KiCad_Schematics, 10_Firmware",-,20_Experimental_Test_Plan,design,open
+EL-16,24 V aux,07_KiCad_Schematics,-,-,design,open
+SAF-01,Insulation classes,15_Safety_Reliability/01_insulation_coordination.md,-,20_Experimental_Test_Plan,analysis,open
+SAF-02,Test voltages,15_Safety_Reliability,-,20_Experimental_Test_Plan,analysis,open
+SAF-03,Creepage/clearance,08_KiCad_PCB (DRC rules),18_Verification (DRC),-,DRC,open
+SAF-04,DC-link discharge,"07_KiCad_Schematics (bleeders), 04_Design_Calculations",-,20_Experimental_Test_Plan,calc,open
+SAF-05,Protective earthing,"08_KiCad_PCB (mounting holes), 17_Manufacturing",-,-,design,open
+SAF-06,Hardware protection,07_KiCad_Schematics (protection sheet),05_Simulation (comparator timing),20_Experimental_Test_Plan,design,open
+SAF-07,Firmware protection,10_Firmware,10_Firmware/sil tests,20_Experimental_Test_Plan,SIL,open
+SAF-08,No unreviewed energisation,20_Experimental_Test_Plan,-,-,procedure,open
+MEC-01,3 kW/L,"13_Thermal_Analysis, 17_Manufacturing (volume estimate)",-,-,calc,open
+MEC-02,6-layer 2 oz PCB,"08_KiCad_PCB, 17_Manufacturing/stackup.md",18_Verification (DRC),-,design,open
+MEC-03,TO-247-4 with Kelvin source,09_Component_Libraries,-,-,design,open
+MEC-04,"Bus-bar studs, pluggable connectors","07_KiCad_Schematics, 16_BOM",-,-,design,open
+MEC-05,Standard fab rules,"08_KiCad_PCB (design rules), 17_Manufacturing",18_Verification (DRC),-,DRC,open
+APP-05,Precharge interlock,"07_KiCad_Schematics (interface), 10_Firmware (state machine)",10_Firmware/sil,20_Experimental_Test_Plan,SIL,open

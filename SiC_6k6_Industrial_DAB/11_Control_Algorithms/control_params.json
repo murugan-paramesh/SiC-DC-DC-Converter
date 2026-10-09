@@ -1,0 +1,24 @@
+{
+ "kp": 1689.0008074809743,
+ "ki": 62206.50295409838,
+ "fc": 601.0207204097383,
+ "pm": 86.75448810978742,
+ "gm": Infinity,
+ "Td": 1.5000000000000002e-05,
+ "C2": 0.0011200000000000001,
+ "phi_max_deg": 60,
+ "D_min": 0.12,
+ "V2_floor": 40.0,
+ "phi_dead_comp_rad": 0.047123889803846894,
+ "soft_start_s": 0.05,
+ "slew_W_per_s": 2000000.0,
+ "limits": {
+  "v1_ov": 900,
+  "v1_uv": 600,
+  "v2_ov": 480,
+  "v2_uv": 250,
+  "i_pk_hv": 15.600000000000078,
+  "T_max": 95
+ },
+ "tps_table_note": "EPS voltage matching (D = d) in firmware; TPS table generation in 12_Optimization"
+}

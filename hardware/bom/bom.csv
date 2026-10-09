@@ -1,0 +1,58 @@
+qty,refs,value,footprint,mpn,description
+4,"C1, C2, C3, C4",10uF/450V,C_Film_P37.5,TDK B32778G4106K,DC-link film capacitor
+6,"C11, C12, C13, C14, C15, C16",470uF/63V,C_Radial_D16_P7.5,Nichicon UHW1J471MHD,"Output electrolytic, low ESR"
+6,"C17, C18, C19, C20, C21, C22",10uF/100V,C_1210,TDK CGA6P3X7S2A106K,Output MLCC X7S
+5,"C30, C31, C54, C60, C65",1uF/25V,C_0603,,U2 VCCI decoupling
+10,"C32, C33, C37, C38, C42, C43, C47, C48, C52, C61",10uF/25V,C_1206,,PS1 input capacitor
+8,"C34, C36, C39, C41, C44, C46, C49, C51",1uF/50V,C_0603,,Q1 +15 V bias HF
+4,"C35, C40, C45, C50",4.7uF/25V,C_0805,,Q1 -3 V bias bulk
+2,"C5, C6",470nF/630V,C_2220,TDK CGA9P4X7T2J474K,Bridge HF decoupling MLCC
+3,"C53, C55, C58",100nF,C_0603,,VDD HF
+1,C56,8.2nF,C_0603,,Type-II compensation Cz
+1,C57,56pF,C_0603,,Type-II compensation Cp
+1,C59,100pF,C_0603,,"CS filter, C0G"
+1,C64,100uF/25V,C_Radial_D8_P3.5,,Bias bulk capacitor
+2,"C7, C8",4.7uF/250V,C_Film_P22.5,TDK B32674D3475K,DC blocking capacitor
+2,"C9, C10",470pF/250V,C_1206,,"SR snubber capacitor, C0G"
+1,CT1,CT 1:100,CT_Toroid_Straddle,Magnetics ZW42908TC + 100T AWG32 (or Pulse PA3855.100NL class),"Primary current transformer, 1-turn insulated primary lead"
+2,"CY1, CY2",2.2nF Y1,C_Y1_P12.5,Vishay VY1222M63Y5UQ63V0,Y1 safety capacitor across the barrier
+2,"D1, D2",C3D04065A,TO-220-2_Vertical,Wolfspeed C3D04065A,Primary clamp diode to VBUS (SiC Schottky 650 V)
+4,"D10, D11, D12, D13",SS14,D_SMA,Vishay SS14,Q1 turn-off steering diode
+1,D3,SMAJ15A,D_SMA,Littelfuse SMAJ15A,Bias input TVS
+2,"D4, D5",BAV99,SOT-23,,CT rectifier bridge half
+1,D6,LED GRN,LED_0805,,VREF OK indicator
+1,F1,15A/500V,Fuse_6.3x32_Clips,Littelfuse 0215015.MXP,"Input fuse 6.3x32 ceramic, 15 A 500 V"
+1,J1,VIN+,Lug_M4,,Input terminal + (M4 ring lug)
+1,J2,VIN-,Lug_M4,,Input terminal - (M4 ring lug)
+1,J3,VOUT+,Lug_M5,,Output terminal + (M5 ring lug)
+1,J4,VOUT-,Lug_M5,,Output terminal - (M5 ring lug)
+1,J5,+12V AUX,TerminalBlock_1x02_P5.08,,Auxiliary 12 V bias input (secondary referenced)
+1,J6,SIGNAL,PinHeader_1x08_P2.54,,"Signal header: 1 VREF, 2 EN, 3 TEMP, 4 IMON- (shunt), 5 IMON+ (SGND), 6 COMP, 7 SYNC, 8 GND"
+1,J7,NTC,PinHeader_1x02_P2.54,,Heatsink NTC 10k
+1,L1,12uH Lr,Inductor_ETD39_Lr,custom ETD39/3C95 10T litz,Resonant (shim) inductor
+1,L2,6.8uH/70A,Inductor_Toroid_D52_Lo,"custom 2x Magnetics 77439-A7, 5T flat wire",Output inductor
+4,"PS1, PS2, PS3, PS4",R12P21503D,SIP-7_IsoDCDC,RECOM R12P21503D,Isolated +15/-3 V gate bias for Q1
+4,"Q1, Q2, Q3, Q4",C3M0060065K,TO-247-4_Vertical,Wolfspeed C3M0060065K,"SiC MOSFET 650 V 60 mOhm, leg A high side"
+4,"Q5, Q6, Q7, Q8",IPP110N20N3 G,TO-220-3_Vertical,Infineon IPP110N20N3 G,"Synchronous rectifier A1, 200 V 10.7 mOhm"
+2,"R1, R2",10R/2W,R_2512,,SR snubber resistor
+2,"R20, R21",2.2k,R_0603,,Driver dead-time (22 ns safety)
+4,"R22, R25, R28, R31",5.1R,R_1206,,Q1 turn-on gate resistor
+4,"R23, R26, R29, R32",2.2R,R_1206,,Q1 turn-off gate resistor
+14,"R24, R27, R30, R33, R41, R42, R54, R56, R58, R62, R64, R66, R68, R69",10k,R_0603,,Q1 gate-source bleed
+1,R3,0.5mR,R_Shunt_8518,Vishay WSBS8518L5000JK,Output current shunt 0.5 mOhm
+1,R40,10R,R_0805,,VDD filter
+2,"R43, R44",10k,R_0805,,Output voltage divider upper 1
+1,R45,1.1k,R_0603,,Output voltage divider lower
+1,R46,150k,R_0603,,Type-II compensation Rz
+2,"R47, R48",13k,R_0603,,A/B leg delay
+2,"R49, R50",20k,R_0603,,SR (E/F) delay
+1,R51,60.4k,R_0603,,Oscillator: 100 kHz (verify against datasheet equation)
+4,"R52, R53, R55, R57",100k,R_0603,,Slope compensation
+1,R59,12R,R_0805,,CT burden resistor
+1,R60,100R,R_0603,,CS filter
+4,"R61, R63, R65, R67",4.7R,R_0805,,Q5 gate resistor
+1,R70,1k,R_0603,,LED resistor
+1,T1,ETD59 18:3:3,Transformer_ETD59_PSFB,"custom, see docs/06","Main transformer ETD59/3C95, 18:3:3, reinforced insulation"
+1,U1,UCC28951PW,TSSOP-24,TI UCC28951PW,PSFB controller
+2,"U2, U3",UCC21520DW,SOIC-16W,TI UCC21520DW,"Isolated dual gate driver, Q1/Q2"
+1,U4,UCC27524D,SOIC-8,TI UCC27524D,Dual 5 A SR gate driver

@@ -1,0 +1,16 @@
+{
+ "P_in_W": 6568.156309254488,
+ "iL_pk": 10.0148575,
+ "iL_rms": 9.169323846743712,
+ "analytic_Irms": 9.229094243508206,
+ "analytic_Ipk": 9.750000000000048,
+ "dead_time_ns": 150.0,
+ "phase_loss_deg_equivalent": 5.3999999999999995,
+ "zvs": {
+  "A1_vds_at_turnon_pu": 0.0020636962499999355,
+  "A2_vds_at_turnon_pu": 0.0020568949125,
+  "B1_vds_at_turnon_pu": 0.004642345000000035,
+  "B2_vds_at_turnon_pu": 0.0044696939250000005
+ },
+ "note": "vds/Vdc at turn-on < 0.05 = ZVS"
+}

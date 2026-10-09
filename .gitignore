@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*-backups/
+fp-info-cache
+*.lck
+_autosave-*
