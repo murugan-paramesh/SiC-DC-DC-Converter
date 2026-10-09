@@ -394,7 +394,15 @@ class NegotiatedRouter(Router):
                 mark(net, own, +1)
             return res
 
-        order = list(tasks)
+        # one task per net: paths/usage are keyed by net name, so same-net tasks (e.g. several pads
+        # of a zone-fallback net) are merged into one multi-terminal task
+        merged = {}
+        for net, terms in tasks:
+            merged.setdefault(net, [])
+            for t in terms:
+                if t not in merged[net]:
+                    merged[net].append(t)
+        order = [(net, terms) for net, terms in merged.items()]
         pres_fac = pres_fac0
         self.failed_terms = []
         conflict_nets = {t[0] for t in order}
@@ -492,39 +500,46 @@ class NegotiatedRouter(Router):
             log(f"  hard pass 1: {len(pending) - len(still)} of {len(pending)} conflicting nets re-routed cleanly")
             if self.failed_terms:
                 log("    unreachable terminals (hard pass): " + str(self.failed_terms[:8])); self.failed_terms = []
-            # round 2: bounded rip-up-and-retry.  Route the failed net softly (cost = other copper),
-            # rip up the nets it overlaps, route it hard, then re-route the victims hard; the swap is
-            # kept only if every victim routes cleanly, otherwise the previous state is restored.
-            pending, still = still, []
-            for net, terms in pending:
+            # round 2: bounded recursive rip-up-and-retry.  Route the failed net softly (cost = other
+            # copper), rip up the nets it overlaps, route it hard, then re-route each victim the same
+            # way (depth-limited, victims may not rip up a net that is being protected).  State is
+            # snapshotted so a failed attempt restores the previous routing exactly.
+            def snapshot():
+                return usage.copy(), usage_s.copy(), dict(paths), dict(owner_count)
+            def restore(snap):
+                usage[...], usage_s[...] = snap[0], snap[1]
+                paths.clear(); paths.update(snap[2]); owner_count.clear(); owner_count.update(snap[3])
+            def hard_with_ripup(net, terms, depth, protected, trace):
                 unroute(net)
+                cells, tracks, vias, ok = route_hard(net, terms)
+                if cells and ok:
+                    paths[net] = cells; mark(net, cells, +1); owner_count[net] = (tracks, vias, True); return True
+                if depth == 0:
+                    return False
                 soft, _, _, sok = route_one(net, terms, pres_fac)
                 if not soft or not sok:
-                    still.append((net, terms)); continue
-                vict = victims_of(net, soft)
-                if not vict or len(vict) > 6:
-                    still.append((net, terms)); continue
-                saved = {v: (paths[v], owner_count[v]) for v in vict if v in paths}
+                    return False
+                vict_all = victims_of(net, soft); vict = vict_all - protected
+                if not vict or len(vict) > 10 or (vict_all & protected):
+                    return False
+                snap = snapshot()
                 for v in vict: unroute(v)
                 cells, tracks, vias, ok = route_hard(net, terms)
-                good = bool(cells) and ok
-                routed_v = {}
-                if good:
-                    paths[net] = cells; mark(net, cells, +1); owner_count[net] = (tracks, vias, True)
-                    for v in sorted(vict, key=lambda n: len(task_of[n][1])):
-                        vc, vt, vv, vok = route_hard(v, task_of[v][1])
-                        if vc and vok:
-                            paths[v] = vc; mark(v, vc, +1); owner_count[v] = (vt, vv, True); routed_v[v] = True
-                        else:
-                            good = False; break
-                if good:
-                    log(f"    rip-up retry: {net} routed after re-routing {sorted(vict)}")
+                if not (cells and ok):
+                    restore(snap); return False
+                paths[net] = cells; mark(net, cells, +1); owner_count[net] = (tracks, vias, True)
+                for v in sorted(vict, key=lambda n: len(task_of[n])):
+                    if not hard_with_ripup(v, task_of[v], depth - 1, protected | {net}, trace):
+                        restore(snap); return False
+                trace.append((net, sorted(vict)))
+                return True
+            pending, still = still, []
+            for net, terms in pending:
+                trace = []
+                if hard_with_ripup(net, terms, 2, set(), trace):
+                    log(f"    rip-up retry: {net} routed; re-routed {trace}")
                 else:
-                    unroute(net)
-                    for v in routed_v: unroute(v)
-                    for v, (pc, oc) in saved.items():
-                        paths[v] = pc; mark(v, pc, +1); owner_count[v] = oc
-                    still.append((net, terms))
+                    unroute(net); still.append((net, terms))
                 self.failed_terms = []
             log(f"  hard pass 2 (rip-up retry): {len(pending) - len(still)} of {len(pending)} re-routed cleanly")
             pending = still

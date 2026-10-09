@@ -28,15 +28,16 @@ SHEETS = [("hv", "HV Port and HV Bridge", "hv_bridge.kicad_sch"),
 POWER_NETS = {"HV_P", "HV_N", "LV_P", "LV_N", "GND", "+12V", "+5V", "+3V3", "+24V"}
 GROUND_NETS = {"HV_N", "LV_N", "GND"}
 
-HV_POWER = {"HV_IN", "HV_P", "HV_N", "SW_A", "SW_B"}
-LV_POWER = {"LV_IN", "LV_P", "LV_N", "SW_C", "SW_D"}
+HV_POWER = {"HV_IN", "HV_P", "HV_N", "SW_A", "SW_B", "SW_A_CT"}   # SW_A_CT: inductor lead after the CT loop (same potential class as SW_A)
+LV_POWER = {"LV_IN", "LV_P", "LV_N", "SW_C", "SW_D", "SH_N"}   # SH_N: LV- port terminal behind the 1 mOhm shunt (16.5 A path)
 
 
 def net_class(net):
     if net in HV_POWER: return "HV_POWER"
     if net in LV_POWER: return "LV_POWER"
     if re.match(r"(G|GD|RGOFF|KS|VDD|VEE)_Q[1-4]\b", net) or net in ("HV_SENSE_P", "HV_SENSE_N", "HV_ISO5V", "HV_ISOGND", "HV_DIV", "HV_BLD1", "HV_BLD2", "HV_BLD3"): return "HV_GATE"
-    if re.match(r"(G|GD|RGOFF|KS|VDD|VEE)_Q[5-8]\b", net) or net in ("LV_SENSE_P", "LV_SENSE_N", "LV_ISO5V", "LV_ISOGND", "LV_DIV", "LV_BLD1", "LV_BLD2", "SH_P", "SH_N", "I2_ISO5V", "I2_ISOGND"): return "LV_GATE"
+    if re.match(r"(G|GD|RGOFF|KS|VDD|VEE)_Q[5-8]\b", net) or net in ("LV_SENSE_P", "LV_SENSE_N", "LV_ISO5V", "LV_ISOGND", "LV_DIV", "LV_BLD1", "LV_BLD2", "SH_P", "SH_NS", "I2_ISO5V", "I2_ISOGND"): return "LV_GATE"   # shunt Kelvin lines float at LV_N potential
+    if net in ("PE", "PE_HV", "PE_LV"): return "PE"      # earthed copper: basic insulation to HV/LV, bonded through the chassis
     if net in ("GND", "+12V", "+5V", "+3V3", "+24V"): return "CTRL_POWER"
     return "CTRL_SIGNAL"
 
@@ -69,8 +70,9 @@ def build():
     add("R2", "680k/2W", "R", "R_2512", "hv", {1: "HV_BLD1", 2: "HV_BLD2"}, desc="HV bleeder")
     add("R3", "680k/2W", "R", "R_2512", "hv", {1: "HV_BLD2", 2: "HV_BLD3"}, desc="HV bleeder")
     add("R4", "680k/2W", "R", "R_2512", "hv", {1: "HV_BLD3", 2: "HV_N"}, desc="HV bleeder")
-    add("CY1", "4.7nF Y1", "C", "C_Y1_P12.5", "hv", {1: "HV_P", 2: "PE"}, mpn="Vishay VY1472M63Y5UQ63V0", desc="Y1 capacitor HV+ to PE (first CM filter element)")
-    add("CY2", "4.7nF Y1", "C", "C_Y1_P12.5", "hv", {1: "HV_N", 2: "PE"}, mpn="Vishay VY1472M63Y5UQ63V0", desc="Y1 capacitor HV- to PE")
+    add("CY1", "4.7nF Y1", "C", "C_Y1_P12.5", "hv", {1: "HV_P", 2: "PE_HV"}, mpn="Vishay VY1472M63Y5UQ63V0", desc="Y1 capacitor HV+ to PE (first CM filter element)")
+    add("CY2", "4.7nF Y1", "C", "C_Y1_P12.5", "hv", {1: "HV_N", 2: "PE_HV"}, mpn="Vishay VY1472M63Y5UQ63V0", desc="Y1 capacitor HV- to PE")
+    add("J21", "PE_HV", "LUG", "Lug_M5", "hv", {1: "PE_HV"}, desc="PE lug of the HV region: Y-capacitor return, bonded to the HV heatsink / enclosure (the three PE lugs are joined through the chassis, not on the PCB, because no copper may cross the isolation barriers)")
     G("HV SiC full bridge Q1-Q4 (leg A = Q1/Q2 -> SW_A, leg B = Q3/Q4 -> SW_B), HF decoupling")
     for q, (d, s_) in zip((1, 2, 3, 4), (("HV_P", "SW_A"), ("SW_A", "HV_N"), ("HV_P", "SW_B"), ("SW_B", "HV_N"))):
         add(f"Q{q}", V["dev1"], "Q_NMOS_KELVIN", "TO-247-4_Vertical", "hv", {1: f"G_Q{q}", 2: d, 3: f"KS_Q{q}", 4: s_}, mpn=f"Wolfspeed {V['dev1']}", desc=f"HV bridge SiC MOSFET 1200 V, {'high' if q in (1, 3) else 'low'} side leg {'A' if q < 3 else 'B'}")
@@ -89,8 +91,9 @@ def build():
         add(f"C{i}", "30uF/700V", "C", "C_Film_P37.5", "lv", {1: "LV_P", 2: "LV_N"}, mpn="TDK B32778G7306K (verify)", desc="LV DC-link film capacitor")
     add("R5", "1M/2W", "R", "R_2512", "lv", {1: "LV_P", 2: "LV_BLD1"}, desc="LV bleeder chain 2 MOhm")
     add("R6", "1M/2W", "R", "R_2512", "lv", {1: "LV_BLD1", 2: "LV_N"}, desc="LV bleeder")
-    add("CY3", "4.7nF Y1", "C", "C_Y1_P12.5", "lv", {1: "LV_P", 2: "PE"}, mpn="Vishay VY1472M63Y5UQ63V0", desc="Y1 capacitor LV+ to PE")
-    add("CY4", "4.7nF Y1", "C", "C_Y1_P12.5", "lv", {1: "LV_N", 2: "PE"}, mpn="Vishay VY1472M63Y5UQ63V0", desc="Y1 capacitor LV- to PE")
+    add("CY3", "4.7nF Y1", "C", "C_Y1_P12.5", "lv", {1: "LV_P", 2: "PE_LV"}, mpn="Vishay VY1472M63Y5UQ63V0", desc="Y1 capacitor LV+ to PE")
+    add("CY4", "4.7nF Y1", "C", "C_Y1_P12.5", "lv", {1: "LV_N", 2: "PE_LV"}, mpn="Vishay VY1472M63Y5UQ63V0", desc="Y1 capacitor LV- to PE")
+    add("J22", "PE_LV", "LUG", "Lug_M5", "lv", {1: "PE_LV"}, desc="PE lug of the LV region: Y-capacitor return, bonded to the LV heatsink / enclosure")
     add("R7", "1mR", "R", "R_Shunt_8518", "lv", {1: "LV_N", 2: "SH_N"}, mpn="Vishay WSBS8518L1000JK", desc="LV port current shunt 1 mOhm (33 A -> 33 mV)")
     G("LV SiC full bridge Q5-Q8 (leg C = Q5/Q6 -> SW_C, leg D = Q7/Q8 -> SW_D), HF decoupling")
     for q, (d, s_) in zip((5, 6, 7, 8), (("LV_P", "SW_C"), ("SW_C", "LV_N"), ("LV_P", "SW_D"), ("SW_D", "LV_N"))):

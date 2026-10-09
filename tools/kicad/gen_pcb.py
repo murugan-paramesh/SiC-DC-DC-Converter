@@ -99,7 +99,7 @@ def pair_clearance(a, b):
 def track_width(net):
     c = cls(net)
     if net in ("SR_A", "SR_B") or net.startswith(("G_Q5", "G_Q6", "G_Q7", "G_Q8")): return 0.5
-    if net in ("+12V", "VDD_IC"): return 0.6
+    if net == "+12V": return 0.6          # VDD_IC (controller supply, < 50 mA) stays 0.3 mm: a 0.6 mm track cannot leave the 0.65 mm pitch fan-out
     if c == "PRI_GATE": return 0.5
     return 0.3
 

@@ -58,6 +58,15 @@ the creepage of basic insulation.
 | CAN isolator ISO1042 | fieldbus | 5 kVrms reinforced | |
 | Transformer | HV-LV power | basic 850 V: 3 x 50 um polyimide, margins 6 mm, 2.5 kVrms test | core on PE: basic to both windings |
 
+### PE bonding on the PCB
+
+The protective-earth connection is split into three nets on the board - `PE_HV` (lug J21 and the
+HV Y capacitors), `PE` (control region, lug J20) and `PE_LV` (lug J22 and the LV Y capacitors) -
+because no copper may cross the two 16 mm isolation barriers. The three lugs are bonded together
+through the heatsinks / enclosure (the bonding resistance test in 20_Experimental_Test_Plan covers
+this). On the PCB the earthed copper keeps the basic-insulation distances of table 3 to the HV
+(8.5 mm) and LV (5.0 mm) circuits; these are DRC rules (`pe_to_hv`, `pe_to_lv`).
+
 ## 5. Test voltages (routine / type)
 
 * HV - LV (basic, 850 V working, 4 kV impulse): AC withstand 2.5 kVrms 60 s (type), 1 s routine; or 3.5 kV DC.

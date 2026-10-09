@@ -39,8 +39,8 @@ for i, y in zip((1, 2, 3, 4), (100, 139, 178, 217)):
     P(f"C{i}", 60, y, 0)
 P("J4", 104, 52); P("J3", 100, 105); P("J9", 100, 150)
 P("R1", 106, 170); P("R2", 106, 177); P("R3", 106, 184); P("R4", 106, 191)
-P("CY1", 24, 236, 0); P("CY2", 60, 236, 0)
-P("TP1", 100, 118); P("TP2", 104, 64); P("TP3", 30, 60)
+P("CY1", 24, 236, 0); P("CY2", 60, 236, 0); P("J21", 42, 236, 0)
+P("TP1", 96, 110); P("TP2", 104, 64); P("TP3", 30, 60)   # TP1 over the SW_A B.Cu strip, clear of the SW_A_CT pour
 # ------------------------------------------------------------------ HV barrier (x = 126)
 P("U1", BAR1, 20, 180); P("U2", BAR1, 34, 180)
 P("PS1", BAR1, 48, 180); P("PS2", BAR1, 58, 180); P("PS3", BAR1, 68, 180); P("PS4", BAR1, 78, 180)
@@ -55,7 +55,7 @@ for i, (x, y) in zip((9, 10, 11, 12), ((250, 95), (295, 95), (250, 122), (295, 1
     P(f"C{i}", x, y, 0)
 P("F2", 270, 160); P("J5", 312, 160); P("R7", 280, 200); P("J6", 312, 200)
 P("R5", 232, 150); P("R6", 232, 157)
-P("CY3", 250, 236, 0); P("CY4", 290, 236, 0)
+P("CY3", 250, 236, 0); P("CY4", 290, 236, 0); P("J22", 270, 236, 0)
 P("TP4", 232, 72); P("TP5", 300, 64); P("TP6", 245, 60)
 # ------------------------------------------------------------------ LV barrier (x = 213)
 P("U3", BAR2, 20, 0); P("U4", BAR2, 34, 0)
@@ -65,9 +65,9 @@ P("U6", BAR2, 100, 180); P("U7", BAR2, 114, 180); P("PS10", BAR2, 128, 0)
 P("J10", 146, 150, 0); P("J11", 199.9, 150, 0); P("J12", 170, 150, 0)
 P("U8", 150, 62); P("U9", 150, 80); P("U10", 168, 62); P("U11", 168, 80); P("U12", 186, 70)
 P("D30", 140, 108); P("D31", 140, 114)
-P("U13", 150, 212, 0); P("U14", 166, 212, 0); P("U15", 182, 206, 0)
+P("U13", 150, 212, 0); P("U14", 166, 212, 0); P("U15", 182, 212, 0)   # U15 tab pad clear of the y=202 passive row
 P("U16", 150, 190); P("J14", 141, 232, 0); P("J15", 192, 232, 0); P("J13", 160, 232, 0)
-P("U17", 176, 190, 0); P("J16", 196, 174, 0); P("U18", 150, 174, 0); P("U19", 162, 174, 0); P("J17", 140, 160, 0)
+P("U17", 176, 190, 0); P("J16", 196, 174, 0); P("U18", 150, 181, 0); P("U19", 162, 181, 0); P("J17", 140, 160, 0)   # optocouplers clear of the J10 pin rows
 P("J18", 196, 232, 0); P("J19", 200, 232, 0); P("J20", 140, 243, 0)
 P("D34", 186, 100); P("D35", 186, 106); P("D32", 170, 224); P("D33", 180, 224)
 P("TP7", 145, 56); P("TP8", 190, 56); P("TP9", 145, 90); P("TP10", 190, 90); P("TP11", 140, 200); P("TP12", 140, 206); P("TP13", 140, 212)
@@ -109,8 +109,8 @@ def place_generated(comps):
                 k = sum(1 for r in PL if r.startswith("C") and PL[r][1] in (23, 37) and PL[r][0] in (140, 199))
                 u = ["U1", "U2", "U3", "U4"][k % 4]; P(c.ref, 140 if u in ("U1", "U2") else 199, yb[u] + 3)
             elif "+12V" in nets and "GND" in nets:       # bias input caps next to each module
-                k = sum(1 for r in PL if r.startswith("C") and PL[r][0] in (140, 199))
-                side, y = (140, 48 + 10 * k) if k < 4 else (199, 48 + 10 * (k - 4)); P(c.ref, side, y)
+                k = sum(1 for r in PL if r.startswith("C") and PL[r][0] in (138, 199))
+                side, y = (138, 48 + 10 * k) if k < 4 else (199, 48 + 10 * (k - 4)); P(c.ref, side, y)   # x = 138: clear of the U8/U9 fan-out corridors
     # sensing sheet passives: rows in the control region near their function
     rows = {"hv": (x for x in [108, 108, 108, 108, 108, 108, 108, 108]), }
     hv_y = iter(range(200, 236, 5)); lv_y = iter(range(170, 236, 5)); ctrl_slots = iter([(x, y) for y in (100, 106, 112, 118, 124, 130) for x in (150, 155, 160, 165, 170, 175, 180, 185, 190, 195)])
@@ -175,6 +175,10 @@ def pair_clearance(a, b):
     ca, cb = cls(a), cls(b); s = {ca, cb}
     if "NONE" in s: return 0.3
     hv = {"HV_POWER", "HV_GATE"}; lv = {"LV_POWER", "LV_GATE"}; ct = {"CTRL_POWER", "CTRL_SIGNAL"}
+    if "PE" in s:                                   # basic insulation power -> PE (01_insulation_coordination.md table 3)
+        if ca in hv or cb in hv: return 8.5
+        if ca in lv or cb in lv: return 5.0
+        return 0.5
     if (ca in hv and cb in lv) or (cb in hv and ca in lv): return 12.0
     if (ca in hv and cb in ct) or (cb in hv and ca in ct):
         if "HV_POWER" in s: return 12.0
@@ -195,9 +199,10 @@ def track_width(net):
     return 0.3
 def dru_rules(nets):
     by = lambda k: sorted(n for n in nets if cls(n) == k)
-    hvp, hvg, lvp, lvg, cp, cs = by("HV_POWER"), by("HV_GATE"), by("LV_POWER"), by("LV_GATE"), by("CTRL_POWER"), by("CTRL_SIGNAL")
+    hvp, hvg, lvp, lvg, cp, cs, pe = by("HV_POWER"), by("HV_GATE"), by("LV_POWER"), by("LV_GATE"), by("CTRL_POWER"), by("CTRL_SIGNAL"), by("PE")
     hv, lv, ct = hvp + hvg, lvp + lvg, cp + cs
-    return [("ctrl_power", f"{grp('A', cp)} || {grp('B', cp)}", 0.3),
+    return [("pe_to_lv", pair(lv, pe), 5.0), ("pe_to_hv", pair(hv, pe), 8.5),
+            ("ctrl_power", f"{grp('A', cp)} || {grp('B', cp)}", 0.3),
             ("gate", f"{grp('A', hvg + lvg)} || {grp('B', hvg + lvg)}", 0.3),
             ("power_to_gate", pair(hvp, hvg) + " || " + pair(lvp, lvg), 0.5),
             ("hv_to_hv", f"{grp('A', hvp)} && {grp('B', hvp)}", 1.5),

@@ -38,6 +38,8 @@ qty,refs,value,package,manufacturer,mpn,rating,datasheet,unit_cost,alternatives,
 1,J19,NTC2,PinHeader_1x02_P2.54,,,,,not verified,,PART SELECTION TO VERIFY,LV heatsink NTC 10k
 1,J2,HV-,Stud_M6,,,,,not verified,,PART SELECTION TO VERIFY,HV port -
 1,J20,PE,Lug_M5,,,,,not verified,,PART SELECTION TO VERIFY,Protective earth stud (bonded to heatsinks and enclosure)
+1,J21,PE_HV,Lug_M5,,,,,not verified,,PART SELECTION TO VERIFY,"PE lug of the HV region: Y-capacitor return, bonded to the HV heatsink / enclosure (the three PE lugs are joined through the chassis, not on the PCB, because no copper may cross the isolation barriers)"
+1,J22,PE_LV,Lug_M5,,,,,not verified,,PART SELECTION TO VERIFY,"PE lug of the LV region: Y-capacitor return, bonded to the LV heatsink / enclosure"
 1,J3,SW_A,Stud_M6,,,,,not verified,,PART SELECTION TO VERIFY,HV bridge output A -> external series inductor L1
 1,J4,SW_B,Stud_M6,,,,,not verified,,PART SELECTION TO VERIFY,HV bridge output B -> transformer primary
 1,J5,LV+,Stud_M6,,,,,not verified,,PART SELECTION TO VERIFY,LV port + (M6 stud); external fuse/contactor in series
