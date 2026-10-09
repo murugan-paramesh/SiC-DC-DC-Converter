@@ -130,12 +130,13 @@ def config():
         edge_slots=[(130.5, 12 + 10 * q - 4, 132.1, 12 + 10 * q + 4) for q in range(4)],
         texts=[("SiC ZVS PHASE-SHIFTED FULL BRIDGE  3 kW  400 V -> 48 V", 70, 190, pcbnew.F_SilkS, 2.5, 0.4, 0),
                ("DANGER: PRIMARY SIDE 420 VDC", 70, 185, pcbnew.F_SilkS, 2.0, 0.35, 0),
-               ("ISOLATION BARRIER - NO COPPER", BAR_X, 190, pcbnew.F_SilkS, 1.2, 0.2, 90),
+               ("ISOLATION BARRIER - NO COPPER", BAR_X + 2.5, 190, pcbnew.F_SilkS, 1.2, 0.2, 90),
                ("SECONDARY 48 V / 62.5 A", 200, 192, pcbnew.F_SilkS, 2.0, 0.35, 0),
                ("rev A  2026-10  open hardware", 200, 196, pcbnew.F_SilkS, 1.2, 0.2, 0),
                ("PRIMARY", 118, 190, pcbnew.Dwgs_User, 1.5, 0.2, 90), ("SECONDARY", 142, 190, pcbnew.Dwgs_User, 1.5, 0.2, 90)],
         lines=[(BAR_X, 2, BAR_X, BH - 2, pcbnew.Dwgs_User, 0.2)],
-        max_passes=14, route_priority={"+12V": 0, "VDD_IC": 1, "VREF": 2}, zone_fallback_nets=["SNUB_A", "SNUB_B"])
+        max_passes=14, route_priority={"+12V": 0, "VDD_IC": 1, "VREF": 2}, zone_fallback_nets=["SNUB_A", "SNUB_B"],
+        solid_zone_pads=[("PS4", "2"), ("Q8", "3")])   # pads at a pour edge: solid connection instead of starved thermal spokes
 
 def main(do_route=True):
     return BoardGen(config()).main(do_route=do_route)

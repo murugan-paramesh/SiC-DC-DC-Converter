@@ -35,6 +35,7 @@ class BoardConfig:
         self.via_forbidden = kw.get("via_forbidden", lambda x, y: False)
         self.edge_slots = kw.get("edge_slots", [])       # (x1, y1, x2, y2)
         self.texts = kw.get("texts", [])                 # (text, x, y, layer, size, thick, rot)
+        self.solid_zone_pads = set(kw.get("solid_zone_pads", []))   # (ref, pad): solid pour connection (no thermal spokes)
         self.lines = kw.get("lines", [])                 # (x1, y1, x2, y2, layer, w)
         self.max_passes = kw.get("max_passes", 3)
         self.route_priority = kw.get("route_priority", {})
@@ -156,11 +157,20 @@ class BoardGen:
             sheet_uuid, sym_uuid = uuids["symbols"][c.ref]
             fp.SetPath(pcbnew.KIID_PATH(f"/{sheet_uuid}/{sym_uuid}"))
             fp.Value().SetVisible(False)
-            fp.Reference().SetTextSize(pcbnew.VECTOR2I(MM(0.9), MM(0.9))); fp.Reference().SetTextThickness(MM(0.15))
+            fp.SetFPID(pcbnew.LIB_ID(cfg.lib, c.footprint))        # library nickname as in fp-lib-table
+            ref = fp.Reference()
+            ref.SetTextSize(pcbnew.VECTOR2I(MM(0.9), MM(0.9))); ref.SetTextThickness(MM(0.15))
+            # reference designator just above the courtyard (clear of the pads, readable silk)
+            cy_bb = fp.GetCourtyard(pcbnew.F_CrtYd).BBox() if hasattr(fp, "GetCourtyard") else None
+            if cy_bb is not None and cy_bb.GetHeight() > 0:
+                ref.SetPosition(pcbnew.VECTOR2I(cy_bb.GetCenter().x, cy_bb.GetTop() - MM(0.7)))
+                ref.SetTextAngleDegrees(0)
             for pad in fp.Pads():
                 net = c.pins.get(pad.GetNumber())
                 if net and not net.startswith("NC_"):
                     pad.SetNet(nets[net])
+                if (c.ref, pad.GetNumber()) in cfg.solid_zone_pads:
+                    pad.SetZoneConnection(pcbnew.ZONE_CONNECTION_FULL)
             board.Add(fp)
         for net, layer, rects, prio, conn in cfg.zones:
             for k, r in enumerate(rects):
