@@ -297,6 +297,21 @@ class Router:
 # ---------------------------------------------------------------------------
 # Negotiated-congestion routing (PathFinder style)
 # ---------------------------------------------------------------------------
+def _maxfilt(a, r):
+    """Chebyshev (square window, radius r cells) maximum filter over the last two axes of a (2,H,W) array."""
+    if r <= 0:
+        return a
+    out = a
+    for axis in (1, 2):
+        src = out; out = src.copy()
+        for s in range(1, r + 1):
+            hi = [slice(None)] * 3; lo = [slice(None)] * 3
+            hi[axis] = slice(s, None); lo[axis] = slice(None, -s)
+            np.maximum(out[tuple(hi)], src[tuple(lo)], out=out[tuple(hi)])
+            np.maximum(out[tuple(lo)], src[tuple(hi)], out=out[tuple(lo)])
+    return out
+
+
 class NegotiatedRouter(Router):
     """
     All nets are routed against the static obstacles only; copper of other nets is a soft
@@ -356,7 +371,11 @@ class NegotiatedRouter(Router):
             own = paths.get(net)
             if own:
                 mark(net, own, -1)
-            cost_map = usage.astype(np.float32) * pres_fac + history
+            # a path cell at (j,i) puts this net's halo over [j-r, j+r] x [i-r, i+r]: it conflicts with
+            # every other halo inside that window, so the cost seen by A* is the Chebyshev max-filter of
+            # (usage, history) with the net's own halo radius (not the raw per-cell value)
+            r_t, _ = self._halo_cells(net)
+            cost_map = _maxfilt(usage.astype(np.float32) * pres_fac + history, r_t)
             res = self._route_net_cost(net, terms, blocked, novia, honly, cost_map, via_cost, turn_cost, max_nodes)
             if own:
                 mark(net, own, +1)
@@ -383,8 +402,8 @@ class NegotiatedRouter(Router):
             conflict_nets = set()
             for net, cells in paths.items():
                 r_t, r_v = self._halo_cells(net)
-                for (L, j, i) in cells[::3]:
-                    j1, j2, i1, i2 = max(0, j - 1), min(H - 1, j + 1), max(0, i - 1), min(W - 1, i + 1)
+                for (L, j, i) in cells[::max(1, r_t)]:
+                    j1, j2, i1, i2 = max(0, j - r_t), min(H - 1, j + r_t), max(0, i - r_t), min(W - 1, i + r_t)
                     if over[L, j1:j2 + 1, i1:i2 + 1].any():
                         conflict_nets.add(net); break
             history += hist_fac * over.astype(np.float32)
