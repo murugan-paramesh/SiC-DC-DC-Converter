@@ -70,7 +70,8 @@ def extra_footprints():
     sip7 = Footprint("SIP-7_IsoDCDC_1W", "1 W isolated DC-DC in SIP-7 outline, 2.54 pitch; pins at positions 1,2 (input) and 6,7 (output); mill a 1.6 mm slot between positions 2 and 6", smd=False, tags="dcdc")
     for pad, i in ((1, 0), (2, 1), (3, 5), (4, 6)):
         sip7.th_pad(pad, (i - 3) * 2.54, 0, 1.7, 1.0, shape="oval", h=2.2, square=(pad == 1))
-    sip7.rect(-9.8, -3.6, 9.8, 2.6, layer="F.Fab", w=0.1); sip7.rect(-9.8, -3.6, 9.8, 2.6, layer="F.SilkS"); sip7.rect(-10.3, -4.1, 10.3, 3.1)
+    sip7.rect(-9.8, -3.6, 9.8, 2.6, layer="F.Fab", w=0.1); sip7.rect(-10.3, -4.1, 10.3, 3.1)
+    sip7.rect(-9.8, -3.6, -1.4, 2.6, layer="F.SilkS"); sip7.rect(1.4, -3.6, 9.8, 2.6, layer="F.SilkS")
     sip7.text("iso slot", 0, -5.0, size=0.7)
     fps.append(sip7)
     t = Footprint("SIP-3_TSR", "TRACO TSR 1/3 series SIP-3, 2.54 pitch", smd=False, tags="dcdc")

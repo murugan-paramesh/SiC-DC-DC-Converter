@@ -278,6 +278,8 @@ class BoardGen:
             far = (min(xs) if d < 0 else max(xs)) + d * (long_ + 1.5)
             cx1, cx2 = sorted((outer, far))
             router.h_only.append(Rect(cx1, min(ys) - 1.0, cx2, max(ys) + 1.0))
+            mx1, mx2 = sorted((far, far + d * 1.5))
+            router.h_soft.append(Rect(mx1, min(ys) - 1.0, mx2, max(ys) + 1.0))   # mouth band: turn further out
         return terminals, stub_rects
 
     # ----------------------------------------------------------- routing
@@ -313,13 +315,17 @@ class BoardGen:
         for net, layer, rects, prio, conn in cfg.zones:
             L_ = F if layer == "F.Cu" else (B if layer == "B.Cu" else None)
             for rct in rects: zone_rects.setdefault(net, []).append((rct, L_))
-        tasks = []
+        tasks = []; blocked_cache = {}
         for net, plist in netpads.items():
             if net in self.zone_nets or net in cfg.zone_fallback_nets:
                 uncovered = []
                 for ref, num, c, layers, tht, r in plist:
-                    covered = any(x1 <= c[0] <= x2 and y1 <= c[1] <= y2 and (L_ in layers or (tht and L_ is None))
-                                  for (x1, y1, x2, y2), L_ in zone_rects.get(net, [])) or (net in cfg.plane_nets)
+                    # covered when inside a pour rectangle of its net on a layer it is on; a THT pin outside its
+                    # plane region (bias-module GND pin in the barrier cut-out) gets a routed link to the pour
+                    covered = any(x1 <= c[0] <= x2 and y1 <= c[1] <= y2 and (L_ in layers or tht)
+                                  for (x1, y1, x2, y2), L_ in zone_rects.get(net, []))
+                    if net in cfg.plane_nets and ref in cfg.fanout:
+                        covered = True          # fan-out pin of a plane net: its stub via lands in the plane
                     if net in cfg.zone_fallback_nets and net not in self.zone_nets:
                         covered = True
                     if not covered:
@@ -328,11 +334,25 @@ class BoardGen:
                     best = None
                     for (x1, y1, x2, y2), L_ in zone_rects.get(net, []):
                         if L_ is None: continue
-                        gx = min(max(c[0], x1 + 1), x2 - 1); gy = min(max(c[1], y1 + 1), y2 - 1)
+                        gx = min(max(c[0], x1 + 2), x2 - 2); gy = min(max(c[1], y1 + 2), y2 - 2)   # 2 mm inside the pour, clear of pad halos at its edge
                         d = abs(gx - c[0]) + abs(gy - c[1])
                         if best is None or d < best[0]: best = (d, gx, gy, L_)
                     if best:
-                        tasks.append((net, [(c[0], c[1], layers), (best[1], best[2], {best[3]})]))
+                        # step the goal towards the pour centre until the cell is free for this net
+                        d_, gx, gy, L_ = best
+                        if net not in blocked_cache:
+                            blocked_cache[net] = router.build_blocked(net)[0]
+                        bl = blocked_cache[net]
+                        for (x1, y1, x2, y2), LL in zone_rects.get(net, []):
+                            if LL == L_ and x1 <= gx <= x2 and y1 <= gy <= y2:
+                                cxm, cym = (x1 + x2) / 2, (y1 + y2) / 2
+                                for _ in range(40):
+                                    ci, cj = router._to_cell(gx, gy)
+                                    if not bl[L_, cj, ci]: break
+                                    gx += 0.25 if cxm > gx else (-0.25 if cxm < gx else 0)
+                                    if abs(cxm - gx) < 0.5: gy += 0.25 if cym > gy else -0.25
+                                break
+                        tasks.append((net, [(c[0], c[1], layers), (gx, gy, {L_})]))
                 continue
             terms = []
             for ref, num, c, layers, tht, r in plist:

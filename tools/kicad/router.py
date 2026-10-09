@@ -9,6 +9,7 @@ import heapq, math, os
 import numpy as np
 
 GRID = 0.25
+MOUTH_COST = 12.0   # extra cost of a vertical F.Cu step in the 1.5 mm band outside a fan-out corridor mouth
 F, B = 0, 1
 LAYER_NAMES = {F: "F.Cu", B: "B.Cu"}
 DIRS4 = ((1, 0), (-1, 0), (0, 1), (0, -1))
@@ -44,6 +45,7 @@ class Router:
         self.keepouts = [Rect(*k) for k in keepouts]   # all layers, all nets
         self.private = []                         # (Rect, set(nets)) : only listed nets may route inside
         self.h_only = []                          # Rects where F.Cu moves must be horizontal (fan-out corridors)
+        self.h_soft = []                          # Rects just outside the corridor mouths: vertical F.Cu moves are penalised
         self.tracks_out = []                      # (net, layer, x1,y1,x2,y2,width)
         self.vias_out = []                        # (net, x, y)
         self.failed = []
@@ -69,6 +71,12 @@ class Router:
     def build_honly(self):
         m = np.zeros((self.H, self.W), dtype=bool)
         for r in self.h_only:
+            self._rasterize(m, r)
+        return m
+
+    def build_hsoft(self):
+        m = np.zeros((self.H, self.W), dtype=bool)
+        for r in self.h_soft:
             self._rasterize(m, r)
         return m
 
@@ -462,6 +470,7 @@ class NegotiatedRouter(Router):
         st.paths = {}                                        # net -> list of (layer, j, i) path cells
         st.owner_count = {}                                  # net -> (tracks, vias, ok)
         st.static_blocked, st.static_novia, st.honly = {}, {}, self.build_honly()
+        self._hsoft = self.build_hsoft()
         st.via_cost, st.turn_cost, st.max_nodes = via_cost, turn_cost, max_nodes
         # one task per net: paths/usage are keyed by net name, so same-net tasks (e.g. several pads
         # of a zone-fallback net) are merged into one multi-terminal task
@@ -643,6 +652,7 @@ class NegotiatedRouter(Router):
     def _astar_cost(self, sources, goals, blocked, novia, honly, cost_map, via_cost, turn_cost, max_nodes):
         H, W = self.H, self.W
         cost_map, cost_map_via = cost_map
+        hsoft = getattr(self, "_hsoft", None)
         INF = np.float32(1e30)
         g = np.full((2, H, W), INF, dtype=np.float32)
         parent = np.full((2, H, W), -1, dtype=np.int64)
@@ -668,6 +678,8 @@ class NegotiatedRouter(Router):
                 if dj != 0 and L == F and honly[j, i] and (L, nj, ni) not in goals: continue
                 if blocked[L, nj, ni] and (L, nj, ni) not in goals and (L, nj, ni) not in sources: continue
                 c = gc + (1.5 if L == F else 1.0) + float(cost_map[L, nj, ni])
+                if dj != 0 and L == F and hsoft is not None and hsoft[j, i]:
+                    c += MOUTH_COST            # turning vertical right at a corridor mouth seals the other exits
                 if pdir is not None and pdir != (dj, di): c += turn_cost
                 if (L == F and dj != 0) or (L == B and di != 0): c += 0.15
                 if c < g[L, nj, ni]:

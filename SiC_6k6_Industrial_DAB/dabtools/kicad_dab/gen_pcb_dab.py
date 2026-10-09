@@ -39,7 +39,7 @@ for i, y in zip((1, 2, 3, 4), (100, 139, 178, 217)):
     P(f"C{i}", 60, y, 0)
 P("J4", 104, 52); P("J3", 100, 105); P("J9", 100, 150)
 P("R1", 106, 170); P("R2", 106, 177); P("R3", 106, 184); P("R4", 106, 191)
-P("CY1", 24, 236, 0); P("CY2", 60, 236, 0); P("J21", 42, 236, 0)
+P("CY1", 24, 241, 0); P("CY2", 60, 241, 0); P("J21", 96, 241, 0)   # PE lug >= 8.5 mm from the HV pads, clear of C4
 P("TP1", 96, 110); P("TP2", 104, 64); P("TP3", 30, 60)   # TP1 over the SW_A B.Cu strip, clear of the SW_A_CT pour
 # ------------------------------------------------------------------ HV barrier (x = 126)
 P("U1", BAR1, 20, 180); P("U2", BAR1, 34, 180)
@@ -55,7 +55,7 @@ for i, (x, y) in zip((9, 10, 11, 12), ((250, 95), (295, 95), (250, 122), (295, 1
     P(f"C{i}", x, y, 0)
 P("F2", 270, 160); P("J5", 312, 160); P("R7", 280, 200); P("J6", 312, 200)
 P("R5", 232, 150); P("R6", 232, 157)
-P("CY3", 250, 236, 0); P("CY4", 290, 236, 0); P("J22", 270, 236, 0)
+P("CY3", 250, 241, 0); P("CY4", 290, 241, 0); P("J22", 270, 241, 0)
 P("TP4", 232, 72); P("TP5", 300, 64); P("TP6", 245, 60)
 # ------------------------------------------------------------------ LV barrier (x = 213)
 P("U3", BAR2, 20, 0); P("U4", BAR2, 34, 0)
@@ -69,8 +69,8 @@ P("U13", 150, 212, 0); P("U14", 166, 212, 0); P("U15", 182, 212, 0)   # U15 tab 
 P("U16", 150, 190); P("J14", 141, 232, 0); P("J15", 192, 232, 0); P("J13", 160, 232, 0)
 P("U17", 176, 190, 0); P("J16", 196, 174, 0); P("U18", 150, 181, 0); P("U19", 162, 181, 0); P("J17", 140, 160, 0)   # optocouplers clear of the J10 pin rows
 P("J18", 196, 232, 0); P("J19", 200, 232, 0); P("J20", 140, 243, 0)
-P("D34", 186, 100); P("D35", 186, 106); P("D32", 170, 224); P("D33", 180, 224)
-P("TP7", 145, 56); P("TP8", 190, 56); P("TP9", 145, 90); P("TP10", 190, 90); P("TP11", 140, 200); P("TP12", 140, 206); P("TP13", 140, 212)
+P("D34", 140, 120); P("D35", 140, 126); P("D32", 170, 224); P("D33", 180, 224)
+P("TP7", 145, 56); P("TP8", 190, 56); P("TP9", 145, 90); P("TP10", 198, 90); P("TP11", 140, 200); P("TP12", 140, 206); P("TP13", 140, 212)
 for i, (x, y) in enumerate(((7, 7), (333, 7), (7, 243), (333, 243), (170, 7), (170, 243)), start=1):
     P(f"H{i}", x, y)
 
@@ -91,7 +91,7 @@ def place_generated(comps):
         # row 1 (y = 22): Rg_on, Rg_off, D, Rgs ; row 2 (y = 28): caps
         r1 = [c for c in parts if c.footprint in ("R_1206", "D_SMA", "R_0603") and c.symbol in ("R", "D_SCHOTTKY")]
         r2 = [c for c in parts if c.symbol == "C"]
-        xs1 = (x0 - 8, x0 - 3, x0 + 3.6, x0 + 9)
+        xs1 = (x0 - 9.5, x0 - 3.5, x0 + 3.5, x0 + 10.5)   # SMA + 1206 parts need 7 mm pitch
         for c, x in zip(sorted(r1, key=lambda c: ("R" not in c.ref, c.ref)), xs1):
             P(c.ref, x, 22)
         for c, x in zip(r2, (x0 - 7, x0 - 3, x0 + 0.5, x0 + 4)):
@@ -109,8 +109,9 @@ def place_generated(comps):
                 k = sum(1 for r in PL if r.startswith("C") and PL[r][1] in (23, 37) and PL[r][0] in (140, 199))
                 u = ["U1", "U2", "U3", "U4"][k % 4]; P(c.ref, 140 if u in ("U1", "U2") else 199, yb[u] + 3)
             elif "+12V" in nets and "GND" in nets:       # bias input caps next to each module
-                k = sum(1 for r in PL if r.startswith("C") and PL[r][0] in (138, 199))
-                side, y = (138, 48 + 10 * k) if k < 4 else (199, 48 + 10 * (k - 4)); P(c.ref, side, y)   # x = 138: clear of the U8/U9 fan-out corridors
+                k = sum(1 for r in PL if r.startswith("C") and PL[r][0] in (139, 199))
+                side, y = (139, 48 + 10 * k) if k < 4 else ((199, 48 + 10 * (k - 4)) if k < 8 else (139, 88 + 10 * (k - 8)))
+                P(c.ref, side, y)   # x = 138 / 199: clear of the driver and sense-amplifier fan-out corridors
     # sensing sheet passives: rows in the control region near their function
     rows = {"hv": (x for x in [108, 108, 108, 108, 108, 108, 108, 108]), }
     hv_y = iter(range(200, 236, 5)); lv_y = iter(range(170, 236, 5)); ctrl_slots = iter([(x, y) for y in (100, 106, 112, 118, 124, 130) for x in (150, 155, 160, 165, 170, 175, 180, 185, 190, 195)])
@@ -124,10 +125,15 @@ def place_generated(comps):
         else:
             x, y = next(ctrl_slots); P(c.ref, x, y)
     ctrl_slots2 = iter([(x, y) for y in (196, 202, 218, 224) for x in (146, 151, 156, 161, 166, 171, 176, 181, 186, 191)])
+    tht_row = iter([(152 + 9 * k, 90) for k in range(5)])
     for c in comps:
         if c.ref in PL: continue
         if c.sheet == "ctrl":
-            x, y = next(ctrl_slots2); P(c.ref, x, y)
+            if c.footprint.startswith("C_Radial"):
+                x, y = next(tht_row)
+            else:
+                x, y = next(ctrl_slots2)
+            P(c.ref, x, y)
         else:
             raise SystemExit(f"unplaced {c.ref} ({c.sheet})")
 
@@ -217,7 +223,10 @@ def config():
     comps = D.build()
     place_generated(comps)
     all_nets = [n for n in D.nets_of(comps) if not n.startswith("NC_")]
-    slots = [(BAR1 - 1.6 + 0.0, y - 4, BAR1 + 0.2, y + 4) for y in (48, 58, 68, 78, 136)] + [(BAR2 - 0.2, y - 4, BAR2 + 1.6, y + 4) for y in (48, 58, 68, 78, 128)]
+    # milled 1.6 mm slots centred in the pin gap of each module (SIP-7 bias modules: between pin 2 and pin 5;
+    # 1 W SIP-7 modules PS9/PS10: between positions 2 and 6), >= 2 mm from the pads (copper-edge rule)
+    slots = [(BAR1 + 0.47, y - 4, BAR1 + 2.07, y + 4) for y in (48, 58, 68, 78)] + [(BAR1 - 0.8, 132, BAR1 + 0.8, 140)] + \
+            [(BAR2 - 2.07, y - 4, BAR2 - 0.47, y + 4) for y in (48, 58, 68, 78)] + [(BAR2 - 0.8, 124, BAR2 + 0.8, 132)]
     texts = [("SiC 6.6 kW BIDIRECTIONAL DUAL ACTIVE BRIDGE  800 V <-> 400 V", 60, 245, pcbnew.F_SilkS, 2.5, 0.4, 0),
              ("DANGER: HV LINK 850 VDC", 60, 241, pcbnew.F_SilkS, 2.0, 0.35, 0), ("DANGER: LV LINK 450 VDC", 280, 241, pcbnew.F_SilkS, 2.0, 0.35, 0),
              ("CONTROL (SELV)", 170, 245, pcbnew.F_SilkS, 1.5, 0.25, 0), ("rev A  2026-10  open hardware", 170, 241, pcbnew.F_SilkS, 1.2, 0.2, 0),
@@ -236,7 +245,8 @@ def config():
                        pair_clearance=pair_clearance, track_width=track_width, dru_rules=dru_rules(all_nets),
                        dru_header="# Generated by dabtools/kicad_dab/gen_pcb_dab.py. Clearance classes by net name; later rules take precedence.\n# Isolation design values from 15_Safety_Reliability/01_insulation_coordination.md.\n",
                        via_forbidden=via_forbidden, edge_slots=slots, texts=texts, lines=lines, max_passes=14,
-                       route_priority={"+12V": 0, "+5V": 1, "+3V3": 2, "+24V": 3, "PROT_DIS": 4}, zone_fallback_nets=[], board_thickness=2.4)
+                       route_priority={"+12V": 0, "+5V": 1, "+3V3": 2, "+24V": 3, "PROT_DIS": 4}, zone_fallback_nets=[], board_thickness=2.4,
+                       solid_zone_pads=[("U13", "2"), ("U14", "2"), ("U15", "1"), ("J12", "5"), ("J12", "7")])
 
 def main(do_route=True):
     return BoardGen(config()).main(do_route=do_route)
