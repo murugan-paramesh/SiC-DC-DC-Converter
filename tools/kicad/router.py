@@ -5,7 +5,7 @@ Two routing layers (F.Cu, B.Cu), 0.25 mm grid, through-hole vias.  Obstacles
 are rasterised with the required clearance for the net being routed, so the
 result is DRC-clean by construction (verified afterwards with KiCad's DRC).
 """
-import heapq, math
+import heapq, math, os
 import numpy as np
 
 GRID = 0.25
@@ -339,61 +339,130 @@ class NegotiatedRouter(Router):
         r_via = max(1, int(math.ceil((self.via_size / 2 + clr / 2) / GRID - 1e-9)))
         return r_track, r_via
 
+    # ------------------------------------------------------------------ negotiated routing state
+    class _State:
+        """Everything the negotiation and the hard pass share (also what ROUTER_DUMP pickles)."""
+        pass
+
+    def _mark(self, st, net, cells, sign):
+        """Add/remove this net's FULL and SMALL halos as union masks (one count per net per cell)."""
+        H, W = self.H, self.W
+        r_t, r_v = self._halo_cells(net)
+        mask = np.zeros((2, H, W), dtype=bool); mask_s = np.zeros((2, H, W), dtype=bool)
+        prev = None
+        for (L, j, i) in cells:
+            if prev is not None and prev[0] != L:      # via: halo on both layers
+                for m, r in ((mask, r_v), (mask_s, r_v - 1)):
+                    j1, j2, i1, i2 = max(0, j - r), min(H - 1, j + r), max(0, i - r), min(W - 1, i + r)
+                    m[:, j1:j2 + 1, i1:i2 + 1] = True
+            for m, r in ((mask, r_t), (mask_s, r_t - 1)):
+                j1, j2, i1, i2 = max(0, j - r), min(H - 1, j + r), max(0, i - r), min(W - 1, i + r)
+                m[L, j1:j2 + 1, i1:i2 + 1] = True
+            prev = (L, j, i)
+        if sign > 0:
+            st.usage[mask] += 1; st.usage_s[mask_s] += 1
+        else:
+            st.usage[mask] -= 1; st.usage_s[mask_s] -= 1
+
+    def _blocked_for(self, st, net):
+        if net not in st.static_blocked:
+            st.static_blocked[net], st.static_novia[net] = self.build_blocked(net)
+        return st.static_blocked[net], st.static_novia[net]
+
+    def _halo_of(self, nets, st):
+        """FULL-halo union mask (2,H,W) of the given routed nets."""
+        tmp = self._State(); tmp.usage = np.zeros((2, self.H, self.W), dtype=np.int16); tmp.usage_s = tmp.usage.copy()
+        for n in nets:
+            if n in st.paths:
+                self._mark(tmp, n, st.paths[n], +1)
+        return tmp.usage > 0
+
+    def _route_soft(self, st, net, terms, hard_nets=()):
+        """Route against static obstacles with the other nets' copper as a soft cost (the copper of
+        `hard_nets` as hard obstacles)."""
+        blocked, novia = self._blocked_for(st, net)
+        if hard_nets:
+            r_t, r_v = self._halo_cells(net)
+            occ = self._halo_of(hard_nets, st).astype(np.float32)
+            blocked = blocked | (_maxfilt(occ, r_t - 1) > 0)
+            nv = _maxfilt(occ, r_v - 1) > 0
+            novia = novia | nv[0] | nv[1]
+        own = st.paths.get(net)
+        if own:
+            self._mark(st, net, own, -1)
+        # a path cell at (j,i) puts this net's halo over [j-r, j+r] x [i-r, i+r]: it conflicts with
+        # every other halo inside that window, so the cost seen by A* is the Chebyshev max-filter of
+        # (usage, history) with the net's own halo radius (not the raw per-cell value)
+        r_t, r_v = self._halo_cells(net)
+        base = st.usage.astype(np.float32) * st.pres_fac + st.history
+        cost_map = _maxfilt(base, r_t - 1)
+        cm_v = _maxfilt(base, r_v - 1); cost_map_via = np.maximum(cm_v[0], cm_v[1])
+        res = self._route_net_cost(net, terms, blocked, novia, st.honly, (cost_map, cost_map_via), st.via_cost, st.turn_cost, st.max_nodes)
+        if own:
+            self._mark(st, net, own, +1)
+        return res
+
+    def _route_hard(self, st, net, terms, avoid=None, avoid_hard=False):
+        """Route against the other routed copper as hard obstacles (full halo + own radius).
+        `avoid`: {net: cells} of ripped-up nets whose old halos are kept free - as hard obstacles
+        (avoid_hard, so the victims can be re-routed exactly as before) or as a strong soft cost."""
+        H, W = self.H, self.W
+        blocked, novia = self._blocked_for(st, net)
+        r_t, r_v = self._halo_cells(net)
+        occ = (st.usage > 0).astype(np.float32)
+        cost = np.zeros((2, H, W), dtype=np.float32)
+        if avoid:
+            tmp = self._State(); tmp.usage = np.zeros((2, H, W), dtype=np.int16); tmp.usage_s = tmp.usage.copy()
+            for n, cells in avoid.items():
+                self._mark(tmp, n, cells, +1)
+            if avoid_hard:
+                occ = np.maximum(occ, (tmp.usage > 0).astype(np.float32))
+            else:
+                cost = _maxfilt(tmp.usage.astype(np.float32) * 50.0, r_t - 1)
+        hard_b = blocked | (_maxfilt(occ, r_t - 1) > 0)
+        nv = _maxfilt(occ, r_v - 1) > 0
+        hard_nv = novia | nv[0] | nv[1]
+        cv = _maxfilt(cost, max(0, r_v - r_t)); cost_via = np.maximum(cv[0], cv[1])
+        return self._route_net_cost(net, terms, hard_b, hard_nv, st.honly, (cost, cost_via), st.via_cost, st.turn_cost, st.max_nodes)
+
+    def _unroute(self, st, net):
+        if net in st.paths:
+            self._mark(st, net, st.paths[net], -1); del st.paths[net]
+        st.owner_count.pop(net, None)
+
+    def _commit(self, st, net, cells, tracks, vias, ok=True):
+        st.paths[net] = cells; self._mark(st, net, cells, +1); st.owner_count[net] = (tracks, vias, ok)
+
+    def _conflicts(self, st):
+        """Nets whose halo overlaps another net's halo (cell in one FULL and another SMALL halo)."""
+        H, W = self.H, self.W
+        over = (st.usage >= 2) & (st.usage_s >= 1)
+        out = set()
+        for net, cells in st.paths.items():
+            r_t, _ = self._halo_cells(net)
+            for (L, j, i) in cells[::max(1, r_t)]:
+                j1, j2, i1, i2 = max(0, j - r_t), min(H - 1, j + r_t), max(0, i - r_t), min(W - 1, i + r_t)
+                if over[L, j1:j2 + 1, i1:i2 + 1].any():
+                    out.add(net); break
+        return out, over
+
+    def _victims_of(self, st, net, cells):
+        """Nets whose halo would overlap the halo of `cells` if they were marked for `net`."""
+        self._mark(st, net, cells, +1)
+        conf, _ = self._conflicts(st)
+        self._mark(st, net, cells, -1)
+        return conf - {net}
+
     def route_all(self, tasks, max_iter=14, pres_fac0=1.0, pres_growth=1.7, hist_fac=0.5, via_cost=25, turn_cost=0.6, max_nodes=2_500_000, log=print, debug_dir=None):
         H, W = self.H, self.W
-        self._class_samples = sorted({t[0] for t in tasks})[:12]
-        usage = np.zeros((2, H, W), dtype=np.int16)      # number of nets whose FULL halo covers each cell
-        usage_s = np.zeros((2, H, W), dtype=np.int16)    # ... whose SMALL halo (r-1) covers each cell
-        owner_count = {}                                   # net -> cells list
-        history = np.zeros((2, H, W), dtype=np.float32)
-        paths = {}                                         # net -> list of (layer, j, i) full path cells (all segments)
-        halos = {}                                         # net -> list of (L, j1, j2, i1, i2) halo boxes marked
-        static_blocked, static_novia, honly = {}, {}, self.build_honly()
-
-        def blocked_for(net):
-            if net not in static_blocked:
-                static_blocked[net], static_novia[net] = self.build_blocked(net)
-            return static_blocked[net], static_novia[net]
-
-        def mark(net, cells, sign):
-            """Add/remove this net's halo as a UNION mask (one count per net per cell)."""
-            r_t, r_v = self._halo_cells(net)
-            mask = np.zeros((2, H, W), dtype=bool); mask_s = np.zeros((2, H, W), dtype=bool)
-            prev = None
-            for (L, j, i) in cells:
-                if prev is not None and prev[0] != L:      # via: halo on both layers
-                    for m, r in ((mask, r_v), (mask_s, r_v - 1)):
-                        j1, j2, i1, i2 = max(0, j - r), min(H - 1, j + r), max(0, i - r), min(W - 1, i + r)
-                        m[:, j1:j2 + 1, i1:i2 + 1] = True
-                for m, r in ((mask, r_t), (mask_s, r_t - 1)):
-                    j1, j2, i1, i2 = max(0, j - r), min(H - 1, j + r), max(0, i - r), min(W - 1, i + r)
-                    m[L, j1:j2 + 1, i1:i2 + 1] = True
-                prev = (L, j, i)
-            if sign > 0:
-                usage[mask] += 1; usage_s[mask_s] += 1
-            else:
-                usage[mask] -= 1; usage_s[mask_s] -= 1
-            return None
-
-        def route_one(net, terms, pres_fac):
-            blocked, novia = blocked_for(net)
-            # own usage must not penalise itself: temporarily subtract
-            own = paths.get(net)
-            if own:
-                mark(net, own, -1)
-            # a path cell at (j,i) puts this net's halo over [j-r, j+r] x [i-r, i+r]: it conflicts with
-            # every other halo inside that window, so the cost seen by A* is the Chebyshev max-filter of
-            # (usage, history) with the net's own halo radius (not the raw per-cell value)
-            r_t, r_v = self._halo_cells(net)
-            base = usage.astype(np.float32) * pres_fac + history
-            cost_map = _maxfilt(base, r_t - 1)
-            # a via has a larger halo than a track: its placement cost looks further (both layers)
-            cm_v = _maxfilt(base, r_v - 1); cost_map_via = np.maximum(cm_v[0], cm_v[1])
-            res = self._route_net_cost(net, terms, blocked, novia, honly, (cost_map, cost_map_via), via_cost, turn_cost, max_nodes)
-            if own:
-                mark(net, own, +1)
-            return res
-
+        st = self._State()
+        st.usage = np.zeros((2, H, W), dtype=np.int16)      # number of nets whose FULL halo covers each cell
+        st.usage_s = np.zeros((2, H, W), dtype=np.int16)    # ... whose SMALL halo (r-1) covers each cell
+        st.history = np.zeros((2, H, W), dtype=np.float32)
+        st.paths = {}                                        # net -> list of (layer, j, i) path cells
+        st.owner_count = {}                                  # net -> (tracks, vias, ok)
+        st.static_blocked, st.static_novia, st.honly = {}, {}, self.build_honly()
+        st.via_cost, st.turn_cost, st.max_nodes = via_cost, turn_cost, max_nodes
         # one task per net: paths/usage are keyed by net name, so same-net tasks (e.g. several pads
         # of a zone-fallback net) are merged into one multi-terminal task
         merged = {}
@@ -402,157 +471,131 @@ class NegotiatedRouter(Router):
             for t in terms:
                 if t not in merged[net]:
                     merged[net].append(t)
-        order = [(net, terms) for net, terms in merged.items()]
-        pres_fac = pres_fac0
+        st.order = [(net, terms) for net, terms in merged.items()]
+        st.task_of = dict(st.order)
+        st.pres_fac = pres_fac0
         self.failed_terms = []
-        conflict_nets = {t[0] for t in order}
+        conflict_nets = {t[0] for t in st.order}
         for it in range(1, max_iter + 1):
             n_rerouted = 0
-            for net, terms in order:
+            for net, terms in st.order:
                 if net not in conflict_nets:
                     continue
-                if net in paths:
-                    mark(net, paths[net], -1); del paths[net]
-                cells, tracks, vias, ok = route_one(net, terms, pres_fac)
+                self._unroute(st, net)
+                cells, tracks, vias, ok = self._route_soft(st, net, terms)
                 if cells:
-                    paths[net] = cells
-                    mark(net, cells, +1)
-                owner_count[net] = (tracks, vias, ok)   # also when nothing could be routed (stays incomplete)
+                    self._commit(st, net, cells, tracks, vias, ok)
+                else:
+                    st.owner_count[net] = (tracks, vias, ok)   # nothing routable: stays incomplete
                 n_rerouted += 1
-            # find conflicts: nets whose halo covers a cell used by >= 2 nets
-            over = (usage >= 2) & (usage_s >= 1)
-            conflict_nets = set()
-            for net, cells in paths.items():
-                r_t, r_v = self._halo_cells(net)
-                for (L, j, i) in cells[::max(1, r_t)]:
-                    j1, j2, i1, i2 = max(0, j - r_t), min(H - 1, j + r_t), max(0, i - r_t), min(W - 1, i + r_t)
-                    if over[L, j1:j2 + 1, i1:i2 + 1].any():
-                        conflict_nets.add(net); break
-            history += hist_fac * over.astype(np.float32)
+            conflict_nets, over = self._conflicts(st)
+            st.history += hist_fac * over.astype(np.float32)
             n_over = int(over.sum())
             if debug_dir:
                 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
                 fig, ax = plt.subplots(1, 2, figsize=(14, 5))
                 for L in (0, 1):
-                    ax[L].imshow(np.where(over[L], 2, np.minimum(usage[L], 1)), origin="upper", cmap="hot", interpolation="nearest"); ax[L].set_title(f"iter {it} layer {L}: usage (1) and overlap (2)")
+                    ax[L].imshow(np.where(over[L], 2, np.minimum(st.usage[L], 1)), origin="upper", cmap="hot", interpolation="nearest"); ax[L].set_title(f"iter {it} layer {L}: usage (1) and overlap (2)")
                 fig.savefig(f"{debug_dir}/overlap_iter{it}.png", dpi=90); plt.close(fig)
                 counts = []
-                for net, cells in paths.items():
+                for net, cells in st.paths.items():
                     cnt = sum(1 for (L, j, i) in cells if over[L, j, i])
                     if cnt: counts.append((cnt, net))
                 log("    worst nets by overlapped path cells: " + str(sorted(counts, reverse=True)[:12]))
-            incomplete = [n for n, v in owner_count.items() if not v[2]]
+            incomplete = [n for n, v in st.owner_count.items() if not v[2]]
             if self.failed_terms:
                 log("    unreachable terminals: " + str(self.failed_terms[:8])); self.failed_terms = []
             log(f"  negotiation iter {it}: rerouted {n_rerouted}, overlapping cells {n_over}, conflicting nets {len(conflict_nets)}, incomplete nets {len(incomplete)}")
             if not conflict_nets and not incomplete:
                 break
             conflict_nets |= set(incomplete)
-            pres_fac *= pres_growth
-        # final hard pass: nets still in conflict are ripped up and re-routed one by one against the
-        # other routed copper treated as hard obstacles (full halo + own radius), so the emitted copper
-        # never violates the clearance model; a net that cannot be routed this way is left unrouted
-        # (reported as unconnected by DRC) rather than emitted with a clearance violation.
-        def route_hard(net, terms):
-            """Route against the other routed copper as hard obstacles; returns (cells, tracks, vias, ok)."""
-            blocked, novia = blocked_for(net)
-            r_t, r_v = self._halo_cells(net)
-            occ = (usage > 0).astype(np.float32)
-            hard_b = blocked | (_maxfilt(occ, r_t - 1) > 0)
-            nv = _maxfilt(occ, r_v - 1) > 0
-            hard_nv = novia | nv[0] | nv[1]
-            zero = np.zeros((2, H, W), dtype=np.float32)
-            return self._route_net_cost(net, terms, hard_b, hard_nv, honly, (zero, zero[0]), via_cost, turn_cost, max_nodes)
-
-        def unroute(net):
-            if net in paths:
-                mark(net, paths[net], -1); del paths[net]
-            owner_count.pop(net, None)
-
-        def victims_of(net, cells):
-            """Nets whose halo overlaps the halo of `cells` (temporarily marked)."""
-            mark(net, cells, +1)
-            over_ = (usage >= 2) & (usage_s >= 1)
-            out = set()
-            for other, ocells in paths.items():
-                if other == net: continue
-                r_o, _ = self._halo_cells(other)
-                for (L, j, i) in ocells[::max(1, r_o)]:
-                    j1, j2, i1, i2 = max(0, j - r_o), min(H - 1, j + r_o), max(0, i - r_o), min(W - 1, i + r_o)
-                    if over_[L, j1:j2 + 1, i1:i2 + 1].any():
-                        out.add(other); break
-            mark(net, cells, -1)
-            return out
-
+            st.pres_fac *= pres_growth
         if conflict_nets:
-            task_of = dict(order)
-            pending = [t for t in order if t[0] in conflict_nets]
-            pending.sort(key=lambda t: len(t[1]))
-            # round 1: plain hard re-route, shortest nets first
-            still = []
-            for net, terms in pending:
-                unroute(net)
-                cells, tracks, vias, ok = route_hard(net, terms)
-                if cells and ok:
-                    paths[net] = cells; mark(net, cells, +1); owner_count[net] = (tracks, vias, True)
-                else:
-                    still.append((net, terms))
-            log(f"  hard pass 1: {len(pending) - len(still)} of {len(pending)} conflicting nets re-routed cleanly")
-            if self.failed_terms:
-                log("    unreachable terminals (hard pass): " + str(self.failed_terms[:8])); self.failed_terms = []
-            # round 2: bounded recursive rip-up-and-retry.  Route the failed net softly (cost = other
-            # copper), rip up the nets it overlaps, route it hard, then re-route each victim the same
-            # way (depth-limited, victims may not rip up a net that is being protected).  State is
-            # snapshotted so a failed attempt restores the previous routing exactly.
-            def snapshot():
-                return usage.copy(), usage_s.copy(), dict(paths), dict(owner_count)
-            def restore(snap):
-                usage[...], usage_s[...] = snap[0], snap[1]
-                paths.clear(); paths.update(snap[2]); owner_count.clear(); owner_count.update(snap[3])
-            def hard_with_ripup(net, terms, depth, protected, trace):
-                unroute(net)
-                cells, tracks, vias, ok = route_hard(net, terms)
-                if cells and ok:
-                    paths[net] = cells; mark(net, cells, +1); owner_count[net] = (tracks, vias, True); return True
-                if depth == 0:
-                    return False
-                soft, _, _, sok = route_one(net, terms, pres_fac)
-                if not soft or not sok:
-                    return False
-                vict_all = victims_of(net, soft); vict = vict_all - protected
-                if not vict or len(vict) > 10 or (vict_all & protected):
-                    return False
-                snap = snapshot()
-                for v in vict: unroute(v)
-                cells, tracks, vias, ok = route_hard(net, terms)
-                if not (cells and ok):
-                    restore(snap); return False
-                paths[net] = cells; mark(net, cells, +1); owner_count[net] = (tracks, vias, True)
-                for v in sorted(vict, key=lambda n: len(task_of[n])):
-                    if not hard_with_ripup(v, task_of[v], depth - 1, protected | {net}, trace):
-                        restore(snap); return False
-                trace.append((net, sorted(vict)))
-                return True
-            pending, still = still, []
-            for net, terms in pending:
-                trace = []
-                if hard_with_ripup(net, terms, 2, set(), trace):
-                    log(f"    rip-up retry: {net} routed; re-routed {trace}")
-                else:
-                    unroute(net); still.append((net, terms))
-                self.failed_terms = []
-            log(f"  hard pass 2 (rip-up retry): {len(pending) - len(still)} of {len(pending)} re-routed cleanly")
-            pending = still
-            conflict_nets = {n for n, _ in pending}
-            for net, _ in pending:
-                owner_count[net] = ([], [], False)
+            st.pending = [t for t in st.order if t[0] in conflict_nets]
+            if os.environ.get("ROUTER_DUMP"):
+                import pickle
+                with open(os.environ["ROUTER_DUMP"], "wb") as fh:
+                    pickle.dump(dict(router=self, state=st), fh)
+            conflict_nets = self.hard_pass(st, log)
         # emit
         self.tracks_out, self.vias_out, self.failed = [], [], []
-        for net, (tracks, vias, ok) in owner_count.items():
+        for net, (tracks, vias, ok) in st.owner_count.items():
             self.tracks_out += tracks; self.vias_out += vias
             if not ok:
                 self.failed.append((net, tracks[0][2:4] if tracks else (0, 0)))
-        return not conflict_nets and not [n for n, v in owner_count.items() if not v[2]]
+        return not conflict_nets and not [n for n, v in st.owner_count.items() if not v[2]]
+
+    def hard_pass(self, st, log=print, max_victims=10, depth=2):
+        """
+        Final pass for the nets still in conflict after the negotiation (st.pending): each is ripped up
+        and re-routed against the other routed copper as hard obstacles, most constrained (most
+        terminals) first; then a depth-limited rip-up-and-retry re-routes the nets a failing net
+        overlaps.  State is snapshotted so a failed attempt restores the previous routing exactly.
+        Emitted copper therefore never violates the clearance model; a net that cannot be routed is
+        left unrouted (DRC reports it as unconnected).  Returns the set of nets left unrouted.
+        """
+        pending = sorted(st.pending, key=lambda t: -len(t[1]))
+        still = []
+        for net, terms in pending:
+            self._unroute(st, net)
+            cells, tracks, vias, ok = self._route_hard(st, net, terms)
+            if cells and ok:
+                self._commit(st, net, cells, tracks, vias)
+            else:
+                still.append((net, terms))
+        log(f"  hard pass 1: {len(pending) - len(still)} of {len(pending)} conflicting nets re-routed cleanly")
+        if self.failed_terms:
+            log("    unreachable terminals (hard pass): " + str(self.failed_terms[:8])); self.failed_terms = []
+
+        def snapshot():
+            return st.usage.copy(), st.usage_s.copy(), dict(st.paths), dict(st.owner_count)
+        def restore(snap):
+            st.usage[...], st.usage_s[...] = snap[0], snap[1]
+            st.paths.clear(); st.paths.update(snap[2]); st.owner_count.clear(); st.owner_count.update(snap[3])
+
+        def hard_with_ripup(net, terms, depth, protected, trace):
+            self._unroute(st, net)
+            cells, tracks, vias, ok = self._route_hard(st, net, terms)
+            if cells and ok:
+                self._commit(st, net, cells, tracks, vias); return True
+            if depth == 0:
+                return False
+            soft, _, _, sok = self._route_soft(st, net, terms, hard_nets=protected)
+            if not soft or not sok:
+                trace.append(("no-soft-path", net)); return False
+            vict_all = self._victims_of(st, net, soft); vict = vict_all - protected
+            if not vict or len(vict) > max_victims or (vict_all & protected):
+                trace.append(("blocked", net, sorted(vict_all)[:12]))
+                return False
+            snap = snapshot()
+            old_paths = {v: st.paths[v] for v in vict if v in st.paths}
+            for v in vict: self._unroute(st, v)
+            cells, tracks, vias, ok = self._route_hard(st, net, terms, avoid=old_paths, avoid_hard=True)
+            if not (cells and ok):
+                self.failed_terms = []
+                cells, tracks, vias, ok = self._route_hard(st, net, terms, avoid=old_paths)
+            if not (cells and ok):
+                restore(snap); trace.append(("hard-fail", net)); return False
+            self._commit(st, net, cells, tracks, vias)
+            for v in sorted(vict, key=lambda n: -len(st.task_of[n])):
+                if not hard_with_ripup(v, st.task_of[v], depth - 1, protected | {net}, trace):
+                    restore(snap); trace.append(("victim-fail", net, v)); return False
+            trace.append((net, sorted(vict)))
+            return True
+
+        pending, still = still, []
+        for net, terms in pending:
+            trace = []
+            if hard_with_ripup(net, terms, depth, set(), trace):
+                log(f"    rip-up retry: {net} routed; {trace}")
+            else:
+                self._unroute(st, net); still.append((net, terms))
+                log(f"    rip-up retry failed for {net}: {trace[-6:]}")
+            self.failed_terms = []
+        log(f"  hard pass 2 (rip-up retry): {len(pending) - len(still)} of {len(pending)} re-routed cleanly")
+        for net, _ in still:
+            st.owner_count[net] = ([], [], False)
+        return {n for n, _ in still}
 
     def _route_net_cost(self, net, terminals, blocked, novia, honly, cost_map, via_cost, turn_cost, max_nodes):
         """Like route_net but with an additive per-cell cost map; returns (cells, tracks, vias, ok)."""
