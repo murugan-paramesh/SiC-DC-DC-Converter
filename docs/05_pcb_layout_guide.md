@@ -7,6 +7,18 @@ router in `tools/kicad/router.py` (0.25 mm grid, F.Cu/B.Cu, fan-out stubs and vi
 at the fine-pitch ICs) and the result is checked with KiCad's DRC (`hardware/kicad/drc_report.txt`,
 summary in `drc_summary.json`).
 
+**Status (KiCad 7.0.11 DRC, generated board):** all 72 signal/auxiliary nets routed, 0 unconnected
+items, 0 DRC errors (clearance, hole clearance, courtyards, thermal reliefs, copper-to-edge), 40
+silkscreen warnings (reference designators over neighbouring pads in the dense passive rows and the
+barrier marking text near the module slots - cosmetic, to be tidied in the GUI before fabrication).
+Isolation rules (`SiC_PSFB_3kW.kicad_dru`): 8 mm primary-secondary, 5.5 mm gate-bias module pairs.
+Manufacturing outputs (gerbers, Excellon drill, pick-and-place, fab/copper/schematic PDFs) are in
+`hardware/outputs/` (`SiC_6k6_Industrial_DAB/17_Manufacturing/export_outputs.py`).
+
+| Top copper | Bottom copper | Fab drawing |
+|---|---|---|
+| ![top](img/psfb_top-copper.png) | ![bottom](img/psfb_bottom-copper.png) | ![fab](img/psfb_F_Fab.png) |
+
 ## Stack-up and layer usage
 
 | Layer | Primary half (x < 125.5 mm) | Secondary half (x > 134.5 mm) |

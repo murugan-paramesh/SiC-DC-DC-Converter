@@ -8,9 +8,15 @@ def run(args):
     r = subprocess.run(args, capture_output=True, text=True); return r.returncode == 0, (r.stdout + r.stderr).strip()[-200:]
 for pcb, out in jobs:
     if not os.path.exists(pcb): print("missing", pcb); continue
+    import shutil
+    shutil.rmtree(os.path.join(out, "gerbers"), ignore_errors=True); shutil.rmtree(os.path.join(out, "drill"), ignore_errors=True)
     os.makedirs(os.path.join(out, "gerbers"), exist_ok=True); os.makedirs(os.path.join(out, "drill"), exist_ok=True)
     base = os.path.splitext(os.path.basename(pcb))[0]
-    print(base, run(["kicad-cli", "pcb", "export", "gerbers", "-o", os.path.join(out, "gerbers") + "/", "--board-plot-params", pcb]))
+    # only the copper layers the board actually has (kicad-cli would otherwise plot all 32)
+    import pcbnew
+    n_cu = pcbnew.LoadBoard(pcb).GetCopperLayerCount()
+    layers = ["F.Cu"] + [f"In{i}.Cu" for i in range(1, n_cu - 1)] + ["B.Cu", "F.Mask", "B.Mask", "F.Paste", "B.Paste", "F.SilkS", "B.SilkS", "Edge.Cuts", "F.Fab", "Dwgs.User"]
+    print(base, run(["kicad-cli", "pcb", "export", "gerbers", "-o", os.path.join(out, "gerbers") + "/", "-l", ",".join(layers), "--subtract-soldermask", pcb]))
     print(base, run(["kicad-cli", "pcb", "export", "drill", "-o", os.path.join(out, "drill") + "/", "--format", "excellon", "--generate-map", pcb]))
     print(base, run(["kicad-cli", "pcb", "export", "pos", "-o", os.path.join(out, base + "-top.pos"), "--side", "front", "--format", "csv", "--units", "mm", pcb]))
     print(base, run(["kicad-cli", "pcb", "export", "pdf", "-o", os.path.join(out, base + "-F_Fab.pdf"), "-l", "F.Fab,F.SilkS,Edge.Cuts", pcb]))
