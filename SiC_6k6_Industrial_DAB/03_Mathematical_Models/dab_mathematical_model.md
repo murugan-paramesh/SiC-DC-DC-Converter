@@ -1,7 +1,7 @@
 # 03 - Mathematical model of the single-phase dual active bridge
 
-Implementation: `tools/dab/dab_model.py` (waveforms, power, switching currents, ZVS),
-`tools/dab/losses.py`, `tools/dab/magnetics.py`. Symbols: V1 HV-port voltage, V2 LV-port
+Implementation: `dabtools/dab/dab_model.py` (waveforms, power, switching currents, ZVS),
+`dabtools/dab/losses.py`, `dabtools/dab/magnetics.py`. Symbols: V1 HV-port voltage, V2 LV-port
 voltage, n = N1/N2, V2' = nV2, d = V2'/V1, L series inductance referred to the HV side,
 fs switching frequency, omega = 2 pi fs, phi outer phase shift (rad, bridge 2 lags bridge 1 for
 power 1 -> 2), D1, D2 inner duty ratios (fraction of the half period during which a bridge

@@ -12,10 +12,11 @@ Averaged model (03, eq. 10-12): the DAB is a current source into the LV link. Th
 |---|---|
 | LV capacitance (link + external) | 1.12 mF |
 | plant pole at full load | 6 Hz |
+| PI zero | 120 Hz (fc/5) |
 | kp | 1689.0 W/V |
-| ki | 6.22e+04 W/(V s) |
-| crossover | 601 Hz |
-| phase margin | 87 deg |
+| ki | 1.27e+06 W/(V s) |
+| crossover | 612 Hz |
+| phase margin | 76 deg |
 | gain margin | inf dB |
 | anti-windup | clamping (integrate only when unsaturated) |
 | output limits | +/- 1.1 P_rated, slew 2 kW/ms |
@@ -47,7 +48,7 @@ EPS voltage matching (D of the higher-voltage bridge = d) removes most of the ci
 
 ## 4. Model predictive control (research alternative)
 
-An explicit one-step MPC with a disturbance observer on the averaged model gives a 0.1 V dip versus 2.7 V for the PI on a 50 % step; settling (1 V band) 0.0 ms vs 20.0 ms. The explicit form costs ~30 multiply-adds per ISR (equivalent to the PI), but it relies on the load estimate and the plant parameters (C2, delay); in the switched simulation the PI with feedforward already meets EL-08/EL-10, so the MPC remains a documented research option, not the baseline.
+An explicit one-step MPC with a disturbance observer on the averaged model gives a 0.1 V dip versus 1.5 V for the PI on a 50 % step; settling (1 V band) 0.0 ms vs 1.28 ms. The explicit form costs ~30 multiply-adds per ISR (equivalent to the PI), but it relies on the load estimate and the plant parameters (C2, delay); in the switched simulation the PI with feedforward already meets EL-08/EL-10, so the MPC remains a documented research option, not the baseline.
 
 ![mpc](img/mpc_vs_pi.png)
 

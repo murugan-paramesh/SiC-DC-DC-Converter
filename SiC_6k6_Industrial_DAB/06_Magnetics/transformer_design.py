@@ -2,7 +2,7 @@
 """Detailed magnetics documentation from design_values.json (core comparison, winding, insulation, tests)."""
 import os, sys, json, math
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE); sys.path.insert(0, ROOT)
-from tools.dab import magnetics as MG
+from dabtools.dab import magnetics as MG
 V = json.load(open(os.path.join(ROOT, "04_Design_Calculations", "design_values.json")))
 xf, xfi, ind = V["transformer"], V["transformer_integrated_leakage"], V["inductor"]
 fs, n, L = V["spec"]["fs"], V["spec"]["n"], V["L"]

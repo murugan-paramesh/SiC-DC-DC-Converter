@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "SiC_DAB")(type "KiCad")(uri "${KIPRJMOD}/lib/SiC_DAB.kicad_sym")(options "")(descr "Project symbols"))
+)

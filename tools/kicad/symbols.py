@@ -329,8 +329,10 @@ def build_library():
     return {s.name: s for s in syms}
 
 
-def write_library(path, lib="SiC_PSFB"):
+def write_library(path, lib="SiC_PSFB", extra=None):
     syms = build_library()
+    if extra:
+        syms.update(extra)
     out = ['(kicad_symbol_lib (version 20220914) (generator SiC_PSFB_generator)']
     for s in syms.values():
         out.append(s.sexpr(None))

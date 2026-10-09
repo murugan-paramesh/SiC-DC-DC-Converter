@@ -246,12 +246,14 @@ def build_library():
     return {fp.name: fp for fp in fps}
 
 
-def write_library(pretty_dir):
+def write_library(pretty_dir, extra=None):
     os.makedirs(pretty_dir, exist_ok=True)
     for old in os.listdir(pretty_dir):
         if old.endswith(".kicad_mod"):
             os.remove(os.path.join(pretty_dir, old))
     fps = build_library()
+    if extra:
+        fps.update(extra)
     for fp in fps.values():
         with open(os.path.join(pretty_dir, fp.name + ".kicad_mod"), "w") as fh:
             fh.write(fp.sexpr() + "\n")

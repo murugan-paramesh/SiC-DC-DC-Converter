@@ -15,8 +15,8 @@ Outputs: control_design.md, img/*.png, control_params.json (consumed by the firm
 import os, sys, json, math
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE); sys.path.insert(0, ROOT)
-from tools.dab import dab_model as M
-from tools.dab.devices import DEVICES
+from dabtools.dab import dab_model as M
+from dabtools.dab.devices import DEVICES
 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 V = json.load(open(os.path.join(ROOT, "04_Design_Calculations", "design_values.json")))
 L, n, fs, P = V["L"], V["spec"]["n"], V["spec"]["fs"], V["spec"]["P"]
@@ -153,7 +153,7 @@ mpc_res = dict(pi_dip=float(400 - pi_log[2000:].min()), mpc_dip=float(400 - mpc_
 # ---------------------------------------------------------------- outputs
 params = dict(kp=kp, ki=ki, fc=fc, pm=pm, gm=gm, Td=Td, C2=C2, phi_max_deg=60, D_min=0.12, V2_floor=40.0,
               phi_dead_comp_rad=0.5 * 2 * math.pi * fs * V["t_dead"], soft_start_s=0.05, slew_W_per_s=2e6,
-              limits=dict(v1_ov=900, v1_uv=600, v2_ov=480, v2_uv=250, i_pk_hv=float(V["I_limit_pk"]), T_max=95),
+              limits=dict(v1_ov=900, v1_uv=600, v2_ov=480, v2_uv=250, i_pk_hv=float(V.get("I_trip_hw", 32.0)), T_max=95),
               tps_table_note="EPS voltage matching (D = d) in firmware; TPS table generation in 12_Optimization")
 json.dump(params, open(os.path.join(HERE, "control_params.json"), "w"), indent=1)
 def md():
@@ -165,8 +165,7 @@ def md():
       f"(without the feedforward K_phi varies from {sens[0][1]:.1f} to {sens[2][1]:.1f} A/rad between 650 and 850 V, a +/-15 % gain change that the PI would otherwise have to tolerate). "
       "The one-period computation delay plus the PWM update give T_d = 1.5 T_s = 15 us.\n")
     w("## 2. PI design\n")
-    w(f"| item | value |\n|---|---|\n| LV capacitance (link + external) | {C2*1e3:.2f} mF |\n| plant pole at full load | {fz:.0f} Hz |
-| PI zero | {fz_pi:.0f} Hz (fc/5) |\n| kp | {kp:.1f} W/V |\n| ki | {ki:.3g} W/(V s) |\n| crossover | {fc:.0f} Hz |\n| phase margin | {pm:.0f} deg |\n| gain margin | {gm:.1f} dB |\n| anti-windup | clamping (integrate only when unsaturated) |\n| output limits | +/- 1.1 P_rated, slew 2 kW/ms |\n")
+    w(f"| item | value |\n|---|---|\n| LV capacitance (link + external) | {C2*1e3:.2f} mF |\n| plant pole at full load | {fz:.0f} Hz |\n| PI zero | {fz_pi:.0f} Hz (fc/5) |\n| kp | {kp:.1f} W/V |\n| ki | {ki:.3g} W/(V s) |\n| crossover | {fc:.0f} Hz |\n| phase margin | {pm:.0f} deg |\n| gain margin | {gm:.1f} dB |\n| anti-windup | clamping (integrate only when unsaturated) |\n| output limits | +/- 1.1 P_rated, slew 2 kW/ms |\n")
     w("![bode](img/loop_bode.png)\n")
     w("The 600 Hz crossover (f_s/167) keeps the delay phase lag at 3 deg and gives a 2.8 % dip for a 50 % load step in the switched simulation (05_Simulation), against the 3 % requirement EL-10. "
       "Quantisation: the C2000 EPWM has a 10 ns resolution (1/1000 of the period, 0.36 deg); the ADC is 12 bit (0.25 V on an 850 V range), both negligible against the 1 % regulation requirement.\n")

@@ -10,10 +10,18 @@ readable by functional group.
 import os, json, uuid
 from .sexpr import f, q, uid, font
 from . import symbols as S
-from . import design as D
+from . import design as _default_design
 
+D = _default_design
 LIB = D.LIB
 STUB = 2.54
+
+
+def use_design(module):
+    """Switch the generator to another design database module (DAB board)."""
+    global D, LIB
+    D = module
+    LIB = module.LIB
 
 
 def pin_abs(sym, X, Y, number):
@@ -132,7 +140,8 @@ def gen_subsheet(sheet_key, sheet_title, comps, syms, root_uuid, sheet_uuid, pag
             dx, dy = {0: (-STUB, 0), 180: (STUB, 0), 270: (0, -STUB), 90: (0, STUB)}[orient]
             ex, ey = px + dx, py + dy
             body.append(wire(px, py, ex, ey))
-            if net in D.POWER_NETS and orient in (90, 270) and ((net in ("PGND", "SGND")) == (orient == 90)):
+            gnd_like = getattr(D, "GROUND_NETS", {"PGND", "SGND"})
+            if net in D.POWER_NETS and orient in (90, 270) and ((net in gnd_like) == (orient == 90)):
                 pwr_counter[0] += 1
                 body.append(power_symbol(net, ex, ey, orient, root_uuid, sheet_uuid, pwr_counter[0]))
                 used.add(net)
@@ -232,9 +241,10 @@ def write_project(outdir, root_uuid, sheet_uuids):
         fh.write(f'(fp_lib_table\n  (version 7)\n  (lib (name "{LIB}")(type "KiCad")(uri "${{KIPRJMOD}}/lib/{LIB}.pretty")(options "")(descr "Project footprints"))\n)\n')
 
 
-def generate(outdir):
+def generate(outdir, syms=None, title=None, notes=None):
     os.makedirs(os.path.join(outdir, "lib"), exist_ok=True)
-    syms = S.write_library(os.path.join(outdir, "lib", f"{LIB}.kicad_sym"))
+    if syms is None:
+        syms = S.write_library(os.path.join(outdir, "lib", f"{LIB}.kicad_sym"))
     comps = D.build()
     ids_path = os.path.join(outdir, "uuids.json")
     ids = json.load(open(ids_path)) if os.path.exists(ids_path) else {}

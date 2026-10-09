@@ -6,7 +6,7 @@ Candidates: PSFB (unidirectional ZVS phase-shifted full bridge with SR, the base
 DAB (single-phase dual active bridge), CLLLC (bidirectional symmetrical resonant converter) and,
 for completeness, the interleaved two-phase DAB (2x 3.3 kW) and the three-phase DAB.
 
-Every number below comes from the analytical models in tools/dab (DAB) or from the standard
+Every number below comes from the analytical models in dabtools/dab (DAB) or from the standard
 first-harmonic / piecewise-linear expressions quoted in the comments (PSFB, CLLLC).  Qualitative
 criteria are scored 1 (poor) .. 5 (excellent) with the reasoning written next to the score.
 
@@ -16,8 +16,8 @@ import os, sys, math, json
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 sys.path.insert(0, ROOT)
-from tools.dab import dab_model as M
-from tools.dab.devices import DEVICES
+from dabtools.dab import dab_model as M
+from dabtools.dab.devices import DEVICES
 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 
 P = 6600.0; fs = 100e3

@@ -8,7 +8,7 @@ Output: 05_Simulation/spice/dab_sps.cir, dab_sps.raw/csv, img/spice_*.png
 import os, sys, json, math, subprocess
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE); sys.path.insert(0, ROOT)
-from tools.dab.devices import DEVICES
+from dabtools.dab.devices import DEVICES
 V = json.load(open(os.path.join(ROOT, "04_Design_Calculations", "design_values.json")))
 L, n, fs = V["L"], V["spec"]["n"], V["spec"]["fs"]
 phi = V["phi_nom"]; Ts = 1 / fs

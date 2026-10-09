@@ -4,7 +4,7 @@ Switched-model simulation of the DAB with a digital controller in the loop.
 Plant: ideal bridges (dead time optional), series inductance L, ideal transformer n, DC-link
 capacitors C1/C2 with ESR, HV port = voltage source with series resistance (stiff bus), LV port
 = capacitor + load (resistor / current sink / battery with R_int).  Integration: fixed step,
-dt = Ts / N_sub.  The controller (tools/dab/control.py) runs once per switching period, like
+dt = Ts / N_sub.  The controller (dabtools/dab/control.py) runs once per switching period, like
 the C2000 ISR, and sets the phase shift (and D1/D2) for the next period -> one-period delay.
 """
 import math
@@ -12,8 +12,10 @@ import numpy as np
 
 
 class DABPlant:
-    def __init__(self, L, n, fs, C1, C2, V1_src, R1_src, load, dead_time=0.0, N_sub=200):
+    def __init__(self, L, n, fs, C1, C2, V1_src, R1_src, load, dead_time=0.0, N_sub=200, R_s=0.3):
         self.L, self.n, self.fs, self.C1, self.C2 = L, n, fs, C1, C2
+        self.R_s = R_s                         # HV-referred AC loop resistance (2 Rds1 + 2 n^2 Rds2 + windings)
+        self.ipk = 0.0
         self.V1_src, self.R1_src = V1_src, R1_src
         self.load = load                       # callable(v2, t) -> load current drawn from the LV link (A, >0 = sink)
         self.N_sub = N_sub
@@ -36,10 +38,12 @@ class DABPlant:
     def run_period(self, phi, D1=1.0, D2=1.0, record=False):
         s1, s2 = self.period_voltages(phi, D1, D2)
         rec = [] if record else None
+        self.ipk = 0.0
         for k in range(self.N_sub):
             va = s1[k] * self.v1                      # HV bridge voltage (uses the actual link voltage)
             vb = s2[k] * self.n * self.v2             # LV bridge voltage referred to HV side
-            self.iL += (va - vb) / self.L * self.dt
+            self.iL += (va - vb - self.R_s * self.iL) / self.L * self.dt
+            self.ipk = max(self.ipk, abs(self.iL))
             # HV link: source through R1_src, bridge draws iL*s1
             i_br1 = self.iL * s1[k]
             i_src = (self.V1_src - self.v1) / self.R1_src

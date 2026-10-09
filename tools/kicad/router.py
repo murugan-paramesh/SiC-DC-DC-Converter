@@ -47,6 +47,7 @@ class Router:
         self.tracks_out = []                      # (net, layer, x1,y1,x2,y2,width)
         self.vias_out = []                        # (net, x, y)
         self.failed = []
+        self.routed_items = []                    # obstacle items created by routing (for rip-up)
 
     # ------------------------------------------------------------------
     def add_item(self, net, layers, rect):
@@ -94,6 +95,8 @@ class Router:
         for rect, allowed in self.private:
             if net not in allowed:
                 self._rasterize(blocked[F], rect); self._rasterize(blocked[B], rect); self._rasterize(novia, rect)
+        for rect in self.h_only:
+            self._rasterize(novia, rect.expand(self.via_size / 2))
         # board edge
         m = int(round(1.0 / GRID))
         blocked[:, :m, :] = True; blocked[:, -m:, :] = True; blocked[:, :, :m] = True; blocked[:, :, -m:] = True
@@ -225,7 +228,7 @@ class Router:
             if a[0] != b[0]:                       # via
                 self._flush(net, seg_start, a, w)
                 self.vias_out.append((net, a[2] * GRID, a[1] * GRID))
-                self.register_via(net, a[2] * GRID, a[1] * GRID)
+                self.register_via(net, a[2] * GRID, a[1] * GRID, routed=True)
                 seg_start = b
                 continue
             if k + 1 < len(path):
@@ -237,12 +240,33 @@ class Router:
         # register routed copper as obstacles for the next nets
         hw = w / 2
         for (L, j, i) in path:
-            self.items.append((net, frozenset([L]), Rect(i * GRID - hw, j * GRID - hw, i * GRID + hw, j * GRID + hw)))
+            it = (net, frozenset([L]), Rect(i * GRID - hw, j * GRID - hw, i * GRID + hw, j * GRID + hw))
+            self.items.append(it); self.routed_items.append(it)
 
     def _flush(self, net, a, b, w):
         if a == b:
             return
         self.tracks_out.append((net, a[0], a[2] * GRID, a[1] * GRID, b[2] * GRID, b[1] * GRID, w))
+
+    def what_blocks(self, net, x, y):
+        """Items whose expanded rectangle covers (x, y) when routing `net` (diagnostic)."""
+        hw = self.width_fn(net) / 2
+        out = []
+        for k, (inet, layers, rect) in enumerate(self.items):
+            if inet == net:
+                continue
+            e = rect.expand(self.clearance_fn(net, inet) + hw)
+            if e.contains(x, y):
+                out.append((inet, sorted(layers), round(rect.x1, 2), round(rect.y1, 2), round(rect.x2, 2), round(rect.y2, 2)))
+        return out
+
+    def rip_up(self, nets):
+        """Remove routed copper of the given nets (tracks, vias and their obstacle items)."""
+        nets = set(nets)
+        self.tracks_out = [t for t in self.tracks_out if t[0] not in nets]
+        self.vias_out = [v for v in self.vias_out if v[0] not in nets]
+        self.items = [it for it in self.items if not (it[0] in nets and it in self.routed_items)]
+        self.routed_items = [it for it in self.routed_items if it[0] not in nets]
 
     def debug_dump(self, net, x, y, r=4.0):
         """ASCII dump of the blocked maps around (x, y) for routing `net` ('#' blocked, '.' free, '*' centre)."""
@@ -262,6 +286,199 @@ class Router:
             out.append("".join(row))
         return "\n".join(out)
 
-    def register_via(self, net, x, y):
+    def register_via(self, net, x, y, routed=False):
         vr = self.via_size / 2
-        self.items.append((net, frozenset([F, B]), Rect(x - vr, y - vr, x + vr, y + vr)))
+        it = (net, frozenset([F, B]), Rect(x - vr, y - vr, x + vr, y + vr))
+        self.items.append(it)
+        if routed:
+            self.routed_items.append(it)
+
+
+# ---------------------------------------------------------------------------
+# Negotiated-congestion routing (PathFinder style)
+# ---------------------------------------------------------------------------
+class NegotiatedRouter(Router):
+    """
+    All nets are routed against the static obstacles only; copper of other nets is a soft
+    penalty (present usage x pres_fac + history).  Nets whose halos overlap are re-routed with
+    increasing penalties until no overlap remains (or max_iter).  Standard PathFinder scheme
+    (McMurchie & Ebeling 1995) on the 2-layer grid; the result is then checked by KiCad DRC.
+    """
+
+    def _halo_cells(self, net):
+        """Chebyshev halo radius (cells) of this net's tracks and vias against a typical neighbour."""
+        # halo = own half width + half the clearance (+0.01 mm guard): two halos touch exactly when the
+        # centre spacing equals hw_a + hw_b + clearance, i.e. the DRC limit
+        clr = max(self.clearance_fn(net, other) for other in self._class_samples)
+        hw = self.width_fn(net) / 2
+        r_track = int(math.ceil((hw + clr / 2 + 0.01) / GRID))
+        r_via = int(math.ceil((self.via_size / 2 + clr / 2 + 0.01) / GRID))
+        return r_track, r_via
+
+    def route_all(self, tasks, max_iter=14, pres_fac0=1.0, pres_growth=1.7, hist_fac=0.5, via_cost=25, turn_cost=0.6, max_nodes=2_500_000, log=print):
+        H, W = self.H, self.W
+        self._class_samples = sorted({t[0] for t in tasks})[:12]
+        usage = np.zeros((2, H, W), dtype=np.int16)      # number of nets occupying (halo) each cell
+        owner_count = {}                                   # net -> cells list
+        history = np.zeros((2, H, W), dtype=np.float32)
+        paths = {}                                         # net -> list of (layer, j, i) full path cells (all segments)
+        halos = {}                                         # net -> list of (L, j1, j2, i1, i2) halo boxes marked
+        static_blocked, static_novia, honly = {}, {}, self.build_honly()
+
+        def blocked_for(net):
+            if net not in static_blocked:
+                static_blocked[net], static_novia[net] = self.build_blocked(net)
+            return static_blocked[net], static_novia[net]
+
+        def mark(net, cells, sign):
+            r_t, r_v = self._halo_cells(net)
+            boxes = []
+            prev = None
+            for (L, j, i) in cells:
+                r = r_t
+                if prev is not None and prev[0] != L:      # via: halo on both layers
+                    for LL in (0, 1):
+                        j1, j2, i1, i2 = max(0, j - r_v), min(H - 1, j + r_v), max(0, i - r_v), min(W - 1, i + r_v)
+                        usage[LL, j1:j2 + 1, i1:i2 + 1] += sign; boxes.append((LL, j1, j2, i1, i2))
+                j1, j2, i1, i2 = max(0, j - r), min(H - 1, j + r), max(0, i - r), min(W - 1, i + r)
+                usage[L, j1:j2 + 1, i1:i2 + 1] += sign; boxes.append((L, j1, j2, i1, i2))
+                prev = (L, j, i)
+            return boxes
+
+        def route_one(net, terms, pres_fac):
+            blocked, novia = blocked_for(net)
+            # own usage must not penalise itself: temporarily subtract
+            own = paths.get(net)
+            if own:
+                mark(net, own, -1)
+            cost_map = usage.astype(np.float32) * pres_fac + history
+            res = self._route_net_cost(net, terms, blocked, novia, honly, cost_map, via_cost, turn_cost, max_nodes)
+            if own:
+                mark(net, own, +1)
+            return res
+
+        order = list(tasks)
+        pres_fac = pres_fac0
+        conflict_nets = {t[0] for t in order}
+        for it in range(1, max_iter + 1):
+            n_rerouted = 0
+            for net, terms in order:
+                if net not in conflict_nets:
+                    continue
+                if net in paths:
+                    mark(net, paths[net], -1); del paths[net]
+                cells, tracks, vias, ok = route_one(net, terms, pres_fac)
+                if cells:
+                    paths[net] = cells
+                    mark(net, cells, +1)
+                    owner_count[net] = (tracks, vias, ok)
+                n_rerouted += 1
+            # find conflicts: nets whose halo covers a cell used by >= 2 nets
+            over = usage >= 2
+            conflict_nets = set()
+            for net, cells in paths.items():
+                r_t, r_v = self._halo_cells(net)
+                for (L, j, i) in cells[::3]:
+                    j1, j2, i1, i2 = max(0, j - 1), min(H - 1, j + 1), max(0, i - 1), min(W - 1, i + 1)
+                    if over[L, j1:j2 + 1, i1:i2 + 1].any():
+                        conflict_nets.add(net); break
+            history += hist_fac * over.astype(np.float32)
+            n_over = int(over.sum())
+            incomplete = [n for n, v in owner_count.items() if not v[2]]
+            log(f"  negotiation iter {it}: rerouted {n_rerouted}, overlapping cells {n_over}, conflicting nets {len(conflict_nets)}, incomplete nets {len(incomplete)}")
+            if not conflict_nets and not incomplete:
+                break
+            conflict_nets |= set(incomplete)
+            pres_fac *= pres_growth
+        # emit
+        self.tracks_out, self.vias_out, self.failed = [], [], []
+        for net, (tracks, vias, ok) in owner_count.items():
+            self.tracks_out += tracks; self.vias_out += vias
+            if not ok:
+                self.failed.append((net, tracks[0][2:4] if tracks else (0, 0)))
+        if conflict_nets:
+            for net in conflict_nets:
+                self.failed.append((net, (-1, -1)))
+        return not conflict_nets and not [n for n, v in owner_count.items() if not v[2]]
+
+    def _route_net_cost(self, net, terminals, blocked, novia, honly, cost_map, via_cost, turn_cost, max_nodes):
+        """Like route_net but with an additive per-cell cost map; returns (cells, tracks, vias, ok)."""
+        tree = set(); cells_all = []; tracks = []; vias = []
+        order = list(terminals)
+        cx = sum(t[0] for t in order) / len(order); cy = sum(t[1] for t in order) / len(order)
+        order.sort(key=lambda t: (t[0] - cx) ** 2 + (t[1] - cy) ** 2)
+        first = order.pop(0)
+        for L in first[2]:
+            tree.add((L, *reversed(self._to_cell(first[0], first[1]))))
+        ok = True
+        w = self.width_fn(net)
+        while order:
+            tcells = np.array([(c[2], c[1]) for c in tree])
+            best, bestd = None, 1e18
+            for t in order:
+                ci, cj = self._to_cell(t[0], t[1])
+                d = np.min(np.abs(tcells[:, 0] - ci) + np.abs(tcells[:, 1] - cj))
+                if d < bestd: best, bestd = t, d
+            order.remove(best)
+            gi, gj = self._to_cell(best[0], best[1])
+            goal = {(L, gj, gi) for L in best[2]}
+            path = self._astar_cost(tree, goal, blocked, novia, honly, cost_map, via_cost, turn_cost, max_nodes)
+            if path is None:
+                ok = False
+                for L in best[2]: tree.add((L, gj, gi))
+                continue
+            # segments
+            seg_start = path[0]
+            for k in range(1, len(path)):
+                a, b = path[k - 1], path[k]
+                if a[0] != b[0]:
+                    if seg_start != a: tracks.append((net, seg_start[0], seg_start[2] * GRID, seg_start[1] * GRID, a[2] * GRID, a[1] * GRID, w))
+                    vias.append((net, a[2] * GRID, a[1] * GRID)); seg_start = b; continue
+                if k + 1 < len(path):
+                    c = path[k + 1]
+                    if c[0] == b[0] and (b[1] - a[1], b[2] - a[2]) == (c[1] - b[1], c[2] - b[2]): continue
+                if seg_start != b: tracks.append((net, seg_start[0], seg_start[2] * GRID, seg_start[1] * GRID, b[2] * GRID, b[1] * GRID, w))
+                seg_start = b
+            for c in path: tree.add(c)
+            cells_all += path
+        return cells_all, tracks, vias, ok
+
+    def _astar_cost(self, sources, goals, blocked, novia, honly, cost_map, via_cost, turn_cost, max_nodes):
+        H, W = self.H, self.W
+        INF = np.float32(1e30)
+        g = np.full((2, H, W), INF, dtype=np.float32)
+        parent = np.full((2, H, W), -1, dtype=np.int64)
+        goal_list = [(gj, gi) for (_, gj, gi) in goals]
+        def h(j, i):
+            return min(abs(j - gj) + abs(i - gi) for gj, gi in goal_list)
+        heap = []
+        for (L, j, i) in sources:
+            g[L, j, i] = 0; heapq.heappush(heap, (h(j, i), 0.0, L, j, i))
+        expanded = 0
+        while heap:
+            f_, gc, L, j, i = heapq.heappop(heap)
+            if gc > g[L, j, i]: continue
+            if (L, j, i) in goals: return self._backtrack(parent, (L, j, i), sources)
+            expanded += 1
+            if expanded > max_nodes: return None
+            p = parent[L, j, i]; pdir = None
+            if p >= 0:
+                pj, pi = (p // W) % H, p % W; pdir = (j - pj, i - pi)
+            for dj, di in DIRS4:
+                nj, ni = j + dj, i + di
+                if nj < 0 or ni < 0 or nj >= H or ni >= W: continue
+                if dj != 0 and L == F and honly[j, i] and (L, nj, ni) not in goals: continue
+                if blocked[L, nj, ni] and (L, nj, ni) not in goals and (L, nj, ni) not in sources: continue
+                c = gc + (1.5 if L == F else 1.0) + float(cost_map[L, nj, ni])
+                if pdir is not None and pdir != (dj, di): c += turn_cost
+                if (L == F and dj != 0) or (L == B and di != 0): c += 0.15
+                if c < g[L, nj, ni]:
+                    g[L, nj, ni] = c; parent[L, nj, ni] = L * H * W + j * W + i
+                    heapq.heappush(heap, (c + h(nj, ni), c, L, nj, ni))
+            oL = 1 - L
+            if not novia[j, i] and not blocked[oL, j, i]:
+                c = gc + via_cost + float(cost_map[oL, j, i]) * 4
+                if c < g[oL, j, i]:
+                    g[oL, j, i] = c; parent[oL, j, i] = L * H * W + j * W + i
+                    heapq.heappush(heap, (c + h(j, i), c, oL, j, i))
+        return None

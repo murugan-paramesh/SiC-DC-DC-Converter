@@ -51,6 +51,7 @@ class DABController:
         self.soft_start_s = soft_start_s
         self.phi, self.D1, self.D2 = 0.0, 1.0, 1.0
         self.ss_scale = 0.0
+        self.v2_start = 0.0
         self.log = []
         self.D_min = 0.12
         self.phi_dead_comp = 0.0          # rad, set from t_dead: 2*pi*fs*t_dead*0.5 (edge-average); 0 = disabled
@@ -95,6 +96,7 @@ class DABController:
         if self.state == "RUN" and m["v2"] < L["v2_uv"]: return "V2_UV"
         if abs(m["i_pk"]) > L["i_pk"]: return "I_PK"
         if m.get("T", 25) > L["T_max"]: return "OT"
+        if self.state != "INIT" and not m.get("comm_ok", True): return "COMM"
         return None
 
     # --- main ISR -----------------------------------------------------------
@@ -112,6 +114,7 @@ class DABController:
         if self.state == "PRECHARGE_WAIT":
             if m.get("precharge_ok", True) and m["v1"] > self.lim["v1_uv"]:
                 self.state, self.t_state, self.ss_scale = "SOFTSTART", 0.0, 0.0
+                self.v2_start = m["v2"]                       # ramp from the precharged voltage, not from 0
                 self.pi.reset()
             return 0.0, 1.0, 1.0
         if not enable:
@@ -123,7 +126,8 @@ class DABController:
         scale = self.ss_scale if self.state == "SOFTSTART" else 1.0
         # --- regulation
         if self.mode == "CV":
-            err = self.v2_ref * scale - m["v2"] if self.state == "SOFTSTART" else self.v2_ref - m["v2"]
+            ref = self.v2_start + (self.v2_ref - self.v2_start) * scale if self.state == "SOFTSTART" else self.v2_ref
+            err = ref - m["v2"]
             P_ff = 0.0                                   # (optional) load-current feedforward: m.get('i2',0)*m['v2']
             P_cmd = self.pi.step(err) + P_ff
         else:                                            # CP: power command, feedforward dominant, PI trims v2

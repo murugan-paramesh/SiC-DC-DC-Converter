@@ -41,7 +41,7 @@ position the control choices of this project.
 [6] F. Krismer and J. W. Kolar, "Accurate power loss model derivation of a high-current dual
 active bridge converter for an automotive application," IEEE Transactions on Industrial
 Electronics, vol. 57, no. 3, pp. 881-891, Mar. 2010. - Loss model structure (conduction, switching
-with Coss energy, magnetics, capacitors) reproduced in `tools/dab/losses.py`.
+with Coss energy, magnetics, capacitors) reproduced in `dabtools/dab/losses.py`.
 
 [7] F. Krismer and J. W. Kolar, "Efficiency-optimized high-current dual active bridge converter
 for automotive applications," IEEE Transactions on Industrial Electronics, vol. 59, no. 7,
@@ -121,7 +121,7 @@ SLUSD39 (revision to be verified).
 ## 5. High-frequency magnetics
 
 [25] P. L. Dowell, "Effects of eddy currents in transformer windings," Proceedings of the IEE,
-vol. 113, no. 8, pp. 1387-1394, Aug. 1966. - AC resistance model in `tools/dab/magnetics.py`.
+vol. 113, no. 8, pp. 1387-1394, Aug. 1966. - AC resistance model in `dabtools/dab/magnetics.py`.
 
 [26] K. Venkatachalam, C. R. Sullivan, T. Abdallah and H. Tacca, "Accurate prediction of ferrite
 core loss with nonsinusoidal waveforms using only Steinmetz parameters," in Proc. IEEE COMPEL,

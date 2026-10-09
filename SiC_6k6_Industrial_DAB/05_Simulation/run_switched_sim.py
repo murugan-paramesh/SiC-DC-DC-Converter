@@ -8,8 +8,8 @@ Outputs 05_Simulation/img/*.png and 05_Simulation/switched_results.json
 import os, sys, json, math
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE); sys.path.insert(0, ROOT)
-from tools.dab.sim_switched import DABPlant
-from tools.dab.control import DABController
+from dabtools.dab.sim_switched import DABPlant
+from dabtools.dab.control import DABController
 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 V = json.load(open(os.path.join(ROOT, "04_Design_Calculations", "design_values.json")))
 L, n, fs = V["L"], V["spec"]["n"], V["spec"]["fs"]
@@ -37,12 +37,12 @@ def run(case, periods, load_fn, v1_fn=lambda t: 800.0, mode="CV", P_ref=0.0, v2_
     rec_last = []
     for k in range(periods):
         plant.V1_src = v1_fn(plant.t)
-        m = dict(v1=plant.v1, v2=plant.v2, i_pk=abs(plant.iL), T=40, precharge_ok=True)
+        m = dict(v1=plant.v1, v2=plant.v2, i_pk=plant.ipk, T=40, precharge_ok=True)
         phi, D1, D2 = ctl.step(m, enable=(k >= enable_at))
         rec = plant.run_period(phi, D1, D2, record=(k >= periods - record_last))
         if rec: rec_last += rec
         t_log.append(plant.t); v2_log.append(plant.v2); v1_log.append(plant.v1); phi_log.append(math.degrees(phi)); state_log.append(ctl.state)
-        p_log.append(ctl.log[-1][1] if ctl.log else 0.0); ipk_log.append(abs(plant.iL))
+        p_log.append(ctl.log[-1][1] if ctl.log else 0.0); ipk_log.append(plant.ipk)
     return dict(t=np.array(t_log), v2=np.array(v2_log), v1=np.array(v1_log), phi=np.array(phi_log), P=np.array(p_log),
                 ipk=np.array(ipk_log), state=state_log, rec=np.array(rec_last), ctl=ctl)
 

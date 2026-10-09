@@ -1,0 +1,83 @@
+qty,refs,value,package,manufacturer,mpn,rating,datasheet,unit_cost,alternatives,procurement,description
+4,"C1, C2, C3, C4",20uF/1100V,C_Film_P52.5,TDK,B32778J0206K (verify 1100 V variant),"film, 1100 V DC; used at 850 V (77 %)",https://www.tdk-electronics.tdk.com/,not verified,,PART SELECTION TO VERIFY,HV DC-link film capacitor
+5,"C101, C112, C123, C134, C165",1uF/16V,C_0603,,,,,not verified,,PART SELECTION TO VERIFY,U1 VCCI decoupling
+17,"C102, C103, C107, C108, C113, C114, C118, C119, C124, C125, C129, C130, C135, C136, C140, C141, C161",10uF/25V,C_1206,,,,,not verified,,PART SELECTION TO VERIFY,PS1 input capacitor
+16,"C104, C106, C109, C111, C115, C117, C120, C122, C126, C128, C131, C133, C137, C139, C142, C144",1uF/50V,C_0603,,,,,not verified,,PART SELECTION TO VERIFY,Q1 +15 V HF
+8,"C105, C110, C116, C121, C127, C132, C138, C143",4.7uF/25V,C_0805,,,,,not verified,,PART SELECTION TO VERIFY,Q1 -3 V bulk
+4,"C13, C14, C15, C16",220nF/630V,C_2220,TDK,CGA9P4X7T2J224K (verify),X7T 630 V MLCC; used at 450 V (71 %),,not verified,,PART SELECTION TO VERIFY,"LV bridge HF decoupling, one pair per leg"
+2,"C145, C148",1nF,C_0603,,,,,not verified,,PART SELECTION TO VERIFY,HV sense filter
+11,"C146, C147, C149, C150, C152, C154, C155, C156, C157, C158, C166",100nF,C_0603,,,,,not verified,,PART SELECTION TO VERIFY,AMC1301 VDD1 decoupling
+1,C151,10nF,C_0603,,,,,not verified,,PART SELECTION TO VERIFY,Shunt sense differential filter
+1,C153,220pF,C_0603,,,,,not verified,,PART SELECTION TO VERIFY,I_L filter C0G
+1,C159,100uF/50V,C_Radial_D8_P3.5,,,,,not verified,,PART SELECTION TO VERIFY,24 V bulk
+1,C160,100uF/25V,C_Radial_D8_P3.5,,,,,not verified,,PART SELECTION TO VERIFY,12 V bulk
+1,C162,47uF/16V,C_Radial_D8_P3.5,,,,,not verified,,PART SELECTION TO VERIFY,5 V bulk
+2,"C163, C164",10uF/16V,C_1206,,,,,not verified,,PART SELECTION TO VERIFY,5 V HF
+4,"C5, C6, C7, C8",100nF/1kV,C_2220,TDK,CGA9N4X7T2W104K (verify),X7T 1 kV MLCC; used at 850 V (85 %) - consider 2 kV part,,not verified,,PART SELECTION TO VERIFY,"HV bridge HF decoupling, one pair per leg"
+4,"C9, C10, C11, C12",30uF/700V,C_Film_P37.5,TDK,B32778G7306K (verify),"film, 700 V DC; used at 450 V (64 %)",https://www.tdk-electronics.tdk.com/,not verified,,PART SELECTION TO VERIFY,LV DC-link film capacitor
+1,CT1,CT 1:100,CT_Toroid_Straddle,Magnetics,ZW42908TC + 100T AWG32,,,not verified,,,Inductor current CT: one-turn insulated lead from J3 (SW_A) to the external inductor; secondary on the control side
+4,"CY1, CY2, CY3, CY4",4.7nF Y1,C_Y1_P12.5,Vishay,VY1472M63Y5UQ63V0,"Y1 safety capacitor, 500 Vac",https://www.vishay.com/,not verified,,,Y1 capacitor HV+ to PE (first CM filter element)
+8,"D21, D22, D23, D24, D25, D26, D27, D28",SS14,D_SMA,Vishay,SS14,,,not verified,,,Q1 turn-off steering diode
+2,"D30, D31",BAV99,SOT-23,,,,,not verified,,PART SELECTION TO VERIFY,CT bridge rectifier half
+1,D32,SMBJ33A,D_SMA,Littelfuse,SMBJ33A,,,not verified,,,24 V input TVS
+1,D33,SS34,D_SMA,Vishay,SS34,,,not verified,,,Reverse-polarity series diode
+1,D34,LED GRN,LED_0805,,,,,not verified,,PART SELECTION TO VERIFY,Status LED
+1,D35,LED RED,LED_0805,,,,,not verified,,PART SELECTION TO VERIFY,Fault LED (PROT_DIS)
+1,F1,16A/1000V,Fuse_Terminal_M6,Bussmann,FWP-16A14F class (verify),,,not verified,,PART SELECTION TO VERIFY,HV semiconductor fuse on M6 terminals
+1,F2,32A/700V,Fuse_Terminal_M6,Bussmann,FWP-32A14F class (verify),,,not verified,,PART SELECTION TO VERIFY,LV semiconductor fuse on M6 terminals
+1,J1,HV+,Stud_M6,,,,,not verified,,PART SELECTION TO VERIFY,HV port + (M6 stud); external semiconductor fuse 16 A/1000 V and precharge contactor in series
+1,J10,BoosterPack J1/J3,PinHeader_2x10_P2.54,Samtec,SSW-110-01-G-D class,,,not verified,,PINOUT TO VERIFY ; PART SELECTION TO VERIFY,BoosterPack header 1 (pins 1-20)
+1,J11,BoosterPack J2/J4,PinHeader_2x10_P2.54,Samtec,SSW-110-01-G-D class,,,not verified,,PINOUT TO VERIFY ; PART SELECTION TO VERIFY,"BoosterPack header 2 (pins 21-40); PWM1A/B, PWM2A/B on the third header J12"
+1,J12,BoosterPack PWM,PinHeader_1x08_P2.54,,,,,not verified,,PINOUT TO VERIFY ; PART SELECTION TO VERIFY,"Additional PWM header (LaunchPad J5/J6 extension), to be mapped"
+1,J13,+24V IN,TerminalBlock_1x02_P5.08,,,,,not verified,,PART SELECTION TO VERIFY,24 V auxiliary input
+1,J14,CAN,TerminalBlock_1x02_P5.08,,,,,not verified,,PART SELECTION TO VERIFY,CAN bus terminal
+1,J15,UART,PinHeader_1x02_P2.54,,,,,not verified,,PART SELECTION TO VERIFY,Service UART (3.3 V)
+1,J16,RELAY/FAN,PinHeader_1x08_P2.54,,,,,not verified,,PART SELECTION TO VERIFY,"Contactor coil and fan outputs (24 V, 500 mA max each)"
+1,J17,INTERLOCK IN,PinHeader_1x08_P2.54,,,,,not verified,,PART SELECTION TO VERIFY,"Isolated 24 V inputs: precharge feedback, external enable"
+1,J18,NTC1,PinHeader_1x02_P2.54,,,,,not verified,,PART SELECTION TO VERIFY,HV heatsink NTC 10k
+1,J19,NTC2,PinHeader_1x02_P2.54,,,,,not verified,,PART SELECTION TO VERIFY,LV heatsink NTC 10k
+1,J2,HV-,Stud_M6,,,,,not verified,,PART SELECTION TO VERIFY,HV port -
+1,J20,PE,Lug_M5,,,,,not verified,,PART SELECTION TO VERIFY,Protective earth stud (bonded to heatsinks and enclosure)
+1,J3,SW_A,Stud_M6,,,,,not verified,,PART SELECTION TO VERIFY,HV bridge output A -> external series inductor L1
+1,J4,SW_B,Stud_M6,,,,,not verified,,PART SELECTION TO VERIFY,HV bridge output B -> transformer primary
+1,J5,LV+,Stud_M6,,,,,not verified,,PART SELECTION TO VERIFY,LV port + (M6 stud); external fuse/contactor in series
+1,J6,LV-,Stud_M6,,,,,not verified,,PART SELECTION TO VERIFY,LV port - (through the current shunt)
+1,J7,SW_C,Stud_M6,,,,,not verified,,PART SELECTION TO VERIFY,LV bridge output C -> transformer secondary
+1,J8,SW_D,Stud_M6,,,,,not verified,,PART SELECTION TO VERIFY,LV bridge output D -> transformer secondary
+1,J9,L1 (via CT),Stud_M6,,,,,not verified,,PART SELECTION TO VERIFY,Stud for the inductor lead after the CT loop
+8,"PS1, PS2, PS3, PS4, PS5, PS6, PS7, PS8",R12P21503D,SIP-7_IsoDCDC,RECOM,"R12P21503D (basic-class isolation; reinforced-rated module is an open item, see 15.1)","2 W, 5.2 kVDC isolation (basic class) - open item 15.1",https://recom-power.com/,not verified,,PINOUT TO VERIFY ; PART SELECTION TO VERIFY,Isolated gate bias Q1
+1,PS10,R1SE-0505,SIP-4_IsoDCDC,RECOM,R1SE-0505/H,"1 W, 3 kVDC isolation (verify)",https://recom-power.com/,not verified,,PINOUT TO VERIFY,1 W isolated 5 V for the LV-side sensors
+1,PS9,R1SE-0505,SIP-4_IsoDCDC,RECOM,R1SE-0505/H (verify pinout),"1 W, 3 kVDC isolation (verify)",https://recom-power.com/,not verified,,PINOUT TO VERIFY ; PART SELECTION TO VERIFY,1 W isolated 5 V for the HV-side sensor
+4,"Q1, Q2, Q3, Q4",C3M0032120K,TO-247-4_Vertical,Wolfspeed,C3M0032120K,"1200 V, 32 mOhm, Tj 175 C; used at 850 V (71 %), Tj < 70 C calc.",https://www.wolfspeed.com/c3m0032120k/,not verified,,,"HV bridge SiC MOSFET 1200 V, high side leg A"
+4,"Q5, Q6, Q7, Q8",C3M0016120K,TO-247-4_Vertical,Wolfspeed,C3M0016120K,"1200 V, 16 mOhm; used at 450 V (38 %)",https://www.wolfspeed.com/c3m0016120k/,not verified,,,"LV bridge SiC MOSFET 1200 V, high side leg C"
+4,"R1, R2, R3, R4",680k/2W,R_2512,,,"2512, 2 W; 212 V per resistor (voltage rating 500 V)",,not verified,,PART SELECTION TO VERIFY,"HV bleeder chain 2.7 MOhm (4 x 680 k, 850 V / 4 = 212 V per resistor)"
+4,"R101, R108, R115, R122",2.2k,R_0603,,,,,not verified,,PART SELECTION TO VERIFY,U1 interlock dead time ~22 ns
+8,"R102, R105, R109, R112, R116, R119, R123, R126",3.3R,R_1206,,,,,not verified,,PART SELECTION TO VERIFY,Q1 turn-on gate resistor
+8,"R103, R106, R110, R113, R117, R120, R124, R127",1.5R,R_1206,,,,,not verified,,PART SELECTION TO VERIFY,Q1 turn-off gate resistor
+29,"R104, R107, R111, R114, R118, R121, R125, R128, R143, R144, R145, R146, R147, R148, R149, R150, R151, R152, R153, R154, R155, R156, R158, R160, R161, R168, R170, R171, R172",10k,R_0603,,,,,not verified,,PART SELECTION TO VERIFY,Q1 gate-source bleed
+1,R129,1M/1206x4,R_1206,,,,,not verified,,PART SELECTION TO VERIFY,"HV divider upper (4 x 1 M in series, 2 shown as one value; 1000 V FS -> 250 mV)"
+3,"R130, R134, R135",1M,R_1206,,,,,not verified,,PART SELECTION TO VERIFY,HV divider upper 2
+1,R131,499R,R_0603,,,,,not verified,,PART SELECTION TO VERIFY,HV divider lower (HV_ISOGND = HV_N reference)
+4,"R132, R137, R162, R163",0R,R_0603,,,,,not verified,,PART SELECTION TO VERIFY,AMC1301 INN to local ground
+2,"R133, R138",0R,R_0805,,,,,not verified,,PART SELECTION TO VERIFY,Isolated sensor ground tied to HV- (single point)
+4,"R136, R142, R165, R166",1k,R_0603,,,,,not verified,,PART SELECTION TO VERIFY,LV divider lower
+2,"R139, R140",10R,R_0603,,,,,not verified,,PART SELECTION TO VERIFY,Shunt Kelvin sense + (LV_N side)
+1,R141,6.2R,R_0805,,,,,not verified,,PART SELECTION TO VERIFY,"CT burden: 32 A -> 2.0 V (CMPSS trip), 40 A FS"
+1,R157,6.8k,R_0603,,,,,not verified,,PART SELECTION TO VERIFY,OC threshold divider
+1,R159,8.2k,R_0603,,,,,not verified,,PART SELECTION TO VERIFY,HV OV threshold
+1,R164,120R,R_0603,,,,,not verified,,PART SELECTION TO VERIFY,CAN termination (fit if end node)
+2,"R167, R169",4.7k,R_0805,,,,,not verified,,PART SELECTION TO VERIFY,Opto input resistor (24 V)
+1,R173,0R,R_1206,,,,,not verified,,PART SELECTION TO VERIFY,Control ground to PE single-point bond (fit 0 R or 1 nF/1 MOhm per EMC test)
+2,"R5, R6",1M/2W,R_2512,,,"2512, 2 W; 225 V per resistor",,not verified,,PART SELECTION TO VERIFY,LV bleeder chain 2 MOhm
+1,R7,1mR,R_Shunt_8518,Vishay,WSBS8518L1000JK,0.5 % 2 W shunt,https://www.vishay.com/,not verified,,,LV port current shunt 1 mOhm (33 A -> 33 mV)
+4,"U1, U2, U3, U4",UCC21520DW,SOIC-16W,TI,UCC21520DW,"5.7 kVrms reinforced, 4 A/6 A, VDD 25 V max; used at 18 V",https://www.ti.com/product/UCC21520,not verified,,,"5.7 kVrms reinforced isolated dual gate driver, leg Q1/Q2; DESAT-type driver (UCC21710) is the documented upgrade path"
+2,"U10, U11",LM393,SOIC-8,TI,LM393DR,"36 V, open collector",https://www.ti.com/product/LM393,not verified,,,OC comparator (I_L > 2.0 V) and HV OV comparator; open-collector outputs wired-OR
+1,U12,74HC32,SOIC-14,TI,SN74HC32D,2-6 V,https://www.ti.com/product/SN74HC32,not verified,,,DIS_ALL = PROT_DIS OR DSP_DIS -> gate driver DIS inputs (nets: drivers use PROT_DIS directly in rev A; DIS_ALL reserved)
+1,U13,TSR 3-24120,SIP-3_TSR,TRACO,TSR 3-24120,"3 A, 4.6-36 V in",https://www.tracopower.com/,not verified,,,12 V / 3 A switching regulator module (gate bias supplies)
+1,U14,TSR 1-2450,SIP-3_TSR,TRACO,TSR 1-2450,1 A,https://www.tracopower.com/,not verified,,,"5 V / 1 A regulator (drivers logic, sensors, LaunchPad)"
+1,U15,AMS1117-3.3,SOT-223,AMS1117-3.3,,1 A LDO,,not verified,,,3.3 V LDO for references/pull-ups
+1,U16,TCAN332,SOIC-8,TI,TCAN332D,3.3 V CAN FD 5 Mbit/s,https://www.ti.com/product/TCAN332,not verified,,PINOUT TO VERIFY,CAN transceiver 3.3 V (non-isolated; ISO1042 is the upgrade for a galvanically isolated bus)
+1,U17,ULN2003A,SOIC-16,TI,ULN2003AD,50 V / 500 mA per channel,https://www.ti.com/product/ULN2003A,not verified,,,Darlington driver for precharge contactor coils (24 V) and fans
+2,"U18, U19",PC817,DIP-4,Sharp,PC817,"5 kVrms, CTR 50-600 %",,not verified,,,Precharge-complete feedback input (24 V contact)
+3,"U5, U6, U7",AMC1301,SOIC-8W,TI,AMC1301DWV,"+/-250 mV, 7 kVpk reinforced",https://www.ti.com/product/AMC1301,not verified,,PINOUT TO VERIFY,"Reinforced isolated amplifier, +/-250 mV input, HV link voltage"
+2,"U8, U9",TLV9062,SOIC-8,TI,TLV9062IDR,5.5 V RRIO 10 MHz,https://www.ti.com/product/TLV9062,not verified,,,Differential-to-single-ended for V1/V2 (gain 2.5 -> 0-2.5 V... see note: AMC1301 differential output 2 V p-p around 1.44 V)
