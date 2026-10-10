@@ -1,6 +1,6 @@
 item,typical_range_nH,this_work_nH,source
 TO-247 package D-S partial inductance (one device),7 - 15,12.6,typical range reported in literature / vendor application notes on TO-247 SiC layout; not measured here
 "discrete TO-247 half-bridge commutation loop (PCB, MLCC decoupling)",20 - 60,28 - 36,"typical range reported in literature, not measured here"
-TO-247-4 (Kelvin) gate loop with driver within ~20 mm,10 - 30,109,"typical range reported in literature, not measured here; this board places the driver ~100 mm away at the isolation barrier"
+TO-247-4 (Kelvin) gate loop with driver within ~20 mm,10 - 30,264,"typical range reported in literature, not measured here; this board places the driver ~100 mm away at the isolation barrier"
 SMD (TO-263-7 / D2PAK-7) half-bridge loop,5 - 15,n/a,"typical range reported in literature, not measured here"
 "power module (DBC, integrated DC link) loop",2 - 10,n/a,"typical range reported in literature, not measured here"

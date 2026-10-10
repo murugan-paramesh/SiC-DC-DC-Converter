@@ -3,9 +3,9 @@
  "python": "3.13.16",
  "numpy": "2.5.3",
  "matplotlib": "3.11.2",
- "git_commit": "ca67152a870b4e9fd4549005336dd91ef9fe1969",
+ "git_commit": "274d294f786cdf507f8463dc5684d2ea92da2945",
  "seed": 20261010,
- "wall_time_s": 1.5,
+ "wall_time_s": 1.34,
  "inputs": {
   "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f4271",
   "SiC_6k6_Industrial_DAB/dabtools/dab/devices.py": "bccad660fcf2d85f"

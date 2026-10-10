@@ -1,195 +1,727 @@
 {
- "started": "2026-10-10T10:07:24.758670+00:00",
+ "started": "2026-10-10T10:26:41.966082+00:00",
  "versions": {
   "python": "3.13.16",
   "numpy": "2.5.3",
   "scipy": "1.18.1",
   "matplotlib": "3.11.2",
   "pandas": "3.0.5",
-  "git_commit": "921fc9bf0c04956a6f15c1d26fee0dc2c857de35"
+  "git_commit": "3a7ed16e4f30784f9a8a927432d848e20baa3815"
  },
  "modules": {
-  "Research_Benchmarks": {
+  "Digital_Twin": {
    "scripts": [
     {
-     "script": "benchmark_table.py",
+     "script": "observability.py",
      "status": "PASS",
-     "wall_s": 2.6,
-     "tail": "   \"eta_full_pct\": 98.62273959273409,\n   \"eta_worst_corner_pct\": 97.92381156341922,\n   \"power_density_kW_L_estimate\": 1.1092436974789914,\n   \"boxed_volume_L\": 5.950000000000001\n  },\n  \"psfb\": {\n   \"eta_peak_pct\": 97.59417552423213,\n   \"eta_peak_load_pct\": 47.0,\n   \"eta_full_pct\": 97.05282908996797,\n   \"power_density_kW_L_estimate\": 1.1538461538461535,\n   \"boxed_volume_L\": 2.6000000000000005,\n   \"loss_split_W\": {\n    \"fixed\": 13.7,\n    \"linear\": 15.900000000000002,\n    \"quadratic\": 61.499999999999986,\n    \"total\": 91.1\n   }\n  }\n },\n \"literature_db_entries\": 57,\n \"literature_db_confirmed\": 43\n}\n"
+     "wall_s": 4.7,
+     "tail": "07377346254217697\n  }\n },\n \"board: I2, I1, I_pk\": {\n  \"rank\": 2,\n  \"crlb_1000\": {\n   \"L\": 0.0002489260550254534,\n   \"Coss_er1\": 0.0,\n   \"Coss_er2\": 0.0,\n   \"R_s\": 0.007357754017875706\n  }\n },\n \"+ proposed t_tr(HV)\": {\n  \"rank\": 3,\n  \"crlb_1000\": {\n   \"L\": 0.00022809280412797178,\n   \"Coss_er1\": 0.00033807569850556027,\n   \"Coss_er2\": 0.0,\n   \"R_s\": 0.0004980599005276102\n  }\n },\n \"+ proposed t_tr(HV, LV)\": {\n  \"rank\": 4,\n  \"crlb_1000\": {\n   \"L\": 0.0002150239876039421,\n   \"Coss_er1\": 0.00033133116571907743,\n   \"Coss_er2\": 0.00042100907241469454,\n   \"R_s\": 0.0002470761892999836\n  }\n }\n}\nwall 4.5 s\n"
+    },
+    {
+     "script": "run_twin_study.py",
+     "status": "PASS",
+     "wall_s": 18.2,
+     "tail": ": -0.8659939737860299, \"std_pct\": 0.009508116368607442, \"updates\": 3490}, \"ungated\": {\"mean_err_pct\": -0.8342421671513898, \"std_pct\": 0.010654770908535937, \"updates\": 4000}}, \"10 %\": {\"gated\": {\"mean_err_pct\": -0.488144748623498, \"std_pct\": 0.0, \"updates\": 141}, \"ungated\": {\"mean_err_pct\": -0.7922311736754133, \"std_pct\": 0.0328668718220434, \"updates\": 4000}}} 15 s\nE3 {\"final_err_pct_with_estimated_L\": 4.501449950382597, \"final_err_pct_with_nominal_L\": -11.633114800640742} 17 s\nE4 {\"max_abs\": 14.428354517221173, \"rms\": 1.1436280125040283, \"steady_after_step\": 1.6484854887532565} 17 s\ndone 17 s\n"
+    },
+    {
+     "script": "supervisory.py",
+     "status": "PASS",
+     "wall_s": 3.8,
+     "tail": "\"mean\": -2.254067638496188,\n  \"min\": -19.81862519149774,\n  \"max\": 16.437917080327868\n },\n \"hard_switched_edges\": {\n  \"fixed_total\": 61,\n  \"adaptive_total\": 56,\n  \"points_with_hard_switching_fixed\": 19,\n  \"points_with_hard_switching_adaptive\": 16\n },\n \"nominal_model_rms_prediction_error_pct\": {\n  \"mean\": -10.544129092323734,\n  \"max_abs\": 22.645017553163715\n },\n \"supervisor_decisions\": {\n  \"adaptive\": 27,\n  \"fallback\": 0\n },\n \"wall_s\": 2.7025253772735596,\n \"caveat\": \"switched simulation with the project's plant; ZVS judged by the charge-based current criterion at the sensed edge; no hardware\"\n}\n"
     }
    ],
    "results": {
-    "benchmark_summary.json": {
-     "sha256_16": "78ab17ea32679c7c",
-     "bytes": 993
+    "E1_L_identification.png": {
+     "sha256_16": "1a298b12ed71fb70",
+     "bytes": 90304
     },
-    "benchmark_table.csv": {
-     "sha256_16": "de6d6074d6b8f39c",
-     "bytes": 9832
+    "E3_Coss_identification.png": {
+     "sha256_16": "0b3d10edb9778d5f",
+     "bytes": 70181
     },
-    "benchmark_table.md": {
-     "sha256_16": "22140a6a40441d76",
-     "bytes": 7971
+    "E4_thermal_twin.png": {
+     "sha256_16": "9428b43b565280db",
+     "bytes": 104886
     },
-    "fig_benchmark.png": {
-     "sha256_16": "396684d65054b64a",
-     "bytes": 205063
+    "observability.json": {
+     "sha256_16": "b4b244f5c04b3936",
+     "bytes": 27581
+    },
+    "supervisory_study.json": {
+     "sha256_16": "d9b534a4415fa8f1",
+     "bytes": 18318
+    },
+    "supervisory_study.png": {
+     "sha256_16": "bcd92dbe204fa971",
+     "bytes": 138439
+    },
+    "twin_study.json": {
+     "sha256_16": "dccdd0613472b55d",
+     "bytes": 2842
     }
    }
   },
-  "Uncertainty_Quantification": {
+  "FEM_Magnetics": {
    "scripts": [
     {
-     "script": "uq_baseline.py",
+     "script": "run_fem_magnetics.py",
      "status": "PASS",
-     "wall_s": 32.7,
-     "tail": "uns, 8 s\nconvergence study: 16 s\ntotal model runs 107683, 22 s\ndone in 27 s\neta_nom: nominal 98.643, MC mean 98.606 std 0.048 q05 98.527 q95 98.682\nSobol ST eta_nom (PCE): {'kL': np.float64(0.141), 'kCoss': np.float64(0.0), 'kRds': np.float64(0.257), 'kCore': np.float64(0.524), 'Tamb': np.float64(0.079)}  Saltelli: {'kL': np.float64(0.139), 'kCoss': np.float64(0.0), 'kRds': np.float64(0.262), 'kCore': np.float64(0.499), 'Tamb': np.float64(0.082)}\nSobol ST zvs1 (PCE): {'kL': np.float64(0.89), 'kCoss': np.float64(0.11), 'kRds': np.float64(0.0), 'kCore': np.float64(0.0), 'Tamb': np.float64(0.0)}\n"
+     "wall_s": 61.4,
+     "tail": "3  Llk=  0.455 uH  cost~  190 EUR  fits=True  pareto=False\n  P4 2xELP64 16:8 3 boards PPPPSS                              P=  37.5 W  V=   172 cm3  Llk=  1.205 uH  cost~  264 EUR  fits=True  pareto=False\n  P5 2xELP64 16:8 4 boards PSPSPP 0.21mm P-S (basic ins.)      P=  30.3 W  V=   172 cm3  Llk=  0.135 uH  cost~  338 EUR  fits=True  pareto=True\n  P6 2xELP64 16:8 4 boards PSPSPP 0.42mm P-S                   P=   nan W  V=   nan cm3  Llk=    nan uH  cost~  nan EUR  fits=False  pareto=False\n\nwall time 60.6 s; results in /home/user/SiC-DC-DC-Converter/Advanced_Research_2026/FEM_Magnetics/results\n"
     }
    ],
    "results": {
-    "convergence.png": {
-     "sha256_16": "899f6f8aa89f1d61",
-     "bytes": 231625
+    "fem_results.json": {
+     "sha256_16": "59097ded4c4a9838",
+     "bytes": 22696
     },
-    "corner_analysis.csv": {
-     "sha256_16": "9bbffad3a6647b3f",
-     "bytes": 16733
+    "fig_field_planar.png": {
+     "sha256_16": "dc8fe8387d9cff78",
+     "bytes": 436351
     },
-    "histograms.png": {
-     "sha256_16": "24d28b4fe55f4192",
-     "bytes": 291483
+    "fig_field_wound_interleaved.png": {
+     "sha256_16": "61987f99be4fc85d",
+     "bytes": 359521
     },
-    "mc_samples.csv": {
-     "sha256_16": "93d3b7cd1e0008b6",
-     "bytes": 2001348
+    "fig_field_wound_noninterleaved.png": {
+     "sha256_16": "07ac3bf940609c41",
+     "bytes": 336269
     },
-    "pce_coefficients_order3.csv": {
-     "sha256_16": "10ff5434e859924c",
-     "bytes": 10475
+    "fig_pareto.png": {
+     "sha256_16": "80d7e34de6711631",
+     "bytes": 102891
+    },
+    "fig_validation_convergence.png": {
+     "sha256_16": "e86deb3c462d061d",
+     "bytes": 51786
+    },
+    "pareto_variants.csv": {
+     "sha256_16": "1adc2992d92e211a",
+     "bytes": 2585
     },
     "run_log.txt": {
-     "sha256_16": "54d18f547f8d7ae8",
-     "bytes": 1213
+     "sha256_16": "dd493faa17e66f0f",
+     "bytes": 4860
     },
-    "sobol_convergence.png": {
-     "sha256_16": "4bd6780701c0dc3e",
-     "bytes": 130456
+    "validation_dowell.csv": {
+     "sha256_16": "717bbd848069a347",
+     "bytes": 196
     },
-    "sobol_indices.png": {
-     "sha256_16": "470cf71b8acd3d3e",
-     "bytes": 179398
-    },
-    "uq_summary.json": {
-     "sha256_16": "f24d524ab0148e2d",
-     "bytes": 53186
+    "validation_leakage_convergence.csv": {
+     "sha256_16": "f683043f51d52e2a",
+     "bytes": 504
     }
    }
   },
-  "Physics_Informed_Models": {
+  "Parasitic_Extraction": {
    "scripts": [
     {
-     "script": "surrogate_comparison.py",
+     "script": "extract_parasitics.py",
      "status": "PASS",
-     "wall_s": 113.3,
-     "tail": " 2.641 3.806 3.699]  (1.2 s)\nGP_rbf n=864: rmse % range [0.233 0.792 2.077 3.26  1.72 ]  (2.1 s)\nGP_rbf n=3200: rmse % range [0.132 0.441 1.685 1.032 0.938]  (3.5 s)\nGP_rbf n=6912: rmse % range [0.12  0.331 1.72  0.979 0.736]  (3.3 s)\ndone in 112 s\n[\n[\n\"A2_analytic_tps_piecewise\",\n0.11597863672974003\n],\n[\n\"MLP_plain\",\n0.588954214624976\n],\n[\n\"HYB_sps_plus_residual\",\n0.6458554880990485\n],\n[\n\"PINN_physics_loss\",\n0.7966754722815151\n],\n[\n\"LUT_multilinear\",\n1.5653454877243376\n],\n[\n\"GP_rbf\",\n1.7200313751181298\n],\n[\n\"P3_polynomial\",\n3.0971741786504614\n],\n[\n\"A1_sps_closed_form\",\n29.073446881741276\n]\n]\n"
+     "wall_s": 9.0,
+     "tail": " A, tf=10 ns: L di/dt = 54 V, Z0 bound = 174 V -> Vos ~ 54 V, Vds,pk = 504 V, margin to 1200 V = 696 V\n  LV_leg_C L=28 nH C3M0016120K: Vdc=450 V, I=39.2 A, tf=10 ns: L di/dt = 109 V, Z0 bound = 350 V -> Vos ~ 109 V, Vds,pk = 559 V, margin to 1200 V = 641 V\n  LV_leg_C L=28 nH C3M0016120K: Vdc=450 V, I=64.0 A, tf=10 ns: L di/dt = 179 V, Z0 bound = 571 V -> Vos ~ 179 V, Vds,pk = 629 V, margin to 1200 V = 571 V\n\n== (d) literature comparison written (typical ranges, not measured here) ==\n\nwall time 8.2 s; results in /home/user/SiC-DC-DC-Converter/Advanced_Research_2026/Parasitic_Extraction/results\n"
     }
    ],
    "results": {
-    "extrapolation_set.csv": {
-     "sha256_16": "cdb041b290e0b474",
-     "bytes": 100532
+    "fig_loop_geometry_HV.png": {
+     "sha256_16": "256406434c09cc81",
+     "bytes": 67815
     },
-    "fig_data_efficiency.png": {
-     "sha256_16": "455211f0296bda84",
-     "bytes": 171332
+    "fig_overshoot.png": {
+     "sha256_16": "c046906e9ad7c6f6",
+     "bytes": 89897
     },
-    "fig_extrapolation.png": {
-     "sha256_16": "9aa7f7388cbf1d88",
-     "bytes": 64343
+    "gate_loop_sensitivity.csv": {
+     "sha256_16": "a8aad0fd657d8ebd",
+     "bytes": 365
     },
-    "fig_parity.png": {
-     "sha256_16": "4a0699af7c7196ef",
-     "bytes": 174860
+    "literature_comparison.csv": {
+     "sha256_16": "73f88833d6e83f7a",
+     "bytes": 777
     },
-    "ground_truth_grid_6x6x12x4x4.csv": {
-     "sha256_16": "38cb2213cc5e0070",
-     "bytes": 1735057
+    "loop_segments.csv": {
+     "sha256_16": "e2d2d2dd89752929",
+     "bytes": 4705
     },
-    "metrics.json": {
-     "sha256_16": "68fa58623525bfac",
-     "bytes": 26747
+    "overshoot.csv": {
+     "sha256_16": "850804de39038411",
+     "bytes": 4107
     },
-    "metrics_table.md": {
-     "sha256_16": "5555cbeac43a040d",
-     "bytes": 2693
+    "parasitics.json": {
+     "sha256_16": "7e9a33113a2d695e",
+     "bytes": 35481
     },
-    "parity_A2_test.csv": {
-     "sha256_16": "95a997e37141369e",
-     "bytes": 504323
+    "run_log.txt": {
+     "sha256_16": "648bae20a6981e19",
+     "bytes": 9239
     },
-    "parity_GP_rbf_test.csv": {
-     "sha256_16": "cbb883089659d982",
-     "bytes": 504322
-    },
-    "parity_HYB_sps_plus_residual_test.csv": {
-     "sha256_16": "94ae643615cde1b8",
-     "bytes": 504319
-    },
-    "parity_LUT_multilinear_test.csv": {
-     "sha256_16": "b3aa13523c4e4e4e",
-     "bytes": 504290
-    },
-    "parity_MLP_plain_test.csv": {
-     "sha256_16": "c0e76bba0340150d",
-     "bytes": 504335
-    },
-    "parity_P3_polynomial_test.csv": {
-     "sha256_16": "d3693fce0e6a378b",
-     "bytes": 504335
-    },
-    "parity_PINN_physics_loss_test.csv": {
-     "sha256_16": "989e32b5bee589b7",
-     "bytes": 504332
-    },
-    "test_set_random.csv": {
-     "sha256_16": "0be2f297ac872b28",
-     "bytes": 502249
+    "sensitivity.csv": {
+     "sha256_16": "f8339320e8175248",
+     "bytes": 746
     }
    }
   },
-  "Safe_RL_Research": {
+  "SiC_Health_Monitoring": {
    "scripts": [
     {
-     "script": "safe_rl_modulation.py",
+     "script": "01_generate_synthetic_data.py",
      "status": "PASS",
-     "wall_s": 168.0,
-     "tail": " \"mean_abs_P_err_pct\": 2.11921726805006\n }\n}\ntransient: {\n \"PI_EPS\": {\n  \"dip_V\": 1.464951983896583,\n  \"settle_ms\": 0.009999999998746689,\n  \"max_ipk\": 12.018331771733235,\n  \"fallback_periods\": 0,\n  \"filter_rejected\": 0,\n  \"filter_calls\": 0\n },\n \"PI_with_M1_duties\": {\n  \"dip_V\": 1.4964634573433386,\n  \"settle_ms\": 0.009999999998746689,\n  \"max_ipk\": 12.06792383972916,\n  \"fallback_periods\": 377,\n  \"filter_rejected\": 3,\n  \"filter_calls\": 223\n },\n \"note\": \"CV mode, 800/400 V, 50->100 % resistive step at 2 ms; phi from the PI, duties from EPS or from the M1 policy through the filter\"\n}\ndone in 167 s\n"
+     "wall_s": 1.9,
+     "tail": "{\n \"A_calibrated\": 157573.76334410667,\n \"EOL_hour_degrading\": 21899,\n \"dR_pct_at_3y_degrading\": 7.076736374881443,\n \"dVth_V_at_3y\": 0.19370066623022084,\n \"Tj_range_C\": [\n  20.468485935119777,\n  52.71446622785785\n ]\n}\nwall 1.3 s\n"
+    },
+    {
+     "script": "02_estimators_and_detection.py",
+     "status": "PASS",
+     "wall_s": 5.5,
+     "tail": "heatsink_ntc\": {\n  \"T_error_mean_K\": 0.9362484650728164,\n  \"T_error_std_K\": 1.1228253069575445,\n  \"compensated_weekly_std_pct\": 0.24116100741686386,\n  \"kalman_final_dR_pct\": 6.655876276501882,\n  \"true_final_dR_pct\": 7.076736374881443,\n  \"rls_tempco_final_mOhm_per_125K\": 19.873659319664316\n },\n \"case_sensor\": {\n  \"T_error_mean_K\": 0.528181380519702,\n  \"T_error_std_K\": 0.5760156879308724,\n  \"compensated_weekly_std_pct\": 0.24722557077615756,\n  \"kalman_final_dR_pct\": 6.457283522652535,\n  \"true_final_dR_pct\": 7.076736374881443,\n  \"rls_tempco_final_mOhm_per_125K\": 20.007988064262978\n }\n}\nwall 4.9 s\n"
     }
    ],
    "results": {
-    "fig_rl_vs_analytical.png": {
-     "sha256_16": "a9da6c2e7708dbe1",
-     "bytes": 159758
+    "SYNTHETIC_generator_params.json": {
+     "sha256_16": "506ddd00dac3a367",
+     "bytes": 1144
     },
-    "fig_transient.png": {
-     "sha256_16": "a9ed0a81c1f41897",
-     "bytes": 69062
+    "SYNTHETIC_meas_degrading_case_sensor.csv": {
+     "sha256_16": "27d909dc694f39f0",
+     "bytes": 718511
     },
-    "m1_policy_theta.npy": {
-     "sha256_16": "cb49944768f54f0f",
-     "bytes": 1048
+    "SYNTHETIC_meas_degrading_heatsink_ntc.csv": {
+     "sha256_16": "d5e5f144d1162960",
+     "bytes": 718448
     },
-    "m2_logits.npy": {
-     "sha256_16": "f164f44297927a33",
-     "bytes": 3728
+    "SYNTHETIC_meas_degrading_junction_model.csv": {
+     "sha256_16": "469f7f31151e6dd8",
+     "bytes": 718339
     },
-    "results_table.md": {
-     "sha256_16": "462f44d864772ebb",
-     "bytes": 3963
+    "SYNTHETIC_meas_healthy_case_sensor.csv": {
+     "sha256_16": "c5af8f56213f7224",
+     "bytes": 718901
     },
-    "rl_results.json": {
-     "sha256_16": "46c8e0e5817cbfa2",
-     "bytes": 62647
+    "SYNTHETIC_meas_healthy_heatsink_ntc.csv": {
+     "sha256_16": "9bff3c468f25b2eb",
+     "bytes": 718847
+    },
+    "SYNTHETIC_meas_healthy_junction_model.csv": {
+     "sha256_16": "7b1177c3626588b6",
+     "bytes": 718760
+    },
+    "SYNTHETIC_mission_degrading.csv": {
+     "sha256_16": "fa74aeaa7f1ccd5d",
+     "bytes": 892265
+    },
+    "SYNTHETIC_mission_healthy.csv": {
+     "sha256_16": "a0ca835fe3c47bce",
+     "bytes": 892518
+    },
+    "SYNTHETIC_truth_degrading.csv": {
+     "sha256_16": "e1850ae44549f835",
+     "bytes": 1974818
+    },
+    "SYNTHETIC_truth_healthy.csv": {
+     "sha256_16": "8e6910c5a0799eac",
+     "bytes": 1462199
+    },
+    "detection_results.json": {
+     "sha256_16": "895b7d442d2f5a4e",
+     "bytes": 9564
+    },
+    "detection_tables.md": {
+     "sha256_16": "48879be6cec4ad06",
+     "bytes": 2409
+    },
+    "fig_detection_vs_false_alarm.png": {
+     "sha256_16": "f518fb03be33153e",
+     "bytes": 110696
+    },
+    "fig_estimators_demo.png": {
+     "sha256_16": "db935f90e7d80f4d",
+     "bytes": 244080
+    },
+    "fig_sensor_requirement.png": {
+     "sha256_16": "bc27eafc706d511a",
+     "bytes": 80543
+    },
+    "fig_synthetic_truth.png": {
+     "sha256_16": "b4685e6a3d519d23",
+     "bytes": 176673
+    },
+    "provenance.json": {
+     "sha256_16": "e8c678d5cba78e97",
+     "bytes": 1224
+    },
+    "provenance_generator.json": {
+     "sha256_16": "30bcb5316d48c701",
+     "bytes": 1123
+    }
+   }
+  },
+  "Active_Gate_Drive": {
+   "scripts": [
+    {
+     "script": "gate_drive_analysis.py",
+     "status": "PASS",
+     "wall_s": 2.0,
+     "tail": "teau / 10 Ohm plateau) concept | 6.8/4.3 | 221.8 | 22.18 | 14.4 | 15.0/- | no gain (capacitive) | -/- | - | - | - |\n{\n \"C3M0032120K\": {\n  \"zvs_dvdt_nom_Vns\": 15.2,\n  \"zvs_dvdt_worst_Vns\": 30.6,\n  \"crosstalk_margin_worst_minus3V\": -0.07,\n  \"crosstalk_margin_worst_minus4V\": 0.93,\n  \"hard_P_per_edge_W\": 9.1,\n  \"zvs_E_off_model_uJ\": 0.155\n },\n \"C3M0016120K\": {\n  \"zvs_dvdt_nom_Vns\": 15.0,\n  \"zvs_dvdt_worst_Vns\": 30.1,\n  \"crosstalk_margin_worst_minus3V\": -3.02,\n  \"crosstalk_margin_worst_minus4V\": -2.02,\n  \"hard_P_per_edge_W\": 7.59,\n  \"zvs_E_off_model_uJ\": 0.305\n }\n}\nZVS share of envelope grid: 0.52\n"
+    }
+   ],
+   "results": {
+    "fig_crosstalk_margin.png": {
+     "sha256_16": "8e79db959f4cd30e",
+     "bytes": 168752
+    },
+    "fig_dvdt_vs_rg.png": {
+     "sha256_16": "4061e4eeaa5348ab",
+     "bytes": 107139
+    },
+    "fig_loss_vs_rg.png": {
+     "sha256_16": "cca753af8561f2bd",
+     "bytes": 102346
+    },
+    "fig_tradeoff_map.png": {
+     "sha256_16": "0caaa993d70693a5",
+     "bytes": 106087
+    },
+    "gate_drive_results.json": {
+     "sha256_16": "3e031604bf2ef05c",
+     "bytes": 66948
+    },
+    "option_table.md": {
+     "sha256_16": "7995bfe041fbfb3d",
+     "bytes": 2354
+    },
+    "provenance.json": {
+     "sha256_16": "fc3cb05881434bb3",
+     "bytes": 747
+    }
+   }
+  },
+  "Reliability_Engineering": {
+   "scripts": [
+    {
+     "script": "fta.py",
+     "status": "PASS",
+     "wall_s": 1.0,
+     "tail": "TIM | 3 | 1.72e-11 | 1.0 % |\n| HOST AND NTC AND TIM | 3 | 1.21e-11 | 0.7 % |\n| HOST AND MCU AND TIM | 3 | 8.59e-12 | 0.5 % |\n| AMB_HI AND FW_OT AND HOST | 3 | 3.70e-12 | 0.2 % |\n| AMB_HI AND HOST AND MCU | 3 | 1.85e-12 | 0.1 % |\n\nFussell-Vesely importance (top 6): HOST 1.00, FAN 0.83, NTC 0.80, FW_OT 0.13, CLOG 0.11, MCU 0.07\n\n## TE2 with the UCC21710 (DESAT) upgrade, DESAT coverage 99 % assumed\nfrequency 1.94e-06 /year (rev A: 1.93e-04), ratio 99.2\n\n## TE2 with a CT plausibility check: frequency 1.93e-04 /year\n## TE3 with an NTC plausibility check: frequency 3.82e-10 /year (rev A: 1.68e-09)\n\n"
+    },
+    {
+     "script": "fmeda_lite.py",
+     "status": "PASS",
+     "wall_s": 0.1,
+     "tail": "CT plausibility: |i_pk| vs the SPS power model at the commanded phi (OC: CT open/short, rectifier); (2) comparator pulse test at start-up: inject a test level into the LM393 inputs through a DAC/GPIO and expect PROT_DIS (OV/OC comparators, 74HC32, TZ arming); (3) NTC plausibility: heatsink temperature vs the loss model and vs the second NTC (OT: NTC open); (4) V1/V2 cross-check: V2 x n vs V1 at the EPS matching point and the HV/LV power balance (AMC gain drift); (5) flash/RAM CRC of the parameter block (threshold corruption); (6) DESAT driver upgrade (UCC21710) for the short-circuit function.\n"
+    },
+    {
+     "script": "state_machine_check.py",
+     "status": "PASS",
+     "wall_s": 1.6,
+     "tail": "_WAIT | ['hw_trip', 'pc_timeout', 'enable'] | 32 |\n| INIT | FAULT | INIT | ['driver_fault', 'hw_trip', 'pc_timeout'] | 32 |\n| INIT | FAULT | PRECHARGE_WAIT | ['driver_fault', 'hw_trip', 'pc_timeout', 'enable'] | 32 |\n| SOFTSTART | FAULT | INIT | ['driver_fault'] | 16 |\n| SOFTSTART | FAULT | INIT | ['hw_trip'] | 16 |\n| SOFTSTART | FAULT | INIT | ['driver_fault', 'hw_trip'] | 16 |\n\nSIL harness (10_Firmware/sil/sil_main.c, compiled with gcc in a scratch directory): {'status': 'RUN', 'exit_code': 0, 'n_pass': 30, 'n_fail': 0, 'result_line': ['RESULT: ALL PASS (0 failures)'], 'build_warnings': ''}\n"
+    }
+   ],
+   "results": {
+    "fig_fta_cutsets.png": {
+     "sha256_16": "0084e933fdc07951",
+     "bytes": 110167
+    },
+    "fmeda_lite.csv": {
+     "sha256_16": "d292560a408705c7",
+     "bytes": 5280
+    },
+    "fmeda_lite.md": {
+     "sha256_16": "f6ac27ec33d0e972",
+     "bytes": 1648
+    },
+    "fmeda_summary.json": {
+     "sha256_16": "e5f0e7c8c543cb62",
+     "bytes": 715
+    },
+    "fta_cutsets.json": {
+     "sha256_16": "ce7eb0c92f12d29e",
+     "bytes": 36928
+    },
+    "fta_cutsets.md": {
+     "sha256_16": "aab4f0bea323dbfa",
+     "bytes": 3663
+    },
+    "fta_trees.md": {
+     "sha256_16": "c1ee1091714c30d1",
+     "bytes": 4834
+    },
+    "provenance_fmeda.json": {
+     "sha256_16": "b2860d70c5bbee90",
+     "bytes": 351
+    },
+    "provenance_fta.json": {
+     "sha256_16": "e49c5248a7183173",
+     "bytes": 382
+    },
+    "provenance_sm.json": {
+     "sha256_16": "268402dacb6a37fc",
+     "bytes": 745
+    },
+    "sil_harness_output.txt": {
+     "sha256_16": "e98e64d9b122ee93",
+     "bytes": 1917
+    },
+    "state_machine_report.md": {
+     "sha256_16": "c87cb2f0d8f81792",
+     "bytes": 2211
+    },
+    "state_machine_results.json": {
+     "sha256_16": "39f38b3757355f71",
+     "bytes": 10141
+    }
+   }
+  },
+  "HIL_Validation": {
+   "scripts": [
+    {
+     "script": "sil_fault_injection.py",
+     "status": "PASS",
+     "wall_s": 51.7,
+     "tail": "ip 10 % (720 V) for 20 ms in RUN :: {'fault': None, 'hw': None, 'v2_dev_max': 0.1346562729327161}\nT16 PASS enable removed during RUN at 60 ms :: {'fault': None, 'hw': None, 'state_end': 'INIT'}\nT17 PASS precharge feedback never true :: {'fault': None, 'hw': None, 'state_end': 'PRECHARGE_WAIT'}\nT18 PASS heatsink NTC reads 110 C at 60 ms (sensor short or real over-temperature) :: {'fault': 'OT', 'hw': None, 'delay_periods': 1}\nT19 PASS i_pk sensor stuck low (CT open, reads 0) during a load short at 60 ms :: {'fault': 'V2_UV', 'hw': None, 'ipk_true_max': 22.82790926544085}\n\n19/19 PASS, wall 51 s\n"
+    }
+   ],
+   "results": {
+    "fig_sil_traces.png": {
+     "sha256_16": "ace5916c7c0a83f4",
+     "bytes": 307085
+    },
+    "provenance.json": {
+     "sha256_16": "c520540a5ba8e757",
+     "bytes": 675
+    },
+    "sil_results.csv": {
+     "sha256_16": "7df43a62b2202451",
+     "bytes": 4546
+    },
+    "sil_results.json": {
+     "sha256_16": "54f8c2fa942b53f7",
+     "bytes": 7134
+    },
+    "sil_results.md": {
+     "sha256_16": "c45d0e1148fb3fc4",
+     "bytes": 3980
+    }
+   }
+  },
+  "Cybersecurity": {
+   "scripts": [
+    {
+     "script": "cmac_replay_demo.py",
+     "status": "PASS",
+     "wall_s": 0.1,
+     "tail": "4800000435527fe8ac64a886de` | accept: MODE_CP arg=-3000 ctr=1077 |\n| CLR_FAULT with a valid MAC and counter (accepted - authentication does not make the command safe, the state machine still re-faults if the condition persists) | `0400000000000436820357f0a627f5c9` | accept: CLR_FAULT arg=0 ctr=1078 |\n| after a reboot with the persisted counter: last valid frame replayed | `0400000000000436820357f0a627f5c9` | reject: replay / stale counter |\n| after the reboot: fresh counter ahead of the jump-ahead value | `0100000100000469d36f489f1c9a9d1c` | accept: EN arg=1 ctr=1129 |\n\nDemo expectations met.\n"
+    }
+   ],
+   "results": {
+    "cmac_test_vectors.json": {
+     "sha256_16": "29ab25343fd6b164",
+     "bytes": 3608
+    },
+    "demo_log.md": {
+     "sha256_16": "3673959651667951",
+     "bytes": 2219
+    },
+    "provenance.json": {
+     "sha256_16": "89ad5aa740513a0a",
+     "bytes": 330
+    }
+   }
+  },
+  "Multiphysics_Models": {
+   "scripts": [
+    {
+     "script": "electro_thermal_aging.py",
+     "status": "PASS",
+     "wall_s": 2.6,
+     "tail": "/ 4.2 | 18 | 23.7 | 581 | 1.000 | 180.08 / 4478.87 | 130.70 / 5304.80 |\n| slew_limited | 63.4 / 41.4 | 50.8 / 38.4 | 37.5 / 24.2 | 20 | 24.1 | 590 | 0.988 | 0.91 / 1.00 | 0.93 / 1.00 |\n| fan_control | 62.9 / 45.6 | 56.7 / 42.8 | 35.4 / 28.9 | 16 | 24.1 | 581 | 1.000 | 0.91 / 0.39 | 1.06 / 0.68 |\n\nElectro-thermal feedback: mean losses 23.9 W with Rds_on(Tj) vs 23.3 W at 25 C (+2.9 %).\nAging feedback (+5 % Rds_on, forced air): losses +1.6 %, daily damage proxy +0.6 % (LESIT, HV) / +0.4 % (Bayerer, HV) - self-acceleration is weak because Tj - Tcase is only a few kelvin in this design.\nwall 2.0 s\n"
+    }
+   ],
+   "results": {
+    "fig_coupling_diagram.png": {
+     "sha256_16": "4185652ef77b0d27",
+     "bytes": 96233
+    },
+    "fig_lifetime_ratio.png": {
+     "sha256_16": "c06b1ed4a3587bf7",
+     "bytes": 57962
+    },
+    "fig_mission.png": {
+     "sha256_16": "b11eff845521933e",
+     "bytes": 86400
+    },
+    "fig_rainflow.png": {
+     "sha256_16": "db241a84bfc5e676",
+     "bytes": 58791
+    },
+    "fig_tj_traces.png": {
+     "sha256_16": "322b9164e044187f",
+     "bytes": 157535
+    },
+    "lifetime_proxy.json": {
+     "sha256_16": "b17f7c76686c8be4",
+     "bytes": 4713
+    },
+    "lifetime_table.md": {
+     "sha256_16": "606bd6b86be287d6",
+     "bytes": 1205
+    },
+    "mission_profile.csv": {
+     "sha256_16": "ee7e2b14ff972331",
+     "bytes": 40496
+    },
+    "provenance.json": {
+     "sha256_16": "4c3425cadc49e19b",
+     "bytes": 1182
+    },
+    "rainflow_fan_control.csv": {
+     "sha256_16": "781c0f07f9bca2a0",
+     "bytes": 824
+    },
+    "rainflow_forced_air.csv": {
+     "sha256_16": "36b6d3ea7b9ffa8b",
+     "bytes": 743
+    },
+    "rainflow_liquid.csv": {
+     "sha256_16": "b2675c0af92bb719",
+     "bytes": 952
+    },
+    "rainflow_natural.csv": {
+     "sha256_16": "9e167eae03f61b84",
+     "bytes": 736
+    },
+    "rainflow_slew_limited.csv": {
+     "sha256_16": "95ecdc98bb165e01",
+     "bytes": 917
+    },
+    "thermal_traces_fan_control.csv": {
+     "sha256_16": "01aea356241aae83",
+     "bytes": 72500
+    },
+    "thermal_traces_forced_air.csv": {
+     "sha256_16": "74dd73ff1d179bad",
+     "bytes": 73392
+    },
+    "thermal_traces_liquid.csv": {
+     "sha256_16": "0b3454a863b1f2d0",
+     "bytes": 73275
+    },
+    "thermal_traces_natural.csv": {
+     "sha256_16": "2cf724f5ca59026b",
+     "bytes": 68998
+    },
+    "thermal_traces_slew_limited.csv": {
+     "sha256_16": "266a649f9716c3b0",
+     "bytes": 73405
+    }
+   }
+  },
+  "Adaptive_MPC": {
+   "scripts": [
+    {
+     "script": "build_explicit_mpc.py",
+     "status": "PASS",
+     "wall_s": 4.9,
+     "tail": "grid (33, 9, 23), 6831 nodes, solver time 3.1 s, convergence 600 vs 1200 it: 0.0002 deg\n{\n \"max\": 0.8487993552773161,\n \"rms\": 0.1379286792105026,\n \"p99\": 0.5470416844478477,\n \"pwm_step_deg\": 0.36000000000000004,\n \"n_samples\": 3000\n} saturated fraction 0.3027375201288245\ndone in 4.3 s\n"
+    },
+    {
+     "script": "run_benchmarks.py",
+     "status": "PASS",
+     "wall_s": 216.8,
+     "tail": " 2.07 us    20.7 % of ISR\nWCET CCS-MPC                2467 ops    5804 cycles   29.02 us   290.2 % of ISR\nWCET FCS-MPC                8040 ops   19654 cycles   98.27 us   982.7 % of ISR\nWCET Explicit-MPC            136 ops     466 cycles    2.33 us    23.3 % of ISR\nWCET Adaptive-MPC           2812 ops    6650 cycles   33.25 us   332.5 % of ISR\nWCET Robust-MPC             2467 ops    5804 cycles   29.02 us   290.2 % of ISR\nWCET CCS-MPC N=5 K=10        897 ops    2224 cycles   11.12 us   111.2 % of ISR\nWCET CCS-MPC N=8 K=40       4767 ops   11044 cycles   55.22 us   552.2 % of ISR\ndone in 216 s\n"
+    },
+    {
+     "script": "run_adaptive_robust.py",
+     "status": "PASS",
+     "wall_s": 74.7,
+     "tail": " 22.19 A  violations(24 A) 0  hw(32 A) 0\nL = 1.0 L_nom  Robust-MPC    peak dev 0.157 %  Ipk 19.43 A  violations(24 A) 0  hw(32 A) 0\nL = 1.0 L_nom  PI            peak dev 1.219 %  Ipk 17.73 A  violations(24 A) 0  hw(32 A) 0\nL = 1.2 L_nom  CCS-MPC       peak dev 0.175 %  Ipk 20.10 A  violations(24 A) 0  hw(32 A) 0\nL = 1.2 L_nom  Adaptive-MPC  peak dev 0.168 %  Ipk 20.13 A  violations(24 A) 0  hw(32 A) 0\nL = 1.2 L_nom  Robust-MPC    peak dev 1.758 %  Ipk 16.58 A  violations(24 A) 0  hw(32 A) 0\nL = 1.2 L_nom  PI            peak dev 4.879 %  Ipk 14.55 A  violations(24 A) 0  hw(32 A) 0\ndone in 74 s\n"
+    },
+    {
+     "script": "zvs_maps.py",
+     "status": "PASS",
+     "wall_s": 105.3,
+     "tail": "        fwd hard  41.6 %  rev hard  41.0 %  fwd worst corner 650/300 V up to 100 % load\nnominal/EPS            fwd hard  47.0 %  rev hard  46.7 %  fwd worst corner 650/450 V up to 80 % load\nnominal/SPS            fwd hard  46.3 %  rev hard  46.0 %  fwd worst corner 650/450 V up to 90 % load\nworst/EPS              fwd hard  43.8 %  rev hard  43.2 %  fwd worst corner 650/300 V up to 100 % load\nworst/SPS              fwd hard  42.7 %  rev hard  42.4 %  fwd worst corner 650/300 V up to 100 % load\nedge current for 150 ns: {'HV_800V': 2.6666666666666665, 'LV_400V': 2.8000000000000003}\ndone in 104 s\n"
+    }
+   ],
+   "results": {
+    "adaptive_rls_convergence.png": {
+     "sha256_16": "80995a0421c8f817",
+     "bytes": 98394
+    },
+    "adaptive_robust_constraints.png": {
+     "sha256_16": "ca7c561bd2719b00",
+     "bytes": 170472
+    },
+    "adaptive_robust_metrics.csv": {
+     "sha256_16": "c56a034f82ba628d",
+     "bytes": 2383
+    },
+    "adaptive_summary.json": {
+     "sha256_16": "2f4146b276931e07",
+     "bytes": 7262
+    },
+    "benchmark_ccs_r_sweep.csv": {
+     "sha256_16": "3796cad56c35d142",
+     "bytes": 1242
+    },
+    "benchmark_ccs_r_sweep.png": {
+     "sha256_16": "5a895aea509652a9",
+     "bytes": 78444
+    },
+    "benchmark_metrics.csv": {
+     "sha256_16": "6aa14c119f6664fc",
+     "bytes": 6811
+    },
+    "benchmark_metrics_bars.png": {
+     "sha256_16": "b7e3697d5ef28bbf",
+     "bytes": 131972
+    },
+    "benchmark_modulators.csv": {
+     "sha256_16": "3726fde9f944fdb9",
+     "bytes": 1782
+    },
+    "benchmark_modulators.png": {
+     "sha256_16": "d2e866dfc09771e3",
+     "bytes": 161874
+    },
+    "benchmark_step_load_step_down.png": {
+     "sha256_16": "4d7cee1919d5d725",
+     "bytes": 259630
+    },
+    "benchmark_step_load_step_up.png": {
+     "sha256_16": "eaf3d1171164b122",
+     "bytes": 266263
+    },
+    "benchmark_step_reversal.png": {
+     "sha256_16": "4d85a5744474bad3",
+     "bytes": 127984
+    },
+    "benchmark_step_soft_start.png": {
+     "sha256_16": "726d9c49a183f6ff",
+     "bytes": 239357
+    },
+    "benchmark_step_v1_step.png": {
+     "sha256_16": "0ac1c4f52df048f4",
+     "bytes": 231910
+    },
+    "benchmark_summary.json": {
+     "sha256_16": "a4a71c3341868820",
+     "bytes": 21884
+    },
+    "c2000_feasibility.json": {
+     "sha256_16": "42d35e4fe308f535",
+     "bytes": 4618
+    },
+    "empc_lut.npz": {
+     "sha256_16": "4473a33adfb3b14c",
+     "bytes": 56162
+    },
+    "empc_lut_meta.json": {
+     "sha256_16": "1c2d7b72d4a647de",
+     "bytes": 1477
+    },
+    "empc_lut_slices.png": {
+     "sha256_16": "f8404bed2910fa1a",
+     "bytes": 137958
+    },
+    "zvs_dead_time_summary.json": {
+     "sha256_16": "04a9741f9698350d",
+     "bytes": 302
+    },
+    "zvs_dead_time_table.csv": {
+     "sha256_16": "9793d195376463a1",
+     "bytes": 12029
+    },
+    "zvs_dead_time_table.png": {
+     "sha256_16": "9ac9b6d641f27a14",
+     "bytes": 87814
+    },
+    "zvs_maps.csv": {
+     "sha256_16": "ce82b844d126814e",
+     "bytes": 3183474
+    },
+    "zvs_maps_nominal.png": {
+     "sha256_16": "a30ae9f5bd0bf809",
+     "bytes": 527208
+    },
+    "zvs_maps_worst_tolerance.png": {
+     "sha256_16": "2189792be9c320d2",
+     "bytes": 537725
+    },
+    "zvs_min_load.png": {
+     "sha256_16": "6eba13f7a1227c0e",
+     "bytes": 199032
+    },
+    "zvs_summary.json": {
+     "sha256_16": "50cf636eb6177478",
+     "bytes": 8572
+    }
+   }
+  },
+  "Embedded_AI": {
+   "scripts": [
+    {
+     "script": "embedded_inference.py",
+     "status": "PASS",
+     "wall_s": 55.9,
+     "tail": "       141 ops    348 cycles   1.74 us  17.4 %\nWCET MLP 3-16-16-3 Q15 (int32 MAC, int64 acc)                      1231 ops   2596 cycles  12.98 us 129.8 %\nWCET MLP 3-16-16-3 float32 (FPU32)                                 1164 ops   2398 cycles  11.99 us 119.9 %\nWCET analytic SPS inverse + EPS matching (float)                     35 ops    118 cycles   0.59 us   5.9 %\nWCET PI + analytic inverse + EPS (firmware today)                    46 ops    144 cycles   0.72 us   7.2 %\nWCET observer + explicit LUT + EPS + DC-free (proposed ISR core)    133 ops    342 cycles   1.71 us  17.1 %\ndone in 55 s\n"
+    },
+    {
+     "script": "fixed_point_ref.py",
+     "status": "PASS",
+     "wall_s": 0.1,
+     "tail": "test_vectors_lut_q15.csv: 263 vectors, bit-exact match = True\ntest_vectors_mlp_q15.csv: 227 vectors, bit-exact match = True\n"
+    },
+    {
+     "script": "scheduling.py",
+     "status": "PASS",
+     "wall_s": 0.9,
+     "tail": "{\"cpu_load_estimate\": 0.367} ISR total us 3.2199999999999998\ndone in 0.4 s\n"
+    }
+   ],
+   "results": {
+    "embedded_report.json": {
+     "sha256_16": "758001cf5f75c8f0",
+     "bytes": 7701
+    },
+    "empc_lut_q15.npz": {
+     "sha256_16": "c350f25e42e268f6",
+     "bytes": 15524
+    },
+    "quantisation_errors.png": {
+     "sha256_16": "e4dcc31be4427969",
+     "bytes": 98692
+    },
+    "scheduling.json": {
+     "sha256_16": "e77d7c6ce57237ff",
+     "bytes": 2020
+    },
+    "scheduling_timing.png": {
+     "sha256_16": "8d1c5c9f3887baa4",
+     "bytes": 89553
+    },
+    "test_vectors_lut_q15.csv": {
+     "sha256_16": "a3361cc3def18efc",
+     "bytes": 6706
+    },
+    "test_vectors_mlp_q15.csv": {
+     "sha256_16": "6df21ce547eee746",
+     "bytes": 8520
+    },
+    "tps_eps_map_MODEL.csv": {
+     "sha256_16": "a407f90fc0c01143",
+     "bytes": 153397
+    },
+    "tps_map_vs_mlp.png": {
+     "sha256_16": "46bbec7925b9843b",
+     "bytes": 140873
+    },
+    "tps_mlp_q15.npz": {
+     "sha256_16": "a6628d9caa0afab1",
+     "bytes": 4898
+    },
+    "wcet_memory.png": {
+     "sha256_16": "b9c0084c76aef250",
+     "bytes": 81277
     }
    }
   },
@@ -198,7 +730,7 @@
     {
      "script": "robust_optimize.py",
      "status": "PASS",
-     "wall_s": 514.0,
+     "wall_s": 506.9,
      "tail": " },\n  \"dominating_examples\": \"...\"\n },\n \"survive\": {\n  \"robust\": {\n   \"n_nominal_front\": 305,\n   \"n_feasible_under_mode\": 55\n  },\n  \"cc\": {\n   \"n_nominal_front\": 305,\n   \"n_feasible_under_mode\": 73\n  },\n  \"nominal_strict\": {\n   \"n_nominal_front\": 305,\n   \"n_feasible_under_mode\": 120\n  },\n  \"robust_strict\": {\n   \"n_nominal_front\": 305,\n   \"n_feasible_under_mode\": 0\n  },\n  \"cc_strict\": {\n   \"n_nominal_front\": 305,\n   \"n_feasible_under_mode\": 0\n  }\n },\n \"hv\": {\n  \"nominal\": 0.69066,\n  \"robust\": 0.26713,\n  \"cc\": 0.52367,\n  \"nominal_strict\": 0.68038,\n  \"robust_strict\": 0.0,\n  \"cc_strict\": 0.0\n }\n}\n"
     }
    ],
@@ -256,7 +788,191 @@
      "bytes": 1009
     }
    }
+  },
+  "Uncertainty_Quantification": {
+   "scripts": [
+    {
+     "script": "uq_baseline.py",
+     "status": "PASS",
+     "wall_s": 28.6,
+     "tail": "uns, 8 s\nconvergence study: 16 s\ntotal model runs 107683, 23 s\ndone in 27 s\neta_nom: nominal 98.643, MC mean 98.606 std 0.048 q05 98.527 q95 98.682\nSobol ST eta_nom (PCE): {'kL': np.float64(0.141), 'kCoss': np.float64(0.0), 'kRds': np.float64(0.257), 'kCore': np.float64(0.524), 'Tamb': np.float64(0.079)}  Saltelli: {'kL': np.float64(0.139), 'kCoss': np.float64(0.0), 'kRds': np.float64(0.262), 'kCore': np.float64(0.499), 'Tamb': np.float64(0.082)}\nSobol ST zvs1 (PCE): {'kL': np.float64(0.89), 'kCoss': np.float64(0.11), 'kRds': np.float64(0.0), 'kCore': np.float64(0.0), 'Tamb': np.float64(0.0)}\n"
+    }
+   ],
+   "results": {
+    "convergence.png": {
+     "sha256_16": "899f6f8aa89f1d61",
+     "bytes": 231625
+    },
+    "corner_analysis.csv": {
+     "sha256_16": "9bbffad3a6647b3f",
+     "bytes": 16733
+    },
+    "histograms.png": {
+     "sha256_16": "24d28b4fe55f4192",
+     "bytes": 291483
+    },
+    "mc_samples.csv": {
+     "sha256_16": "93d3b7cd1e0008b6",
+     "bytes": 2001348
+    },
+    "pce_coefficients_order3.csv": {
+     "sha256_16": "10ff5434e859924c",
+     "bytes": 10475
+    },
+    "run_log.txt": {
+     "sha256_16": "54d18f547f8d7ae8",
+     "bytes": 1213
+    },
+    "sobol_convergence.png": {
+     "sha256_16": "4bd6780701c0dc3e",
+     "bytes": 130456
+    },
+    "sobol_indices.png": {
+     "sha256_16": "470cf71b8acd3d3e",
+     "bytes": 179398
+    },
+    "uq_summary.json": {
+     "sha256_16": "f24d524ab0148e2d",
+     "bytes": 53186
+    }
+   }
+  },
+  "Physics_Informed_Models": {
+   "scripts": [
+    {
+     "script": "surrogate_comparison.py",
+     "status": "PASS",
+     "wall_s": 111.9,
+     "tail": " 2.641 3.806 3.699]  (1.2 s)\nGP_rbf n=864: rmse % range [0.233 0.792 2.077 3.26  1.72 ]  (1.9 s)\nGP_rbf n=3200: rmse % range [0.132 0.441 1.685 1.032 0.938]  (3.4 s)\nGP_rbf n=6912: rmse % range [0.12  0.331 1.72  0.979 0.736]  (3.3 s)\ndone in 111 s\n[\n[\n\"A2_analytic_tps_piecewise\",\n0.11597863672974003\n],\n[\n\"MLP_plain\",\n0.588954214624976\n],\n[\n\"HYB_sps_plus_residual\",\n0.6458554880990485\n],\n[\n\"PINN_physics_loss\",\n0.7966754722815151\n],\n[\n\"LUT_multilinear\",\n1.5653454877243376\n],\n[\n\"GP_rbf\",\n1.7200313751181298\n],\n[\n\"P3_polynomial\",\n3.0971741786504614\n],\n[\n\"A1_sps_closed_form\",\n29.073446881741276\n]\n]\n"
+    }
+   ],
+   "results": {
+    "extrapolation_set.csv": {
+     "sha256_16": "cdb041b290e0b474",
+     "bytes": 100532
+    },
+    "fig_data_efficiency.png": {
+     "sha256_16": "455211f0296bda84",
+     "bytes": 171332
+    },
+    "fig_extrapolation.png": {
+     "sha256_16": "9aa7f7388cbf1d88",
+     "bytes": 64343
+    },
+    "fig_parity.png": {
+     "sha256_16": "4a0699af7c7196ef",
+     "bytes": 174860
+    },
+    "ground_truth_grid_6x6x12x4x4.csv": {
+     "sha256_16": "38cb2213cc5e0070",
+     "bytes": 1735057
+    },
+    "metrics.json": {
+     "sha256_16": "ef16854d9bc536fa",
+     "bytes": 26755
+    },
+    "metrics_table.md": {
+     "sha256_16": "740c018fd18aee26",
+     "bytes": 2694
+    },
+    "parity_A2_test.csv": {
+     "sha256_16": "95a997e37141369e",
+     "bytes": 504323
+    },
+    "parity_GP_rbf_test.csv": {
+     "sha256_16": "cbb883089659d982",
+     "bytes": 504322
+    },
+    "parity_HYB_sps_plus_residual_test.csv": {
+     "sha256_16": "94ae643615cde1b8",
+     "bytes": 504319
+    },
+    "parity_LUT_multilinear_test.csv": {
+     "sha256_16": "b3aa13523c4e4e4e",
+     "bytes": 504290
+    },
+    "parity_MLP_plain_test.csv": {
+     "sha256_16": "c0e76bba0340150d",
+     "bytes": 504335
+    },
+    "parity_P3_polynomial_test.csv": {
+     "sha256_16": "d3693fce0e6a378b",
+     "bytes": 504335
+    },
+    "parity_PINN_physics_loss_test.csv": {
+     "sha256_16": "989e32b5bee589b7",
+     "bytes": 504332
+    },
+    "test_set_random.csv": {
+     "sha256_16": "0be2f297ac872b28",
+     "bytes": 502249
+    }
+   }
+  },
+  "Safe_RL_Research": {
+   "scripts": [
+    {
+     "script": "safe_rl_modulation.py",
+     "status": "PASS",
+     "wall_s": 164.7,
+     "tail": " \"mean_abs_P_err_pct\": 2.11921726805006\n }\n}\ntransient: {\n \"PI_EPS\": {\n  \"dip_V\": 1.464951983896583,\n  \"settle_ms\": 0.009999999998746689,\n  \"max_ipk\": 12.018331771733235,\n  \"fallback_periods\": 0,\n  \"filter_rejected\": 0,\n  \"filter_calls\": 0\n },\n \"PI_with_M1_duties\": {\n  \"dip_V\": 1.4964634573433386,\n  \"settle_ms\": 0.009999999998746689,\n  \"max_ipk\": 12.06792383972916,\n  \"fallback_periods\": 377,\n  \"filter_rejected\": 3,\n  \"filter_calls\": 223\n },\n \"note\": \"CV mode, 800/400 V, 50->100 % resistive step at 2 ms; phi from the PI, duties from EPS or from the M1 policy through the filter\"\n}\ndone in 164 s\n"
+    }
+   ],
+   "results": {
+    "fig_rl_vs_analytical.png": {
+     "sha256_16": "a9da6c2e7708dbe1",
+     "bytes": 159758
+    },
+    "fig_transient.png": {
+     "sha256_16": "a9ed0a81c1f41897",
+     "bytes": 69062
+    },
+    "m1_policy_theta.npy": {
+     "sha256_16": "cb49944768f54f0f",
+     "bytes": 1048
+    },
+    "m2_logits.npy": {
+     "sha256_16": "f164f44297927a33",
+     "bytes": 3728
+    },
+    "results_table.md": {
+     "sha256_16": "462f44d864772ebb",
+     "bytes": 3963
+    },
+    "rl_results.json": {
+     "sha256_16": "be6529e0a00ef77a",
+     "bytes": 62647
+    }
+   }
+  },
+  "Research_Benchmarks": {
+   "scripts": [
+    {
+     "script": "benchmark_table.py",
+     "status": "PASS",
+     "wall_s": 1.3,
+     "tail": "   \"eta_full_pct\": 98.62273959273409,\n   \"eta_worst_corner_pct\": 97.92381156341922,\n   \"power_density_kW_L_estimate\": 1.1092436974789914,\n   \"boxed_volume_L\": 5.950000000000001\n  },\n  \"psfb\": {\n   \"eta_peak_pct\": 97.59417552423213,\n   \"eta_peak_load_pct\": 47.0,\n   \"eta_full_pct\": 97.05282908996797,\n   \"power_density_kW_L_estimate\": 1.1538461538461535,\n   \"boxed_volume_L\": 2.6000000000000005,\n   \"loss_split_W\": {\n    \"fixed\": 13.7,\n    \"linear\": 15.900000000000002,\n    \"quadratic\": 61.499999999999986,\n    \"total\": 91.1\n   }\n  }\n },\n \"literature_db_entries\": 57,\n \"literature_db_confirmed\": 43\n}\n"
+    }
+   ],
+   "results": {
+    "benchmark_summary.json": {
+     "sha256_16": "78ab17ea32679c7c",
+     "bytes": 993
+    },
+    "benchmark_table.csv": {
+     "sha256_16": "de6d6074d6b8f39c",
+     "bytes": 9832
+    },
+    "benchmark_table.md": {
+     "sha256_16": "22140a6a40441d76",
+     "bytes": 7971
+    },
+    "fig_benchmark.png": {
+     "sha256_16": "396684d65054b64a",
+     "bytes": 205063
+    }
+   }
   }
  },
- "finished": "2026-10-10T10:21:17.793673+00:00"
+ "finished": "2026-10-10T10:50:37.754166+00:00"
 }

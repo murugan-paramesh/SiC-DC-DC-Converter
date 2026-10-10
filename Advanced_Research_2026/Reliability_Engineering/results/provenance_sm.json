@@ -2,8 +2,8 @@
  "script": "state_machine_check.py",
  "python": "3.13.16",
  "gcc": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
- "git_commit": "ca67152a870b4e9fd4549005336dd91ef9fe1969",
- "wall_time_s": 1.45,
+ "git_commit": "274d294f786cdf507f8463dc5684d2ea92da2945",
+ "wall_time_s": 1.53,
  "deterministic": "exhaustive enumeration, no random numbers",
  "inputs": {
   "SiC_6k6_Industrial_DAB/10_Firmware/src/dab_control.c": "4141aceb9b2c680c",

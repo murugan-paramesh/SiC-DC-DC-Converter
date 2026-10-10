@@ -6,16 +6,16 @@
  "scipy": "1.18.1",
  "matplotlib": "3.11.2",
  "pcbnew": "7.0.11",
- "git_commit": "85c5adc518f0fe3613388e062a6890b08f332652",
+ "git_commit": "274d294f786cdf507f8463dc5684d2ea92da2945",
  "inputs": {
   "board (path used)": "/home/user/SiC-DC-DC-Converter/SiC_6k6_Industrial_DAB/07_KiCad_Schematics/SiC_DAB_6k6.kicad_pcb",
-  "board sha256": "cc570a39eabf5f589e47fbfb7d7e41bab7215cc5b875560410f28cc67a038fa3",
+  "board sha256": "6ae4d40c6917342dc8b31937d1edd92ce51b555e3eb378e530f124298e5b04eb",
   "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f42717ab0d2f0b414addf6a331caaf3d51323f78e73851ebde253",
   "SiC_6k6_Industrial_DAB/dabtools/dab/devices.py": "bccad660fcf2d85f548d2d60ce37535f034e495e5cd8f94a772d562c9cca3960",
   "SiC_6k6_Industrial_DAB/17_Manufacturing/stackup.md": "a186d8525c5d4669eb8046db08f72aa4374a12524abc48d844cd599993eaaf6e"
  },
- "wall_time_s": 3.7296977043151855,
- "generated": "2026-10-10 03:15:14",
+ "wall_time_s": 8.176677942276001,
+ "generated": "2026-10-10 10:28:19",
  "deterministic": true,
  "outputs": [
   "fig_loop_geometry_HV.png",

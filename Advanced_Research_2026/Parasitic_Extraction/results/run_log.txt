@@ -1,6 +1,6 @@
 board: /home/user/SiC-DC-DC-Converter/SiC_6k6_Industrial_DAB/07_KiCad_Schematics/SiC_DAB_6k6.kicad_pcb
-  footprints 261, zones 70, track segments 0, vias 0
-  pcbnew cross-check: {'available': True, 'version': '7.0.11', 'pads_compared': 731, 'max_pad_position_deviation_mm': 0.0, 'tracks_in_board': 0}
+  footprints 261, zones 70, track segments 2309, vias 446
+  pcbnew cross-check: {'available': True, 'version': '7.0.11', 'pads_compared': 731, 'max_pad_position_deviation_mm': 0.0, 'tracks_in_board': 2755}
   stack-up copper mid-depths (mm): F.Cu 0.04, In1.Cu 0.31, In2.Cu 0.88, In3.Cu 1.45, In4.Cu 2.02, B.Cu 2.29; board 2.32 mm
 
 == (a) Commutation loops ==
@@ -58,10 +58,10 @@ board: /home/user/SiC-DC-DC-Converter/SiC_6k6_Industrial_DAB/07_KiCad_Schematics
     lead length 20 mm: packages 34.7 nH, loop 37.4 nH
 
 == (b) Gate loops ==
-  Q1 <- U1: go 102.0 mm, return 93.0 mm (routed tracks: False), pair 80 nH @ s = 1.0 mm, package G/KS 12.6 nH, local 16.0 nH -> L_gate = 109 nH; R = 6.9 Ohm, Ciss = 1.9 nF -> zeta = 0.45, f_ring = 11.0 MHz
-  Q5 <- U3: go 23.2 mm, return 41.8 mm (routed tracks: False), pair 26 nH @ s = 1.0 mm, package G/KS 12.6 nH, local 16.0 nH -> L_gate = 56 nH; R = 5.8 Ohm, Ciss = 3.4 nF -> zeta = 0.72, f_ring = 11.6 MHz
-  gate pair spacing sensitivity: s=0.5 mm -> 82 nH (zeta 0.52), s=1.0 mm -> 109 nH (zeta 0.45), s=2.0 mm -> 136 nH (zeta 0.41), s=3.0 mm -> 151 nH (zeta 0.39), s=5.0 mm -> 170 nH (zeta 0.36)
-  if the pair were referenced to a KS-potential plane at 0.31 mm: trace part 67 nH
+  Q1 <- U1: go 134.2 mm, return 138.2 mm (routed tracks: True), pair 112 nH @ s = 1.0 mm, package G/KS 12.6 nH, local 138.5 nH -> L_gate = 264 nH; R = 6.9 Ohm, Ciss = 1.9 nF -> zeta = 0.29, f_ring = 7.1 MHz
+  Q5 <- U3: go 31.7 mm, return 90.9 mm (routed tracks: True), pair 51 nH @ s = 1.0 mm, package G/KS 12.6 nH, local 67.4 nH -> L_gate = 131 nH; R = 5.8 Ohm, Ciss = 3.4 nF -> zeta = 0.47, f_ring = 7.5 MHz
+  gate pair spacing sensitivity: s=0.5 mm -> 227 nH (zeta 0.32), s=1.0 mm -> 264 nH (zeta 0.29), s=2.0 mm -> 302 nH (zeta 0.27), s=3.0 mm -> 323 nH (zeta 0.26), s=5.0 mm -> 350 nH (zeta 0.25)
+  if the pair were referenced to a KS-potential plane at 0.31 mm: trace part 94 nH
 
 == (c) Drain overshoot ==
   HV_leg_A L=28 nH C3M0032120K: Vdc=800 V, I=9.8 A, tf=10 ns: L di/dt = 27 V, Z0 bound = 125 V -> Vos ~ 27 V, Vds,pk = 827 V, margin to 1200 V = 373 V

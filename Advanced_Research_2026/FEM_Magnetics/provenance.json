@@ -5,14 +5,14 @@
  "numpy": "2.5.3",
  "scipy": "1.18.1",
  "matplotlib": "3.11.2",
- "git_commit": "85c5adc518f0fe3613388e062a6890b08f332652",
+ "git_commit": "274d294f786cdf507f8463dc5684d2ea92da2945",
  "inputs": {
   "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f42717ab0d2f0b414addf6a331caaf3d51323f78e73851ebde253",
   "SiC_6k6_Industrial_DAB/dabtools/dab/magnetics.py": "50c89d1d9b83523dfc495e7ac232260243798c5ad9a4df5684dda67be29cca62",
   "Advanced_Research_2026/FEM_Magnetics/fd_magnetostatic.py": "f760bb12888512e586402713a55ee8588e9e37b5c27c02145e05071883a7d450"
  },
- "wall_time_s": 229.11976432800293,
- "generated": "2026-10-10 03:15:06",
+ "wall_time_s": 60.583348989486694,
+ "generated": "2026-10-10 10:28:10",
  "deterministic": true,
  "outputs": [
   "fem_results.json",

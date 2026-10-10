@@ -1,12 +1,12 @@
 {
  "board": "/home/user/SiC-DC-DC-Converter/SiC_6k6_Industrial_DAB/07_KiCad_Schematics/SiC_DAB_6k6.kicad_pcb",
- "board_sha256": "cc570a39eabf5f589e47fbfb7d7e41bab7215cc5b875560410f28cc67a038fa3",
+ "board_sha256": "6ae4d40c6917342dc8b31937d1edd92ce51b555e3eb378e530f124298e5b04eb",
  "pcbnew_crosscheck": {
   "available": true,
   "version": "7.0.11",
   "pads_compared": 731,
   "max_pad_position_deviation_mm": 0.0,
-  "tracks_in_board": 0
+  "tracks_in_board": 2755
  },
  "stackup_depth_mm": {
   "F.Cu": 0.035,
@@ -589,24 +589,24 @@
   "Q1": {
    "device": "Q1",
    "driver": "U1",
-   "routed_tracks_used": false,
-   "trace_width_mm": 0.5,
+   "routed_tracks_used": true,
+   "trace_width_mm": 0.4947368421052632,
    "pair_spacing_mm": 1.0,
-   "l_go_mm": 101.97500000000001,
-   "l_return_mm": 93.005,
-   "l_gate_local_mm": 11.290000000000003,
-   "l_ks_local_mm": 15.719999999999997,
-   "L_trace_pair_nH": 80.06637306505581,
-   "L_trace_pair_if_plane_referenced_nH": 67.32506643497875,
+   "l_go_mm": 134.20000000000002,
+   "l_return_mm": 138.15000000000006,
+   "l_gate_local_mm": 24.5,
+   "l_ks_local_mm": 195.75000000000003,
+   "L_trace_pair_nH": 112.48013048279041,
+   "L_trace_pair_if_plane_referenced_nH": 94.48834568068644,
    "L_package_gate_ks_nH": 12.625649145941214,
-   "L_local_nH": 15.991465507272931,
+   "L_local_nH": 138.49749892497255,
    "L_cap_esl_nH": 0.6,
-   "L_gate_loop_nH": 109.28348771826995,
+   "L_gate_loop_nH": 264.2032785537042,
    "R_total_ohm": 6.9,
    "Ciss_nF": 1.9000000000000001,
-   "damping_ratio": 0.4549028127298555,
-   "R_critical_ohm": 15.168075041333218,
-   "f_ring_MHz": 11.045008584647334,
+   "damping_ratio": 0.2925679807311998,
+   "R_critical_ohm": 23.584262306337124,
+   "f_ring_MHz": 7.103530179067098,
    "vee_ks_caps": [
     "C105",
     "C106"
@@ -615,24 +615,24 @@
   "Q5": {
    "device": "Q5",
    "driver": "U3",
-   "routed_tracks_used": false,
-   "trace_width_mm": 0.5,
+   "routed_tracks_used": true,
+   "trace_width_mm": 0.4932203389830509,
    "pair_spacing_mm": 1.0,
-   "l_go_mm": 23.175,
-   "l_return_mm": 41.795,
-   "l_gate_local_mm": 11.289999999999992,
-   "l_ks_local_mm": 15.719999999999997,
-   "L_trace_pair_nH": 26.449209201815695,
-   "L_trace_pair_if_plane_referenced_nH": 22.433631994463894,
+   "l_go_mm": 31.650000000000013,
+   "l_return_mm": 90.94999900000003,
+   "l_gate_local_mm": 26.000000000000004,
+   "l_ks_local_mm": 82.0,
+   "L_trace_pair_nH": 50.508531295552146,
+   "L_trace_pair_if_plane_referenced_nH": 42.592968598017194,
    "L_package_gate_ks_nH": 12.625649145941226,
-   "L_local_nH": 15.991465507272931,
+   "L_local_nH": 67.39725978601457,
    "L_cap_esl_nH": 0.6,
-   "L_gate_loop_nH": 55.66632385502985,
+   "L_gate_loop_nH": 131.13144022750794,
    "R_total_ohm": 5.8,
    "Ciss_nF": 3.4000000000000004,
-   "damping_ratio": 0.7167062396656289,
-   "R_critical_ohm": 8.092576398812886,
-   "f_ring_MHz": 11.568695820242338,
+   "damping_ratio": 0.4669646885572262,
+   "R_critical_ohm": 12.420639380506849,
+   "f_ring_MHz": 7.5374988269016185,
    "vee_ks_caps": [
     "C127",
     "C128"
@@ -642,33 +642,33 @@
  "gate_sensitivity": [
   {
    "pair_spacing_mm": 0.5,
-   "L_trace_pair_nH": 53.23563631491432,
-   "L_gate_loop_nH": 82.45275096812847,
-   "damping_ratio": 0.5237129590942408
+   "L_trace_pair_nH": 74.92385280044357,
+   "L_gate_loop_nH": 226.64700087135736,
+   "damping_ratio": 0.3158791111288297
   },
   {
    "pair_spacing_mm": 1.0,
-   "L_trace_pair_nH": 80.06637306505581,
-   "L_gate_loop_nH": 109.28348771826995,
-   "damping_ratio": 0.4549028127298555
+   "L_trace_pair_nH": 112.48013048279041,
+   "L_gate_loop_nH": 264.2032785537042,
+   "damping_ratio": 0.2925679807311998
   },
   {
    "pair_spacing_mm": 2.0,
-   "L_trace_pair_nH": 106.69941755453405,
-   "L_gate_loop_nH": 135.9165322077482,
-   "damping_ratio": 0.40790568005078925
+   "L_trace_pair_nH": 149.8380603811932,
+   "L_gate_loop_nH": 301.56120845210694,
+   "damping_ratio": 0.27384710748734786
   },
   {
    "pair_spacing_mm": 3.0,
-   "L_trace_pair_nH": 122.11606276490042,
-   "L_gate_loop_nH": 151.33317741811456,
-   "damping_ratio": 0.38657059894682105
+   "L_trace_pair_nH": 171.52741624405985,
+   "L_gate_loop_nH": 323.2505643149736,
+   "damping_ratio": 0.2645003491696
   },
   {
    "pair_spacing_mm": 5.0,
-   "L_trace_pair_nH": 141.25262339714234,
-   "L_gate_loop_nH": 170.46973805035648,
-   "damping_ratio": 0.36422709386513064
+   "L_trace_pair_nH": 198.56383486596812,
+   "L_gate_loop_nH": 350.2869829368819,
+   "damping_ratio": 0.2540878486969319
   }
  ],
  "overshoot": {
@@ -1269,7 +1269,7 @@
   {
    "item": "TO-247-4 (Kelvin) gate loop with driver within ~20 mm",
    "typical_range_nH": "10 - 30",
-   "this_work_nH": "109",
+   "this_work_nH": "264",
    "source": "typical range reported in literature, not measured here; this board places the driver ~100 mm away at the isolation barrier"
   },
   {
@@ -1285,6 +1285,6 @@
    "source": "typical range reported in literature, not measured here"
   }
  ],
- "wall_s": 3.7296977043151855,
+ "wall_s": 8.176677942276001,
  "maturity": "L1 (analytical from geometry; no field solver, no measurement)"
 }

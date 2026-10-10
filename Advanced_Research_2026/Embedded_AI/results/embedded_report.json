@@ -36,8 +36,8 @@
     "i_rms_A": 9.696340672118387,
     "violations": 0,
     "violations_hw": 0,
-    "compute_us_mean": 25.784246004377565,
-    "compute_us_max": 630.9130001227459,
+    "compute_us_mean": 29.083392998131785,
+    "compute_us_max": 258.7780002158979,
     "v2_min": 398.95232796028915,
     "v2_max": 400.07420358431517
    },
@@ -50,8 +50,8 @@
     "i_rms_A": 9.693074919496846,
     "violations": 0,
     "violations_hw": 0,
-    "compute_us_mean": 33.57483300021613,
-    "compute_us_max": 2288.9800000029936,
+    "compute_us_mean": 34.87091650220009,
+    "compute_us_max": 1089.816000103383,
     "v2_min": 398.94424564720134,
     "v2_max": 400.073095931551
    }

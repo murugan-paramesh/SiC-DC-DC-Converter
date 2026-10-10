@@ -26,14 +26,14 @@
    "i_rms_A": 9.483825014938416,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 9.955675000242081,
-   "compute_us_max": 150.39400000205205,
+   "compute_us_mean": 11.391974500270408,
+   "compute_us_max": 109.0350001504703,
    "v2_min": 397.31243979711365,
    "v2_max": 400.02079961318975,
    "scenario": "load_step_up",
    "controller": "PI",
    "ops_total": 64,
-   "wall_s": 4.279681444168091
+   "wall_s": 3.7730674743652344
   },
   {
    "settling_ms": 0.0,
@@ -44,14 +44,14 @@
    "i_rms_A": 9.437589518530949,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 763.4751204992085,
-   "compute_us_max": 5662.503000053221,
+   "compute_us_mean": 636.9469105015924,
+   "compute_us_max": 3265.2289999077766,
    "v2_min": 399.33520522493285,
    "v2_max": 400.0671498276792,
    "scenario": "load_step_up",
    "controller": "CCS-MPC",
    "ops_total": 2428,
-   "wall_s": 5.742325067520142
+   "wall_s": 4.839304447174072
   },
   {
    "settling_ms": 0.0,
@@ -62,14 +62,14 @@
    "i_rms_A": 9.37437033902557,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 498.7577495012374,
-   "compute_us_max": 5640.412999923683,
+   "compute_us_mean": 488.69601849742145,
+   "compute_us_max": 4559.464000067237,
    "v2_min": 399.1503858476185,
    "v2_max": 400.03329344146243,
    "scenario": "load_step_up",
    "controller": "FCS-MPC",
    "ops_total": 8001,
-   "wall_s": 5.243765354156494
+   "wall_s": 4.773032903671265
   },
   {
    "settling_ms": 0.2299999999591032,
@@ -80,14 +80,14 @@
    "i_rms_A": 9.696340672118387,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 30.200210500254343,
-   "compute_us_max": 4197.986999997738,
+   "compute_us_mean": 27.953349998142585,
+   "compute_us_max": 406.3430001224333,
    "v2_min": 398.95232796028915,
    "v2_max": 400.07420358431517,
    "scenario": "load_step_up",
    "controller": "Explicit-MPC",
    "ops_total": 97,
-   "wall_s": 4.357553005218506
+   "wall_s": 3.6860854625701904
   },
   {
    "settling_ms": 0.0,
@@ -98,14 +98,14 @@
    "i_rms_A": 9.443536299908867,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 977.196728500644,
-   "compute_us_max": 6110.422999995535,
+   "compute_us_mean": 830.8347299991965,
+   "compute_us_max": 2419.2119999497663,
    "v2_min": 399.3390094431259,
    "v2_max": 400.05824054915547,
    "scenario": "load_step_up",
    "controller": "Adaptive-MPC",
    "ops_total": 2773,
-   "wall_s": 6.352415084838867
+   "wall_s": 5.371771335601807
   },
   {
    "settling_ms": 0.0,
@@ -116,14 +116,14 @@
    "i_rms_A": 9.44445818671623,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 868.8623414983567,
-   "compute_us_max": 8698.987999991914,
+   "compute_us_mean": 657.8125604978595,
+   "compute_us_max": 31813.349000003655,
    "v2_min": 399.3413439985536,
    "v2_max": 400.06995062895385,
    "scenario": "load_step_up",
    "controller": "Robust-MPC",
    "ops_total": 2428,
-   "wall_s": 6.409386157989502
+   "wall_s": 5.027488946914673
   },
   {
    "settling_ms": 1.9499999999488884,
@@ -134,14 +134,14 @@
    "i_rms_A": 1.8251857403931273,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 11.181315000271752,
-   "compute_us_max": 70.761999950264,
+   "compute_us_mean": 9.326774502824264,
+   "compute_us_max": 68.4280000768922,
    "v2_min": 399.97255099148566,
    "v2_max": 402.69033321103956,
    "scenario": "load_step_down",
    "controller": "PI",
    "ops_total": 64,
-   "wall_s": 4.605934381484985
+   "wall_s": 3.4428493976593018
   },
   {
    "settling_ms": 0.0,
@@ -152,14 +152,14 @@
    "i_rms_A": 2.5749518879260385,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 838.4508565015949,
-   "compute_us_max": 11180.692999914754,
+   "compute_us_mean": 641.8508859982239,
+   "compute_us_max": 13787.722999950347,
    "v2_min": 399.92615439978294,
    "v2_max": 400.6244734675231,
    "scenario": "load_step_down",
    "controller": "CCS-MPC",
    "ops_total": 2428,
-   "wall_s": 6.462104082107544
+   "wall_s": 4.886139154434204
   },
   {
    "settling_ms": 0.0,
@@ -170,14 +170,14 @@
    "i_rms_A": 2.104889308180651,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 667.6882140008047,
-   "compute_us_max": 6966.777999991791,
+   "compute_us_mean": 456.72665049801253,
+   "compute_us_max": 1902.7539999569854,
    "v2_min": 399.9926800156275,
    "v2_max": 400.84547337853854,
    "scenario": "load_step_down",
    "controller": "FCS-MPC",
    "ops_total": 8001,
-   "wall_s": 6.450393915176392
+   "wall_s": 4.53675389289856
   },
   {
    "settling_ms": 0.0,
@@ -188,14 +188,14 @@
    "i_rms_A": 3.2846953155618004,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 34.701411000924054,
-   "compute_us_max": 4149.569999981395,
+   "compute_us_mean": 28.105460501365087,
+   "compute_us_max": 212.28300010989187,
    "v2_min": 399.94089622587677,
    "v2_max": 400.9802481108191,
    "scenario": "load_step_down",
    "controller": "Explicit-MPC",
    "ops_total": 97,
-   "wall_s": 4.60602068901062
+   "wall_s": 3.692913770675659
   },
   {
    "settling_ms": 0.0,
@@ -206,14 +206,14 @@
    "i_rms_A": 2.667029212154658,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 979.8804089985538,
-   "compute_us_max": 7428.894999975455,
+   "compute_us_mean": 852.0046964999892,
+   "compute_us_max": 3734.523999810335,
    "v2_min": 399.916193957609,
    "v2_max": 400.6365971813797,
    "scenario": "load_step_down",
    "controller": "Adaptive-MPC",
    "ops_total": 2773,
-   "wall_s": 6.369664907455444
+   "wall_s": 5.527770042419434
   },
   {
    "settling_ms": 0.0,
@@ -224,14 +224,14 @@
    "i_rms_A": 2.385037238876205,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 717.4099464990604,
-   "compute_us_max": 5319.695000025604,
+   "compute_us_mean": 582.3564204973763,
+   "compute_us_max": 1778.0229998152208,
    "v2_min": 399.91921681201313,
    "v2_max": 400.6406200644577,
    "scenario": "load_step_down",
    "controller": "Robust-MPC",
    "ops_total": 2428,
-   "wall_s": 5.3198792934417725
+   "wall_s": 4.655040502548218
   },
   {
    "settling_ms": 0.0,
@@ -242,14 +242,14 @@
    "i_rms_A": 10.52970226082886,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 10.729198999797518,
-   "compute_us_max": 88.63100015332748,
+   "compute_us_mean": 7.791443502583207,
+   "compute_us_max": 61.417999859259,
    "v2_min": 399.90112153433853,
    "v2_max": 400.0258055174546,
    "scenario": "v1_step",
    "controller": "PI",
    "ops_total": 64,
-   "wall_s": 4.318238019943237
+   "wall_s": 3.2471916675567627
   },
   {
    "settling_ms": 0.0,
@@ -260,14 +260,14 @@
    "i_rms_A": 10.537965082309558,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 640.9898844995041,
-   "compute_us_max": 7273.878999967565,
+   "compute_us_mean": 642.3494355015009,
+   "compute_us_max": 3555.5180002120323,
    "v2_min": 399.93026366490983,
    "v2_max": 400.0664698557662,
    "scenario": "v1_step",
    "controller": "CCS-MPC",
    "ops_total": 2428,
-   "wall_s": 4.643172025680542
+   "wall_s": 4.774401664733887
   },
   {
    "settling_ms": 0.0,
@@ -278,14 +278,14 @@
    "i_rms_A": 10.585347803763419,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 432.68510700158913,
-   "compute_us_max": 7883.591000108936,
+   "compute_us_mean": 432.9784780013597,
+   "compute_us_max": 1664.5729999709147,
    "v2_min": 399.885584934312,
    "v2_max": 400.0150784888168,
    "scenario": "v1_step",
    "controller": "FCS-MPC",
    "ops_total": 8001,
-   "wall_s": 4.324995517730713
+   "wall_s": 4.283556699752808
   },
   {
    "settling_ms": 0.0,
@@ -296,14 +296,14 @@
    "i_rms_A": 10.53528639391532,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 22.97014549628784,
-   "compute_us_max": 197.1740000499267,
+   "compute_us_mean": 28.687527497027077,
+   "compute_us_max": 192.53100003879808,
    "v2_min": 399.9410467651632,
    "v2_max": 400.0654208768519,
    "scenario": "v1_step",
    "controller": "Explicit-MPC",
    "ops_total": 97,
-   "wall_s": 3.500947952270508
+   "wall_s": 3.6037051677703857
   },
   {
    "settling_ms": 0.0,
@@ -314,14 +314,14 @@
    "i_rms_A": 10.538871786719676,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 855.6793175002895,
-   "compute_us_max": 17058.110999869314,
+   "compute_us_mean": 831.1272510003391,
+   "compute_us_max": 3046.05399992397,
    "v2_min": 399.92931897462273,
    "v2_max": 400.0623784006504,
    "scenario": "v1_step",
    "controller": "Adaptive-MPC",
    "ops_total": 2773,
-   "wall_s": 5.320570945739746
+   "wall_s": 5.174499988555908
   },
   {
    "settling_ms": 0.0,
@@ -332,14 +332,14 @@
    "i_rms_A": 10.539232547689489,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 647.0981569999594,
-   "compute_us_max": 5637.383000021146,
+   "compute_us_mean": 673.1912314997999,
+   "compute_us_max": 5555.284999900323,
    "v2_min": 399.9270690315049,
    "v2_max": 400.06622640128325,
    "scenario": "v1_step",
    "controller": "Robust-MPC",
    "ops_total": 2428,
-   "wall_s": 4.690548896789551
+   "wall_s": 4.925704717636108
   },
   {
    "settling_ms": 0.0,
@@ -350,14 +350,14 @@
    "i_rms_A": 8.022565731062468,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 9.17516729165633,
-   "compute_us_max": 83.9790000100038,
+   "compute_us_mean": 10.520183084059353,
+   "compute_us_max": 382.6170000138518,
    "v2_min": 398.3480175824399,
    "v2_max": 401.63915194831714,
    "scenario": "reversal",
    "controller": "PI",
    "ops_total": 64,
-   "wall_s": 4.751482963562012
+   "wall_s": 4.964712142944336
   },
   {
    "settling_ms": 0.0,
@@ -368,14 +368,14 @@
    "i_rms_A": 8.024208297077035,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 573.433861654763,
-   "compute_us_max": 6569.738000052894,
+   "compute_us_mean": 571.0183793217437,
+   "compute_us_max": 3936.733999807984,
    "v2_min": 398.3479989057022,
    "v2_max": 401.64837849325477,
    "scenario": "reversal",
    "controller": "CCS-MPC",
    "ops_total": 2428,
-   "wall_s": 6.381587743759155
+   "wall_s": 6.295235633850098
   },
   {
    "settling_ms": 0.0,
@@ -386,14 +386,14 @@
    "i_rms_A": 8.02797724328661,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 458.000921052056,
-   "compute_us_max": 5214.777999981379,
+   "compute_us_mean": 456.8706657934847,
+   "compute_us_max": 2218.323000079181,
    "v2_min": 398.3470660140996,
    "v2_max": 401.655530860378,
    "scenario": "reversal",
    "controller": "FCS-MPC",
    "ops_total": 8001,
-   "wall_s": 6.149106502532959
+   "wall_s": 5.898024559020996
   },
   {
    "settling_ms": 0.0,
@@ -404,14 +404,14 @@
    "i_rms_A": 8.024441546067527,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 7.189625940260786,
-   "compute_us_max": 179.06699986269814,
+   "compute_us_mean": 6.831128196513179,
+   "compute_us_max": 60.9119999808172,
    "v2_min": 398.3479897519981,
    "v2_max": 401.6483875511779,
    "scenario": "reversal",
    "controller": "Explicit-MPC",
    "ops_total": 97,
-   "wall_s": 4.7586588859558105
+   "wall_s": 4.616459846496582
   },
   {
    "settling_ms": 0.0,
@@ -422,14 +422,14 @@
    "i_rms_A": 8.024019285475795,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 701.0933601534823,
-   "compute_us_max": 4736.931000024924,
+   "compute_us_mean": 763.3490578909982,
+   "compute_us_max": 5016.496000052939,
    "v2_min": 398.3481324881985,
    "v2_max": 401.6486050506876,
    "scenario": "reversal",
    "controller": "Adaptive-MPC",
    "ops_total": 2773,
-   "wall_s": 6.531601905822754
+   "wall_s": 7.005965709686279
   },
   {
    "settling_ms": 0.0,
@@ -440,14 +440,14 @@
    "i_rms_A": 8.02448523693461,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 585.4164315786348,
-   "compute_us_max": 5281.65000014269,
+   "compute_us_mean": 618.1058180473863,
+   "compute_us_max": 2938.989000085712,
    "v2_min": 398.3479770285039,
    "v2_max": 401.6485371734797,
    "scenario": "reversal",
    "controller": "Robust-MPC",
    "ops_total": 2428,
-   "wall_s": 6.440338134765625
+   "wall_s": 6.878849029541016
   },
   {
    "settling_ms": 0.0,
@@ -458,14 +458,14 @@
    "i_rms_A": 4.732621419134415,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 10.045215000147323,
-   "compute_us_max": 440.7009998885769,
+   "compute_us_mean": 10.429915936285283,
+   "compute_us_max": 128.64300015280605,
    "v2_min": 378.76006428196035,
    "v2_max": 400.2006589070926,
    "scenario": "soft_start",
    "controller": "PI",
    "ops_total": 64,
-   "wall_s": 6.017476558685303
+   "wall_s": 5.837510108947754
   },
   {
    "settling_ms": 0.0,
@@ -476,14 +476,14 @@
    "i_rms_A": 4.834385657504417,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 671.1455368731123,
-   "compute_us_max": 23581.503000059456,
+   "compute_us_mean": 665.0995365635026,
+   "compute_us_max": 2594.0859998172527,
    "v2_min": 379.6775985356484,
    "v2_max": 400.07013652217717,
    "scenario": "soft_start",
    "controller": "CCS-MPC",
    "ops_total": 2428,
-   "wall_s": 7.941007852554321
+   "wall_s": 7.899585008621216
   },
   {
    "settling_ms": 0.0,
@@ -494,14 +494,14 @@
    "i_rms_A": 4.822703417315269,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 473.2611881250648,
-   "compute_us_max": 8823.315999961778,
+   "compute_us_mean": 458.0193775003494,
+   "compute_us_max": 4048.475999979928,
    "v2_min": 379.60036660457246,
    "v2_max": 400.0539149798617,
    "scenario": "soft_start",
    "controller": "FCS-MPC",
    "ops_total": 8001,
-   "wall_s": 7.4380576610565186
+   "wall_s": 7.257723093032837
   },
   {
    "settling_ms": 0.0,
@@ -512,14 +512,14 @@
    "i_rms_A": 5.023694926917472,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 23.63664968875412,
-   "compute_us_max": 4047.895999974571,
+   "compute_us_mean": 26.60476281057811,
+   "compute_us_max": 259.15300011547515,
    "v2_min": 379.52098034586623,
    "v2_max": 400.0546574016444,
    "scenario": "soft_start",
    "controller": "Explicit-MPC",
    "ops_total": 97,
-   "wall_s": 5.579541921615601
+   "wall_s": 5.839613676071167
   },
   {
    "settling_ms": 0.0,
@@ -530,14 +530,14 @@
    "i_rms_A": 4.84176592431077,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 809.2375465628265,
-   "compute_us_max": 7584.202000089135,
+   "compute_us_mean": 785.8421706215069,
+   "compute_us_max": 4259.8439999892435,
    "v2_min": 379.6775985356484,
    "v2_max": 400.07607093629747,
    "scenario": "soft_start",
    "controller": "Adaptive-MPC",
    "ops_total": 2773,
-   "wall_s": 8.253316879272461
+   "wall_s": 8.045129537582397
   },
   {
    "settling_ms": 0.0,
@@ -548,14 +548,14 @@
    "i_rms_A": 4.824836355863168,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 670.9939934363263,
-   "compute_us_max": 5386.11399997535,
+   "compute_us_mean": 661.7736115629924,
+   "compute_us_max": 4528.0340000317665,
    "v2_min": 379.6731227946566,
    "v2_max": 400.0788368753664,
    "scenario": "soft_start",
    "controller": "Robust-MPC",
    "ops_total": 2428,
-   "wall_s": 7.917470693588257
+   "wall_s": 7.764154434204102
   }
  ],
  "modulators": [
@@ -568,8 +568,8 @@
    "i_rms_A": 12.291808715466361,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 8.128504496994537,
-   "compute_us_max": 290.0649999446614,
+   "compute_us_mean": 9.137490998568865,
+   "compute_us_max": 71.78000009844254,
    "v2_min": 297.2098518619455,
    "v2_max": 300.03077054781824,
    "modulator": "SPS",
@@ -588,8 +588,8 @@
    "i_rms_A": 12.297474691630718,
    "violations": 21,
    "violations_hw": 0,
-   "compute_us_mean": 356.1984825023501,
-   "compute_us_max": 1964.8580000648508,
+   "compute_us_mean": 375.77132650073963,
+   "compute_us_max": 2019.073999917964,
    "v2_min": 299.1429718242651,
    "v2_max": 300.080872891029,
    "modulator": "SPS",
@@ -608,8 +608,8 @@
    "i_rms_A": 11.891796117994442,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 10.352476498951546,
-   "compute_us_max": 170.90999995161837,
+   "compute_us_mean": 10.529526500477004,
+   "compute_us_max": 191.4130000386649,
    "v2_min": 294.75660407945657,
    "v2_max": 299.8125837182596,
    "modulator": "EPS",
@@ -628,8 +628,8 @@
    "i_rms_A": 12.40946185655805,
    "violations": 26,
    "violations_hw": 0,
-   "compute_us_mean": 631.1291970012007,
-   "compute_us_max": 3098.43400009413,
+   "compute_us_mean": 681.4542995031161,
+   "compute_us_max": 2906.829000039579,
    "v2_min": 299.02049186485925,
    "v2_max": 300.06957547275834,
    "modulator": "EPS",
@@ -648,8 +648,8 @@
    "i_rms_A": 11.870106667096314,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 10.64480500042464,
-   "compute_us_max": 83.25999988301191,
+   "compute_us_mean": 13.032618501028992,
+   "compute_us_max": 124.00000014167745,
    "v2_min": 294.7508033800072,
    "v2_max": 299.81575501974794,
    "modulator": "EPS + DC-free",
@@ -668,8 +668,8 @@
    "i_rms_A": 12.353340444751442,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 652.4493409992829,
-   "compute_us_max": 3193.042000020796,
+   "compute_us_mean": 626.350891498646,
+   "compute_us_max": 2983.705999895392,
    "v2_min": 299.0063009277064,
    "v2_max": 300.07115447062716,
    "modulator": "EPS + DC-free",
@@ -690,8 +690,8 @@
    "i_rms_A": 10.840051661060373,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 635.6763514969543,
-   "compute_us_max": 2651.3330001307622,
+   "compute_us_mean": 671.1488870021185,
+   "compute_us_max": 4993.31500009248,
    "v2_min": 399.53573212772767,
    "v2_max": 400.07963029777403,
    "r": 2
@@ -705,8 +705,8 @@
    "i_rms_A": 9.635137138106447,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 659.286281995378,
-   "compute_us_max": 2927.209000063158,
+   "compute_us_mean": 697.7470179979264,
+   "compute_us_max": 2339.041999903202,
    "v2_min": 399.4150609872648,
    "v2_max": 400.0736283992268,
    "r": 8
@@ -720,8 +720,8 @@
    "i_rms_A": 9.437589518530949,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 642.5213700001677,
-   "compute_us_max": 8866.982999961692,
+   "compute_us_mean": 731.0787005004613,
+   "compute_us_max": 2888.2070000690874,
    "v2_min": 399.33520522493285,
    "v2_max": 400.0671498276792,
    "r": 16
@@ -735,8 +735,8 @@
    "i_rms_A": 9.373756499801436,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 648.45601500258,
-   "compute_us_max": 7473.008999795638,
+   "compute_us_mean": 626.3523479971127,
+   "compute_us_max": 3030.2110001230176,
    "v2_min": 399.2554225736342,
    "v2_max": 400.0646705146452,
    "r": 32
@@ -750,8 +750,8 @@
    "i_rms_A": 9.385579767214589,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 668.8494759988544,
-   "compute_us_max": 5077.379000113069,
+   "compute_us_mean": 635.7462250023218,
+   "compute_us_max": 2387.4389999036794,
    "v2_min": 398.89515383255844,
    "v2_max": 400.3035701696849,
    "r": 128
@@ -765,8 +765,8 @@
    "i_rms_A": 9.473646466574147,
    "violations": 0,
    "violations_hw": 0,
-   "compute_us_mean": 651.1069779999161,
-   "compute_us_max": 5891.411999982665,
+   "compute_us_mean": 624.9905905007154,
+   "compute_us_max": 3137.3070000881853,
    "v2_min": 398.1341754564184,
    "v2_max": 401.1811243992026,
    "r": 512

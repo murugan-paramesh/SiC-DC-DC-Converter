@@ -1,12 +1,12 @@
 {
  "module": "Advanced_Research_2026/Robust_Optimization",
  "script": "robust_optimize.py",
- "generated_utc": "2026-10-10T10:21:17Z",
+ "generated_utc": "2026-10-10T10:45:30Z",
  "python": "3.13.16",
  "numpy": "2.5.3",
  "scipy": "1.18.1",
  "matplotlib": "3.11.2",
- "git_commit": "37ed6009e5d4d02e835a2eb121e5adde64330ba9",
+ "git_commit": "274d294f786cdf507f8463dc5684d2ea92da2945",
  "input_hashes_sha256_16": {
   "SiC_6k6_Industrial_DAB/dabtools/dab/dab_model.py": "7a227db80b4c817e",
   "SiC_6k6_Industrial_DAB/dabtools/dab/losses.py": "76eb51f6209ae98d",
@@ -15,7 +15,7 @@
   "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f4271",
   "SiC_6k6_Industrial_DAB/12_Optimization/optimization_results.json": "2a0b5af84867e78b",
   "Advanced_Research_2026/Robust_Optimization/dab_eval.py": "d9489cc238ff7031",
-  "Advanced_Research_2026/Robust_Optimization/robust_optimize.py": "a186cef91f3dce3a"
+  "Advanced_Research_2026/Robust_Optimization/robust_optimize.py": "cfbfa12acce52b1d"
  },
  "seed": 20261010,
  "population": 60,
@@ -34,6 +34,6 @@
   "bo": 250
  },
  "quick_mode": false,
- "wall_time_s": 512.5674786567688,
+ "wall_time_s": 505.5052502155304,
  "maturity": "L2"
 }

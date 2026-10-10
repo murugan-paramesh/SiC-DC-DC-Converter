@@ -61,7 +61,7 @@
     ],
     "order": 3,
     "frequency_per_h": 3.504000000000001e-17,
-    "unavailability": 7.673760000000001e-14,
+    "unavailability": 7.673760000000002e-14,
     "share": 2.1899760149665894e-09
    }
   ],
@@ -393,7 +393,7 @@
     ],
     "order": 3,
     "frequency_per_h": 4.3130736000000016e-18,
-    "unavailability": 2.0258726400000006e-16,
+    "unavailability": 2.0258726400000008e-16,
     "share": 2.1846725182704492e-05
    },
    {
@@ -507,7 +507,7 @@
     ],
     "order": 4,
     "frequency_per_h": 3.723770880000001e-24,
-    "unavailability": 8.840171520000003e-23,
+    "unavailability": 8.840171520000004e-23,
     "share": 1.8861769263273795e-11
    },
    {
@@ -543,7 +543,7 @@
     ],
     "order": 4,
     "frequency_per_h": 7.447541760000002e-25,
-    "unavailability": 1.7680343040000007e-23,
+    "unavailability": 1.768034304000001e-23,
     "share": 3.772353852654759e-12
    },
    {
@@ -567,7 +567,7 @@
     ],
     "order": 4,
     "frequency_per_h": 1.8618854400000005e-25,
-    "unavailability": 4.420085760000002e-24,
+    "unavailability": 4.4200857600000025e-24,
     "share": 9.430884631636898e-13
    }
   ],
@@ -605,7 +605,7 @@
     ],
     "order": 3,
     "frequency_per_h": 1.4115513600000002e-13,
-    "unavailability": 6.630128640000002e-12,
+    "unavailability": 6.630128640000001e-12,
     "share": 0.7356273768662831
    },
    {
@@ -637,9 +637,9 @@
      "NTC"
     ],
     "order": 3,
-    "frequency_per_h": 6.906384000000002e-15,
-    "unavailability": 1.0083320640000003e-11,
-    "share": 0.035992492299757824
+    "frequency_per_h": 6.9063840000000025e-15,
+    "unavailability": 1.0083320640000002e-11,
+    "share": 0.03599249229975783
    },
    {
     "cut_set": [
@@ -660,7 +660,7 @@
     ],
     "order": 3,
     "frequency_per_h": 4.901220000000002e-15,
-    "unavailability": 2.302128000000001e-13,
+    "unavailability": 2.3021280000000014e-13,
     "share": 0.025542617252301506
    },
    {
@@ -671,7 +671,7 @@
     ],
     "order": 3,
     "frequency_per_h": 4.705171200000002e-15,
-    "unavailability": 2.2100428800000005e-13,
+    "unavailability": 2.2100428800000008e-13,
     "share": 0.024520912562209445
    },
    {
@@ -1314,7 +1314,7 @@
     ],
     "order": 3,
     "frequency_per_h": 4.901220000000002e-15,
-    "unavailability": 2.302128000000001e-13,
+    "unavailability": 2.3021280000000014e-13,
     "share": 0.11237827838131685
    },
    {
@@ -1336,7 +1336,7 @@
     ],
     "order": 3,
     "frequency_per_h": 2.3525856000000006e-15,
-    "unavailability": 1.1050214400000004e-13,
+    "unavailability": 1.1050214400000003e-13,
     "share": 0.053941573623032084
    },
    {
