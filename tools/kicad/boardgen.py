@@ -249,9 +249,17 @@ class BoardGen:
     def fanout_stubs(self, board, nets, pads, router):
         cfg = self.cfg
         terminals, stub_rects, cols = {}, [], {}
+        # column side from the mean pad x of the footprint (a footprint origin on pin 1 would put
+        # both columns of a 2xN header on the same side); a single column exits away from the origin
+        xmean = {}
+        for ref, num, net, r, layers, (cx, cy), tht, npth, (fx, fy) in pads:
+            if ref in cfg.fanout: xmean.setdefault(ref, []).append(cx)
+        xmean = {k: sum(v) / len(v) for k, v in xmean.items()}
         for ref, num, net, r, layers, (cx, cy), tht, npth, (fx, fy) in pads:
             if ref in cfg.fanout:
-                cols.setdefault((ref, -1 if cx < fx else 1), []).append((cy, cx, num, net))
+                xm = xmean[ref]
+                side = (-1 if cx < xm - 0.1 else 1) if abs(cx - xm) > 0.1 else (-1 if cx < fx - 0.1 else 1)
+                cols.setdefault((ref, side), []).append((cy, cx, num, net))
         for (ref, d), plist in cols.items():
             short, long_, w = cfg.fanout[ref]
             plist.sort()
