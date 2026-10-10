@@ -521,6 +521,16 @@ class NegotiatedRouter(Router):
         st.pres_fac = pres_fac0
         self.failed_terms = []
         conflict_nets = {t[0] for t in st.order}
+        if os.environ.get("ROUTER_RESUME"):
+            # replay the hard pass on a dumped negotiation state (same placement/config): skips ~1 h
+            import pickle
+            d = pickle.load(open(os.environ["ROUTER_RESUME"], "rb")); st = d["state"]
+            if not hasattr(st, "term_cost"):
+                st.term_cost = np.zeros((2, H, W), dtype=np.float32)
+                for n_, t_ in st.order: self._add_term_cost(st.term_cost, t_, +TERM_COST)
+            st.static_blocked, st.static_novia = {}, {}      # rebuilt against the current configuration
+            log(f"  resumed negotiation state from {os.environ['ROUTER_RESUME']} ({len(st.pending)} pending nets)")
+            max_iter = 0; conflict_nets = {n for n, _ in st.pending}
         for it in range(1, max_iter + 1):
             n_rerouted = 0
             for net, terms in st.order:
@@ -639,6 +649,31 @@ class NegotiatedRouter(Router):
                 log(f"    rip-up retry failed for {net}: {trace[-6:]}")
             self.failed_terms = []
         log(f"  hard pass 2 (rip-up retry): {len(pending) - len(still)} of {len(pending)} re-routed cleanly")
+        # round 3: region re-route.  Rip up every net with copper within 3 mm of the failing net's
+        # terminals, route the failing net first (hard, keeping the ripped nets' old space free where
+        # possible), then re-route the ripped nets one by one with the rip-up retry.  Kept only if all
+        # of them route cleanly.
+        pending, still = still, []
+        for net, terms in pending:
+            self._unroute(st, net)
+            region = self._sealers_of(st, net, terms, reach=3.0)
+            snap = snapshot(); ok_all = False
+            if 0 < len(region) <= 30:
+                old = {v: st.paths[v] for v in region if v in st.paths}
+                for v in region: self._unroute(st, v)
+                cells, tracks, vias, ok = self._route_hard(st, net, terms, avoid=old)
+                if cells and ok:
+                    self._commit(st, net, cells, tracks, vias); ok_all = True
+                    for v in sorted(region, key=lambda n: -len(st.task_of[n])):
+                        tr = []
+                        if not hard_with_ripup(v, st.task_of[v], 2, {net}, tr):
+                            ok_all = False; log(f"    region re-route of {net}: {v} failed {tr[-3:]}"); break
+                self.failed_terms = []
+            if ok_all:
+                log(f"    region re-route: {net} routed after re-routing {sorted(region)}")
+            else:
+                restore(snap); self._unroute(st, net); still.append((net, terms))
+        log(f"  hard pass 3 (region re-route): {len(pending) - len(still)} of {len(pending)} re-routed cleanly")
         for net, _ in still:
             st.owner_count[net] = ([], [], False)
         return {n for n, _ in still}
