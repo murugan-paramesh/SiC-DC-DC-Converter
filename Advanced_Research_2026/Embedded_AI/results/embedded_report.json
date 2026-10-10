@@ -1,0 +1,309 @@
+{
+ "explicit_lut": {
+  "entries": 6831,
+  "bytes_q15": 13662,
+  "bytes_float32": 27324,
+  "shape": [
+   33,
+   9,
+   23
+  ],
+  "input_quantisation": {
+   "e_LSB_V": 0.00048828125,
+   "v1_LSB_V": 0.00390625,
+   "p_LSB_W": 0.25
+  },
+  "output_LSB_deg": 0.00274658203125,
+  "q15_vs_float_error_deg": {
+   "max": 0.06703768731415842,
+   "rms": 0.0028878123623364204
+  },
+  "float_lut_vs_exact_law_error_deg": {
+   "max": 0.8487993552773161,
+   "rms": 0.1379286792105026,
+   "p99": 0.5470416844478477,
+   "pwm_step_deg": 0.36000000000000004,
+   "n_samples": 3000
+  },
+  "pwm_step_deg": 0.36000000000000004,
+  "closed_loop_load_step": {
+   "float LUT": {
+    "settling_ms": 0.2299999999591032,
+    "overshoot_pct": 0.01855089607879279,
+    "peak_dev_pct": 0.26191800992771164,
+    "ITAE": 1.2514733950791088,
+    "i_peak_A": 15.025252944156499,
+    "i_rms_A": 9.696340672118387,
+    "violations": 0,
+    "violations_hw": 0,
+    "compute_us_mean": 27.470943999617248,
+    "compute_us_max": 962.2420000141574,
+    "v2_min": 398.95232796028915,
+    "v2_max": 400.07420358431517
+   },
+   "Q15 LUT": {
+    "settling_ms": 0.2399999999590438,
+    "overshoot_pct": 0.01827398288774873,
+    "peak_dev_pct": 0.26393858819966454,
+    "ITAE": 1.2157375255488736,
+    "i_peak_A": 15.293739961824333,
+    "i_rms_A": 9.693074919496846,
+    "violations": 0,
+    "violations_hw": 0,
+    "compute_us_mean": 30.710636000492283,
+    "compute_us_max": 2286.504000039713,
+    "v2_min": 398.94424564720134,
+    "v2_max": 400.073095931551
+   }
+  }
+ },
+ "tps_map": {
+  "points": 1260,
+  "zvs_feasible_fraction": 0.6698412698412698,
+  "sps_zvs_fraction": 0.546031746031746,
+  "mean_Irms_A": 5.918389083777893,
+  "mean_Irms_sps_A": 6.128267725399735,
+  "validation_vs_tps_search": [
+   {
+    "V1": 800,
+    "V2": 400,
+    "P": 4950.0,
+    "tps_search_Irms": null,
+    "tps_search_D1": null,
+    "tps_search_D2": null,
+    "ours_Irms": 6.699711683984728,
+    "ours_D1": 1.0,
+    "ours_D2": 1.0,
+    "ours_zvs_ok": true,
+    "sps_Irms": 6.6182040615260656
+   },
+   {
+    "V1": 850,
+    "V2": 300,
+    "P": 1650.0,
+    "tps_search_Irms": null,
+    "tps_search_D1": null,
+    "tps_search_D2": null,
+    "ours_Irms": 4.25868629904048,
+    "ours_D1": 0.575,
+    "ours_D2": 0.875,
+    "ours_zvs_ok": true,
+    "sps_Irms": 6.093190178612081
+   },
+   {
+    "V1": 650,
+    "V2": 450,
+    "P": 6600.0,
+    "tps_search_Irms": 11.263667316465703,
+    "tps_search_D1": 1.0,
+    "tps_search_D2": 0.7,
+    "ours_Irms": 11.15548834617681,
+    "ours_D1": 1.0,
+    "ours_D2": 0.7749999999999999,
+    "ours_zvs_ok": true,
+    "sps_Irms": 11.285095291242436
+   }
+  ],
+  "note": "computed from the lossless piecewise-linear model (no measurement); D grid 0.4..1.0 step 0.025; ZVS energy criterion with C_par"
+ },
+ "mlp": {
+  "architecture": "3-16-16-3 ReLU",
+  "parameters": 387,
+  "bytes_q15": 774,
+  "bytes_q15_with_int32_bias": 844,
+  "training": {
+   "samples_train": 1008,
+   "samples_test": 252,
+   "epochs": 15000,
+   "optimiser": "Adam, cosine lr 3e-3, L2 1e-5, full batch",
+   "seed": 20260101,
+   "train_mse_norm": 0.006212111907465053,
+   "test_mse_norm": 0.013246675785977179
+  },
+  "error_float_test_grid": {
+   "phi_rms_deg": 1.6781941125211197,
+   "phi_max_deg": 12.024904217202222,
+   "D_rms": 0.04210290872242181,
+   "D_max": 0.30021644723864804
+  },
+  "error_float_offgrid": {
+   "phi_rms_deg": 1.4914933308653409,
+   "phi_max_deg": 6.2738938806690685,
+   "D_rms": 0.036551870001951044,
+   "D_max": 0.20288315424621606
+  },
+  "error_q15_vs_float_offgrid": {
+   "phi_rms_deg": 0.02797470555880621,
+   "phi_max_deg": 0.07421930781246511,
+   "D_rms": 0.0025662632848841606,
+   "D_max": 0.020808607021307157
+  },
+  "error_q15_offgrid": {
+   "phi_rms_deg": 1.485414138352541,
+   "phi_max_deg": 6.279965559951981,
+   "D_rms": 0.03646055015326949,
+   "D_max": 0.20308227539062496
+  },
+  "tps_lut_alternative": {
+   "entries": 3780,
+   "bytes_q15": 7560,
+   "error_offgrid": {
+    "phi_rms_deg": 0.3647560532300388,
+    "phi_max_deg": 2.2138115747569076,
+    "D_rms": 0.03422735363723586,
+    "D_max": 0.22476057261074556
+   }
+  },
+  "quantisation_shifts": [
+   0,
+   1,
+   6
+  ],
+  "activation_shifts": [
+   3,
+   4
+  ]
+ },
+ "wcet": {
+  "cycles_per_op": {
+   "mul": 2,
+   "add": 2,
+   "div": 8,
+   "sqrt": 8,
+   "cmp": 4,
+   "load": 2
+  },
+  "mcu_hz": 200000000.0,
+  "isr_budget_us": 10.0,
+  "assumptions": "L1 estimate: compiled C, no CLA, 2 cycles per add/mul incl. load/store, 8 per TMU div/sqrt, 4 per compare+branch; fixed-point MAC counted as mul+add+load (RPT||MAC would halve it); ISR entry/exit, ADC and PWM register access not included here (+120 cycles, see Adaptive_MPC/results/c2000_feasibility.json)",
+  "paths": {
+   "explicit LUT Q15 trilinear (3 in, 1 out)": {
+    "ops": {
+     "mul": 13,
+     "add": 23,
+     "div": 0,
+     "sqrt": 0,
+     "cmp": 19,
+     "load": 14
+    },
+    "ops_total": 69,
+    "cycles": 176,
+    "us": 0.88,
+    "isr_fraction": 0.088
+   },
+   "TPS LUT Q15 trilinear (3 in, 3 out)": {
+    "ops": {
+     "mul": 27,
+     "add": 51,
+     "div": 0,
+     "sqrt": 0,
+     "cmp": 33,
+     "load": 30
+    },
+    "ops_total": 141,
+    "cycles": 348,
+    "us": 1.74,
+    "isr_fraction": 0.174
+   },
+   "MLP 3-16-16-3 Q15 (int32 MAC, int64 acc)": {
+    "ops": {
+     "mul": 352,
+     "add": 422,
+     "div": 0,
+     "sqrt": 0,
+     "cmp": 67,
+     "load": 390
+    },
+    "ops_total": 1231,
+    "cycles": 2596,
+    "us": 12.98,
+    "isr_fraction": 1.298
+   },
+   "MLP 3-16-16-3 float32 (FPU32)": {
+    "ops": {
+     "mul": 352,
+     "add": 387,
+     "div": 0,
+     "sqrt": 0,
+     "cmp": 35,
+     "load": 390
+    },
+    "ops_total": 1164,
+    "cycles": 2398,
+    "us": 11.99,
+    "isr_fraction": 1.199
+   },
+   "analytic SPS inverse + EPS matching (float)": {
+    "ops": {
+     "mul": 10,
+     "add": 5,
+     "div": 4,
+     "sqrt": 1,
+     "cmp": 9,
+     "load": 6
+    },
+    "ops_total": 35,
+    "cycles": 118,
+    "us": 0.59,
+    "isr_fraction": 0.059
+   },
+   "PI + analytic inverse + EPS (firmware today)": {
+    "ops": {
+     "mul": 13,
+     "add": 8,
+     "div": 4,
+     "sqrt": 1,
+     "cmp": 11,
+     "load": 9
+    },
+    "ops_total": 46,
+    "cycles": 144,
+    "us": 0.72,
+    "isr_fraction": 0.072
+   },
+   "observer + explicit LUT + EPS + DC-free (proposed ISR core)": {
+    "ops": {
+     "mul": 34,
+     "add": 41,
+     "div": 3,
+     "sqrt": 0,
+     "cmp": 29,
+     "load": 26
+    },
+    "ops_total": 133,
+    "cycles": 342,
+    "us": 1.71,
+    "isr_fraction": 0.171
+   }
+  }
+ },
+ "decision": {
+  "explicit_mpc_law": "LUT (Q15, 13.3 KB, trilinear): ~1 us, deterministic, quantisation error far below the PWM step; the online QP (CCS-MPC) does not fit the 10 us ISR",
+  "modulator_inverse": "analytic SPS inverse + EPS matching in float (existing firmware, ~0.3 us): exact, no table; keeps the PI fallback path identical",
+  "tps_eps_map": "LUT (7.4 KB Q15, 3 outputs) if TPS is ever enabled: 3x the WCET of the explicit LUT but still ~1.3 us; the MLP (0.8 KB) needs ~4x the cycles and has a larger error on the plateau-like D1/D2 map; the MLP only becomes attractive when the input dimension grows (e.g. adding L_hat and Tj -> 5-D LUT of several 100 KB)",
+  "mlp_verdict": "not justified for the 3-input maps of this converter; kept as a documented option with a bit-exact fixed-point reference",
+  "offline_only": "all training and table generation stay offline (PC); nothing is learned on the MCU"
+ },
+ "test_vectors": {
+  "test_vectors_lut_q15.csv": {
+   "n": 263,
+   "columns": [
+    "e_q15",
+    "v1_q15",
+    "p_q15",
+    "phi_q15"
+   ]
+  },
+  "test_vectors_mlp_q15.csv": {
+   "n": 227,
+   "columns": [
+    "v1_q15",
+    "v2_q15",
+    "p_q15",
+    "phi_q15",
+    "d1_q15",
+    "d2_q15"
+   ]
+  }
+ }
+}

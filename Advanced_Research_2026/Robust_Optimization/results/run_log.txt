@@ -6,3 +6,4 @@ cc: 138 non-dominated, 2460 evaluations, 76 s
 nominal_strict: 234 non-dominated, 3660 evaluations, 24 s
 robust_strict: 0 non-dominated, 1500 evaluations, 12 s
 cc_strict: 0 non-dominated, 1500 evaluations, 9 s
+grid: 8640 candidates, 1380 feasible under the grid's own constraints, 0 under the strict constraint set, 52 non-dominated (4-D), 3 (loss, volume), 39 s
