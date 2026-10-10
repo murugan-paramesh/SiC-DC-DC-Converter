@@ -9,5 +9,26 @@
  ],
  "Parasitic_Extraction": [
   "extract_parasitics.py"
+ ],
+ "SiC_Health_Monitoring": [
+  "01_generate_synthetic_data.py",
+  "02_estimators_and_detection.py"
+ ],
+ "Active_Gate_Drive": [
+  "gate_drive_analysis.py"
+ ],
+ "Reliability_Engineering": [
+  "fta.py",
+  "fmeda_lite.py",
+  "state_machine_check.py"
+ ],
+ "HIL_Validation": [
+  "sil_fault_injection.py"
+ ],
+ "Cybersecurity": [
+  "cmac_replay_demo.py"
+ ],
+ "Multiphysics_Models": [
+  "electro_thermal_aging.py"
  ]
 }

@@ -7,7 +7,7 @@ module; every failure rate is an order-of-magnitude class value entered as an as
 ```
 python3 Advanced_Research_2026/Reliability_Engineering/fta.py                   # < 2 s
 python3 Advanced_Research_2026/Reliability_Engineering/fmeda_lite.py            # < 1 s
-python3 Advanced_Research_2026/Reliability_Engineering/state_machine_check.py   # ~ 20 s (compiles the C code with gcc into a temp dir)
+python3 Advanced_Research_2026/Reliability_Engineering/state_machine_check.py   # < 30 s (compiles the C code with gcc into a temp dir)
 ```
 
 Inputs: `15_Safety_Reliability/01_insulation_coordination.md`, `02_FMEA.csv`, `16_BOM/bom.csv`, `10_Firmware/src/dab_control.c`,
@@ -15,7 +15,7 @@ Inputs: `15_Safety_Reliability/01_insulation_coordination.md`, `02_FMEA.csv`, `1
 
 ## 1. Fault tree analysis (`fta.py`, `results/fta_cutsets.md`, `fta_cutsets.json`, `fta_trees.md` (Mermaid), `fig_fta_cutsets.png`)
 
-Basic events: 33, rates in FIT (1e-9/h) of the IEC TR 62380 / SN 29500 class (assumptions, listed with their mode in
+Basic events: 32, rates in FIT (1e-9/h) of the IEC TR 62380 / SN 29500 class (assumptions, listed with their mode in
 `fta_cutsets.json`); detected failures are repaired in 48 h, latent ones revealed by an annual proof test (unavailability
 lambda T/2), human/systematic events are per-demand probabilities, `NO_DESAT` is a house event (TRUE for the rev A
 UCC21520 drivers). Minimal cut sets by boolean expansion with absorption; rare-event frequency approximation.

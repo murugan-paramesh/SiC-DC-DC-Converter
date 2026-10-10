@@ -26,25 +26,25 @@
    "wcet_us": 2.07,
    "isr_fraction": 0.207,
    "fits_10us": true,
-   "python_us_mean": 45.8612473563451,
-   "python_us_max": 8155.447998433374
+   "python_us_mean": 15.918933139197723,
+   "python_us_max": 8844.904999989467
   },
   "CCS-MPC": {
    "ops": {
-    "mul": 573,
-    "add": 1148,
-    "div": 6,
+    "mul": 593,
+    "add": 1162,
+    "div": 8,
     "sqrt": 0,
-    "cmp": 345,
-    "load": 349
+    "cmp": 351,
+    "load": 353
    },
-   "ops_total": 2421,
-   "wcet_cycles": 5688,
-   "wcet_us": 28.44,
-   "isr_fraction": 2.844,
+   "ops_total": 2467,
+   "wcet_cycles": 5804,
+   "wcet_us": 29.02,
+   "isr_fraction": 2.902,
    "fits_10us": false,
-   "python_us_mean": 1194.0918775742239,
-   "python_us_max": 24585.996998212067
+   "python_us_mean": 914.2022535948765,
+   "python_us_max": 20705.137000049945
   },
   "FCS-MPC": {
    "ops": {
@@ -60,8 +60,8 @@
    "wcet_us": 98.27,
    "isr_fraction": 9.827,
    "fits_10us": false,
-   "python_us_mean": 1565.6415035919142,
-   "python_us_max": 13910.067998949671
+   "python_us_mean": 622.1181868370795,
+   "python_us_max": 9866.386999988208
   },
   "Explicit-MPC": {
    "ops": {
@@ -77,71 +77,71 @@
    "wcet_us": 2.33,
    "isr_fraction": 0.233,
    "fits_10us": true,
-   "python_us_mean": 81.52403412378193,
-   "python_us_max": 14524.007001455175
+   "python_us_mean": 33.86108838212422,
+   "python_us_max": 8109.6960000195395
   },
   "Adaptive-MPC": {
    "ops": {
-    "mul": 701,
-    "add": 1263,
-    "div": 10,
+    "mul": 721,
+    "add": 1277,
+    "div": 12,
     "sqrt": 1,
-    "cmp": 408,
-    "load": 383
+    "cmp": 414,
+    "load": 387
    },
-   "ops_total": 2766,
-   "wcet_cycles": 6534,
-   "wcet_us": 32.67,
-   "isr_fraction": 3.267,
+   "ops_total": 2812,
+   "wcet_cycles": 6650,
+   "wcet_us": 33.25,
+   "isr_fraction": 3.325,
    "fits_10us": false,
-   "python_us_mean": 2005.3568648500896,
-   "python_us_max": 21097.114000440342
+   "python_us_mean": 1087.4154715561583,
+   "python_us_max": 16692.99399998181
   },
   "Robust-MPC": {
    "ops": {
-    "mul": 573,
-    "add": 1148,
-    "div": 6,
+    "mul": 593,
+    "add": 1162,
+    "div": 8,
     "sqrt": 0,
-    "cmp": 345,
-    "load": 349
+    "cmp": 351,
+    "load": 353
    },
-   "ops_total": 2421,
-   "wcet_cycles": 5688,
-   "wcet_us": 28.44,
-   "isr_fraction": 2.844,
+   "ops_total": 2467,
+   "wcet_cycles": 5804,
+   "wcet_us": 29.02,
+   "isr_fraction": 2.902,
    "fits_10us": false,
-   "python_us_mean": 1228.661443951668,
-   "python_us_max": 64847.437002754305
+   "python_us_mean": 811.6591698265886,
+   "python_us_max": 13330.231000054482
   },
   "CCS-MPC N=5 K=10": {
    "ops": {
-    "mul": 213,
-    "add": 378,
-    "div": 6,
+    "mul": 233,
+    "add": 392,
+    "div": 8,
     "sqrt": 0,
-    "cmp": 125,
-    "load": 129
+    "cmp": 131,
+    "load": 133
    },
-   "ops_total": 851,
-   "wcet_cycles": 2108,
-   "wcet_us": 10.54,
-   "isr_fraction": 1.054,
+   "ops_total": 897,
+   "wcet_cycles": 2224,
+   "wcet_us": 11.12,
+   "isr_fraction": 1.112,
    "fits_10us": false
   },
   "CCS-MPC N=8 K=40": {
    "ops": {
-    "mul": 1113,
-    "add": 2268,
-    "div": 6,
+    "mul": 1133,
+    "add": 2282,
+    "div": 8,
     "sqrt": 0,
-    "cmp": 665,
-    "load": 669
+    "cmp": 671,
+    "load": 673
    },
-   "ops_total": 4721,
-   "wcet_cycles": 10928,
-   "wcet_us": 54.64,
-   "isr_fraction": 5.464,
+   "ops_total": 4767,
+   "wcet_cycles": 11044,
+   "wcet_us": 55.22,
+   "isr_fraction": 5.522,
    "fits_10us": false
   }
  },

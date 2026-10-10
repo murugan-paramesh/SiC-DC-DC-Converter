@@ -1,0 +1,22 @@
+# Known issues and discrepancies found by the 2026 research modules in the engineering baseline
+
+Each item names the module that found it, the evidence, and its state. Items marked *fixed* were
+corrected in the baseline during this work; items marked *open* are design actions that still have
+to be taken before any hardware build. None of these were hidden from the verification report.
+
+| # | Finding | Found by | Evidence | State |
+|---|---|---|---|---|
+| 1 | Switched plant built the +/- pulses of a three-level bridge voltage from independent float comparisons; one-cell asymmetry injected DC volt-seconds and a 13 A DC inductor current for D < 1 | Digital_Twin E3 | `Digital_Twin/README.md` sec. 2 | fixed in `dabtools/dab/sim_switched.py`; baseline sims re-run |
+| 2 | Python controller had no gates-enable flag; the simulation harness switched a full square wave into the dead LV bus during the PRECHARGE_WAIT -> SOFTSTART transition period (62 A, I_PK trip). The C core was already correct (`cmd.gates_enabled`) | 18_Verification re-run | `verification_report.md` dead-bus check | fixed: `DABController.pwm_enabled` mirrors the C flag; harness applies D1 = D2 = 0 when false |
+| 3 | Transformer leakage 7.6 uH (2-D FD) vs 4.1 uH (closed form): formula assumed full window height and 1 mm insulation | FEM_Magnetics | `FEM_Magnetics/README.md` sec. 4 | open: absorbed by the external inductor value (L_ext must be re-trimmed by -3.5 uH); update `06_Magnetics` |
+| 4 | Proximity factors 1.41 / 1.57 at 100 kHz instead of 1.04 / 1.08 (copper loss 10.4 W vs 7.4 W) | FEM_Magnetics | same, sec. 4 | open: +3 W in the 92 W loss budget; carry into `04_Design_Calculations` on the next revision |
+| 5 | Litz bundles as specified need 12.8 mm radially in an 11.7 mm window (packing factor 0.61 required) | FEM_Magnetics | same, sec. 4 | open: re-specify the bundle (smaller strand count per layer or a third layer) before ordering |
+| 6 | Gate-driver off bias: schematic uses -3 V, `dabtools/dab/devices.py` assumes -4 V; crosstalk margin ~0 (HV) and negative (LV, model) at -3 V | Active_Gate_Drive | `Active_Gate_Drive/README.md` | open: move to -4 V bias and/or a Miller-clamp + DESAT driver (UCC21710 class) |
+| 7 | Python `control.py` lacks the C core's hw_trip / driver_fault inputs, the precharge timeout and the disable path in PRECHARGE_WAIT | Reliability_Engineering state-machine check | `Reliability_Engineering/README.md` | open (documentation): the C core is the reference; the Python model is used for plant simulation only |
+| 8 | SIL harness runs 30 checks, READMEs said 35 | Reliability_Engineering | `make test` output | fixed in the READMEs / maturity matrix |
+| 9 | FMEDA-lite: interlock and DESAT diagnostic coverage 0 %; fault-tree top event 2 dominated by the absence of desaturation detection; bias-module isolation is a single-point cut set for top event 1 | Reliability_Engineering | `Reliability_Engineering/results/` | open: add DESAT-capable drivers and interlock self-test in the next hardware revision |
+| 10 | A -20 % gain fault of the LV voltage sensor drives the true V2 to 474 V without a trip (AMC1301 chain is a common cause for regulation and OV protection); LV clip/trip margin 4 % | HIL_Validation SIL fault injection | `HIL_Validation/results/` | open: independent OV comparator reference path (hardware) before HIL |
+| 11 | I/O scaling inconsistency between AMC1311 / AMC1301 and `hal_adc_read` documentation | HIL_Validation | same | open: resolve before HIL |
+| 12 | Controller part naming: the firmware HAL targets F280049C while some documents say F2837x | Cybersecurity | `Cybersecurity/README.md` | open (documentation) |
+| 13 | Light-load hard switching (10-30 % load with SPS/EPS) dominates the thermal cycling of the assumed 24 h mission profile | Multiphysics_Models, Digital_Twin supervisory | `Multiphysics_Models/README.md`, `Digital_Twin/README.md` sec. 3 | open: light-load strategy (TPS maps / burst) - see Adaptive_MPC ZVS maps |
+| 14 | Nine single-pin header nets (reserved SPI/I2C/reset/sync pins and U9's spare reference output) produce dangling-stub DRC warnings | 18_Verification ERC-lite | `design_dab.RESERVED_SINGLE_PIN_NETS` | documented; cosmetic |

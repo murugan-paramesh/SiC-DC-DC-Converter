@@ -41,7 +41,7 @@
    "area": "Engineering baseline",
    "item": "DAB firmware control core + SIL harness",
    "level": "L3",
-   "evidence": "10_Firmware/sil/sil_results.csv (35 checks)",
+   "evidence": "10_Firmware/sil/sil_results.csv (30 checks)",
    "not_verified": "C2000 HAL never compiled with the TI toolchain (L0-L1)"
   },
   {
@@ -92,6 +92,48 @@
    "level": "L1",
    "evidence": "Advanced_Research_2026/Parasitic_Extraction/results/parasitics.json (27.9 nH loop, 109/56 nH gate loops)",
    "not_verified": "closed-form partial inductances, package inductance from literature-typical values, no field solver or measurement"
+  },
+  {
+   "area": "Research 2026",
+   "item": "SiC_Health_Monitoring: Rds_on / Vth drift estimators (RLS, Kalman, CUSUM) on SYNTHETIC degradation data",
+   "level": "L2 (synthetic)",
+   "evidence": "SiC_Health_Monitoring/results/ (1 % drift detected in 1-7 weeks, 0 false alarms in 3 y with a stable T reference)",
+   "not_verified": "no measured aging data, no RUL claim; needs a V_ds,on sense circuit (proposed) and a <= 1 K life-stable temperature reference"
+  },
+  {
+   "area": "Research 2026",
+   "item": "Active_Gate_Drive: fixed / two-level / Miller-clamp / active-driver trade-off with datasheet models",
+   "level": "L1",
+   "evidence": "Active_Gate_Drive/results/ (dv/dt 15-31 V/ns set by I/2Coss under ZVS; active drive not worth it here)",
+   "not_verified": "no switching measurement; -3 V vs -4 V bias discrepancy open (KNOWN_ISSUES #6)"
+  },
+  {
+   "area": "Research 2026",
+   "item": "Reliability_Engineering: FTA (32 basic events, minimal cut sets), FMEDA-lite, exhaustive state-machine check + C conformance harness",
+   "level": "L1 (FTA/FMEDA), L3 (state machine)",
+   "evidence": "Reliability_Engineering/results/ (46 080 transitions checked, 0 mismatches vs dab_control.c)",
+   "not_verified": "failure rates are assumed generic values; no SIL/certification claim; property P1 fails as literally stated (conditional faults by design)"
+  },
+  {
+   "area": "Research 2026",
+   "item": "HIL_Validation: HIL architecture (PROPOSED) + 19 software fault-injection tests",
+   "level": "L3 (SIL); HIL L0",
+   "evidence": "HIL_Validation/results/ (19/19 pass)",
+   "not_verified": "no HIL hardware; LV-sensor common-cause finding open (KNOWN_ISSUES #10)"
+  },
+  {
+   "area": "Research 2026",
+   "item": "Cybersecurity: IEC 62443 applicability, STRIDE, secure boot/update design, CMAC + replay-counter demo",
+   "level": "L0-L1",
+   "evidence": "Cybersecurity/README.md, cmac_replay_demo.py (FIPS-197 / RFC 4493 vectors pass)",
+   "not_verified": "C2000 security features marked 'verify vs TRM'; no implementation on the target"
+  },
+  {
+   "area": "Research 2026",
+   "item": "Multiphysics_Models: coupled electro-thermal-aging reduced-order model on an assumed 24 h mission profile",
+   "level": "L2",
+   "evidence": "Multiphysics_Models/results/ (lifetime ratios vs forced air: natural 0.01-0.23, liquid 130-5300; slew/fan variants negative results)",
+   "not_verified": "Foster capacitances and lifetime-model coefficients are literature-typical; ratios only, no absolute lifetime"
   }
  ]
 }

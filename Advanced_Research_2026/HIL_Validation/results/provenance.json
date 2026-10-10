@@ -3,12 +3,12 @@
  "python": "3.13.16",
  "numpy": "2.5.3",
  "matplotlib": "3.11.2",
- "git_commit": "8321de57c23433aa2f82f051017aedcd1714cf54",
+ "git_commit": "ca67152a870b4e9fd4549005336dd91ef9fe1969",
  "seed": 20261012,
- "wall_time_s": 51.3,
+ "wall_time_s": 51.8,
  "inputs": {
   "SiC_6k6_Industrial_DAB/dabtools/dab/sim_switched.py": "0aa6ec0b6449437d",
-  "SiC_6k6_Industrial_DAB/dabtools/dab/control.py": "ea8d367e381c5474",
+  "SiC_6k6_Industrial_DAB/dabtools/dab/control.py": "4fce64a75da1a596",
   "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f4271",
   "SiC_6k6_Industrial_DAB/11_Control_Algorithms/control_params.json": "7ddd3fafe463ac4f"
  },

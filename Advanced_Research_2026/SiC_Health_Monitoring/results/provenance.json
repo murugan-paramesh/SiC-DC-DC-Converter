@@ -3,9 +3,9 @@
  "python": "3.13.16",
  "numpy": "2.5.3",
  "matplotlib": "3.11.2",
- "git_commit": "0810f0ff9ed3c424ed826de6e58a4073b1f3f24b",
+ "git_commit": "ca67152a870b4e9fd4549005336dd91ef9fe1969",
  "seed": 20261011,
- "wall_time_s": 12.81,
+ "wall_time_s": 4.84,
  "inputs": {
   "Advanced_Research_2026/SiC_Health_Monitoring/01_generate_synthetic_data.py": "b2453efbe0af5242",
   "SiC_6k6_Industrial_DAB/dabtools/dab/devices.py": "bccad660fcf2d85f",

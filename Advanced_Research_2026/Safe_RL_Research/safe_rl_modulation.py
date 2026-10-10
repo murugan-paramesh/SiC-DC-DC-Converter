@@ -16,9 +16,12 @@ Methods:
       (action = EPS reference + bounded correction), Lagrangian penalty on pre-filter violations.
   M2  constrained REINFORCE with a tabular softmax policy over a discretised (D1, D2) set (25 actions,
       18 context bins), phi solved analytically for the demanded power.
-Numpy / scipy only.  Run time: about 5 minutes on one core (grids shrunk accordingly, see README).
+Numpy / scipy only.  Run time: a few minutes on one core (population, generations and periods were shrunk for
+the 15-minute budget, see README).
 """
 import os, sys, json, math, time, hashlib, platform, importlib, datetime
+for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):
+    os.environ.setdefault(_v, "1")
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -148,17 +151,22 @@ def battery_load(V2set, R_int=0.05):
     return lambda v2, t: (v2 - V2set) / R_int
 
 
-def run_episode(ctx, act_fn, periods, N_sub, filt, ref, fallback=True):
-    """act_fn(v1, v2, P_dem) -> proposal.  The policy is queried every period; the filter projects it;
+def run_episode(ctx, act_fn, periods, N_sub, filt, ref, fallback=True, query_every_period=True):
+    """act_fn(v1, v2, P_dem) -> proposal.  The policy is queried every period (evaluation) or once at the start
+    (training, query_every_period=False: the policy is deterministic and the context fixed, so repeated queries would
+    be identical - this saves one analytical-model evaluation per period); the filter projects the proposal;
     after N_REJ consecutive rejections the deterministic fallback (EPS reference) is used for the rest."""
     V1, V2, P_dem = ctx
     plant = DABPlant(L, n, fs, C1, C2, V1, 0.3, battery_load(V2), N_sub=N_sub); plant.v2 = V2
-    a0, _ = filt(ctx, act_fn(V1, V2, P_dem), ref)
+    filt.consecutive = 0
+    a0, info0 = filt(ctx, act_fn(V1, V2, P_dem), ref)
     plant.iL = model(V1, V2, *a0)["i0"]            # start near the analytical steady state (no DC offset transient)
-    filt.consecutive = 0; in_fallback = False; rec = None; rejected = 0
+    in_fallback = False; rec = None; rejected = int(info0["rejected"])
     for k in range(periods):
         if in_fallback:
             a = ref
+        elif not query_every_period:
+            a = a0
         else:
             a, info = filt((plant.v1, plant.v2, P_dem), act_fn(plant.v1, plant.v2, P_dem), ref)
             rejected += int(info["rejected"])
@@ -204,7 +212,7 @@ def main():
     rng = np.random.default_rng(SEED)
     res = dict(contexts=CONTEXTS, limits=dict(I_filter=I_FILTER, I_hard=I_HARD, V2=V2_LIM, phi_max_deg=CP["phi_max_deg"], zvs_guard_A=ZVS_GUARD, N_rej=N_REJ))
     # ---- references: EPS schedule and analytical TPS optimum per context
-    print("references ...")
+    print("references ...", flush=True)
     REF, TPS, feas = {}, {}, {}
     for ctx in CONTEXTS:
         V1, V2, P_dem = ctx
@@ -235,7 +243,7 @@ def main():
 
     # ---- M1: CEM with Lagrangian penalty ------------------------------------------------------
     print("M1 CEM ...")
-    POP, ELITE, GENS = 24, 6, 25
+    POP, ELITE, GENS = 16, 4, 20
     mu = np.zeros(ResidualPolicy.size); sig = 0.3 * np.ones(ResidualPolicy.size); lam = 1.0
     hist = []
     # fitness evaluation uses one filter call per context (steady-state task) -> the pre-filter violation is the
@@ -244,9 +252,9 @@ def main():
         pol = ResidualPolicy(theta, ref_fn); filt = SafetyFilter(feas_map)
         J, viol, fb = 0.0, 0.0, 0
         for ctx in CONTEXTS:
-            o = run_episode(ctx, pol, PERIODS_TRAIN, N_SUB_TRAIN, filt, REF[ctx])
+            o = run_episode(ctx, pol, PERIODS_TRAIN, N_SUB_TRAIN, filt, REF[ctx], query_every_period=False)
             J += o["Irms"] / ref_eval[ctx]["Irms"]
-            viol += o["rejected"] / PERIODS_TRAIN; fb += int(o["fallback"])
+            viol += o["rejected"]; fb += int(o["fallback"])
         return J / len(CONTEXTS), viol / len(CONTEXTS), fb
     ref_eval = {ctx: run_episode(ctx, lambda a, b, c, r=REF[ctx]: r, PERIODS_TRAIN, N_SUB_TRAIN, SafetyFilter(feas_map), REF[ctx]) for ctx in CONTEXTS}
     best_theta, best_J = mu.copy(), 1e9
@@ -264,7 +272,7 @@ def main():
             best_J = scores[order[0], 1]; best_theta = thetas[order[0]].copy()
         hist.append(dict(gen=g, best=float(scores[order[0], 0]), best_J=float(scores[order[0], 1]), mean_J=float(scores[:, 1].mean()),
                          mean_viol=float(scores[:, 2].mean()), fallbacks=int(scores[:, 3].sum()), lam=float(lam)))
-        print(f"  gen {g:2d} best J={scores[order[0], 1]:.4f} viol={scores[order[0], 2]:.3f} mean viol={scores[:, 2].mean():.3f} lam={lam:.2f} fallbacks={int(scores[:, 3].sum())}  t={time.time() - T0:.0f}s")
+        print(f"  gen {g:2d} best J={scores[order[0], 1]:.4f} viol={scores[order[0], 2]:.3f} mean viol={scores[:, 2].mean():.3f} lam={lam:.2f} fallbacks={int(scores[:, 3].sum())}  t={time.time() - T0:.0f}s", flush=True)
     if best_J > 1e8:          # no violation-free candidate found: take the CEM mean
         best_theta = mu
     res["M1_cem"] = dict(population=POP, elite=ELITE, generations=GENS, policy_params=int(ResidualPolicy.size), history=hist,
@@ -291,8 +299,8 @@ def main():
             p = np.exp(logits[ci] - logits[ci].max()); p /= p.sum()
             ai = rng.choice(len(ACTIONS), p=p)
             a = act_from_index(ctx, ai); filt = SafetyFilter(feas_map)
-            o = run_episode(ctx, lambda v1, v2, pd, a=a: a, PERIODS_TRAIN, N_SUB_TRAIN, filt, REF[ctx])
-            viol = o["rejected"] / PERIODS_TRAIN
+            o = run_episode(ctx, lambda v1, v2, pd, a=a: a, PERIODS_TRAIN, N_SUB_TRAIN, filt, REF[ctx], query_every_period=False)
+            viol = o["rejected"]
             R = -o["Irms"] / ref_eval[ctx]["Irms"] - lam2 * viol
             adv = R - baseline[ci]; baseline[ci] += 0.1 * adv
             grad = -p; grad[ai] += 1.0

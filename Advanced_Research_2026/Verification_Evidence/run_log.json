@@ -1,114 +1,368 @@
 {
- "started": "2026-10-10T03:11:15.039608+00:00",
+ "started": "2026-10-10T07:53:09.961303+00:00",
  "versions": {
   "python": "3.13.16",
   "numpy": "2.5.3",
   "scipy": "1.18.1",
   "matplotlib": "3.11.2",
   "pandas": "3.0.5",
-  "git_commit": "85c5adc518f0fe3613388e062a6890b08f332652"
+  "git_commit": "ca67152a870b4e9fd4549005336dd91ef9fe1969"
  },
  "modules": {
-  "FEM_Magnetics": {
+  "SiC_Health_Monitoring": {
    "scripts": [
     {
-     "script": "run_fem_magnetics.py",
+     "script": "01_generate_synthetic_data.py",
      "status": "PASS",
-     "wall_s": 232.0,
-     "tail": "  Llk=  0.455 uH  cost~  190 EUR  fits=True  pareto=False\n  P4 2xELP64 16:8 3 boards PPPPSS                              P=  37.5 W  V=   172 cm3  Llk=  1.205 uH  cost~  264 EUR  fits=True  pareto=False\n  P5 2xELP64 16:8 4 boards PSPSPP 0.21mm P-S (basic ins.)      P=  30.3 W  V=   172 cm3  Llk=  0.135 uH  cost~  338 EUR  fits=True  pareto=True\n  P6 2xELP64 16:8 4 boards PSPSPP 0.42mm P-S                   P=   nan W  V=   nan cm3  Llk=    nan uH  cost~  nan EUR  fits=False  pareto=False\n\nwall time 229.1 s; results in /home/user/SiC-DC-DC-Converter/Advanced_Research_2026/FEM_Magnetics/results\n"
+     "wall_s": 2.3,
+     "tail": "{\n \"A_calibrated\": 157573.76334410667,\n \"EOL_hour_degrading\": 21899,\n \"dR_pct_at_3y_degrading\": 7.076736374881443,\n \"dVth_V_at_3y\": 0.19370066623022084,\n \"Tj_range_C\": [\n  20.468485935119777,\n  52.71446622785785\n ]\n}\nwall 1.5 s\n"
+    },
+    {
+     "script": "02_estimators_and_detection.py",
+     "status": "PASS",
+     "wall_s": 5.5,
+     "tail": "heatsink_ntc\": {\n  \"T_error_mean_K\": 0.9362484650728164,\n  \"T_error_std_K\": 1.1228253069575445,\n  \"compensated_weekly_std_pct\": 0.24116100741686386,\n  \"kalman_final_dR_pct\": 6.655876276501882,\n  \"true_final_dR_pct\": 7.076736374881443,\n  \"rls_tempco_final_mOhm_per_125K\": 19.873659319664316\n },\n \"case_sensor\": {\n  \"T_error_mean_K\": 0.528181380519702,\n  \"T_error_std_K\": 0.5760156879308724,\n  \"compensated_weekly_std_pct\": 0.24722557077615756,\n  \"kalman_final_dR_pct\": 6.457283522652535,\n  \"true_final_dR_pct\": 7.076736374881443,\n  \"rls_tempco_final_mOhm_per_125K\": 20.007988064262978\n }\n}\nwall 4.8 s\n"
     }
    ],
    "results": {
-    "fem_results.json": {
-     "sha256_16": "2e455035517cb3ce",
-     "bytes": 22696
+    "SYNTHETIC_generator_params.json": {
+     "sha256_16": "506ddd00dac3a367",
+     "bytes": 1144
     },
-    "fig_field_planar.png": {
-     "sha256_16": "dc8fe8387d9cff78",
-     "bytes": 436351
+    "SYNTHETIC_meas_degrading_case_sensor.csv": {
+     "sha256_16": "27d909dc694f39f0",
+     "bytes": 718511
     },
-    "fig_field_wound_interleaved.png": {
-     "sha256_16": "61987f99be4fc85d",
-     "bytes": 359521
+    "SYNTHETIC_meas_degrading_heatsink_ntc.csv": {
+     "sha256_16": "d5e5f144d1162960",
+     "bytes": 718448
     },
-    "fig_field_wound_noninterleaved.png": {
-     "sha256_16": "07ac3bf940609c41",
-     "bytes": 336269
+    "SYNTHETIC_meas_degrading_junction_model.csv": {
+     "sha256_16": "469f7f31151e6dd8",
+     "bytes": 718339
     },
-    "fig_pareto.png": {
-     "sha256_16": "80d7e34de6711631",
-     "bytes": 102891
+    "SYNTHETIC_meas_healthy_case_sensor.csv": {
+     "sha256_16": "c5af8f56213f7224",
+     "bytes": 718901
     },
-    "fig_validation_convergence.png": {
-     "sha256_16": "e86deb3c462d061d",
-     "bytes": 51786
+    "SYNTHETIC_meas_healthy_heatsink_ntc.csv": {
+     "sha256_16": "9bff3c468f25b2eb",
+     "bytes": 718847
     },
-    "pareto_variants.csv": {
-     "sha256_16": "1adc2992d92e211a",
-     "bytes": 2585
+    "SYNTHETIC_meas_healthy_junction_model.csv": {
+     "sha256_16": "7b1177c3626588b6",
+     "bytes": 718760
     },
-    "run_log.txt": {
-     "sha256_16": "43df6046ac3e6c8f",
-     "bytes": 4861
+    "SYNTHETIC_mission_degrading.csv": {
+     "sha256_16": "fa74aeaa7f1ccd5d",
+     "bytes": 892265
     },
-    "validation_dowell.csv": {
-     "sha256_16": "717bbd848069a347",
-     "bytes": 196
+    "SYNTHETIC_mission_healthy.csv": {
+     "sha256_16": "a0ca835fe3c47bce",
+     "bytes": 892518
     },
-    "validation_leakage_convergence.csv": {
-     "sha256_16": "8b58d717112b5105",
-     "bytes": 504
+    "SYNTHETIC_truth_degrading.csv": {
+     "sha256_16": "e1850ae44549f835",
+     "bytes": 1974818
+    },
+    "SYNTHETIC_truth_healthy.csv": {
+     "sha256_16": "8e6910c5a0799eac",
+     "bytes": 1462199
+    },
+    "detection_results.json": {
+     "sha256_16": "895b7d442d2f5a4e",
+     "bytes": 9564
+    },
+    "detection_tables.md": {
+     "sha256_16": "48879be6cec4ad06",
+     "bytes": 2409
+    },
+    "fig_detection_vs_false_alarm.png": {
+     "sha256_16": "f518fb03be33153e",
+     "bytes": 110696
+    },
+    "fig_estimators_demo.png": {
+     "sha256_16": "db935f90e7d80f4d",
+     "bytes": 244080
+    },
+    "fig_sensor_requirement.png": {
+     "sha256_16": "bc27eafc706d511a",
+     "bytes": 80543
+    },
+    "fig_synthetic_truth.png": {
+     "sha256_16": "b4685e6a3d519d23",
+     "bytes": 176673
+    },
+    "provenance.json": {
+     "sha256_16": "c6bea63548b99528",
+     "bytes": 1224
+    },
+    "provenance_generator.json": {
+     "sha256_16": "eb25076c90353c05",
+     "bytes": 1122
     }
    }
   },
-  "Parasitic_Extraction": {
+  "Active_Gate_Drive": {
    "scripts": [
     {
-     "script": "extract_parasitics.py",
+     "script": "gate_drive_analysis.py",
      "status": "PASS",
-     "wall_s": 7.1,
-     "tail": " A, tf=10 ns: L di/dt = 54 V, Z0 bound = 174 V -> Vos ~ 54 V, Vds,pk = 504 V, margin to 1200 V = 696 V\n  LV_leg_C L=28 nH C3M0016120K: Vdc=450 V, I=39.2 A, tf=10 ns: L di/dt = 109 V, Z0 bound = 350 V -> Vos ~ 109 V, Vds,pk = 559 V, margin to 1200 V = 641 V\n  LV_leg_C L=28 nH C3M0016120K: Vdc=450 V, I=64.0 A, tf=10 ns: L di/dt = 179 V, Z0 bound = 571 V -> Vos ~ 179 V, Vds,pk = 629 V, margin to 1200 V = 571 V\n\n== (d) literature comparison written (typical ranges, not measured here) ==\n\nwall time 3.7 s; results in /home/user/SiC-DC-DC-Converter/Advanced_Research_2026/Parasitic_Extraction/results\n"
+     "wall_s": 2.6,
+     "tail": "teau / 10 Ohm plateau) concept | 6.8/4.3 | 221.8 | 22.18 | 14.4 | 15.0/- | no gain (capacitive) | -/- | - | - | - |\n{\n \"C3M0032120K\": {\n  \"zvs_dvdt_nom_Vns\": 15.2,\n  \"zvs_dvdt_worst_Vns\": 30.6,\n  \"crosstalk_margin_worst_minus3V\": -0.07,\n  \"crosstalk_margin_worst_minus4V\": 0.93,\n  \"hard_P_per_edge_W\": 9.1,\n  \"zvs_E_off_model_uJ\": 0.155\n },\n \"C3M0016120K\": {\n  \"zvs_dvdt_nom_Vns\": 15.0,\n  \"zvs_dvdt_worst_Vns\": 30.1,\n  \"crosstalk_margin_worst_minus3V\": -3.02,\n  \"crosstalk_margin_worst_minus4V\": -2.02,\n  \"hard_P_per_edge_W\": 7.59,\n  \"zvs_E_off_model_uJ\": 0.305\n }\n}\nZVS share of envelope grid: 0.52\n"
     }
    ],
    "results": {
-    "fig_loop_geometry_HV.png": {
-     "sha256_16": "256406434c09cc81",
-     "bytes": 67815
+    "fig_crosstalk_margin.png": {
+     "sha256_16": "8e79db959f4cd30e",
+     "bytes": 168752
     },
-    "fig_overshoot.png": {
-     "sha256_16": "c046906e9ad7c6f6",
-     "bytes": 89897
+    "fig_dvdt_vs_rg.png": {
+     "sha256_16": "4061e4eeaa5348ab",
+     "bytes": 107139
     },
-    "gate_loop_sensitivity.csv": {
-     "sha256_16": "f1fd29646d3e17f0",
-     "bytes": 371
+    "fig_loss_vs_rg.png": {
+     "sha256_16": "cca753af8561f2bd",
+     "bytes": 102346
     },
-    "literature_comparison.csv": {
-     "sha256_16": "1a769c15b60997d1",
-     "bytes": 777
+    "fig_tradeoff_map.png": {
+     "sha256_16": "0caaa993d70693a5",
+     "bytes": 106087
     },
-    "loop_segments.csv": {
-     "sha256_16": "e2d2d2dd89752929",
-     "bytes": 4705
+    "gate_drive_results.json": {
+     "sha256_16": "3e031604bf2ef05c",
+     "bytes": 66948
     },
-    "overshoot.csv": {
-     "sha256_16": "850804de39038411",
-     "bytes": 4107
+    "option_table.md": {
+     "sha256_16": "7995bfe041fbfb3d",
+     "bytes": 2354
     },
-    "parasitics.json": {
-     "sha256_16": "5ba518071e8ac928",
-     "bytes": 35450
+    "provenance.json": {
+     "sha256_16": "e746ff0e7f509ed7",
+     "bytes": 747
+    }
+   }
+  },
+  "Reliability_Engineering": {
+   "scripts": [
+    {
+     "script": "fta.py",
+     "status": "PASS",
+     "wall_s": 1.4,
+     "tail": "TIM | 3 | 1.72e-11 | 1.0 % |\n| HOST AND NTC AND TIM | 3 | 1.21e-11 | 0.7 % |\n| HOST AND MCU AND TIM | 3 | 8.59e-12 | 0.5 % |\n| AMB_HI AND FW_OT AND HOST | 3 | 3.70e-12 | 0.2 % |\n| AMB_HI AND HOST AND MCU | 3 | 1.85e-12 | 0.1 % |\n\nFussell-Vesely importance (top 6): HOST 1.00, FAN 0.83, NTC 0.80, FW_OT 0.13, CLOG 0.11, MCU 0.07\n\n## TE2 with the UCC21710 (DESAT) upgrade, DESAT coverage 99 % assumed\nfrequency 1.94e-06 /year (rev A: 1.93e-04), ratio 99.2\n\n## TE2 with a CT plausibility check: frequency 1.93e-04 /year\n## TE3 with an NTC plausibility check: frequency 3.82e-10 /year (rev A: 1.68e-09)\n\n"
     },
-    "run_log.txt": {
-     "sha256_16": "1c273d6fe9a37e2e",
-     "bytes": 9230
+    {
+     "script": "fmeda_lite.py",
+     "status": "PASS",
+     "wall_s": 0.3,
+     "tail": "CT plausibility: |i_pk| vs the SPS power model at the commanded phi (OC: CT open/short, rectifier); (2) comparator pulse test at start-up: inject a test level into the LM393 inputs through a DAC/GPIO and expect PROT_DIS (OV/OC comparators, 74HC32, TZ arming); (3) NTC plausibility: heatsink temperature vs the loss model and vs the second NTC (OT: NTC open); (4) V1/V2 cross-check: V2 x n vs V1 at the EPS matching point and the HV/LV power balance (AMC gain drift); (5) flash/RAM CRC of the parameter block (threshold corruption); (6) DESAT driver upgrade (UCC21710) for the short-circuit function.\n"
     },
-    "sensitivity.csv": {
-     "sha256_16": "f8339320e8175248",
-     "bytes": 746
+    {
+     "script": "state_machine_check.py",
+     "status": "PASS",
+     "wall_s": 1.5,
+     "tail": "_WAIT | ['hw_trip', 'pc_timeout', 'enable'] | 32 |\n| INIT | FAULT | INIT | ['driver_fault', 'hw_trip', 'pc_timeout'] | 32 |\n| INIT | FAULT | PRECHARGE_WAIT | ['driver_fault', 'hw_trip', 'pc_timeout', 'enable'] | 32 |\n| SOFTSTART | FAULT | INIT | ['driver_fault'] | 16 |\n| SOFTSTART | FAULT | INIT | ['hw_trip'] | 16 |\n| SOFTSTART | FAULT | INIT | ['driver_fault', 'hw_trip'] | 16 |\n\nSIL harness (10_Firmware/sil/sil_main.c, compiled with gcc in a scratch directory): {'status': 'RUN', 'exit_code': 0, 'n_pass': 30, 'n_fail': 0, 'result_line': ['RESULT: ALL PASS (0 failures)'], 'build_warnings': ''}\n"
+    }
+   ],
+   "results": {
+    "fig_fta_cutsets.png": {
+     "sha256_16": "0084e933fdc07951",
+     "bytes": 110167
+    },
+    "fmeda_lite.csv": {
+     "sha256_16": "d292560a408705c7",
+     "bytes": 5280
+    },
+    "fmeda_lite.md": {
+     "sha256_16": "f6ac27ec33d0e972",
+     "bytes": 1648
+    },
+    "fmeda_summary.json": {
+     "sha256_16": "e5f0e7c8c543cb62",
+     "bytes": 715
+    },
+    "fta_cutsets.json": {
+     "sha256_16": "3ff977d1bb1d4054",
+     "bytes": 36926
+    },
+    "fta_cutsets.md": {
+     "sha256_16": "aab4f0bea323dbfa",
+     "bytes": 3663
+    },
+    "fta_trees.md": {
+     "sha256_16": "c1ee1091714c30d1",
+     "bytes": 4834
+    },
+    "provenance_fmeda.json": {
+     "sha256_16": "5a76b980e2dcb556",
+     "bytes": 352
+    },
+    "provenance_fta.json": {
+     "sha256_16": "48eaa13d90a3116d",
+     "bytes": 382
+    },
+    "provenance_sm.json": {
+     "sha256_16": "b65cf19b72981b03",
+     "bytes": 745
+    },
+    "sil_harness_output.txt": {
+     "sha256_16": "e98e64d9b122ee93",
+     "bytes": 1917
+    },
+    "state_machine_report.md": {
+     "sha256_16": "c87cb2f0d8f81792",
+     "bytes": 2211
+    },
+    "state_machine_results.json": {
+     "sha256_16": "39f38b3757355f71",
+     "bytes": 10141
+    }
+   }
+  },
+  "HIL_Validation": {
+   "scripts": [
+    {
+     "script": "sil_fault_injection.py",
+     "status": "PASS",
+     "wall_s": 52.5,
+     "tail": "ip 10 % (720 V) for 20 ms in RUN :: {'fault': None, 'hw': None, 'v2_dev_max': 0.1346562729327161}\nT16 PASS enable removed during RUN at 60 ms :: {'fault': None, 'hw': None, 'state_end': 'INIT'}\nT17 PASS precharge feedback never true :: {'fault': None, 'hw': None, 'state_end': 'PRECHARGE_WAIT'}\nT18 PASS heatsink NTC reads 110 C at 60 ms (sensor short or real over-temperature) :: {'fault': 'OT', 'hw': None, 'delay_periods': 1}\nT19 PASS i_pk sensor stuck low (CT open, reads 0) during a load short at 60 ms :: {'fault': 'V2_UV', 'hw': None, 'ipk_true_max': 22.82790926544085}\n\n19/19 PASS, wall 52 s\n"
+    }
+   ],
+   "results": {
+    "fig_sil_traces.png": {
+     "sha256_16": "ace5916c7c0a83f4",
+     "bytes": 307085
+    },
+    "provenance.json": {
+     "sha256_16": "d35b90de3a812a55",
+     "bytes": 675
+    },
+    "sil_results.csv": {
+     "sha256_16": "7df43a62b2202451",
+     "bytes": 4546
+    },
+    "sil_results.json": {
+     "sha256_16": "b9d5476344ee5f5c",
+     "bytes": 7134
+    },
+    "sil_results.md": {
+     "sha256_16": "c45d0e1148fb3fc4",
+     "bytes": 3980
+    }
+   }
+  },
+  "Cybersecurity": {
+   "scripts": [
+    {
+     "script": "cmac_replay_demo.py",
+     "status": "PASS",
+     "wall_s": 0.1,
+     "tail": "4800000435527fe8ac64a886de` | accept: MODE_CP arg=-3000 ctr=1077 |\n| CLR_FAULT with a valid MAC and counter (accepted - authentication does not make the command safe, the state machine still re-faults if the condition persists) | `0400000000000436820357f0a627f5c9` | accept: CLR_FAULT arg=0 ctr=1078 |\n| after a reboot with the persisted counter: last valid frame replayed | `0400000000000436820357f0a627f5c9` | reject: replay / stale counter |\n| after the reboot: fresh counter ahead of the jump-ahead value | `0100000100000469d36f489f1c9a9d1c` | accept: EN arg=1 ctr=1129 |\n\nDemo expectations met.\n"
+    }
+   ],
+   "results": {
+    "cmac_test_vectors.json": {
+     "sha256_16": "29ab25343fd6b164",
+     "bytes": 3608
+    },
+    "demo_log.md": {
+     "sha256_16": "3673959651667951",
+     "bytes": 2219
+    },
+    "provenance.json": {
+     "sha256_16": "94d28c1540767108",
+     "bytes": 330
+    }
+   }
+  },
+  "Multiphysics_Models": {
+   "scripts": [
+    {
+     "script": "electro_thermal_aging.py",
+     "status": "PASS",
+     "wall_s": 2.5,
+     "tail": "/ 4.2 | 18 | 23.7 | 581 | 1.000 | 180.08 / 4478.87 | 130.70 / 5304.80 |\n| slew_limited | 63.4 / 41.4 | 50.8 / 38.4 | 37.5 / 24.2 | 20 | 24.1 | 590 | 0.988 | 0.91 / 1.00 | 0.93 / 1.00 |\n| fan_control | 62.9 / 45.6 | 56.7 / 42.8 | 35.4 / 28.9 | 16 | 24.1 | 581 | 1.000 | 0.91 / 0.39 | 1.06 / 0.68 |\n\nElectro-thermal feedback: mean losses 23.9 W with Rds_on(Tj) vs 23.3 W at 25 C (+2.9 %).\nAging feedback (+5 % Rds_on, forced air): losses +1.6 %, daily damage proxy +0.6 % (LESIT, HV) / +0.4 % (Bayerer, HV) - self-acceleration is weak because Tj - Tcase is only a few kelvin in this design.\nwall 1.9 s\n"
+    }
+   ],
+   "results": {
+    "fig_coupling_diagram.png": {
+     "sha256_16": "4185652ef77b0d27",
+     "bytes": 96233
+    },
+    "fig_lifetime_ratio.png": {
+     "sha256_16": "c06b1ed4a3587bf7",
+     "bytes": 57962
+    },
+    "fig_mission.png": {
+     "sha256_16": "b11eff845521933e",
+     "bytes": 86400
+    },
+    "fig_rainflow.png": {
+     "sha256_16": "db241a84bfc5e676",
+     "bytes": 58791
+    },
+    "fig_tj_traces.png": {
+     "sha256_16": "322b9164e044187f",
+     "bytes": 157535
+    },
+    "lifetime_proxy.json": {
+     "sha256_16": "b17f7c76686c8be4",
+     "bytes": 4713
+    },
+    "lifetime_table.md": {
+     "sha256_16": "606bd6b86be287d6",
+     "bytes": 1205
+    },
+    "mission_profile.csv": {
+     "sha256_16": "ee7e2b14ff972331",
+     "bytes": 40496
+    },
+    "provenance.json": {
+     "sha256_16": "67f558707157e9ed",
+     "bytes": 1182
+    },
+    "rainflow_fan_control.csv": {
+     "sha256_16": "781c0f07f9bca2a0",
+     "bytes": 824
+    },
+    "rainflow_forced_air.csv": {
+     "sha256_16": "36b6d3ea7b9ffa8b",
+     "bytes": 743
+    },
+    "rainflow_liquid.csv": {
+     "sha256_16": "b2675c0af92bb719",
+     "bytes": 952
+    },
+    "rainflow_natural.csv": {
+     "sha256_16": "9e167eae03f61b84",
+     "bytes": 736
+    },
+    "rainflow_slew_limited.csv": {
+     "sha256_16": "95ecdc98bb165e01",
+     "bytes": 917
+    },
+    "thermal_traces_fan_control.csv": {
+     "sha256_16": "01aea356241aae83",
+     "bytes": 72500
+    },
+    "thermal_traces_forced_air.csv": {
+     "sha256_16": "74dd73ff1d179bad",
+     "bytes": 73392
+    },
+    "thermal_traces_liquid.csv": {
+     "sha256_16": "0b3454a863b1f2d0",
+     "bytes": 73275
+    },
+    "thermal_traces_natural.csv": {
+     "sha256_16": "2cf724f5ca59026b",
+     "bytes": 68998
+    },
+    "thermal_traces_slew_limited.csv": {
+     "sha256_16": "266a649f9716c3b0",
+     "bytes": 73405
     }
    }
   }
  },
- "finished": "2026-10-10T03:15:15.132125+00:00"
+ "finished": "2026-10-10T07:54:19.075590+00:00"
 }

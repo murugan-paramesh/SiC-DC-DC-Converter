@@ -1,9 +1,2 @@
 self test: {"max_rel_err_Irms_Ipk_vs_DABPoint_N4000": 0.003132815728498501, "max_abs_err_A_edge_current_vs_dab_model_closed_form": 0.0, "max_abs_err_A_edge_current_vs_DABPoint_N4000_grid": 0.09726849049361252, "bridge_losses_identity_at_k1": 0.0, "baseline_P_loss_W": 90.78744400982801, "baseline_vol_cm3": 271.26000000000005, "baseline_feasible": true}
 cross-check: {'stored_grid_baseline_P_loss_W': 91.63497815896798, 'this_evaluator_same_design_P_loss_W': 90.66964682651226, 'stored_vol_cm3': 271.26000000000005, 'this_vol_cm3': 271.26000000000005, 'baseline_L64uH_with_Cpar_P_loss_W': 90.78744400982801}
-nominal: 305 non-dominated, 3660 evaluations, 26 s
-robust: 178 non-dominated, 2460 evaluations, 75 s
-cc: 138 non-dominated, 2460 evaluations, 76 s
-nominal_strict: 234 non-dominated, 3660 evaluations, 24 s
-robust_strict: 0 non-dominated, 1500 evaluations, 12 s
-cc_strict: 0 non-dominated, 1500 evaluations, 9 s
-grid: 8640 candidates, 1380 feasible under the grid's own constraints, 0 under the strict constraint set, 52 non-dominated (4-D), 3 (loss, volume), 39 s

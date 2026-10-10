@@ -1,7 +1,7 @@
 {
  "script": "cmac_replay_demo.py",
  "python": "3.13.16",
- "git_commit": "8321de57c23433aa2f82f051017aedcd1714cf54",
+ "git_commit": "ca67152a870b4e9fd4549005336dd91ef9fe1969",
  "wall_time_s": 0.04,
  "deterministic": "fixed keys, no random numbers",
  "inputs": {

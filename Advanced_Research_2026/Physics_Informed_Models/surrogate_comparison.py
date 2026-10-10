@@ -61,7 +61,7 @@ UNITS = ["W", "A", "A", "A", "A"]
 LO = np.array([650.0, 300.0, math.radians(2.0), 0.55, 0.55])
 HI = np.array([850.0, 450.0, math.radians(60.0), 1.0, 1.0])
 GP_MAX_TRAIN = 1500
-GP_MAX_HYP = 400
+GP_MAX_HYP = 200
 SPS_POOL = 3000
 
 
@@ -402,9 +402,9 @@ class GP:
     def _optimise(self, X, y):
         th0 = np.array([0.0] * 5 + [0.0, math.log(0.05)])
         best = None
-        for start in (th0, th0 + np.array([0.7] * 5 + [0, -1.0])):
+        for start in (th0,):                      # one start, 40 L-BFGS iterations: budget-limited (see README)
             r = minimize(self._nlml, start, args=(X, y), jac=True, method="L-BFGS-B",
-                         bounds=[(-3, 4)] * 5 + [(-3, 3), (-6, 1)], options=dict(maxiter=100))
+                         bounds=[(-3, 4)] * 5 + [(-3, 3), (-6, 1)], options=dict(maxiter=40))
             if best is None or r.fun < best.fun:
                 best = r
         return best.x

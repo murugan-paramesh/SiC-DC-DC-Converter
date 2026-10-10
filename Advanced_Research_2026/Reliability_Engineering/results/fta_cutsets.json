@@ -393,7 +393,7 @@
     ],
     "order": 3,
     "frequency_per_h": 4.3130736000000016e-18,
-    "unavailability": 2.0258726400000008e-16,
+    "unavailability": 2.0258726400000006e-16,
     "share": 2.1846725182704492e-05
    },
    {
@@ -459,7 +459,7 @@
     ],
     "order": 3,
     "frequency_per_h": 1.9604880000000005e-19,
-    "unavailability": 9.208512000000002e-18,
+    "unavailability": 9.208512000000003e-18,
     "share": 9.93032962850204e-07
    },
    {
@@ -506,9 +506,9 @@
      "LOGIC_OR"
     ],
     "order": 4,
-    "frequency_per_h": 3.723770880000002e-24,
-    "unavailability": 8.840171520000004e-23,
-    "share": 1.8861769263273798e-11
+    "frequency_per_h": 3.723770880000001e-24,
+    "unavailability": 8.840171520000003e-23,
+    "share": 1.8861769263273795e-11
    },
    {
     "cut_set": [
@@ -543,7 +543,7 @@
     ],
     "order": 4,
     "frequency_per_h": 7.447541760000002e-25,
-    "unavailability": 1.768034304000001e-23,
+    "unavailability": 1.7680343040000007e-23,
     "share": 3.772353852654759e-12
    },
    {
@@ -567,7 +567,7 @@
     ],
     "order": 4,
     "frequency_per_h": 1.8618854400000005e-25,
-    "unavailability": 4.4200857600000025e-24,
+    "unavailability": 4.420085760000002e-24,
     "share": 9.430884631636898e-13
    }
   ],
@@ -605,7 +605,7 @@
     ],
     "order": 3,
     "frequency_per_h": 1.4115513600000002e-13,
-    "unavailability": 6.630128640000001e-12,
+    "unavailability": 6.630128640000002e-12,
     "share": 0.7356273768662831
    },
    {
@@ -627,7 +627,7 @@
     ],
     "order": 3,
     "frequency_per_h": 9.802440000000002e-15,
-    "unavailability": 4.604256000000003e-13,
+    "unavailability": 4.604256000000002e-13,
     "share": 0.051085234504603
    },
    {
@@ -637,9 +637,9 @@
      "NTC"
     ],
     "order": 3,
-    "frequency_per_h": 6.9063840000000025e-15,
-    "unavailability": 1.0083320640000002e-11,
-    "share": 0.03599249229975783
+    "frequency_per_h": 6.906384000000002e-15,
+    "unavailability": 1.0083320640000003e-11,
+    "share": 0.035992492299757824
    },
    {
     "cut_set": [
@@ -692,9 +692,9 @@
      "TIM"
     ],
     "order": 3,
-    "frequency_per_h": 1.3812768e-15,
+    "frequency_per_h": 1.3812768000000002e-15,
     "unavailability": 2.0166641280000003e-12,
-    "share": 0.007198498459951563
+    "share": 0.007198498459951564
    },
    {
     "cut_set": [
@@ -703,9 +703,9 @@
      "TIM"
     ],
     "order": 3,
-    "frequency_per_h": 9.802440000000002e-16,
-    "unavailability": 4.6042560000000005e-14,
-    "share": 0.0051085234504602995
+    "frequency_per_h": 9.802440000000004e-16,
+    "unavailability": 4.604256000000001e-14,
+    "share": 0.005108523450460301
    },
    {
     "cut_set": [
@@ -714,7 +714,7 @@
      "HOST"
     ],
     "order": 3,
-    "frequency_per_h": 4.2278400000000006e-16,
+    "frequency_per_h": 4.227840000000001e-16,
     "unavailability": 1.0091520000000003e-14,
     "share": 0.0022033309854275133
    },
@@ -748,7 +748,7 @@
     ],
     "order": 3,
     "frequency_per_h": 1.3812768e-16,
-    "unavailability": 2.016664128e-13,
+    "unavailability": 2.0166641280000003e-13,
     "share": 0.0007198498459951564
    },
    {
@@ -758,9 +758,9 @@
      "RDS_DEG"
     ],
     "order": 3,
-    "frequency_per_h": 9.802440000000002e-17,
-    "unavailability": 4.604256e-15,
-    "share": 0.00051085234504603
+    "frequency_per_h": 9.802440000000003e-17,
+    "unavailability": 4.604256000000001e-15,
+    "share": 0.0005108523450460301
    }
   ],
   "fussell_vesely": {
@@ -771,7 +771,7 @@
    "CLOG": 0.11262034405666232,
    "MCU": 0.06531362332193429,
    "AMB_HI": 0.027825909040350715,
-   "TIM": 0.02252406881133246,
+   "TIM": 0.022524068811332464,
    "RDS_DEG": 0.0022524068811332464
   }
  },
@@ -1121,7 +1121,7 @@
    {
     "cut_set": [
      "CT_FAIL",
-     "XFMR_SAT"
+     "MCU"
     ],
     "order": 2,
     "frequency_per_h": 1.0560000000000002e-15,
@@ -1131,7 +1131,7 @@
    {
     "cut_set": [
      "CT_FAIL",
-     "MCU"
+     "XFMR_SAT"
     ],
     "order": 2,
     "frequency_per_h": 1.0560000000000002e-15,
@@ -1292,7 +1292,7 @@
     ],
     "order": 3,
     "frequency_per_h": 9.802440000000002e-15,
-    "unavailability": 4.604256000000003e-13,
+    "unavailability": 4.604256000000002e-13,
     "share": 0.22475655676263367
    },
    {
@@ -1336,7 +1336,7 @@
     ],
     "order": 3,
     "frequency_per_h": 2.3525856000000006e-15,
-    "unavailability": 1.1050214400000003e-13,
+    "unavailability": 1.1050214400000004e-13,
     "share": 0.053941573623032084
    },
    {
@@ -1357,9 +1357,9 @@
      "TIM"
     ],
     "order": 3,
-    "frequency_per_h": 9.802440000000002e-16,
-    "unavailability": 4.6042560000000005e-14,
-    "share": 0.022475655676263365
+    "frequency_per_h": 9.802440000000004e-16,
+    "unavailability": 4.604256000000001e-14,
+    "share": 0.02247565567626337
    },
    {
     "cut_set": [
@@ -1368,9 +1368,9 @@
      "TIM"
     ],
     "order": 3,
-    "frequency_per_h": 4.705171199999999e-16,
-    "unavailability": 2.21004288e-14,
-    "share": 0.010788314724606412
+    "frequency_per_h": 4.7051712e-16,
+    "unavailability": 2.2100428800000003e-14,
+    "share": 0.010788314724606413
    },
    {
     "cut_set": [
@@ -1379,7 +1379,7 @@
      "HOST"
     ],
     "order": 3,
-    "frequency_per_h": 4.2278400000000006e-16,
+    "frequency_per_h": 4.227840000000001e-16,
     "unavailability": 1.0091520000000003e-14,
     "share": 0.009693859497669285
    },
@@ -1413,7 +1413,7 @@
     ],
     "order": 3,
     "frequency_per_h": 1.0146816000000002e-16,
-    "unavailability": 2.4219648000000003e-15,
+    "unavailability": 2.4219648000000007e-15,
     "share": 0.0023265262794406284
    },
    {
@@ -1423,9 +1423,9 @@
      "RDS_DEG"
     ],
     "order": 3,
-    "frequency_per_h": 9.802440000000002e-17,
-    "unavailability": 4.604256e-15,
-    "share": 0.0022475655676263365
+    "frequency_per_h": 9.802440000000003e-17,
+    "unavailability": 4.604256000000001e-15,
+    "share": 0.002247565567626337
    },
    {
     "cut_set": [

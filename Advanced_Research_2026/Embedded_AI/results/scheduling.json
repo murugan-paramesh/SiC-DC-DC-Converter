@@ -1,0 +1,86 @@
+{
+ "isr_100kHz": {
+  "items": [
+   {
+    "task": "context save + ADC results (v1, v2, i2 avg, i_pk)",
+    "us": 0.5
+   },
+   {
+    "task": "protection / state machine",
+    "us": 0.25
+   },
+   {
+    "task": "disturbance observer (v2, d_hat) + i2 mismatch",
+    "us": 0.2
+   },
+   {
+    "task": "explicit-MPC LUT (Q15 trilinear)",
+    "us": 0.88
+   },
+   {
+    "task": "analytic inverse + EPS matching (CP / fallback PI path)",
+    "us": 0.59
+   },
+   {
+    "task": "DC-free transition (edge move) + EPWM shadow writes",
+    "us": 0.5
+   },
+   {
+    "task": "fallback-selection checks + context restore",
+    "us": 0.3
+   }
+  ],
+  "total_us": 3.22,
+  "budget_us": 10.0,
+  "fraction": 0.322,
+  "note": "float32 path for the inverse/EPS/observer, Q15 for the LUT"
+ },
+ "task_10kHz": {
+  "items": [
+   {
+    "task": "RLS update of 1/L (pwl regressor, 1 scalar RLS step)",
+    "us": 2.5
+   },
+   {
+    "task": "i_L peak / ZVS-margin estimate from the pwl model (one evaluation)",
+    "us": 1.5
+   }
+  ],
+  "total_us": 4.0,
+  "period_us": 100.0
+ },
+ "task_1kHz": {
+  "items": [
+   {
+    "task": "L_hat validation, LUT input rescaling (P_hat * L_hat/L_nom), fallback decision",
+    "us": 2.0
+   },
+   {
+    "task": "adaptive dead-time table look-up (t_d from predicted edge currents)",
+    "us": 1.0
+   },
+   {
+    "task": "thermal derating / temperature sampling",
+    "us": 0.5
+   },
+   {
+    "task": "telemetry frame assembly",
+    "us": 2.0
+   }
+  ],
+  "total_us": 5.5,
+  "period_us": 1000.0
+ },
+ "background": [
+  "CAN / SCI communication, command parser",
+  "logging, fault log",
+  "no on-line learning: all training and table generation off-line"
+ ],
+ "cpu_load_estimate": 0.367,
+ "not_in_isr": [
+  "on-line QP (CCS-MPC, >= 10.5 us even at N = 5, K = 10)",
+  "FCS-MPC candidate enumeration (~100 us)",
+  "MLP inference (~12-13 us for 3-16-16-3)"
+ ],
+ "maturity": "L1 - instruction-count estimates, no C2000 toolchain or hardware; ISR entry/exit and ADC latency taken from the F2837x TRM typical figures (not measured)"
+}

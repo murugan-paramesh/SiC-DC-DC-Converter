@@ -19,7 +19,7 @@ repository root is the preserved baseline (`Legacy_PSFB_Baseline/README.md`).
 | `07_KiCad_Schematics/` | **KiCad 7 project** `SiC_DAB_6k6.kicad_pro` (5 sheets, 261 components) + the 6-layer PCB `SiC_DAB_6k6.kicad_pcb`, libraries, DRC report | netlist export = design database; DRC via pcbnew: **0 errors, 0 unconnected** (run 27, see 08 and 18) |
 | `08_KiCad_PCB/` | layout description, run history, board images (the PCB file lives with the project in 07) | DRC 0 errors / 0 unconnected, 63 silkscreen/stub warnings |
 | `09_Component_Libraries/` | pointer to `07_KiCad_Schematics/lib/` and the generators | pin-existence check |
-| `10_Firmware/` | portable C control core, protocol, C2000 HAL (not compiled), SIL harness (`make test`) | 35 SIL checks pass (gcc) |
+| `10_Firmware/` | portable C control core, protocol, C2000 HAL (not compiled), SIL harness (`make test`) | 30 SIL checks pass (gcc) |
 | `11_Control_Algorithms/` | loop design, modulation comparison, MPC alternative, `control_params.json` | script run |
 | `12_Optimization/` | exhaustive design-space exploration, Pareto front, sensitivities | script run |
 | `13_Thermal_Analysis/` | losses -> Tj, cooling options, derating | script run |

@@ -19,7 +19,7 @@ separate branch can be cut from the tag at any time without losing anything).
 | Magnetics | E65 transformer 28:14, E55 inductor; Steinmetz/iGSE, Dowell/litz, leakage and capacitance estimates | `06_Magnetics/` | L1-L2 (no FEM) |
 | KiCad schematic | 5 sheets, 261 components, netlist = design database | `07_KiCad_Schematics/` | L3 |
 | 6-layer PCB | generated placement/planes/pours; auto-routed with the in-house negotiated router; DRC 0 errors / 0 unconnected since routing run 27 (2026-10-10), 63 silkscreen/stub warnings | `07_KiCad_Schematics/drc_summary.json`, `08_KiCad_PCB/README.md` | L3 |
-| Firmware | portable C control core (PI + modulator inverse, EPS matching, soft start, state machine, protections, CRC telemetry), SIL harness 35 checks pass; C2000 HAL written, not compiled | `10_Firmware/` | L3 (core), L0-L1 (HAL) |
+| Firmware | portable C control core (PI + modulator inverse, EPS matching, soft start, state machine, protections, CRC telemetry), SIL harness 30 checks pass; C2000 HAL written, not compiled | `10_Firmware/` | L3 (core), L0-L1 (HAL) |
 | Control design | PI loop design, SPS/EPS/DPS/TPS comparison, explicit MPC as alternative | `11_Control_Algorithms/` | L2 |
 | Optimisation | exhaustive grid over (fs, L, n, Bpk), Pareto front | `12_Optimization/` | L2 |
 | Thermal | losses -> Tj, cooling options | `13_Thermal_Analysis/` | L2 |
