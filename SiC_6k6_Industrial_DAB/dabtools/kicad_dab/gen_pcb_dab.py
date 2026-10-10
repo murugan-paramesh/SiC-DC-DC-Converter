@@ -237,7 +237,7 @@ def config():
     fan.update({"U5": (2.2, 4.4, 0.3), "U6": (2.2, 4.4, 0.3), "U7": (2.2, 4.4, 0.3), "U8": (1.8, 3.6, 0.3), "U9": (1.8, 3.6, 0.3), "U10": (1.8, 3.6, 0.3), "U11": (1.8, 3.6, 0.3), "U12": (1.8, 3.6, 0.3), "U16": (1.8, 3.6, 0.3), "U17": (1.8, 3.6, 0.3)})
     # 2.54 mm pin-header fields (BoosterPack 2x10, interlock/relay 1x08) get the same stub fan-out so a
     # track running along a pin column cannot seal the other pins
-    fan.update({"J10": (2.0, 4.0, 0.3), "J11": (2.0, 4.0, 0.3), "J12": (2.0, 4.0, 0.3), "J16": (2.0, 4.0, 0.3), "J17": (2.0, 4.0, 0.3)})
+    fan.update({"J10": (2.0, 4.0, 0.3), "J11": (1.0, 2.0, 0.3), "J12": (2.0, 4.0, 0.3), "J16": (2.0, 4.0, 0.3)})   # J11: short stubs, the barrier starts 3.8 mm right of its outer column
     # module output faces: 1.5 mm bands where tracks run straight out (no vertical moves, no vias) so one
     # module pin's track cannot seal its neighbours' exits
     exit_bands = [(116.5, 42, 118.0, 84), (221.0, 42, 222.5, 84), (116.5, 131, 118.0, 141), (221.0, 123, 222.5, 133)]
