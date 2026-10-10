@@ -340,9 +340,10 @@ seeds, numpy/scipy/matplotlib/pandas only, under ~15 min per script, and SYNTHET
 
 **Example from our converter:** `run_report.md` at the time of writing records a run started 2026-10-10T07:57 UTC
 (commit fe23bcde36) of Adaptive_MPC (4 scripts) and Embedded_AI (3), all PASS, 39 result files hashed - the runner
-accepts a module list, so the log may hold a subset. The DAB PCB row of `maturity.json` is L2 with the note
-"becomes L3 only at 0 DRC errors / 0 unconnected", while the verification report already shows 0 / 0 and the
-gap analysis lists the board as L3: the conservative reading is L2 until the data file is refreshed.
+accepts a module list, so the log may hold a subset. The DAB PCB row of `maturity.json` was L2 with the note
+"becomes L3 only at 0 DRC errors / 0 unconnected" until routing run 27 reached 0 / 0; the row was then raised to
+L3 with the DRC summary and the verification report as evidence. The lesson: a maturity level is promoted only
+when the evidence file named in its own criterion exists.
 
 **Engineering calculations:** 3 + 7 + 12 + 4 = 26; 12 / 26 = 46 % at L2, 4 / 26 = 15 % at L3, none above
 (figure at the top, `img/ch19_figures.py`).
@@ -521,8 +522,8 @@ shortest path is the HIL bench followed by a de-rated (about 1 kW) bench test, a
    versions and git commit; it exits 1 on any failure.
 8. **Why is "confirmed" not "read" in the literature database?** Full-text access failed; confirmed means title,
    venue and year were seen together in a search snippet.
-9. **Why does the DAB PCB row say L2 when DRC shows 0 errors?** `maturity.json` has not been refreshed since
-   routing reached 0 / 0; the gap analysis says L3. Quote L2 until the data file is updated.
+9. **When did the DAB PCB move from L2 to L3?** When routing run 27 reached 0 DRC errors and 0 unconnected
+   items - the criterion written in its own `maturity.json` row. L3 means software-verified, not fabricated.
 10. **What turned the dead-bus start from FAIL to PASS?** KNOWN_ISSUES #2: the Python controller got a
     gates-enable flag mirroring the C core; peak current fell from 61.8 A to 20.2 A.
 

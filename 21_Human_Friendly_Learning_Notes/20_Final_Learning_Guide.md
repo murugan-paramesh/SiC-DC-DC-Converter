@@ -184,9 +184,9 @@ L4-L6 -> empty. Mixed rows keep both levels, e.g. HIL_Validation "L3 (SIL); HIL 
 estimation claim is L2 (simulation) with L3 code; its transition-time sensor is L0. Moving one claim up a level
 needs a capability, not more work at the same level.
 
-**Example from our converter:** The DAB 6-layer PCB row reads L2 in `maturity.json` ("becomes L3 only at 0 DRC
-errors / 0 unconnected") while the verification report already shows 0 / 0 - the table below keeps the file's
-conservative value and notes the lag.
+**Example from our converter:** The DAB 6-layer PCB row of `maturity.json` said "becomes L3 only at 0 DRC
+errors / 0 unconnected"; routing run 27 met that criterion, so the row is now L3 with the DRC summary and the
+verification report as its evidence.
 
 **Engineering calculations:** 4 / 26 = 15 % of deliverables software-verified; 19 / 26 = 73 % calculated or
 simulated (L1-L2); 3 / 26 = 12 % concept; 0 % HIL or hardware.
@@ -284,7 +284,7 @@ Built from `Advanced_Research_2026/Verification_Evidence/maturity.json` (26 rows
 | DAB switched simulation and ngspice model | L2 | simulated | `[Simulated]` |
 | DAB firmware core + SIL harness (30 checks) | L3 (HAL L0-L1) | real code, SIL passes; HAL never target-compiled | `[Verified]` / `[Not yet tested]` |
 | DAB KiCad schematic and netlist consistency | L3 | real artefact | `[Verified]` |
-| DAB 6-layer PCB | L2 (file not yet refreshed; DRC now 0 / 0) | real artefact | `[Verified]` (DRC) |
+| DAB 6-layer PCB | L3 (DRC 0 errors / 0 unconnected) | real artefact | `[Verified]` (DRC) |
 | Thermal, EMI, safety, FMEA, BOM, manufacturing outputs | L1-L2 | calculated / documents | `[Simulated]` / `[Implemented]` |
 | Literature database | L0 (record) | record, snippet evidence | `[Implemented]` |
 | Digital twin (observability, RLS/EKF, supervisory) | L2 (L3 code) | simulated; transition-time sensor proposed | `[Simulated]` / `[Proposed]` |

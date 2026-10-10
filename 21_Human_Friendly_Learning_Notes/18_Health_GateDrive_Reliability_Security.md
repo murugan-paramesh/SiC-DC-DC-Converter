@@ -103,9 +103,7 @@ bias gives 62 % false alarms at h = 0.5 %); gate-signature methods from the lite
 measured drift - none exist. `[Not yet tested]`
 
 **Common mistakes:** Quoting the detection delay in days as a device property (it scales with the assumed
-drift rate); using the Kalman rate state for RUL (it only extrapolates the assumed power law); forgetting
-that the LV device (C3M0016120K) has half the V_ds and therefore worse resolution; presenting SYNTHETIC
-data without the label.
+drift rate); using the Kalman rate for RUL (it extrapolates the assumed law); dropping the SYNTHETIC label.
 
 **Interview explanation (30 s):** "On synthetic data, a temperature-compensated Rds_on estimator with a
 weekly CUSUM detects a 1 percent drift in one to seven weeks with no false alarms in three years. The
@@ -172,9 +170,8 @@ driver (UCC21710 class), the documented upgrade path in `SiC_6k6_Industrial_DAB/
 UCC21520DW (no DESAT, no Miller clamp), Rg_on 3.3 Ohm / Rg_off 1.5 Ohm and R12P21503D bias modules
 (+15 / -3 V). `[Implemented]` (rev A as drawn) / `[Proposed]` (the change)
 
-**Alternatives considered:** Reducing Rg_off below 1.5 Ohm (little help: the internal Rg_int dominates);
-snubber capacitance (slows ZVS edges at the cost of ZVS range); a closed-loop dv/dt driver (nothing to act
-on under ZVS; delay/jitter benefit not needed at 0.36 deg phase resolution).
+**Alternatives considered:** Rg_off below 1.5 Ohm (Rg_int dominates); snubber capacitance (costs ZVS range);
+a closed-loop dv/dt driver (nothing to act on under ZVS).
 
 **How to verify it:** `python3 Advanced_Research_2026/Active_Gate_Drive/gate_drive_analysis.py` (< 5 s, no
 random numbers). Then measure v_GS of the off device at 25 / 50 / 100 % load (test plan step 8) - not done;
@@ -242,16 +239,15 @@ year) are the largest contributor - they are basic-class parts (R12P21503D, 5.2 
 **Design decision made in this project:** Next hardware revision: DESAT-capable drivers, reinforced-rated
 bias modules, an NTC plausibility check. `[Proposed]` (KNOWN_ISSUES item 9)
 
-**Alternatives considered:** A leg-current shunt with a fast comparator instead of DESAT; a CT plausibility
-check (improves diagnostic coverage of the OC function, not TE2).
+**Alternatives considered:** A leg-current shunt with a fast comparator instead of DESAT.
 
 **How to verify it:** `python3 Advanced_Research_2026/Reliability_Engineering/fta.py` (< 2 s) regenerates
 the cut sets; the trees are in `Advanced_Research_2026/Reliability_Engineering/results/fta_trees.md`. The
 absolute numbers cannot be verified without manufacturer FIT data and field data. `[Simulated]`
 
-**Common mistakes:** Reading 1.9e-4 / year as a real hazard rate (the inputs are order-of-magnitude
-assumptions); claiming a SIL from an FTA; forgetting that the CT measures the inductor current, not the leg
-current, so it cannot see a shoot-through - only the fuse (milliseconds) stops it in rev A.
+**Common mistakes:** Reading 1.9e-4 / year as a real hazard rate; claiming a SIL from an FTA; forgetting
+that the CT sees the inductor current, not the leg current, so only the fuse (milliseconds) stops a
+shoot-through in rev A.
 
 **Interview explanation (30 s):** "The fault tree for an uninterrupted shoot-through has 21 minimal cut
 sets and every important one contains 'no desaturation detection'. With a DESAT driver the frequency
@@ -307,15 +303,13 @@ NTC plausibility; a V1 / V2 cross-check via the power balance; a parameter-block
 upgrade; and an independent OV comparator reference path for the LV link before HIL (KNOWN_ISSUES item 10).
 `[Proposed]`
 
-**Alternatives considered:** A second, independent LV voltage divider and comparator (hardware cost, true
-independence); software-only plausibility (cheaper, but shares the MCU).
+**Alternatives considered:** An independent LV divider and comparator; software-only plausibility (shares the MCU).
 
 **How to verify it:** `python3 Advanced_Research_2026/Reliability_Engineering/fmeda_lite.py` and
 `python3 Advanced_Research_2026/HIL_Validation/sil_fault_injection.py`; real coverage needs fault
 insertion on hardware. `[Simulated]`
 
-**Common mistakes:** Counting redundant protections as independent when they share a sensor; quoting SFF
-as a SIL; ignoring the scaling question (below) when building a HIL I/O map.
+**Common mistakes:** Counting protections as independent when they share a sensor; quoting SFF as a SIL.
 
 **Interview explanation (30 s):** "The FMEDA showed that the LV over-voltage protection in hardware and
 firmware and the voltage regulation all read the same isolated amplifier. In simulation a 20 percent gain
@@ -335,8 +329,7 @@ fault" by design.
 abstracted as "done" inputs, optional clear command) extracted into a Python model, checked exhaustively,
 and compared case by case with the unmodified C code compiled by gcc. `[Verified]`
 
-**Why do we need it?** Simulation tests a few scenarios; the protection logic must be right for every
-combination of inputs in every state.
+**Why do we need it?** Protection logic must be right for every input combination, not a few scenarios.
 
 **How does it work?**
 **Level 1 - Beginner:** Instead of testing a few situations, we try every possible combination of alarm
@@ -367,8 +360,7 @@ driver_fault / hw_trip inputs, no 5 s precharge timeout, and ignores enable = fa
 is documented as KNOWN_ISSUES item 7 (documentation; Python used for plant simulation only); the README
 count of "35 checks" was corrected to 30 (item 8, fixed). `[Implemented]`
 
-**Alternatives considered:** Random testing (cannot prove absence of a bad transition); a formal tool on the
-C source (stronger, not available here).
+**Alternatives considered:** Random testing (proves nothing exhaustive); a formal tool on the C source.
 
 **How to verify it:** `python3 Advanced_Research_2026/Reliability_Engineering/state_machine_check.py` (< 30 s,
 compiles into a temp dir; firmware tree read-only). `[Verified]`
@@ -436,17 +428,16 @@ PROT_DIS wired directly (an AND gate with a software input could mask it), and r
 band and the CMPSS threshold are software-configurable - secure boot, not CAN authentication, protects them.
 `[Proposed]` - nothing is implemented in `SiC_6k6_Industrial_DAB/10_Firmware/src/dab_comm.c`.
 
-**Alternatives considered:** Classic-CAN 8-byte variant (16-bit counter + 32-bit MAC, weaker); an isolated
-ISO1042 transceiver (physical, not cryptographic); disabling the UART in operation.
+**Alternatives considered:** Classic-CAN 8-byte variant (16-bit counter + 32-bit MAC, weaker); disabling the
+UART in operation.
 
 **How to verify it:** `python3 Advanced_Research_2026/Cybersecurity/cmac_replay_demo.py` (< 1 s; exit 0 only
 if self-check and demo pass). A firmware implementation, key management and a penetration test do not
 exist. `[Not yet tested]`
 
-**Common mistakes:** Believing authentication makes a command safe (an authenticated CLR_FAULT is accepted,
-but the state machine re-faults if the condition persists - safety stays in the state machine and
-hardware); storing the counter only in RAM (a reboot would re-accept old frames); claiming 62443
-compliance from a design document.
+**Common mistakes:** Believing authentication makes a command safe (an authenticated CLR_FAULT is accepted;
+the state machine re-faults if the condition persists); a counter kept only in RAM (a reboot re-accepts old
+frames); claiming 62443 compliance from a design document.
 
 **Interview explanation (30 s):** "Today anyone on the CAN bus can enable our converter or forge its
 heartbeat. We propose AES-CMAC on every command with a monotonic, persisted counter, demonstrated against
@@ -485,17 +476,9 @@ over 125 K, datasheet-typical). Detection target 1 % drift, CUSUM slack k = 0.5 
 detected, and every realisation false-alarms (`Advanced_Research_2026/SiC_Health_Monitoring/results/detection_tables.md`).
 `[Simulated]` (SYNTHETIC)
 
-**Example 2 - ZVS dv/dt.** dv/dt = I_sw / (2 Coss,tr). The module reports 15.2 V/ns at the nominal 9.8 A HV
-edge current and 30.6 V/ns at 19.6 A - doubling the current doubles the slope, as the formula requires, and
-the gate resistor does not appear (`Advanced_Research_2026/Active_Gate_Drive/results/option_table.md`).
-`[Simulated]`
-
-**Example 3 - what DESAT buys.** TE2 rev A 1.93e-4 / year; with DESAT (99 % coverage assumed) 1.94e-6 /
+**Example 2 - what DESAT buys.** TE2 rev A 1.93e-4 / year; with DESAT (99 % coverage assumed) 1.94e-6 /
 year. Over 10 years: P = 1.93e-3 vs 1.94e-5 (`Advanced_Research_2026/Reliability_Engineering/results/fta_cutsets.md`).
 Relative, not absolute: the ratio follows from the 99 % coverage assumption. `[Simulated]`
-
-**Example 4 - counting transitions.** 4608 consistent input vectors x 5 states x 2 (clear or not) = 46 080;
-0 mismatches between model and `dab_control.c`. `[Verified]`
 
 ## How this chapter connects to the files
 
@@ -609,25 +592,22 @@ nothing to act on under ZVS, but our minus 3 volt bias leaves no crosstalk margi
 desaturation detection is the most valuable upgrade. The state machine matches the C code in all 46 080
 cases. And the CAN commands need authentication, which we demonstrated. No SIL, no RUL, no certification.
 
-**2 min:** Health monitoring: a temperature-compensated Rds_on estimator with a weekly CUSUM detects a 1
-percent drift in one to seven weeks with no false alarms in three synthetic years - but Rds_on moves 0.5
-percent per kelvin, so a 2-kelvin drift of the temperature reference false-alarms every time; the output is
-a sensor requirement and a proposed V_ds,on circuit, not a lifetime prediction. Gate drive: under ZVS the
-node slews at 15 to 30 volts per nanosecond set by the current and Coss, so active gate drive is not worth
-it; the schematic's minus 3 volt bias gives about zero crosstalk margin on the HV side and negative on the
-LV side, against the minus 4 volts the model assumed. Reliability: every leading cut set of the
-shoot-through fault tree contains the missing DESAT, and a DESAT driver cuts it by about a hundred; the
-FMEDA found that one isolated amplifier feeds regulation and both over-voltage protections of the LV link,
-and fault injection pushed the link to 474 volts with no trip. The controller state machine was checked
-exhaustively and matches the C code. Security: the CAN interface is unauthenticated; AES-CMAC with a
-persisted counter rejects replay and tampering in the demo, while the hardware trips stay out of
-software's reach. All rates are assumptions; nothing is certified or measured.
+**2 min:** Health monitoring: on SYNTHETIC data a temperature-compensated Rds_on estimator with a weekly
+CUSUM detects a 1 percent drift in one to seven weeks with no false alarms in three years - but Rds_on moves
+0.5 percent per kelvin, so a 2-kelvin drift of the temperature reference false-alarms every time; the
+deliverable is a sensor requirement, not a lifetime prediction. Gate drive: under ZVS the node slews at 15
+to 30 volts per nanosecond set by current and Coss, so active gate drive is not worth it; the schematic's
+minus 3 volt bias leaves about zero crosstalk margin (HV) and negative (LV). Reliability: every leading
+shoot-through cut set contains the missing DESAT; one isolated amplifier feeds regulation and both LV
+over-voltage protections, and fault injection pushed the link to 474 volts with no trip. The state machine
+matches the C code in all 46 080 cases. Security: CAN commands are unauthenticated; AES-CMAC with a
+persisted counter rejects replay and tampering in the demo. All rates are assumptions; nothing is
+certified or measured.
 
 **10 min outline:**
-* Why reliability and security belong in a research platform; maturity L1-L3; SYNTHETIC and assumed-rate caveats.
-* Health monitoring: mechanisms, generator, estimators, CUSUM negative result, detection tables, temperature
-  requirement, proposed V_ds,on sense.
-* Gate drive: ZVS dv/dt physics, option table, crosstalk at -3 V vs -4 V, recommendation, measurement items.
+* Maturity L1-L3; SYNTHETIC and assumed-rate caveats.
+* Health monitoring: estimators, CUSUM negative result, temperature requirement, proposed V_ds,on sense.
+* Gate drive: ZVS dv/dt physics, crosstalk at -3 V vs -4 V, recommendation.
 * FTA: top events, cut sets, NO_DESAT dominance, bias modules, variants.
 * FMEDA-lite: DC and SFF per function, the LV common cause, HIL T03 / T10, scaling inconsistency.
 * State machine: model, properties, 0 mismatches, Python/C differences.
@@ -636,9 +616,7 @@ software's reach. All rates are assumptions; nothing is certified or measured.
 
 ## Further reading
 
-* The four module READMEs, especially their "Not verified" sections, and
-  `Advanced_Research_2026/Verification_Evidence/KNOWN_ISSUES.md`.
-* `SiC_6k6_Industrial_DAB/15_Safety_Reliability/02_FMEA.md` (the baseline FMEA, chapter 14).
+* The four module READMEs ("Not verified" sections) and `SiC_6k6_Industrial_DAB/15_Safety_Reliability/02_FMEA.md`.
 * `Advanced_Research_2026/Literature_Database/literature_2022_2026.csv`, confirmed entries: L12 (gate-oxide
   monitoring via gate switching oscillation), L13 (complete condition monitoring of SiC MOSFETs), L39 and L40
   (online gate-oxide degradation monitoring), L41 (ageing forecasting methods compared), L42 (physics-informed

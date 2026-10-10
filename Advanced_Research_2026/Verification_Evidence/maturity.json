@@ -54,9 +54,9 @@
   {
    "area": "Engineering baseline",
    "item": "DAB 6-layer PCB (generated placement/routing, DRC)",
-   "level": "L2",
-   "evidence": "07_KiCad_Schematics/drc_summary.json (latest run)",
-   "not_verified": "becomes L3 only at 0 DRC errors / 0 unconnected; silk warnings remain"
+   "level": "L3",
+   "evidence": "07_KiCad_Schematics/drc_summary.json (routing run 27: 0 errors, 0 unconnected), 18_Verification/verification_report.md",
+   "not_verified": "63 warnings remain (silkscreen, 9 dangling stubs on reserved header nets); no fabrication or assembly"
   },
   {
    "area": "Engineering baseline",
