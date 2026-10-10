@@ -148,6 +148,48 @@
    "level": "L2 (algorithms), L1 (cycle counts)",
    "evidence": "Embedded_AI/results/",
    "not_verified": "no C port, no C2000 timing measurement"
+  },
+  {
+   "area": "Research 2026",
+   "item": "Robust_Optimization: NSGA-II (4 objectives incl. damage proxy and ZVS margin), GP-EI search, worst-case and 95 % chance-constrained fronts, knee and baseline position",
+   "level": "L2",
+   "evidence": "Robust_Optimization/results/ (baseline within 3 % of the nominal front in loss, dominated in magnetics volume; infeasible under robust/chance variants; strict robust variant empty - closed-form argument)",
+   "not_verified": "SPS only in the loop; assumed distributions and mission profile; literature-typical lifetime coefficients"
+  },
+  {
+   "area": "Research 2026",
+   "item": "Uncertainty_Quantification: MC / LHS / PCE / corner analysis of the baseline, Sobol indices cross-checked (PCE vs Saltelli)",
+   "level": "L2",
+   "evidence": "Uncertainty_Quantification/results/ (eta_nom 98.61 +/- 0.05 %; inductance dominates ZVS margins and corner efficiencies; ambient dominates Tj)",
+   "not_verified": "input distributions assumed, no measured tolerance statistics"
+  },
+  {
+   "area": "Research 2026",
+   "item": "Physics_Informed_Models: analytical vs MLP vs hybrid vs PINN vs GP vs LUT vs polynomial surrogates of the DAB map",
+   "level": "L2",
+   "evidence": "Physics_Informed_Models/results/ (analytical TPS model 0.12 % vs best learned 0.59 % of range; physics loss did not help)",
+   "not_verified": "lossless ground truth only; learned models would matter only with measured non-ideal data"
+  },
+  {
+   "area": "Research 2026",
+   "item": "Safe_RL_Research: CEM and REINFORCE policies behind a deterministic safety filter and fallback",
+   "level": "L2 (exploratory)",
+   "evidence": "Safe_RL_Research/results/ (no rms benefit over PI+EPS; peak/V2 limits never reached; 2 model-based ZVS filter misses)",
+   "not_verified": "small search budgets, no deep RL, simulation only; never for deployment without HIL"
+  },
+  {
+   "area": "Research 2026",
+   "item": "Research_Benchmarks: 14-row comparison vs published 6.6 kW-class work, methodology for a fair measured comparison",
+   "level": "L1",
+   "evidence": "Research_Benchmarks/results/, benchmark_methodology.md",
+   "not_verified": "our numbers calculated, theirs measured; only confirmed literature entries quoted"
+  },
+  {
+   "area": "Research 2026",
+   "item": "Research_Publications: four manuscript outlines with abstracts drafted from the repository results",
+   "level": "L0",
+   "evidence": "Research_Publications/",
+   "not_verified": "not submitted; each needs its named validation step first"
   }
  ]
 }

@@ -34,17 +34,21 @@ No deliverable in this repository is above L3: there is no hardware, no HIL benc
 | Research 2026 | Multiphysics_Models: coupled electro-thermal-aging reduced-order model on an assumed 24 h mission profile | **L2** | Multiphysics_Models/results/ (lifetime ratios vs forced air: natural 0.01-0.23, liquid 130-5300; slew/fan variants negative results) | Foster capacitances and lifetime-model coefficients are literature-typical; ratios only, no absolute lifetime |
 | Research 2026 | Adaptive_MPC: PI / CCS-MPC / FCS-MPC / explicit LUT / adaptive RLS / robust tube controllers benchmarked on the switched plant; C2000 WCET budget; wide-range ZVS maps and dead-time table | **L2 (controllers), L1 (WCET)** | Adaptive_MPC/results/ (load step: MPC settling <= 0.25 ms vs 2.1 ms PI; reversal and soft start: PI better; only the explicit LUT fits the 10 us ISR; 46 % of the V1 x V2 x P envelope hard-switches at nominal) | no C code, no toolchain/hardware timing; DPS/TPS not benchmarked as closed-loop inner modulators; scenario windows shortened for runtime; Coss(T) absent from the device table |
 | Research 2026 | Embedded_AI: Q15 explicit-MPC LUT (13.3 KB, 0.9 us) vs Q15 MLP 3-16-16-3 (0.84 KB, 13 us, 1.5 deg rms) - LUT chosen; ISR/10 kHz/1 kHz schedule; bit-exact test vectors (490) | **L2 (algorithms), L1 (cycle counts)** | Embedded_AI/results/ | no C port, no C2000 timing measurement |
+| Research 2026 | Robust_Optimization: NSGA-II (4 objectives incl. damage proxy and ZVS margin), GP-EI search, worst-case and 95 % chance-constrained fronts, knee and baseline position | **L2** | Robust_Optimization/results/ (baseline within 3 % of the nominal front in loss, dominated in magnetics volume; infeasible under robust/chance variants; strict robust variant empty - closed-form argument) | SPS only in the loop; assumed distributions and mission profile; literature-typical lifetime coefficients |
+| Research 2026 | Uncertainty_Quantification: MC / LHS / PCE / corner analysis of the baseline, Sobol indices cross-checked (PCE vs Saltelli) | **L2** | Uncertainty_Quantification/results/ (eta_nom 98.61 +/- 0.05 %; inductance dominates ZVS margins and corner efficiencies; ambient dominates Tj) | input distributions assumed, no measured tolerance statistics |
+| Research 2026 | Physics_Informed_Models: analytical vs MLP vs hybrid vs PINN vs GP vs LUT vs polynomial surrogates of the DAB map | **L2** | Physics_Informed_Models/results/ (analytical TPS model 0.12 % vs best learned 0.59 % of range; physics loss did not help) | lossless ground truth only; learned models would matter only with measured non-ideal data |
+| Research 2026 | Safe_RL_Research: CEM and REINFORCE policies behind a deterministic safety filter and fallback | **L2 (exploratory)** | Safe_RL_Research/results/ (no rms benefit over PI+EPS; peak/V2 limits never reached; 2 model-based ZVS filter misses) | small search budgets, no deep RL, simulation only; never for deployment without HIL |
+| Research 2026 | Research_Benchmarks: 14-row comparison vs published 6.6 kW-class work, methodology for a fair measured comparison | **L1** | Research_Benchmarks/results/, benchmark_methodology.md | our numbers calculated, theirs measured; only confirmed literature entries quoted |
+| Research 2026 | Research_Publications: four manuscript outlines with abstracts drafted from the repository results | **L0** | Research_Publications/ | not submitted; each needs its named validation step first |
 
-## Last toolchain run (2026-10-10T07:53:09 UTC, commit ca67152a87)
+## Last toolchain run (2026-10-10T07:57:25 UTC, commit fe23bcde36)
 
 | Module | Script | Status | Wall (s) |
 |---|---|---|---|
-| SiC_Health_Monitoring | 01_generate_synthetic_data.py | PASS | 2.3 |
-| SiC_Health_Monitoring | 02_estimators_and_detection.py | PASS | 5.5 |
-| Active_Gate_Drive | gate_drive_analysis.py | PASS | 2.6 |
-| Reliability_Engineering | fta.py | PASS | 1.4 |
-| Reliability_Engineering | fmeda_lite.py | PASS | 0.3 |
-| Reliability_Engineering | state_machine_check.py | PASS | 1.5 |
-| HIL_Validation | sil_fault_injection.py | PASS | 52.5 |
-| Cybersecurity | cmac_replay_demo.py | PASS | 0.1 |
-| Multiphysics_Models | electro_thermal_aging.py | PASS | 2.5 |
+| Adaptive_MPC | build_explicit_mpc.py | PASS | 5.0 |
+| Adaptive_MPC | run_benchmarks.py | PASS | 227.9 |
+| Adaptive_MPC | run_adaptive_robust.py | PASS | 74.7 |
+| Adaptive_MPC | zvs_maps.py | PASS | 104.9 |
+| Embedded_AI | embedded_inference.py | PASS | 54.1 |
+| Embedded_AI | fixed_point_ref.py | PASS | 0.2 |
+| Embedded_AI | scheduling.py | PASS | 0.8 |
