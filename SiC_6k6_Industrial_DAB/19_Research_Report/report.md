@@ -1,10 +1,10 @@
 # Research, Design, Optimization and Implementation of a 6.6 kW High-Efficiency Bidirectional Silicon Carbide Dual Active Bridge DC-DC Converter for Industrial High-Voltage Power Conversion Using Advanced Soft-Switching and Adaptive Digital Control
 
-_Technical report generated from the project result files on 2026-10-09. All quantitative results are analytical or simulated unless a laboratory record is cited; no hardware has been built or measured._
+_Technical report generated from the project result files on 2026-10-10. All quantitative results are analytical or simulated unless a laboratory record is cited; no hardware has been built or measured._
 
 ## 1. Abstract
 
-This report documents the complete, reproducible engineering chain of a 6.6 kW bidirectional dual active bridge (DAB) converter between an 650-850 V industrial DC bus and a 300-450 V DC port, built with 1200 V SiC MOSFETs on both bridges at 100 kHz. Starting from an existing 3 kW phase-shifted full-bridge (PSFB) reference design, the topology is selected by a quantitative comparison (PSFB, DAB, CLLLC, interleaved and three-phase DAB), the power stage is designed analytically (series inductance 64 uH, n = 2, E65 transformer, gapped E55 inductor), the losses and junction temperatures are modelled over the full voltage/power envelope (calculated full-load efficiency 98.62 %, peak 98.66 %), and the design is validated by a closed-loop switched-model simulation and an ngspice switching-level model (power 6.57 kW vs 6.6 kW analytical, ZVS at all eight edges). A digital controller (PI with modulator-inverse feedforward, EPS voltage matching, TPS option, explicit MPC alternative) is designed, implemented in portable C for a TI C2000 target and tested software-in-the-loop (see verification report). A hierarchical KiCad schematic (259 components) and a 6-layer PCB with three isolation regions are generated from a single design database, DRC-checked against IEC 60664-1-derived clearance rules; thermal, EMI/EMC, insulation coordination, FMEA, optimisation, manufacturing outputs and a staged laboratory plan complete the package. The contribution is methodological (an open, tool-verified design chain); no experimental results are claimed.
+This report documents the complete, reproducible engineering chain of a 6.6 kW bidirectional dual active bridge (DAB) converter between an 650-850 V industrial DC bus and a 300-450 V DC port, built with 1200 V SiC MOSFETs on both bridges at 100 kHz. Starting from an existing 3 kW phase-shifted full-bridge (PSFB) reference design, the topology is selected by a quantitative comparison (PSFB, DAB, CLLLC, interleaved and three-phase DAB), the power stage is designed analytically (series inductance 64 uH, n = 2, E65 transformer, gapped E55 inductor), the losses and junction temperatures are modelled over the full voltage/power envelope (calculated full-load efficiency 98.62 %, peak 98.66 %), and the design is validated by a closed-loop switched-model simulation and an ngspice switching-level model (power 6.57 kW vs 6.6 kW analytical, ZVS at all eight edges). A digital controller (PI with modulator-inverse feedforward, EPS voltage matching, TPS option, explicit MPC alternative) is designed, implemented in portable C for a TI C2000 target and tested software-in-the-loop (all checks pass). A hierarchical KiCad schematic (259 components) and a 6-layer PCB with three isolation regions are generated from a single design database, DRC-checked against IEC 60664-1-derived clearance rules; thermal, EMI/EMC, insulation coordination, FMEA, optimisation, manufacturing outputs and a staged laboratory plan complete the package. The contribution is methodological (an open, tool-verified design chain); no experimental results are claimed.
 
 ## 2. Introduction
 
@@ -60,12 +60,12 @@ The energy criterion with Coss(er) gives minimum switching currents I_min = 2.00
 
 ## 15. Simulation methodology
 
-Three model levels: analytical waveform engine; closed-loop switched model in Python (ideal switches, R_s = 0.3 Ohm loop resistance, link capacitors with bus/battery models, controller in the loop at 100 kHz); ngspice netlist with behavioural switches, body diodes and Coss. Results: start-up overshoot 0.36 %, 50 % load-step dip 0.49 %, 10 % HV dip -> V2 within 399.6-400.0 V, reversal without fault, dead-bus start at 61.8 A peak; SPICE 6568 W, I_rms 9.17 A vs 9.23 A analytical.
+Three model levels: analytical waveform engine; closed-loop switched model in Python (ideal switches, R_s = 0.3 Ohm loop resistance, link capacitors with bus/battery models, controller in the loop at 100 kHz); ngspice netlist with behavioural switches, body diodes and Coss. Results: start-up overshoot 0.38 %, 50 % load-step dip 0.37 %, 10 % HV dip -> V2 within 399.9-400.1 V, reversal without fault, dead-bus start at 20.2 A peak; SPICE 6568 W, I_rms 9.17 A vs 9.23 A analytical.
 
 ## 16. PCB engineering
 
 `07_KiCad_Schematics/` holds the KiCad 7 project (schematic 5 sheets + 6-layer PCB generated by `dabtools/kicad_dab/`): regions HV | 16 mm barrier | control | 16 mm barrier | LV, planes HV_N/HV_P, GND, LV_N/LV_P, switch-node strips on B.Cu, gate clusters at the Kelvin-source pins, straddling isolators in barrier cut-outs with slots under the bias modules, DRC rules by net class (1.5 mm HV-HV, 0.5 mm gate, 8/10/12 mm isolation). 
-DRC state: board generation pending at report build time (see 18_Verification).
+DRC state of the generated board: 0 errors, 0 unconnected items, kinds {'silk_overlap': 11, 'silk_over_copper': 27, 'silk_edge_clearance': 16, 'track_dangling': 9}.
 
 ## 17. Thermal engineering
 
@@ -93,8 +93,8 @@ DRC state: board generation pending at report build time (see 18_Verification).
 | Full-power envelope | all corners except 650/300 V (phi > 60 deg), see derating map | 04 |
 | ZVS light-load limit (SPS, nominal) | 25 % | 04 |
 | Loop crossover / phase margin | 612 Hz / 76 deg | 11 |
-| 50 % load-step dip | 0.49 % | 05 |
-| SIL tests | see 18 | 10/18 |
+| 50 % load-step dip | 0.37 % | 05 |
+| SIL tests | all pass | 10/18 |
 
 The calculated efficiency is above the objectives, but the loss model inherits unverified device parameters and the k_zvs assumption; published measurements of SiC DABs in this class are typically 97-98 %, so the margin to EL-07 (96.5 %) is plausible while the absolute value is not. The SPS ZVS limit at light load is the main efficiency risk; EPS matching mitigates it at d != 1.
 
