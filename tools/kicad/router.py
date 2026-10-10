@@ -47,6 +47,7 @@ class Router:
         self.private = []                         # (Rect, set(nets)) : only listed nets may route inside
         self.h_only = []                          # Rects where F.Cu moves must be horizontal (fan-out corridors)
         self.h_soft = []                          # Rects just outside the corridor mouths: vertical F.Cu moves are penalised
+        self.h_both = []                          # Rects where vertical moves are forbidden on BOTH layers and no vias (module exits)
         self.tracks_out = []                      # (net, layer, x1,y1,x2,y2,width)
         self.vias_out = []                        # (net, x, y)
         self.failed = []
@@ -72,6 +73,12 @@ class Router:
     def build_honly(self):
         m = np.zeros((self.H, self.W), dtype=bool)
         for r in self.h_only:
+            self._rasterize(m, r)
+        return m
+
+    def build_hboth(self):
+        m = np.zeros((self.H, self.W), dtype=bool)
+        for r in self.h_both:
             self._rasterize(m, r)
         return m
 
@@ -104,7 +111,7 @@ class Router:
         for rect, allowed in self.private:
             if net not in allowed:
                 self._rasterize(blocked[F], rect); self._rasterize(blocked[B], rect); self._rasterize(novia, rect)
-        for rect in self.h_only + self.h_soft:          # no vias in the corridors nor in the mouth bands:
+        for rect in self.h_only + self.h_soft + self.h_both:   # no vias in the corridors nor in the mouth bands:
             self._rasterize(novia, rect.expand(self.via_size / 2))   # a via halo at the mouth seals the neighbouring exits
         # board edge
         m = int(round(1.0 / GRID))
@@ -494,7 +501,7 @@ class NegotiatedRouter(Router):
         st.paths = {}                                        # net -> list of (layer, j, i) path cells
         st.owner_count = {}                                  # net -> (tracks, vias, ok)
         st.static_blocked, st.static_novia, st.honly = {}, {}, self.build_honly()
-        self._hsoft = self.build_hsoft()
+        self._hsoft = self.build_hsoft(); self._hboth = self.build_hboth()
         st.via_cost, st.turn_cost, st.max_nodes = via_cost, turn_cost, max_nodes
         # one task per net: paths/usage are keyed by net name, so same-net tasks (e.g. several pads
         # of a zone-fallback net) are merged into one multi-terminal task
@@ -682,7 +689,7 @@ class NegotiatedRouter(Router):
     def _astar_cost(self, sources, goals, blocked, novia, honly, cost_map, via_cost, turn_cost, max_nodes):
         H, W = self.H, self.W
         cost_map, cost_map_via = cost_map
-        hsoft = getattr(self, "_hsoft", None)
+        hsoft = getattr(self, "_hsoft", None); hboth = getattr(self, "_hboth", None)
         INF = np.float32(1e30)
         g = np.full((2, H, W), INF, dtype=np.float32)
         parent = np.full((2, H, W), -1, dtype=np.int64)
@@ -706,6 +713,7 @@ class NegotiatedRouter(Router):
                 nj, ni = j + dj, i + di
                 if nj < 0 or ni < 0 or nj >= H or ni >= W: continue
                 if dj != 0 and L == F and honly[j, i] and (L, nj, ni) not in goals: continue
+                if dj != 0 and hboth is not None and hboth[j, i] and (L, nj, ni) not in goals: continue
                 if blocked[L, nj, ni] and (L, nj, ni) not in goals and (L, nj, ni) not in sources: continue
                 c = gc + (1.5 if L == F else 1.0) + float(cost_map[L, nj, ni])
                 if dj != 0 and L == F and hsoft is not None and hsoft[j, i]:

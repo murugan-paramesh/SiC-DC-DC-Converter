@@ -36,6 +36,7 @@ class BoardConfig:
         self.edge_slots = kw.get("edge_slots", [])       # (x1, y1, x2, y2)
         self.texts = kw.get("texts", [])                 # (text, x, y, layer, size, thick, rot)
         self.solid_zone_pads = set(kw.get("solid_zone_pads", []))   # (ref, pad): solid pour connection (no thermal spokes)
+        self.exit_bands = kw.get("exit_bands", [])        # rects where tracks may only run straight out (no vertical moves, no vias)
         self.lines = kw.get("lines", [])                 # (x1, y1, x2, y2, layer, w)
         self.max_passes = kw.get("max_passes", 3)
         self.route_priority = kw.get("route_priority", {})
@@ -290,6 +291,7 @@ class BoardGen:
         pads = self.pad_info(board)
         router = NegotiatedRouter(cfg.BW, cfg.BH, cfg.pair_clearance, cfg.track_width,
                                   keepouts=list(cfg.keepout_rects) + list(cfg.router_keepouts))
+        router.h_both = [Rect(*b) for b in cfg.exit_bands]
         for ref, num, net, r, layers, c, tht, npth, fc in pads:
             router.add_item(net if net else "", layers, r)
         for net, layer, rects, prio, conn in cfg.zones:
