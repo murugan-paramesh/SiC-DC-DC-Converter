@@ -207,6 +207,27 @@ def phi_from_i2_sps(I2, v1, n=N_RATIO, fs=FS, L=L_NOM, phi_max=PHI_MAX):
     return math.copysign(min(phi, phi_max), I2)
 
 
+def phi_bound_peak_mod(v1, v2, L, D1, D2, n=N_RATIO, fs=FS, I_lim=I_LIM_PK, phi_max=PHI_MAX, n_grid=25):
+    """
+    Largest |phi| <= phi_max with steady-state peak current <= I_lim for the actual modulator (D1, D2), evaluated on
+    the exact piecewise-linear model (grid of n_grid phases + linear refinement).  Falls back to the SPS closed form
+    for D1 = D2 = 1.  In C this would be the closed-form piecewise-affine EPS peak expression (~40 operations); the
+    Python version uses a numerical grid (not operation-counted as such, see ops()).
+    """
+    if D1 >= 1.0 and D2 >= 1.0:
+        return phi_bound_peak(v1, v2, L, n, fs, I_lim, phi_max)
+    ph = np.linspace(0.0, phi_max, n_grid)
+    ipk = pwl_period(v1, n * v2, L, fs, ph, D1, D2)["Ipk"]
+    over = np.nonzero(ipk > I_lim)[0]
+    if len(over) == 0:
+        return phi_max
+    k = over[0]
+    if k == 0:
+        return 0.0
+    f = (I_lim - ipk[k - 1]) / max(ipk[k] - ipk[k - 1], 1e-9)
+    return float(ph[k - 1] + f * (ph[k] - ph[k - 1]))
+
+
 def phi_bound_peak(v1, v2, L, n=N_RATIO, fs=FS, I_lim=I_LIM_PK, phi_max=PHI_MAX):
     """
     Largest |phi| whose SPS peak current (max of the two edge currents, affine in phi) stays below I_lim:
@@ -444,7 +465,8 @@ class CCSMPC:
       i2(phi) ~= i2(phi0) + g (phi - phi0),  g = n V1 (pi - 2|phi0|) / (2 pi^2 fs L),  phi0 = last command
       v2_{j+1} = v2_0 + a sum_{i<=j} (i2_0 + g (p_i - phi0) - d_hat)          (a = Ts / C2)
       J = sum_j q (v2_{j+1} - ref)^2 + r (p_j - p_{j-1})^2,  p_{-1} = phi0
-      |p_j| <= phi_bar(V1, V2, I_lim, L)  (phi_max and SPS peak-current bound, both affine -> box)
+      |p_j| <= phi_bar(V1, V2, D1, D2, I_lim, L)  (phi_max and the steady-state peak-current bound of the actual
+      modulator; SPS: closed form, EPS: exact piecewise-linear model) -> a box in p
     The constraint set is a box in p, so projected gradient converges to the exact QP optimum.  Solver:
     Nesterov accelerated projected gradient, fixed K iterations, warm start with the shifted previous solution.
     Structure MᵀM p = (a g)^2 Tᵀ T p is evaluated with cumulative sums -> O(N) per iteration.
@@ -512,7 +534,11 @@ class CCSMPC:
         phi0 = self.phi
         g = self._gain(phi0, v1)
         i2_0 = self._i2_model(phi0, v1)
-        pbar = phi_bound_peak(v1, v2, self.L_constraint, I_lim=self.I_lim)
+        if self.use_eps:
+            De1, De2 = eps_matching(v1, v2)
+            pbar = phi_bound_peak_mod(v1, v2, self.L_constraint, De1, De2, I_lim=self.I_lim)
+        else:
+            pbar = phi_bound_peak(v1, v2, self.L_constraint, I_lim=self.I_lim)
         N = self.N
         if self.mode == "CV":
             # c_j = v2_0 + a (j+1)(i2_0 - g phi0 - d) - ref
@@ -548,7 +574,8 @@ class CCSMPC:
         N, K = self.N, self.K
         per_iter = OpCount(mul=3 * N + 3, add=7 * N, cmp=2 * N, load=2 * N)
         setup = OpCount(mul=12, add=10, div=3, cmp=6, load=8) + OPS_OBSERVER
-        return OPS_PROTECTION + setup + per_iter.scaled(K) + (OPS_EPS if self.use_eps else OpCount())
+        bound = OpCount(mul=20, add=14, div=2, cmp=6, load=4)      # closed-form EPS peak bound assumed for C (Python: numerical grid)
+        return OPS_PROTECTION + setup + bound + per_iter.scaled(K) + (OPS_EPS if self.use_eps else OpCount())
 
 
 class RobustMPC(CCSMPC):
@@ -571,7 +598,8 @@ class AdaptiveMPC(CCSMPC):
        y_k = i2_meas (period average, A LV side), x_k = n * L_nom * I2_pwl(L_nom; phi_{k-1}, D1, D2, V1, V2)
        (the lossless current scales exactly with 1/L, so x_k theta = i2 for the true L)
        K = P x / (lambda + x^2 P); theta += K (y - x theta); P = (P - K x P) / lambda
-    Excitation gating (|x| > x_min), forgetting lambda, bounds theta in [1/(1.6 L_nom), 1/(0.5 L_nom)].
+    Excitation gating (|i2_model| > 1 A), outlier gate (residual > 30 % + 0.5 A, i.e. transition periods are skipped),
+    forgetting lambda = 0.995 (~200 periods memory), bounds theta in [1/(1.6 L_nom), 1/(0.5 L_nom)].
     The estimate feeds the model gain and the current constraint every period.
     """
     name = "Adaptive-MPC"
@@ -590,9 +618,10 @@ class AdaptiveMPC(CCSMPC):
 
     def step(self, m, ref, t):
         phi_p, D1_p, D2_p = self.prev_cmd
-        x = N_RATIO * L_NOM * float(pwl_period(m["v1"], N_RATIO * m["v2"], L_NOM, FS, phi_p, D1_p, D2_p)["I2"][0])
-        if abs(x) > self.x_min:
-            y = m["i2"]
+        i2_nom = N_RATIO * float(pwl_period(m["v1"], N_RATIO * m["v2"], L_NOM, FS, phi_p, D1_p, D2_p)["I2"][0])   # model current at L_nom
+        x = L_NOM * i2_nom                                   # regressor: y = x * theta, theta = 1/L  (x in A H)
+        y = m["i2"]
+        if abs(i2_nom) > self.x_min and abs(y - x * self.theta) < 0.3 * abs(y) + 0.5:    # excitation gate + outlier gate (transition periods)
             Kg = self.P * x / (self.lam + x * x * self.P)
             self.theta += Kg * (y - x * self.theta)
             self.P = (self.P - Kg * x * self.P) / self.lam

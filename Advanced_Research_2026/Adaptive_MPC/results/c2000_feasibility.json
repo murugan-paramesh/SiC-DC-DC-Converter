@@ -1,0 +1,179 @@
+{
+ "mcu": "TMS320F28379D class (C28x + FPU32 + TMU, 200 MHz, 1 MB flash, 204 KB RAM)",
+ "isr_budget_us": 10.0,
+ "cycles_per_op": {
+  "mul": 2,
+  "add": 2,
+  "div": 8,
+  "sqrt": 8,
+  "cmp": 4,
+  "load": 2
+ },
+ "isr_overhead_cycles": 120,
+ "assumptions": "single-issue compiled C, every FPU add/mul 2 cycles incl. load/store, TMU div/sqrt 8, compare+branch 4; no hand-written assembly, no CLA offload; figures are L1 estimates - no toolchain or hardware available",
+ "controllers": {
+  "PI": {
+   "ops": {
+    "mul": 27,
+    "add": 20,
+    "div": 5,
+    "sqrt": 1,
+    "cmp": 26,
+    "load": 24
+   },
+   "ops_total": 103,
+   "wcet_cycles": 414,
+   "wcet_us": 2.07,
+   "isr_fraction": 0.207,
+   "fits_10us": true,
+   "python_us_mean": 45.8612473563451,
+   "python_us_max": 8155.447998433374
+  },
+  "CCS-MPC": {
+   "ops": {
+    "mul": 573,
+    "add": 1148,
+    "div": 6,
+    "sqrt": 0,
+    "cmp": 345,
+    "load": 349
+   },
+   "ops_total": 2421,
+   "wcet_cycles": 5688,
+   "wcet_us": 28.44,
+   "isr_fraction": 2.844,
+   "fits_10us": false,
+   "python_us_mean": 1194.0918775742239,
+   "python_us_max": 24585.996998212067
+  },
+  "FCS-MPC": {
+   "ops": {
+    "mul": 2960,
+    "add": 2726,
+    "div": 49,
+    "sqrt": 25,
+    "cmp": 1505,
+    "load": 775
+   },
+   "ops_total": 8040,
+   "wcet_cycles": 19654,
+   "wcet_us": 98.27,
+   "isr_fraction": 9.827,
+   "fits_10us": false,
+   "python_us_mean": 1565.6415035919142,
+   "python_us_max": 13910.067998949671
+  },
+  "Explicit-MPC": {
+   "ops": {
+    "mul": 38,
+    "add": 35,
+    "div": 3,
+    "sqrt": 0,
+    "cmp": 28,
+    "load": 32
+   },
+   "ops_total": 136,
+   "wcet_cycles": 466,
+   "wcet_us": 2.33,
+   "isr_fraction": 0.233,
+   "fits_10us": true,
+   "python_us_mean": 81.52403412378193,
+   "python_us_max": 14524.007001455175
+  },
+  "Adaptive-MPC": {
+   "ops": {
+    "mul": 701,
+    "add": 1263,
+    "div": 10,
+    "sqrt": 1,
+    "cmp": 408,
+    "load": 383
+   },
+   "ops_total": 2766,
+   "wcet_cycles": 6534,
+   "wcet_us": 32.67,
+   "isr_fraction": 3.267,
+   "fits_10us": false,
+   "python_us_mean": 2005.3568648500896,
+   "python_us_max": 21097.114000440342
+  },
+  "Robust-MPC": {
+   "ops": {
+    "mul": 573,
+    "add": 1148,
+    "div": 6,
+    "sqrt": 0,
+    "cmp": 345,
+    "load": 349
+   },
+   "ops_total": 2421,
+   "wcet_cycles": 5688,
+   "wcet_us": 28.44,
+   "isr_fraction": 2.844,
+   "fits_10us": false,
+   "python_us_mean": 1228.661443951668,
+   "python_us_max": 64847.437002754305
+  },
+  "CCS-MPC N=5 K=10": {
+   "ops": {
+    "mul": 213,
+    "add": 378,
+    "div": 6,
+    "sqrt": 0,
+    "cmp": 125,
+    "load": 129
+   },
+   "ops_total": 851,
+   "wcet_cycles": 2108,
+   "wcet_us": 10.54,
+   "isr_fraction": 1.054,
+   "fits_10us": false
+  },
+  "CCS-MPC N=8 K=40": {
+   "ops": {
+    "mul": 1113,
+    "add": 2268,
+    "div": 6,
+    "sqrt": 0,
+    "cmp": 665,
+    "load": 669
+   },
+   "ops_total": 4721,
+   "wcet_cycles": 10928,
+   "wcet_us": 54.64,
+   "isr_fraction": 5.464,
+   "fits_10us": false
+  }
+ },
+ "memory": {
+  "explicit_lut_entries": 6831,
+  "explicit_lut_kB_q15": 13.3,
+  "explicit_lut_kB_float32": 26.7,
+  "lut_axes": [
+   33,
+   9,
+   23
+  ],
+  "ccs_mpc_state_bytes": 56,
+  "note": "LUT fits in flash or RAM of the F28379D; interpolation needs 8 reads"
+ },
+ "sampling": {
+  "v1, v2": "every period (100 kHz), 12-bit, synchronous with the EPWM period event; 0.25 / 0.12 V LSB",
+  "i2 period average": "integrating sample (two ADC samples per period averaged, or hardware oversampling) at 100 kHz - needed by the observer-based MPCs and the RLS; the PI baseline does not need it",
+  "i_L peak": "CT + peak detector (existing design) at 100 kHz for protection; not used by the controllers",
+  "temperature": "1 kHz is sufficient (derating only)",
+  "RLS": "can run decimated at 10 kHz (every 10th period) - its 1/L estimate changes slowly"
+ },
+ "fallback_logic": {
+  "default": "explicit MPC (LUT) when all plausibility checks pass",
+  "switch_to_PI_if": [
+   "|d_hat| > 1.3 P_rated / v2 for > 10 periods (observer diverged)",
+   "LUT inputs outside the table range for > 10 periods (e, V1 or P_hat)",
+   "RLS estimate 1/L outside [1/(1.3 L_nom), 1/(0.7 L_nom)] or P covariance not decreasing after 1000 updates",
+   "|v2 - v2_ref| > 5 % for > 2 ms (the LUT law should have settled in < 1 ms)",
+   "ISR overrun flag (EPWM period event before the previous ISR finished)"
+  ],
+  "switch_back": "manual / supervisory only, after 100 ms in RUN with the PI and consistent estimates",
+  "deterministic": "PI and LUT paths are both fixed-iteration; the hand-over keeps the current phi and pre-loads the PI integrator with P = d_hat * v2 so the output is continuous"
+ }
+}

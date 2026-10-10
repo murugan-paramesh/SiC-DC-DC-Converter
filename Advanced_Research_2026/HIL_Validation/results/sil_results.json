@@ -1,0 +1,274 @@
+{
+ "seed": 20261012,
+ "n_tests": 19,
+ "n_pass": 19,
+ "n_fail": 0,
+ "hw_thresholds": {
+  "v1_ov": 920.0,
+  "v2_ov": 490.0,
+  "i_oc": 32.0
+ },
+ "full_scale": {
+  "v1": 1000.0,
+  "v2": 500.0,
+  "i_pk": 40.0
+ },
+ "tests": [
+  {
+   "id": "T01",
+   "name": "baseline start-up and regulation",
+   "category": "reference",
+   "criterion": "RUN without fault; |v2 - 400| < 4 V for t > 70 ms",
+   "result": "PASS",
+   "details": {
+    "fault": null,
+    "hw": null,
+    "v2_end": 399.99889551494425,
+    "v2_dev_max": 0.0018939354322924373
+   },
+   "wall_s": 3.2
+  },
+  {
+   "id": "T02",
+   "name": "V2 sensor gain +5 % (AMC1301 chain)",
+   "category": "sensor gain fault",
+   "criterion": "no trip (undetectable by design); true v2 = 400/1.05 within 1 %; true v2 <= 480 V",
+   "result": "PASS",
+   "details": {
+    "fault": null,
+    "hw": null,
+    "v2_true_end": 380.95233516365545,
+    "v2_true_max": 380.9552997839248
+   },
+   "wall_s": 3.6
+  },
+  {
+   "id": "T03",
+   "name": "V2 sensor gain -20 % at 60 ms (AMC1301 chain, common cause for FW + HW OV)",
+   "category": "sensor gain fault",
+   "criterion": "true v2 must stay <= 480 V (LIM_V2_OV) or a trip must occur",
+   "result": "PASS",
+   "details": {
+    "fault": null,
+    "hw": null,
+    "v2_true_max": 473.93018144316807,
+    "v2_meas_end": 379.09549283283906
+   },
+   "wall_s": 4.1
+  },
+  {
+   "id": "T04",
+   "name": "V2 sensor offset -30 V at 60 ms",
+   "category": "sensor offset fault",
+   "criterion": "true v2 <= 480 V or trip; report true v2",
+   "result": "PASS",
+   "details": {
+    "fault": null,
+    "hw": null,
+    "v2_true_max": 430.00175657945255
+   },
+   "wall_s": 3.5
+  },
+  {
+   "id": "T05",
+   "name": "V2 sensor fail-low (reads 0 V) at 60 ms in RUN",
+   "category": "sensor failure",
+   "criterion": "FAULT = V2_UV within 2 periods of the fault, gates off",
+   "result": "PASS",
+   "details": {
+    "fault": "V2_UV",
+    "hw": null,
+    "t_fault_ms": 60.01000000121037,
+    "delay_periods": 1
+   },
+   "wall_s": 2.4
+  },
+  {
+   "id": "T06",
+   "name": "V1 sensor fail-high (reads 1000 V = full scale) at 60 ms",
+   "category": "sensor failure",
+   "criterion": "FAULT = V1_OV within 2 periods; HW OV comparator also trips (same signal)",
+   "result": "PASS",
+   "details": {
+    "fault": "HW_TRIP",
+    "hw": "V1_OV_HW at 60.00 ms",
+    "delay_periods": 1
+   },
+   "wall_s": 2.1
+  },
+  {
+   "id": "T07",
+   "name": "real HV bus over-voltage: V1 source ramps 800 -> 960 V from 60 ms at 40 V/ms",
+   "category": "bus overvoltage",
+   "criterion": "firmware FAULT V1_OV within 1 period of v1 > 900 V and before the HW comparator (920 V) is needed",
+   "result": "PASS",
+   "details": {
+    "fault": "V1_OV",
+    "hw": "V1_OV_HW at 63.18 ms",
+    "v1_at_fault": 900.7246530481854,
+    "delay_periods": 1
+   },
+   "wall_s": 2.3
+  },
+  {
+   "id": "T08",
+   "name": "LV load short (0.1 Ohm) at 60 ms",
+   "category": "load short",
+   "criterion": "a trip occurs within 20 periods of the short; i_pk stays below the 32 A hardware limit (phi_max / EPS limiting); gates off",
+   "result": "PASS",
+   "details": {
+    "fault": "V2_UV",
+    "hw": null,
+    "ipk_max": 22.82790926544085,
+    "trip_delay_periods": 7
+   },
+   "wall_s": 2.2
+  },
+  {
+   "id": "T09",
+   "name": "communication loss (heartbeat) at 60 ms",
+   "category": "communication loss",
+   "criterion": "FAULT = COMM within 1 period, gates off",
+   "result": "PASS",
+   "details": {
+    "fault": "COMM",
+    "hw": null,
+    "delay_periods": 1
+   },
+   "wall_s": 2.1
+  },
+  {
+   "id": "T10",
+   "name": "isolated-amplifier saturation: V2 chain clips at 500 V while an external source pulls the LV link to 520 V",
+   "category": "amplifier saturation",
+   "criterion": "FAULT V2_OV (clip level 500 V is above LIM_V2_OV 480 V: 4 % margin)",
+   "result": "PASS",
+   "details": {
+    "fault": "V2_OV",
+    "hw": "V2_OV_HW at 60.16 ms",
+    "v2_meas_max": 500.0,
+    "v2_true_max": 519.9999999999994,
+    "margin_pct": 4.166666666666667
+   },
+   "wall_s": 2.3
+  },
+  {
+   "id": "T11",
+   "name": "current-sense saturation: CT/ADC clips at 40 A FS during a load short",
+   "category": "amplifier saturation",
+   "criterion": "trip still occurs (40 A FS > 32 A trip): report clipped reading",
+   "result": "PASS",
+   "details": {
+    "fault": "V2_UV",
+    "hw": null,
+    "ipk_true_max": 22.82790926544085
+   },
+   "wall_s": 2.3
+  },
+  {
+   "id": "T12",
+   "name": "ADC quantisation (12 bit) + noise 2 LSB rms on all channels",
+   "category": "ADC noise",
+   "criterion": "no fault in 100 ms; v2 std < 1 %, |mean - 400| < 1 % (t > 70 ms)",
+   "result": "PASS",
+   "details": {
+    "fault": null,
+    "hw": null,
+    "v2_std": 0.035002136900241516,
+    "v2_mean": 399.993936225941
+   },
+   "wall_s": 3.7
+  },
+  {
+   "id": "T13",
+   "name": "ADC noise 1 % of full scale rms (41 LSB) on all channels",
+   "category": "ADC noise",
+   "criterion": "no false trip at the nominal point; v2 deviation < 2 %",
+   "result": "PASS",
+   "details": {
+    "fault": null,
+    "hw": null,
+    "v2_dev_max": 7.770981309365368,
+    "v2_std": 0.5544902557239006
+   },
+   "wall_s": 3.6
+  },
+  {
+   "id": "T14",
+   "name": "HV bus dip to 580 V (below LIM_V1_UV = 600 V) for 20 ms in RUN",
+   "category": "bus undervoltage",
+   "criterion": "FAULT = V1_UV (documented behaviour: UV is a fault in RUN)",
+   "result": "PASS",
+   "details": {
+    "fault": "V1_UV",
+    "hw": null
+   },
+   "wall_s": 2.2
+  },
+  {
+   "id": "T15",
+   "name": "HV bus dip 10 % (720 V) for 20 ms in RUN",
+   "category": "bus dip",
+   "criterion": "no fault; v2 deviation < 3 % (EL-10 class)",
+   "result": "PASS",
+   "details": {
+    "fault": null,
+    "hw": null,
+    "v2_dev_max": 0.1346562729327161
+   },
+   "wall_s": 3.8
+  },
+  {
+   "id": "T16",
+   "name": "enable removed during RUN at 60 ms",
+   "category": "enable interlock",
+   "criterion": "state INIT within 1 period, gates off, phi = 0",
+   "result": "PASS",
+   "details": {
+    "fault": null,
+    "hw": null,
+    "state_end": "INIT"
+   },
+   "wall_s": 2.1
+  },
+  {
+   "id": "T17",
+   "name": "precharge feedback never true",
+   "category": "enable interlock",
+   "criterion": "gates never enabled for the whole run (Python reference stays in PRECHARGE_WAIT; the C core would FAULT after 5 s - discrepancy documented in Reliability_Engineering)",
+   "result": "PASS",
+   "details": {
+    "fault": null,
+    "hw": null,
+    "state_end": "PRECHARGE_WAIT"
+   },
+   "wall_s": 0.1
+  },
+  {
+   "id": "T18",
+   "name": "heatsink NTC reads 110 C at 60 ms (sensor short or real over-temperature)",
+   "category": "over-temperature",
+   "criterion": "FAULT = OT within 1 period",
+   "result": "PASS",
+   "details": {
+    "fault": "OT",
+    "hw": null,
+    "delay_periods": 1
+   },
+   "wall_s": 2.2
+  },
+  {
+   "id": "T19",
+   "name": "i_pk sensor stuck low (CT open, reads 0) during a load short at 60 ms",
+   "category": "sensor failure",
+   "criterion": "documents the single-point CT: no I_PK trip expected; pass only if some trip occurs or i_pk stays < 40 A",
+   "result": "PASS",
+   "details": {
+    "fault": "V2_UV",
+    "hw": null,
+    "ipk_true_max": 22.82790926544085
+   },
+   "wall_s": 2.0
+  }
+ ]
+}

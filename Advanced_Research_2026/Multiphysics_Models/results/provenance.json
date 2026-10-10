@@ -1,0 +1,36 @@
+{
+ "script": "electro_thermal_aging.py",
+ "python": "3.13.16",
+ "numpy": "2.5.3",
+ "matplotlib": "3.11.2",
+ "git_commit": "8321de57c23433aa2f82f051017aedcd1714cf54",
+ "wall_time_s": 2.0,
+ "deterministic": "no random numbers",
+ "inputs": {
+  "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f4271",
+  "SiC_6k6_Industrial_DAB/dabtools/dab/losses.py": "76eb51f6209ae98d",
+  "SiC_6k6_Industrial_DAB/dabtools/dab/devices.py": "bccad660fcf2d85f",
+  "SiC_6k6_Industrial_DAB/dabtools/dab/dab_model.py": "7a227db80b4c817e",
+  "SiC_6k6_Industrial_DAB/13_Thermal_Analysis/thermal_report.md": "3e9f59a71a1b0f9b"
+ },
+ "outputs": [
+  "fig_coupling_diagram.png",
+  "fig_lifetime_ratio.png",
+  "fig_mission.png",
+  "fig_rainflow.png",
+  "fig_tj_traces.png",
+  "lifetime_proxy.json",
+  "lifetime_table.md",
+  "mission_profile.csv",
+  "rainflow_fan_control.csv",
+  "rainflow_forced_air.csv",
+  "rainflow_liquid.csv",
+  "rainflow_natural.csv",
+  "rainflow_slew_limited.csv",
+  "thermal_traces_fan_control.csv",
+  "thermal_traces_forced_air.csv",
+  "thermal_traces_liquid.csv",
+  "thermal_traces_natural.csv",
+  "thermal_traces_slew_limited.csv"
+ ]
+}

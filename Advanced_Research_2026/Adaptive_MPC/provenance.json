@@ -20,5 +20,91 @@
    "results/empc_lut_meta.json",
    "results/empc_lut_slices.png"
   ]
+ },
+ "run_adaptive_robust.py": {
+  "python": "3.13.16",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "matplotlib": "3.11.2",
+  "platform": "Linux-6.18.44-fc-v114-x86_64-with-glibc2.39",
+  "git_commit": "85c5adc518f0fe3613388e062a6890b08f332652",
+  "wall_time_s": 281.3,
+  "input_files": {
+   "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f42717ab0d2f0b414addf6a331caaf3d51323f78e73851ebde253",
+   "SiC_6k6_Industrial_DAB/11_Control_Algorithms/control_params.json": "7ddd3fafe463ac4f4c299778d046f65ff6887093722cdb476b036b5b837c04fa",
+   "Advanced_Research_2026/Adaptive_MPC/dab_mpc_lib.py": "ef0eb0e7e39581bdf1281d0057154ac4d62f0fff0e3e8d8964f0a98c688e2036"
+  },
+  "seeds": {
+   "numpy_default": 20260101
+  },
+  "outputs": [
+   "adaptive_rls_convergence.png",
+   "adaptive_robust_constraints.png",
+   "adaptive_robust_metrics.csv",
+   "adaptive_summary.json"
+  ]
+ },
+ "zvs_maps.py": {
+  "python": "3.13.16",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "matplotlib": "3.11.2",
+  "platform": "Linux-6.18.44-fc-v114-x86_64-with-glibc2.39",
+  "git_commit": "85c5adc518f0fe3613388e062a6890b08f332652",
+  "wall_time_s": 345.1,
+  "input_files": {
+   "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f42717ab0d2f0b414addf6a331caaf3d51323f78e73851ebde253",
+   "SiC_6k6_Industrial_DAB/dabtools/dab/dab_model.py": "7a227db80b4c817edc33ec2ec4ed8676f3fcc13cd47e7c116d7c2874e711c6ea",
+   "SiC_6k6_Industrial_DAB/dabtools/dab/devices.py": "bccad660fcf2d85f548d2d60ce37535f034e495e5cd8f94a772d562c9cca3960",
+   "Advanced_Research_2026/Adaptive_MPC/dab_mpc_lib.py": "ef0eb0e7e39581bdf1281d0057154ac4d62f0fff0e3e8d8964f0a98c688e2036"
+  },
+  "seeds": {
+   "numpy_default": 20260101
+  },
+  "outputs": [
+   "zvs_dead_time_summary.json",
+   "zvs_dead_time_table.csv",
+   "zvs_dead_time_table.png",
+   "zvs_maps.csv",
+   "zvs_maps_nominal.png",
+   "zvs_maps_worst_tolerance.png",
+   "zvs_min_load.png",
+   "zvs_summary.json"
+  ]
+ },
+ "run_benchmarks.py": {
+  "python": "3.13.16",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "matplotlib": "3.11.2",
+  "platform": "Linux-6.18.44-fc-v114-x86_64-with-glibc2.39",
+  "git_commit": "85c5adc518f0fe3613388e062a6890b08f332652",
+  "wall_time_s": 619.8,
+  "input_files": {
+   "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f42717ab0d2f0b414addf6a331caaf3d51323f78e73851ebde253",
+   "SiC_6k6_Industrial_DAB/11_Control_Algorithms/control_params.json": "7ddd3fafe463ac4f4c299778d046f65ff6887093722cdb476b036b5b837c04fa",
+   "Advanced_Research_2026/Adaptive_MPC/dab_mpc_lib.py": "ef0eb0e7e39581bdf1281d0057154ac4d62f0fff0e3e8d8964f0a98c688e2036",
+   "Advanced_Research_2026/Adaptive_MPC/results/empc_lut.npz": "4473a33adfb3b14cd4621881e6a11cc3307c1a0ddb3487eaa38c67eb9de11ebe",
+   "SiC_6k6_Industrial_DAB/dabtools/dab/sim_switched.py": "0aa6ec0b6449437dfdbd2277974395b17d33079310ee86e6fc703cc9d0be0319",
+   "SiC_6k6_Industrial_DAB/dabtools/dab/control.py": "ea8d367e381c5474c63e7fc98388be96fd6e8711a9e415199a6909e21f62a935"
+  },
+  "seeds": {
+   "numpy_default": 20260101
+  },
+  "outputs": [
+   "benchmark_ccs_r_sweep.csv",
+   "benchmark_ccs_r_sweep.png",
+   "benchmark_metrics.csv",
+   "benchmark_metrics_bars.png",
+   "benchmark_modulators.csv",
+   "benchmark_modulators.png",
+   "benchmark_step_load_step_down.png",
+   "benchmark_step_load_step_up.png",
+   "benchmark_step_reversal.png",
+   "benchmark_step_soft_start.png",
+   "benchmark_step_v1_step.png",
+   "benchmark_summary.json",
+   "c2000_feasibility.json"
+  ]
  }
 }

@@ -1,0 +1,38 @@
+{
+ "module": "Advanced_Research_2026/Uncertainty_Quantification",
+ "script": "uq_baseline.py",
+ "generated_utc": "2026-10-10T07:45:54Z",
+ "python": "3.13.16",
+ "numpy": "2.5.3",
+ "scipy": "1.18.1",
+ "matplotlib": "3.11.2",
+ "git_commit": "8321de57c23433aa2f82f051017aedcd1714cf54",
+ "input_hashes_sha256_16": {
+  "SiC_6k6_Industrial_DAB/dabtools/dab/dab_model.py": "7a227db80b4c817e",
+  "SiC_6k6_Industrial_DAB/dabtools/dab/losses.py": "76eb51f6209ae98d",
+  "SiC_6k6_Industrial_DAB/dabtools/dab/magnetics.py": "50c89d1d9b83523d",
+  "SiC_6k6_Industrial_DAB/dabtools/dab/devices.py": "bccad660fcf2d85f",
+  "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f4271",
+  "Advanced_Research_2026/Robust_Optimization/dab_eval.py": "d9489cc238ff7031",
+  "Advanced_Research_2026/Uncertainty_Quantification/uq_baseline.py": "840a08e790a8b0fd"
+ },
+ "seed": 20261010,
+ "N_MC": 4000,
+ "N_reference": 20000,
+ "N_LHS": [
+  200,
+  500
+ ],
+ "N_saltelli_base": 2000,
+ "n_model_runs": {
+  "mc": 26750,
+  "ref": 20000,
+  "lhs": 19950,
+  "pce": 0,
+  "saltelli": 40950,
+  "corners": 33
+ },
+ "quick_mode": false,
+ "wall_time_s": 47.82561445236206,
+ "maturity": "L2"
+}

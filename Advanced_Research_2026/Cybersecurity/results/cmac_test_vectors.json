@@ -1,0 +1,89 @@
+{
+ "self_check": {
+  "AES128_FIPS197_C1": {
+   "expected": "69c4e0d86a7b0430d8cdb78070b4c55a",
+   "got": "69c4e0d86a7b0430d8cdb78070b4c55a",
+   "ok": true
+  },
+  "CMAC_RFC4493_len0": {
+   "expected": "bb1d6929e95937287fa37d129b756746",
+   "got": "bb1d6929e95937287fa37d129b756746",
+   "ok": true
+  },
+  "CMAC_RFC4493_len16": {
+   "expected": "070a16b46b4d4144f79bdd9dd04a287c",
+   "got": "070a16b46b4d4144f79bdd9dd04a287c",
+   "ok": true
+  },
+  "CMAC_RFC4493_len40": {
+   "expected": "dfa66747de9ae63030ca32611497c827",
+   "got": "dfa66747de9ae63030ca32611497c827",
+   "ok": true
+  },
+  "CMAC_RFC4493_len64": {
+   "expected": "51f0bebf7e3b9d92fc49741779363cfe",
+   "got": "51f0bebf7e3b9d92fc49741779363cfe",
+   "ok": true
+  }
+ },
+ "self_check_ok": true,
+ "demo": [
+  {
+   "case": "valid EN,1",
+   "frame": "0100000100000429b46f24a2a6243775",
+   "result": "accept: EN arg=1 ctr=1065"
+  },
+  {
+   "case": "replay of the same frame",
+   "frame": "0100000100000429b46f24a2a6243775",
+   "result": "reject: replay / stale counter"
+  },
+  {
+   "case": "valid MODE_CV 400.0 V",
+   "frame": "02000fa00000042a44b4de3dd54aa0d2",
+   "result": "accept: MODE_CV arg=4000 ctr=1066"
+  },
+  {
+   "case": "same frame with the argument modified (MAC must fail)",
+   "frame": "02001fa00000042a44b4de3dd54aa0d2",
+   "result": "reject: MAC"
+  },
+  {
+   "case": "frame built with the wrong key",
+   "frame": "040000000000042bddbde6e3dcb9a9cb",
+   "result": "reject: MAC"
+  },
+  {
+   "case": "counter rolled back (ctr - 5)",
+   "frame": "03000bb800000424dfbba0d4a8e4ccd5",
+   "result": "reject: replay / stale counter"
+  },
+  {
+   "case": "counter jump beyond the window (+1000)",
+   "frame": "03000bb8000008111a226067eb63a673",
+   "result": "reject: counter jump beyond window (resync required)"
+  },
+  {
+   "case": "lost frames: counter +10 within the window (accepted, gap tolerated)",
+   "frame": "03fff44800000435527fe8ac64a886de",
+   "result": "accept: MODE_CP arg=-3000 ctr=1077"
+  },
+  {
+   "case": "CLR_FAULT with a valid MAC and counter (accepted - authentication does not make the command safe, the state machine still re-faults if the condition persists)",
+   "frame": "0400000000000436820357f0a627f5c9",
+   "result": "accept: CLR_FAULT arg=0 ctr=1078"
+  },
+  {
+   "case": "after a reboot with the persisted counter: last valid frame replayed",
+   "frame": "0400000000000436820357f0a627f5c9",
+   "result": "reject: replay / stale counter"
+  },
+  {
+   "case": "after the reboot: fresh counter ahead of the jump-ahead value",
+   "frame": "0100000100000469d36f489f1c9a9d1c",
+   "result": "accept: EN arg=1 ctr=1129"
+  }
+ ],
+ "demo_ok": true,
+ "frame_format": "(CAN FD, 16-byte payload, ID 0x200 command):\n   byte 0      command id (0x01 EN, 0x02 MODE_CV, 0x03 MODE_CP, 0x04 CLR_FAULT, 0x05 DERATE)\n   bytes 1-3   argument, int24 big-endian, fixed point (V x 10, W x 1)\n   bytes 4-7   replay counter, uint32 big-endian, monotonic per key\n   bytes 8-15  MAC = AES-128-CMAC(K, ID(2 bytes BE) || bytes 0..7) truncated to 64 bits (RFC 4493 allows truncation; 64 bits\n               on a 10 Hz command channel gives a forgery probability of 2^-64 per attempt, rate-limited by the bus)\nReceiver rule: accept iff MAC matches (constant-time compare) AND counter > last_accepted AND counter - last_accepted <= WINDOW;\nlast_accepted is persisted (flash/EEPROM emulation) every PERSIST_EVERY accepts and advanced by PERSIST_EVERY at boot so a\nreboot can never re-accept a counter value. Classic CAN 2.0B (8-byte payload) variant: two frames (data + MAC) or a 32-bit\nMAC with a 16-bit counter - weaker, documented in README."
+}

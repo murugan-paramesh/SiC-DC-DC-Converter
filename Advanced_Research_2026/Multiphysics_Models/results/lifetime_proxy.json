@@ -1,0 +1,160 @@
+{
+ "natural": {
+  "Tj1_max": 94.53673283537329,
+  "Tj1_mean": 53.03962553896044,
+  "Tj2_max": 64.04511620625384,
+  "Tj2_mean": 45.77203934650707,
+  "dTj1_max_cycle": 66.99725788551618,
+  "dTj2_max_cycle": 35.396909248894964,
+  "n_cycles1": 14.5,
+  "n_cycles2": 15.5,
+  "energy_kWh_per_day": 93.72,
+  "mean_loss_W": 24.320068755176393,
+  "hard_switching_minutes": 581,
+  "D_lesit_HV": 0.7143512730396011,
+  "D_lesit_LV": 0.005930677589029151,
+  "D_bayerer_HV": 207857485.62399688,
+  "D_bayerer_LV": 6823076.690083507,
+  "lifetime_ratio_lesit_HV": 0.013856089996872548,
+  "lifetime_ratio_lesit_LV": 0.09672112863097657,
+  "lifetime_ratio_bayerer_HV": 0.06291117280792893,
+  "lifetime_ratio_bayerer_LV": 0.2276298902101121,
+  "energy_ratio": 1.0
+ },
+ "forced_air": {
+  "Tj1_max": 62.84394473322339,
+  "Tj1_mean": 41.264164179484915,
+  "Tj2_max": 50.784995394115036,
+  "Tj2_mean": 38.46180508203777,
+  "dTj1_max_cycle": 36.95450531440528,
+  "dTj2_max_cycle": 24.16503472564961,
+  "n_cycles1": 14.5,
+  "n_cycles2": 16.5,
+  "energy_kWh_per_day": 93.72,
+  "mean_loss_W": 23.949045460206282,
+  "hard_switching_minutes": 581,
+  "D_lesit_HV": 0.009898115528617187,
+  "D_lesit_LV": 0.0005736218299573385,
+  "D_bayerer_HV": 13076558.197512873,
+  "D_bayerer_LV": 1553136.1978588838,
+  "lifetime_ratio_lesit_HV": 1.0,
+  "lifetime_ratio_lesit_LV": 1.0,
+  "lifetime_ratio_bayerer_HV": 1.0,
+  "lifetime_ratio_bayerer_LV": 1.0,
+  "energy_ratio": 1.0
+ },
+ "liquid": {
+  "Tj1_max": 46.38048015210097,
+  "Tj1_mean": 38.71068431771471,
+  "Tj2_max": 39.69626199799402,
+  "Tj2_mean": 36.892548941295516,
+  "dTj1_max_cycle": 10.955487841907534,
+  "dTj2_max_cycle": 4.1580539459192565,
+  "n_cycles1": 18.5,
+  "n_cycles2": 14.0,
+  "energy_kWh_per_day": 93.72,
+  "mean_loss_W": 23.74544314400117,
+  "hard_switching_minutes": 581,
+  "D_lesit_HV": 5.4966289044917574e-05,
+  "D_lesit_LV": 1.2807292875607703e-07,
+  "D_bayerer_HV": 100046.44888648424,
+  "D_bayerer_LV": 292.77947330646447,
+  "lifetime_ratio_lesit_HV": 180.0761102960508,
+  "lifetime_ratio_lesit_LV": 4478.8686846526125,
+  "lifetime_ratio_bayerer_HV": 130.70487101796022,
+  "lifetime_ratio_bayerer_LV": 5304.798797261144,
+  "energy_ratio": 1.0
+ },
+ "slew_limited": {
+  "Tj1_max": 63.382200907655786,
+  "Tj1_mean": 41.35378852020483,
+  "Tj2_max": 50.78499522187571,
+  "Tj2_mean": 38.420459292352774,
+  "dTj1_max_cycle": 37.49276148883767,
+  "dTj2_max_cycle": 24.165034553410283,
+  "n_cycles1": 19.5,
+  "n_cycles2": 19.5,
+  "energy_kWh_per_day": 92.625,
+  "mean_loss_W": 24.054343179830763,
+  "hard_switching_minutes": 590,
+  "D_lesit_HV": 0.010903194839909744,
+  "D_lesit_LV": 0.0005745547568226559,
+  "D_bayerer_HV": 14029808.080368958,
+  "D_bayerer_LV": 1553602.0993488608,
+  "lifetime_ratio_lesit_HV": 0.9078179078655374,
+  "lifetime_ratio_lesit_LV": 0.998376261175738,
+  "lifetime_ratio_bayerer_HV": 0.9320553868309924,
+  "lifetime_ratio_bayerer_LV": 0.9997001153061185,
+  "energy_ratio": 0.9883162612035852
+ },
+ "fan_control": {
+  "Tj1_max": 62.93238360447806,
+  "Tj1_mean": 45.63077187689709,
+  "Tj2_max": 56.71574540536443,
+  "Tj2_mean": 42.77199653150428,
+  "dTj1_max_cycle": 35.39290865462095,
+  "dTj2_max_cycle": 28.857408440960768,
+  "n_cycles1": 16.5,
+  "n_cycles2": 17.5,
+  "energy_kWh_per_day": 93.72,
+  "mean_loss_W": 24.10619464893096,
+  "hard_switching_minutes": 581,
+  "D_lesit_HV": 0.010903649269805816,
+  "D_lesit_LV": 0.0014712059870894301,
+  "D_bayerer_HV": 12391796.15839205,
+  "D_bayerer_LV": 2281079.443439206,
+  "lifetime_ratio_lesit_HV": 0.9077800728630244,
+  "lifetime_ratio_lesit_LV": 0.38989905899728355,
+  "lifetime_ratio_bayerer_HV": 1.0552593046535135,
+  "lifetime_ratio_bayerer_LV": 0.6808777319553609,
+  "energy_ratio": 1.0
+ },
+ "aging_feedback_forced_air_Rds_plus5pct": {
+  "Tj1_max": 62.890425353996996,
+  "mean_loss_W": 24.32955813497604,
+  "loss_increase_pct": 1.5888427595246668,
+  "damage_increase_pct_lesit_HV": 0.5774767833037542,
+  "damage_increase_pct_bayerer_HV": 0.3787364416146577,
+  "damage_increase_pct_lesit_LV": 5.508428308446378
+ },
+ "electro_thermal_feedback": {
+  "mean_loss_with_Tj_W": 23.949045460206282,
+  "mean_loss_at_25C_W": 23.281934889813016,
+  "increase_pct": 2.865357082864972
+ },
+ "parameters": {
+  "cooling": {
+   "natural": {
+    "R_s": 1.0,
+    "C_s": 500.0,
+    "T_ref": "ambient"
+   },
+   "forced_air": {
+    "R_s": 0.22,
+    "C_s": 500.0,
+    "T_ref": "ambient"
+   },
+   "liquid": {
+    "R_s": 0.05,
+    "C_s": 540.0,
+    "T_ref": 35.0
+   }
+  },
+  "Rth_tim": 0.35,
+  "RthJC": {
+   "HV": 0.45,
+   "LV": 0.3
+  },
+  "dt_s": 60.0,
+  "lesit": {
+   "alpha": 5.0,
+   "Ea_eV": 0.617
+  },
+  "bayerer": {
+   "beta1": -4.416,
+   "beta2": 1285,
+   "beta3": -0.463
+  },
+  "note": "proxies only; no absolute lifetime"
+ }
+}

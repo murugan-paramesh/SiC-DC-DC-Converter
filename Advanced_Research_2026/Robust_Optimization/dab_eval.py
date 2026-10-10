@@ -154,7 +154,8 @@ def bridge_losses_u(dev, Vdc, I_rms_dev, I_sw_edges, fs, Tj, t_dead, I_min_zvs, 
     return dict(P_cond=P_cond, P_off=P_off, P_hard=P_hard, P_diode=P_diode, P_gate=P_gate, P_total=total, P_per_device=total / 4)
 
 
-def _bridge_thermal(dev, p, Vdc, I_rms_dev, edges, fs, t_dead, Imin, Tamb, kRds, kCoss, iters=5):
+def _bridge_thermal(dev, p, Vdc, I_rms_dev, edges, fs, t_dead, Imin, Tamb, kRds, kCoss, iters=3):
+    # contraction factor of the Tj <-> Rds_on loop is ~0.04 per iteration (0.5 %/K x 0.6 K/W x 12 W), 3 iterations -> < 1e-4 relative
     D = DEVICES[dev]; Tj = Tamb + 20.0; b = None
     for _ in range(iters):
         b = bridge_losses_u(dev, Vdc, I_rms_dev, edges, fs, Tj, t_dead, Imin, n_parallel=p, kRds=kRds, kCoss=kCoss)

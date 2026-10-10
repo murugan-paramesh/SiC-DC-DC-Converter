@@ -1,0 +1,7 @@
+{
+ "I_edge_for_150ns_A": {
+  "HV_800V": 2.6666666666666665,
+  "LV_400V": 2.8000000000000003
+ },
+ "note": "below these edge currents the fixed 150 ns dead time is too short for a complete transition (partial ZVS); the table extends it up to 500 ns, beyond which the point is treated as hard switching"
+}

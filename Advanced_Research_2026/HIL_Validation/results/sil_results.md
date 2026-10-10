@@ -1,0 +1,23 @@
+# SIL fault-injection results: 19 / 19 PASS (seed 20261012)
+
+| id | test | category | pass criterion | result | key values |
+|---|---|---|---|---|---|
+| T01 | baseline start-up and regulation | reference | RUN without fault; |v2 - 400| < 4 V for t > 70 ms | **PASS** | v2_end=400, v2_dev_max=0.00189 |
+| T02 | V2 sensor gain +5 % (AMC1301 chain) | sensor gain fault | no trip (undetectable by design); true v2 = 400/1.05 within 1 %; true v2 <= 480 V | **PASS** | v2_true_end=381, v2_true_max=381 |
+| T03 | V2 sensor gain -20 % at 60 ms (AMC1301 chain, common cause for FW + HW OV) | sensor gain fault | true v2 must stay <= 480 V (LIM_V2_OV) or a trip must occur | **PASS** | v2_true_max=474, v2_meas_end=379 |
+| T04 | V2 sensor offset -30 V at 60 ms | sensor offset fault | true v2 <= 480 V or trip; report true v2 | **PASS** | v2_true_max=430 |
+| T05 | V2 sensor fail-low (reads 0 V) at 60 ms in RUN | sensor failure | FAULT = V2_UV within 2 periods of the fault, gates off | **PASS** | fault=V2_UV, t_fault_ms=60, delay_periods=1 |
+| T06 | V1 sensor fail-high (reads 1000 V = full scale) at 60 ms | sensor failure | FAULT = V1_OV within 2 periods; HW OV comparator also trips (same signal) | **PASS** | fault=HW_TRIP, hw=V1_OV_HW at 60.00 ms, delay_periods=1 |
+| T07 | real HV bus over-voltage: V1 source ramps 800 -> 960 V from 60 ms at 40 V/ms | bus overvoltage | firmware FAULT V1_OV within 1 period of v1 > 900 V and before the HW comparator (920 V) is needed | **PASS** | fault=V1_OV, hw=V1_OV_HW at 63.18 ms, v1_at_fault=901, delay_periods=1 |
+| T08 | LV load short (0.1 Ohm) at 60 ms | load short | a trip occurs within 20 periods of the short; i_pk stays below the 32 A hardware limit (phi_max / EPS limiting); gates off | **PASS** | fault=V2_UV, ipk_max=22.8, trip_delay_periods=7 |
+| T09 | communication loss (heartbeat) at 60 ms | communication loss | FAULT = COMM within 1 period, gates off | **PASS** | fault=COMM, delay_periods=1 |
+| T10 | isolated-amplifier saturation: V2 chain clips at 500 V while an external source pulls the LV link to 520 V | amplifier saturation | FAULT V2_OV (clip level 500 V is above LIM_V2_OV 480 V: 4 % margin) | **PASS** | fault=V2_OV, hw=V2_OV_HW at 60.16 ms, v2_meas_max=500, v2_true_max=520, margin_pct=4.17 |
+| T11 | current-sense saturation: CT/ADC clips at 40 A FS during a load short | amplifier saturation | trip still occurs (40 A FS > 32 A trip): report clipped reading | **PASS** | fault=V2_UV, ipk_true_max=22.8 |
+| T12 | ADC quantisation (12 bit) + noise 2 LSB rms on all channels | ADC noise | no fault in 100 ms; v2 std < 1 %, |mean - 400| < 1 % (t > 70 ms) | **PASS** | v2_std=0.035, v2_mean=400 |
+| T13 | ADC noise 1 % of full scale rms (41 LSB) on all channels | ADC noise | no false trip at the nominal point; v2 deviation < 2 % | **PASS** | v2_dev_max=7.77, v2_std=0.554 |
+| T14 | HV bus dip to 580 V (below LIM_V1_UV = 600 V) for 20 ms in RUN | bus undervoltage | FAULT = V1_UV (documented behaviour: UV is a fault in RUN) | **PASS** | fault=V1_UV |
+| T15 | HV bus dip 10 % (720 V) for 20 ms in RUN | bus dip | no fault; v2 deviation < 3 % (EL-10 class) | **PASS** | v2_dev_max=0.135 |
+| T16 | enable removed during RUN at 60 ms | enable interlock | state INIT within 1 period, gates off, phi = 0 | **PASS** | state_end=INIT |
+| T17 | precharge feedback never true | enable interlock | gates never enabled for the whole run (Python reference stays in PRECHARGE_WAIT; the C core would FAULT after 5 s - discrepancy documented in Reliability_Engineering) | **PASS** | state_end=PRECHARGE_WAIT |
+| T18 | heatsink NTC reads 110 C at 60 ms (sensor short or real over-temperature) | over-temperature | FAULT = OT within 1 period | **PASS** | fault=OT, delay_periods=1 |
+| T19 | i_pk sensor stuck low (CT open, reads 0) during a load short at 60 ms | sensor failure | documents the single-point CT: no I_PK trip expected; pass only if some trip occurs or i_pk stays < 40 A | **PASS** | fault=V2_UV, ipk_true_max=22.8 |

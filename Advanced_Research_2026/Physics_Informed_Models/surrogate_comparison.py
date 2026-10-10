@@ -25,9 +25,12 @@ Models compared (all numpy / scipy, no ML frameworks):
       likelihood (L-BFGS, scipy) on a subset, prediction on <= GP_MAX_TRAIN points.
 Training sets: nested regular grids (needed for the LUT; the same points are given to every model).
 Test set: random points inside the design envelope; extrapolation set: V1 = 600 V and V2 = 470 V.
-Everything is deterministic (fixed seeds).  Run time: a few minutes on one core.
+Everything is deterministic (fixed seeds).  Run time: 5-10 minutes on one core (epochs and GP subset sizes were
+chosen for that budget).
 """
 import os, sys, json, math, time, hashlib, platform, importlib, datetime
+for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):
+    os.environ.setdefault(_v, "1")          # one core, deterministic timing
 import numpy as np
 from scipy.interpolate import RegularGridInterpolator
 from scipy.optimize import minimize
@@ -96,9 +99,10 @@ def _v3(th, amp, D, shift):
 def analytic_tps(V1, V2, phi, D1, D2):
     """Exact piecewise-linear steady-state solution for arbitrary (phi, D1, D2)."""
     V2p = n * V2
-    e1 = [(math.pi / 2 - D1 * math.pi / 2) % (2 * math.pi), (math.pi / 2 + D1 * math.pi / 2) % (2 * math.pi),
-          (3 * math.pi / 2 - D1 * math.pi / 2) % (2 * math.pi), (3 * math.pi / 2 + D1 * math.pi / 2) % (2 * math.pi)]
-    e2 = [(a + phi) % (2 * math.pi) for a in e1]
+    def edges(D, shift):
+        return [(math.pi / 2 - D * math.pi / 2 + shift) % (2 * math.pi), (math.pi / 2 + D * math.pi / 2 + shift) % (2 * math.pi),
+                (3 * math.pi / 2 - D * math.pi / 2 + shift) % (2 * math.pi), (3 * math.pi / 2 + D * math.pi / 2 + shift) % (2 * math.pi)]
+    e1, e2 = edges(D1, 0.0), edges(D2, phi)
     br = sorted(set([0.0] + e1 + e2))
     br.append(2 * math.pi)
     segs = []
@@ -216,7 +220,7 @@ class LUT:
 class MLP:
     name = "MLP 5-32-32-5"
 
-    def __init__(self, nh=32, seed=SEED, epochs=1500, lr=3e-3, batch=256, physics=False, residual=None):
+    def __init__(self, nh=32, seed=SEED, epochs=1200, lr=3e-3, batch=256, physics=False, residual=None):
         self.nh, self.seed, self.epochs, self.lr, self.batch = nh, seed, epochs, lr, batch
         self.physics, self.residual = physics, residual
         if physics:
@@ -374,21 +378,33 @@ class GP:
         return sf2 * np.exp(-0.5 * np.sum(d ** 2, axis=2))
 
     def _nlml(self, th, X, y):
+        """Negative log marginal likelihood and its analytic gradient w.r.t. th = (log ls[5], log sf, log sn)."""
         N = len(X)
-        K = self._k(X, X, th) + (np.exp(2 * th[-1]) + 1e-8) * np.eye(N)
+        ls = np.exp(th[:5]); sf2 = np.exp(2 * th[5]); sn2 = np.exp(2 * th[6])
+        d = (X[:, None, :] - X[None, :, :]) / ls                 # N x N x 5
+        Kf = sf2 * np.exp(-0.5 * np.sum(d ** 2, axis=2))
+        K = Kf + (sn2 + 1e-8) * np.eye(N)
         try:
             Lc = np.linalg.cholesky(K)
         except np.linalg.LinAlgError:
-            return 1e10
+            return 1e10, np.zeros_like(th)
         a = np.linalg.solve(Lc.T, np.linalg.solve(Lc, y))
-        return 0.5 * y @ a + np.sum(np.log(np.diag(Lc))) + 0.5 * N * math.log(2 * math.pi)
+        nlml = 0.5 * y @ a + np.sum(np.log(np.diag(Lc))) + 0.5 * N * math.log(2 * math.pi)
+        Kinv = np.linalg.solve(Lc.T, np.linalg.solve(Lc, np.eye(N)))
+        Wm = np.outer(a, a) - Kinv                                  # d nlml / d theta_j = -0.5 tr(W dK/dtheta_j)
+        g = np.zeros_like(th)
+        for j in range(5):
+            g[j] = -0.5 * np.sum(Wm * (Kf * d[:, :, j] ** 2))
+        g[5] = -0.5 * np.sum(Wm * (2 * Kf))
+        g[6] = -0.5 * np.trace(Wm) * 2 * sn2
+        return nlml, g
 
     def _optimise(self, X, y):
         th0 = np.array([0.0] * 5 + [0.0, math.log(0.05)])
         best = None
         for start in (th0, th0 + np.array([0.7] * 5 + [0, -1.0])):
-            r = minimize(self._nlml, start, args=(X, y), method="L-BFGS-B",
-                         bounds=[(-3, 4)] * 5 + [(-3, 3), (-8, 1)], options=dict(maxiter=80))
+            r = minimize(self._nlml, start, args=(X, y), jac=True, method="L-BFGS-B",
+                         bounds=[(-3, 4)] * 5 + [(-3, 3), (-6, 1)], options=dict(maxiter=100))
             if best is None or r.fun < best.fun:
                 best = r
         return best.x

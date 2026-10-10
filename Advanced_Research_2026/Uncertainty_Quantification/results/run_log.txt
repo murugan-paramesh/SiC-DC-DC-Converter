@@ -1,0 +1,13 @@
+self test: {'max_rel_err_Irms_Ipk_vs_DABPoint_N4000': 0.003132815728498501, 'max_abs_err_A_edge_current_vs_dab_model_closed_form': 0.0, 'max_abs_err_A_edge_current_vs_DABPoint_N4000_grid': 0.09726849049361252, 'bridge_losses_identity_at_k1': 0.0, 'baseline_P_loss_W': 90.78744400982801, 'baseline_vol_cm3': 271.26000000000005, 'baseline_feasible': True}
+MC 4000 + reference 20000: 5 s
+PCE p=1: 6 terms, cond 1.1, R2 min 0.612 (Ipk_max_A) median 0.9984
+PCE p=2: 21 terms, cond 1.5, R2 min 0.821 (Ipk_max_A) median 1.0000
+PCE p=3: 56 terms, cond 2.2, R2 min 0.888 (Ipk_max_A) median 1.0000
+Saltelli: 14000 runs, 10 s
+convergence study: 37 s
+total model runs 107683, 44 s
+done in 48 s
+eta_nom: nominal 98.643, MC mean 98.606 std 0.048 q05 98.527 q95 98.682
+Sobol ST eta_nom (PCE): {'kL': np.float64(0.141), 'kCoss': np.float64(0.0), 'kRds': np.float64(0.257), 'kCore': np.float64(0.524), 'Tamb': np.float64(0.079)}  Saltelli: {'kL': np.float64(0.139), 'kCoss': np.float64(0.0), 'kRds': np.float64(0.262), 'kCore': np.float64(0.499), 'Tamb': np.float64(0.082)}
+Sobol ST zvs1 (PCE): {'kL': np.float64(0.89), 'kCoss': np.float64(0.11), 'kRds': np.float64(0.0), 'kCore': np.float64(0.0), 'Tamb': np.float64(0.0)}
+EXIT 0
