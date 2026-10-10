@@ -475,7 +475,7 @@ shortest path is the HIL bench followed by a de-rated (about 1 kW) bench test, a
 | `Advanced_Research_2026/Research_Benchmarks/benchmark_table.py`, `benchmark_methodology.md` | 14-row benchmark, inequalities, measurement protocol | `[Implemented]`; project numbers `[Simulated]` |
 | `Advanced_Research_2026/Verification_Evidence/run_all.py`, `manifest.json`, `run_log.json` | runner, 16 modules / 26 scripts, last-run record | `[Implemented]` |
 | `Advanced_Research_2026/Verification_Evidence/maturity.json`, `maturity_matrix.md` | L0-L6 scale, 26 deliverables, none above L3 | `[Implemented]` |
-| `Advanced_Research_2026/Verification_Evidence/KNOWN_ISSUES.md` | 14 findings: 3 fixed, 10 open, 1 documented | `[Implemented]` |
+| `Advanced_Research_2026/Verification_Evidence/KNOWN_ISSUES.md` | 17 findings: 4 fixed, 11 open, 2 documented | `[Implemented]` |
 | `Advanced_Research_2026/Literature_Database/README.md`, `literature_2022_2026.csv` | 57 entries with verification status | `[Implemented]` |
 | `Advanced_Research_2026/Research_Publications/` | four manuscript outlines, not submitted | `[Proposed]` |
 | `img/ch19_figures.py` | the two figures of this chapter | `[Implemented]` |

@@ -689,10 +689,12 @@ w("* Shift of the fronts (minimum loss / maximum ZVS margin / best log10 D on ea
   "the chance-constrained objectives are sample means and sit close to the nominal values, the difference is in which designs are admitted.")
 w("* Why the strict worst case is (nearly) empty - closed form: with SPS at full power the HV bridge keeps ZVS at the 650/450 V corner only if "
   "phi > pi (V2' - V1) / (2 V2') (I0 > 0) and the LV bridge at 850/300 V only if phi > pi (V1 - V2') / (2 V1) (I1 > 0); for n = 2 these are 25.0 deg and 26.5 deg. "
-  "Because P = V1 V2' phi (pi - phi) / (2 pi^2 fs L), the same K = 2 pi^2 fs L P that gives phi >= 26.5 deg at 850/300 V (V1 V2' = 510 kV^2) gives phi = 57 deg at 650/300 V (390 kV^2). "
-  "A +15 % inductance pushes the 650/300 V corner to 85 deg (> 60 deg limit of 00_Requirements / firmware clamp) while a -15 % inductance pulls the 850/300 V corner below the ZVS boundary: "
-  "the two requirements can only be met simultaneously for a +/-1.5 % inductance band (n = 1.95 widens it to about 5 %, still far below the assumed +/-15 % tolerance). "
-  "The nominal strict window for n = 2 is phi_nom = 26.5-28.5 deg - the baseline (28.2 deg) sits inside it, which also explains why only "
+  "Because P = V1 V2' phi (pi - phi) / (2 pi^2 fs L), every corner sees the same K = 2 pi^2 fs L P scaled by 1/(V1 V2'): ZVS at 650/450 V (585 kV^2, phi >= 25.0 deg) needs K >= 690 kV^2 "
+  "and ZVS at 850/300 V (510 kV^2, phi >= 26.5 deg) K >= 632 kV^2, while the 60 deg limit of 00_Requirements / firmware clamp at 650/300 V (390 kV^2) caps K <= 855 kV^2. "
+  "K is proportional to L, so the zero-current ZVS boundaries and the phase limit together admit only a K ratio of 1.24, i.e. a +/-10.7 % inductance band for n = 2 (+/-12.7 % for n = 1.95), "
+  "below the assumed +/-15 % tolerance; the Coss-based minimum ZVS current, the +20 % Coss sample and the 24 A peak limit of the strict set narrow it further. "
+  "(Earlier text quoted 57 deg at 650/300 V and a +/-1.5 % band: the 57 deg is the baseline 64 uH value, not the value implied by the 26.5 deg boundary (37.3 deg), and the 1.5 % was not supported by the closed form - corrected 2026-10-10.) "
+  "In nominal-phase terms the lossless bound is phi_nom (800/400 V) = 22.5-29.1 deg; the optimiser's strict set narrows it to about 26.5-28.5 deg - the baseline (28.2 deg) sits inside it, which also explains why only "
   f"{n_grid_full} of the 8640 grid designs (phi_nom 20/25/30/35 deg) satisfy the strict constraint set. Consequence: with SPS, ZVS at the voltage-mismatch corners at full power cannot be *guaranteed* "
   "under a +/-15 % inductance tolerance; the requirement document already allows hard-switched operation where the thermal budget holds, which is what the main variants enforce (Tj with hard-switching losses) "
   "while the corner margin is maximised as an objective. EPS/TPS modulation (11_Control_Algorithms) is the known remedy and is outside this SPS study.\n")

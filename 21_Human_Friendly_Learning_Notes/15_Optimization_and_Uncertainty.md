@@ -202,8 +202,10 @@ constraints.
 **Level 3 - Research:** With ZVS at all five full-power points added as a hard constraint ("strict"), the robust and chance
 variants found 0 feasible designs in 3660 evaluations each. With SPS the HV bridge keeps ZVS at 650/450 V only if phi > pi (V2' -
 V1) / (2 V2') = 25.0 deg and the LV bridge at 850/300 V only if phi > pi (V1 - V2') / (2 V1) = 26.5 deg (ideal, before the Coss
-energy), while P ~ phi (pi - phi) / L drives the 650/300 V corner towards the 60 deg limit when L is high. The README puts the
-compatible band at about +/-1.5 % of L for n = 2 (about 5 % at n = 1.95), against +/-15 % assumed. EPS/TPS is the known remedy.
+energy), while P ~ phi (pi - phi) / L drives the 650/300 V corner towards the 60 deg limit when L is high. The two ZVS
+boundaries need K = 2 pi^2 fs L P >= 690 kV^2 and the phase limit allows K <= 855 kV^2, a ratio of 1.24: a band of about
++/-10.7 % of L for n = 2 (+/-12.7 % at n = 1.95) before the Coss energy narrows it further, against +/-15 % assumed. (An
+earlier README version quoted +/-1.5 %; it was corrected after this recomputation.) EPS/TPS is the known remedy.
 
 **Example from our converter:** Baseline (`results/knee_and_baseline.json`): nominal 90.8 W, feasible; worst case 99.9 W and
 chance-constrained 93.3 W, both infeasible (violated constraint: phi_corner at 650/300 V with L at +15 %). Probability of ZVS at
@@ -464,8 +466,8 @@ arithmetic is recomputed for these notes. `[Simulated]`
 
 1. K = 2 pi^2 fs L P = 19.74 x 1e5 x 64e-6 x 6600 = 8.34e5 V^2 (Hz x H x W = V^2); phi (pi - phi) = K / (V1 V2').
 2. 850/300 V: V1 V2' = 850 x 600 = 5.1e5 V^2 -> phi (pi - phi) = 1.635 -> phi = 37.7 deg.
-3. 650/300 V: 3.9e5 V^2 -> 2.138 -> phi = 57.1 deg. (This is the README's "57 deg"; it belongs to the baseline inductance, not to
-   the 26.5 deg boundary phase named in the same sentence.)
+3. 650/300 V: 3.9e5 V^2 -> 2.138 -> phi = 57.1 deg. (An earlier README version attributed this 57 deg to the 26.5 deg boundary
+   phase; it belongs to the baseline inductance - the boundary phase implies 37.3 deg. The README is now corrected.)
 4. L x 1.15 = 73.6 uH: 650/300 V needs phi (pi - phi) = 2.459, almost the maximum pi^2 / 4 = 2.467 -> phi = 84.6 deg > 60 deg.
    This is the violated "phi_corner" constraint of the baseline under the robust variant.
 5. L x 0.85 = 54.4 uH: 650/450 V (V2' = 900 V) gives phi = 25.8 deg, barely above the ideal HV boundary pi x 250 / 1800 = 25.0 deg;
@@ -544,8 +546,8 @@ so the range is 8.56-14.27 W (corner analysis 8.564 / 14.273 W) and the standard
 1. Derive the SPS ZVS boundary for the LV bridge at 850/300 V.
    I1 > 0 needs phi > pi (V1 - V2') / (2 V1) = pi x 250 / 1700 = 26.5 deg; the Coss energy raises it further.
 2. Why is the strict robust variant empty?
-   At +15 % L the 650/300 V corner needs 85 deg (> 60 deg); at -15 % L the mismatch corners lose ZVS; both hold only for about
-   +/-1.5 % L at n = 2.
+   At +15 % L the 650/300 V corner needs 85 deg (> 60 deg); at -15 % L the mismatch corners lose ZVS; the lossless closed
+   form admits at most about +/-10.7 % L at n = 2, and the Coss energy narrows that further.
 3. What would you change in the objectives for a production design?
    Mission-weighted loss, EMI-filter volume, a calibrated lifetime metric.
 4. How would you make the chance constraint statistically sound?

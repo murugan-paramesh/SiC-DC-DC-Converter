@@ -342,7 +342,8 @@ flagged pinouts and the `verified=False` device data, obtain an independent revi
 +/-20 % Coss, +0-30 % Rds(on), +/-25 % core loss, 25-55 C ambient: efficiency 98.61 +/- 0.05 % (MC mean and std);
 the minimum ZVS margin over the corners has a mean of 0.89 A but a 5 % quantile of -1.13 A, i.e. some corners lose
 ZVS; inductance dominates the ZVS margins. Robust optimisation adds the design consequence: ZVS at every
-full-power corner can be guaranteed only for a +/-1.5 % inductance band (Paper 4 outline). `[Simulated]`
+full-power corner can be guaranteed only within about a +/-10.7 % inductance band at n = 2 (lossless closed form,
+narrower with the Coss energy), less than the assumed +/-15 % tolerance (Paper 4 outline). `[Simulated]`
 
 ## How this chapter connects to the files
 
@@ -355,7 +356,7 @@ full-power corner can be guaranteed only for a +/-1.5 % inductance band (Paper 4
 | `docs/02_design_calculations.md`, `hardware/kicad/drc_summary.json` | PSFB loss budget (91.1 W, 97.1 %), DRC state | `[Simulated]` / `[Verified]` |
 | `Advanced_Research_2026/00_Gap_Analysis_and_Plan.md` | audit, gap matrix, contributions A, D, B | `[Implemented]` |
 | `Advanced_Research_2026/Verification_Evidence/maturity.json`, `maturity_matrix.md` | 26 deliverables with level, evidence, limits | `[Implemented]` |
-| `Advanced_Research_2026/Verification_Evidence/KNOWN_ISSUES.md` | 14 findings, 10 open | `[Implemented]` |
+| `Advanced_Research_2026/Verification_Evidence/KNOWN_ISSUES.md` | 17 findings, 11 open | `[Implemented]` |
 | `Advanced_Research_2026/Research_Publications/README.md` | four paper outlines and their missing steps | `[Proposed]` |
 | `img/ch20_figures.py` | the roadmap figure | `[Implemented]` |
 
@@ -422,8 +423,8 @@ The master list: the 30 most important questions across chapters 01-19, with the
 4. **Do physics-informed networks beat the analytical model? (17)** No: the exact TPS closed form has 0.12 % RMSE
    (of range) against 0.59 % for the best learned surrogate; the PINN physics loss did not help.
 5. **What did robust optimisation show about the baseline? (15)** Within 3 % of the nominal front in loss,
-   dominated in magnetics volume, infeasible under robust and chance-constrained variants; corner ZVS needs a
-   +/-1.5 % inductance band.
+   dominated in magnetics volume, infeasible under robust and chance-constrained variants; corner ZVS with SPS
+   tolerates at most about +/-10.7 % inductance (less with the Coss energy), not the assumed +/-15 %.
 6. **What dominates the uncertainty? (15)** Nominal efficiency 98.61 +/- 0.05 % is driven by core loss and Rds(on);
    ZVS margins and corner efficiencies by the inductance; Tj by ambient.
 7. **How far can health monitoring go without measured data? (18)** On SYNTHETIC data a 1 % drift is detected in

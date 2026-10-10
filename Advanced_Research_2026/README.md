@@ -9,7 +9,7 @@ only its development branch).
 simulation (L2) or software-verified (L3). Synthetic data are labelled SYNTHETIC; proposed hardware
 (transition-time sensor, V_ds,on sense circuit, HIL bench) is labelled proposed. See
 `Verification_Evidence/maturity_matrix.md` for the level of every deliverable and
-`Verification_Evidence/KNOWN_ISSUES.md` for the 14 findings this work made about the baseline.
+`Verification_Evidence/KNOWN_ISSUES.md` for the 17 findings this work made about the baseline (4 fixed, 11 open, 2 documented).
 
 ## Start here
 

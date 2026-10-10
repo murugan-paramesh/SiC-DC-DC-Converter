@@ -21,9 +21,11 @@ and beats a Gaussian-process expected-improvement search at equal budget (hyperv
 evaluations). The project's baseline design (100 kHz, 64 uH, n = 2) is within 3 % of the nominal front in loss
 but dominated in magnetics volume (an ETD49 inductor core with two LV devices saves 44 cm3 at equal loss), and
 it is infeasible under the robust and chance-constrained variants. A closed-form argument shows why: with SPS,
-the phase shift that keeps ZVS at 850/300 V full power (26.5 deg) implies 57 deg at 650/300 V, and a +15 %
-inductance pushes that corner beyond the 60 deg limit, so ZVS at every full-power corner can only be guaranteed
-for a +/-1.5 % inductance band - no design in 3660 evaluations satisfies the strict robust variant.
+all corners share K = 2 pi^2 fs L P scaled by 1/(V1 V2'); zero-current ZVS at 650/450 V and 850/300 V needs
+K >= 690 kV^2 while the 60 deg phase limit at 650/300 V caps K <= 855 kV^2, so ZVS at every full-power corner can
+only be guaranteed for a +/-10.7 % inductance band at n = 2 (+/-12.7 % at n = 1.95), narrower still once the
+Coss-based ZVS current and the 24 A peak limit are added - below the assumed +/-15 % tolerance, and no design in
+3660 evaluations satisfies the strict robust variant.
 Uncertainty propagation (Monte Carlo, LHS, order-3 polynomial chaos) shows nominal efficiency 98.61 +/- 0.05 %
 dominated by core-loss and Rds_on uncertainty (total Sobol indices 0.52 and 0.26), while the corner efficiencies
 and every ZVS margin are dominated by the inductance (indices 0.76-1.00); junction temperature is driven almost

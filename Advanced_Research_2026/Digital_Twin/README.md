@@ -64,7 +64,9 @@ small phase shifts.
 27 operating points (V1 650/800/850 V x V2 300/400/450 V x 10/30/100 % power) on the switched plant
 with the true L 20 % below nominal. The supervisor chooses (D1, D2) from a 16-candidate grid around
 EPS voltage matching to minimise the model rms current subject to a 1 A ZVS margin on both bridges
-and the 32 A peak limit, using the estimated L; the PI loop sets phi. Fallback to the fixed EPS
+and the 32 A peak limit, using the estimated L; the PI loop sets phi. The L estimate is *emulated* with the accuracy
+measured in E1/E2 (0.25 % bias, 0.4 % scatter) rather than produced by an RLS running inside the same loop; closing
+that loop is future work. Fallback to the fixed EPS
 schedule when the estimate's 1-sigma exceeds 5 %, lies outside 0.7-1.3 L_nom, or the operating point
 leaves the envelope (0 of 27 here, by construction of the test).
 
