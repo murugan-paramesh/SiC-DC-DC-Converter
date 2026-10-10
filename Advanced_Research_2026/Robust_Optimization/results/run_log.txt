@@ -1,2 +1,103 @@
 self test: {"max_rel_err_Irms_Ipk_vs_DABPoint_N4000": 0.003132815728498501, "max_abs_err_A_edge_current_vs_dab_model_closed_form": 0.0, "max_abs_err_A_edge_current_vs_DABPoint_N4000_grid": 0.09726849049361252, "bridge_losses_identity_at_k1": 0.0, "baseline_P_loss_W": 90.78744400982801, "baseline_vol_cm3": 271.26000000000005, "baseline_feasible": true}
 cross-check: {'stored_grid_baseline_P_loss_W': 91.63497815896798, 'this_evaluator_same_design_P_loss_W': 90.66964682651226, 'stored_vol_cm3': 271.26000000000005, 'this_vol_cm3': 271.26000000000005, 'baseline_L64uH_with_Cpar_P_loss_W': 90.78744400982801}
+nominal: 305 non-dominated, 3660 evaluations, 27 s
+robust: 242 non-dominated, 3660 evaluations, 120 s
+cc: 197 non-dominated, 3660 evaluations, 129 s
+nominal_strict: 234 non-dominated, 3660 evaluations, 24 s
+robust_strict: 0 non-dominated, 3660 evaluations, 28 s
+cc_strict: 0 non-dominated, 3660 evaluations, 20 s
+grid: 8640 candidates, 1380 feasible under the grid's own constraints, 0 under the strict constraint set, 52 non-dominated (4-D), 3 (loss, volume), 36 s
+BO: 250 evaluations, 15 non-dominated, HV 0.291 vs NSGA-II nominal 0.361 at the same budget, 126 s
+done in 620 s; evaluations {'nominal': 3660, 'robust': 3660, 'cc': 3660, 'nominal_strict': 3660, 'robust_strict': 3660, 'cc_strict': 3660, 'grid': 8640, 'bo': 250}
+{
+ "knee": {
+  "mode": "nominal",
+  "fs_kHz": 71.42344980822737,
+  "phi_nom_deg": 24.645603777447725,
+  "L_uH": 78.91987961547044,
+  "n": 1.9675835852039043,
+  "Bpk_target": 0.17827750226029127,
+  "Bpk_realised": 0.17285190011815363,
+  "tcore": "E65/32/27",
+  "lcore": "ETD49/25/16",
+  "t_dead_ns": 118.67162867153954,
+  "dev1": "C3M0032120Kx1",
+  "dev2": "C3M0032120Kx2",
+  "f_loss_W": 88.330194,
+  "f_vol_cm3": 227.26,
+  "f_log10_damage_rel": -0.834151,
+  "f_zvs_margin_A": -6.458224,
+  "eta_nom_pct": 98.67933861074269,
+  "eta_mission_pct": 98.3327349885301,
+  "E_loss_Wh_day": 1260.7991252085294,
+  "Tj_max_C": 53.59365840058738,
+  "dTj1_K": 8.716434696590227,
+  "dTj2_K": 5.844899236636927,
+  "Ipk_max_A": 21.00104792688263,
+  "fill_xf": 0.6948979689348997,
+  "fill_ind": 0.606914273078116,
+  "N1": 30,
+  "N2": 15,
+  "N_ind": 36,
+  "cv": 0.0
+ },
+ "baseline": {
+  "f": [
+   90.78744400982801,
+   271.26000000000005,
+   0.0,
+   5.882153335253829
+  ],
+  "g": [
+   -0.0481437206258396,
+   -0.5398819639271477,
+   -0.4880973526181968,
+   -0.2972883597883599,
+   -0.05911692100610233,
+   -0.598084511281816,
+   -0.18379383735392285
+  ],
+  "feasible": true,
+  "n_front": 305,
+  "n_dominating": 6,
+  "normalised_distance_to_front": 0.1729115235885581,
+  "improvement_available": {
+   "P_loss_nom_W": 2.5986840098280055,
+   "vol_cm3": 44.00000000000006,
+   "log10_damage_rel": 0.305842,
+   "neg_zvs_margin_A": 0.078321335253829
+  },
+  "dominating_examples": "..."
+ },
+ "survive": {
+  "robust": {
+   "n_nominal_front": 305,
+   "n_feasible_under_mode": 55
+  },
+  "cc": {
+   "n_nominal_front": 305,
+   "n_feasible_under_mode": 73
+  },
+  "nominal_strict": {
+   "n_nominal_front": 305,
+   "n_feasible_under_mode": 120
+  },
+  "robust_strict": {
+   "n_nominal_front": 305,
+   "n_feasible_under_mode": 0
+  },
+  "cc_strict": {
+   "n_nominal_front": 305,
+   "n_feasible_under_mode": 0
+  }
+ },
+ "hv": {
+  "nominal": 0.69066,
+  "robust": 0.26713,
+  "cc": 0.52367,
+  "nominal_strict": 0.68038,
+  "robust_strict": 0.0,
+  "cc_strict": 0.0
+ }
+}
+EXIT 0

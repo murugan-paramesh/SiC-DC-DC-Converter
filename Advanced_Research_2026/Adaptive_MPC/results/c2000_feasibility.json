@@ -26,8 +26,8 @@
    "wcet_us": 2.07,
    "isr_fraction": 0.207,
    "fits_10us": true,
-   "python_us_mean": 15.918933139197723,
-   "python_us_max": 8844.904999989467
+   "python_us_mean": 10.217314258423,
+   "python_us_max": 440.7009998885769
   },
   "CCS-MPC": {
    "ops": {
@@ -43,8 +43,8 @@
    "wcet_us": 29.02,
    "isr_fraction": 2.902,
    "fits_10us": false,
-   "python_us_mean": 914.2022535948765,
-   "python_us_max": 20705.137000049945
+   "python_us_mean": 697.4990520056365,
+   "python_us_max": 23581.503000059456
   },
   "FCS-MPC": {
    "ops": {
@@ -60,8 +60,8 @@
    "wcet_us": 98.27,
    "isr_fraction": 9.827,
    "fits_10us": false,
-   "python_us_mean": 622.1181868370795,
-   "python_us_max": 9866.386999988208
+   "python_us_mean": 506.07863593615036,
+   "python_us_max": 8823.315999961778
   },
   "Explicit-MPC": {
    "ops": {
@@ -77,8 +77,8 @@
    "wcet_us": 2.33,
    "isr_fraction": 0.233,
    "fits_10us": true,
-   "python_us_mean": 33.86108838212422,
-   "python_us_max": 8109.6960000195395
+   "python_us_mean": 23.739608525296227,
+   "python_us_max": 4197.986999997738
   },
   "Adaptive-MPC": {
    "ops": {
@@ -94,8 +94,8 @@
    "wcet_us": 33.25,
    "isr_fraction": 3.325,
    "fits_10us": false,
-   "python_us_mean": 1087.4154715561583,
-   "python_us_max": 16692.99399998181
+   "python_us_mean": 864.6174723431592,
+   "python_us_max": 17058.110999869314
   },
   "Robust-MPC": {
    "ops": {
@@ -111,8 +111,8 @@
    "wcet_us": 29.02,
    "isr_fraction": 2.902,
    "fits_10us": false,
-   "python_us_mean": 811.6591698265886,
-   "python_us_max": 13330.231000054482
+   "python_us_mean": 697.9561740024676,
+   "python_us_max": 8698.987999991914
   },
   "CCS-MPC N=5 K=10": {
    "ops": {

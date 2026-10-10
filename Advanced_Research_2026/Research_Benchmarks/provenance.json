@@ -1,6 +1,6 @@
 {
  "script": "Advanced_Research_2026/Research_Benchmarks/benchmark_table.py",
- "generated_utc": "2026-10-10T02:59:46.188289+00:00",
+ "generated_utc": "2026-10-10T07:56:12.425780+00:00",
  "python": "3.13.16",
  "platform": "Linux-6.18.44-fc-v114-x86_64-with-glibc2.39",
  "packages": {
@@ -8,16 +8,16 @@
   "pandas": "3.0.5",
   "matplotlib": "3.11.2"
  },
- "git_commit": "472e35cbd0b846b38f6315636ead0149a5f6fb99",
+ "git_commit": "fe23bcde36cbddf2ea8e1af445bd7b1523dc8c20",
  "input_sha256": {
-  "Advanced_Research_2026/Literature_Database/literature_2022_2026.csv": "9dc60e4b1e29303f1105804f5c97897c0a93c62e5cd8942c12c9dad78024efb5",
+  "Advanced_Research_2026/Literature_Database/literature_2022_2026.csv": "278a251c51285dedf05392257b79bdef09fed0c47aac37c9df0c658872513a85",
   "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f42717ab0d2f0b414addf6a331caaf3d51323f78e73851ebde253",
   "docs/02_design_calculations.md": "34f684e69a24309c145d9af4a0f1a2908e9fc480f293e538dad59a4c42f5dc3f",
   "docs/01_specification.md": "2ceb5e2802973fa24f655b93eeabc303c1a5d4c457c3b111202be749d088e56e",
-  "Advanced_Research_2026/Research_Benchmarks/benchmark_table.py": "a225bf54b9db11cd820bb34a4fbbc236e41f1b64549fb68aa7d77b9ca23cdfca"
+  "Advanced_Research_2026/Research_Benchmarks/benchmark_table.py": "3dcffaba7c743a725eb615521a6fe549c5b96924862da888944ea6594c289a3c"
  },
  "seeds": "none (deterministic table)",
- "wall_time_s": 0.9490206241607666,
+ "wall_time_s": 0.8251652717590332,
  "outputs": [
   "benchmark_summary.json",
   "benchmark_table.csv",

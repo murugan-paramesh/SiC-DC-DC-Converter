@@ -1,20 +1,34 @@
 {
- "n_rows": 7,
+ "n_rows": 14,
  "literature_ids": [
   "L01",
   "L06",
   "L07",
+  "L16",
+  "L17",
   "L23",
-  "L25"
+  "L25",
+  "L31",
+  "L38",
+  "L46",
+  "L47",
+  "L57"
  ],
  "confirmed_ids": [
   "L01",
-  "L06",
-  "L07",
-  "L23"
+  "L16",
+  "L17",
+  "L23",
+  "L31",
+  "L47",
+  "L57"
  ],
  "unverified_ids": [
-  "L25"
+  "L06",
+  "L07",
+  "L25",
+  "L38",
+  "L46"
  ],
  "ours": {
   "dab": {
@@ -39,6 +53,6 @@
    }
   }
  },
- "literature_db_entries": 29,
- "literature_db_confirmed": 14
+ "literature_db_entries": 57,
+ "literature_db_confirmed": 43
 }

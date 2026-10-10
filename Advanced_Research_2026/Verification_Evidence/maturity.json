@@ -134,6 +134,20 @@
    "level": "L2",
    "evidence": "Multiphysics_Models/results/ (lifetime ratios vs forced air: natural 0.01-0.23, liquid 130-5300; slew/fan variants negative results)",
    "not_verified": "Foster capacitances and lifetime-model coefficients are literature-typical; ratios only, no absolute lifetime"
+  },
+  {
+   "area": "Research 2026",
+   "item": "Adaptive_MPC: PI / CCS-MPC / FCS-MPC / explicit LUT / adaptive RLS / robust tube controllers benchmarked on the switched plant; C2000 WCET budget; wide-range ZVS maps and dead-time table",
+   "level": "L2 (controllers), L1 (WCET)",
+   "evidence": "Adaptive_MPC/results/ (load step: MPC settling <= 0.25 ms vs 2.1 ms PI; reversal and soft start: PI better; only the explicit LUT fits the 10 us ISR; 46 % of the V1 x V2 x P envelope hard-switches at nominal)",
+   "not_verified": "no C code, no toolchain/hardware timing; DPS/TPS not benchmarked as closed-loop inner modulators; scenario windows shortened for runtime; Coss(T) absent from the device table"
+  },
+  {
+   "area": "Research 2026",
+   "item": "Embedded_AI: Q15 explicit-MPC LUT (13.3 KB, 0.9 us) vs Q15 MLP 3-16-16-3 (0.84 KB, 13 us, 1.5 deg rms) - LUT chosen; ISR/10 kHz/1 kHz schedule; bit-exact test vectors (490)",
+   "level": "L2 (algorithms), L1 (cycle counts)",
+   "evidence": "Embedded_AI/results/",
+   "not_verified": "no C port, no C2000 timing measurement"
   }
  ]
 }

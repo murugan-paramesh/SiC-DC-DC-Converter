@@ -275,7 +275,7 @@ Discharge time would be measured per `20_Experimental_Test_Plan/test_plan.md`. `
 **Common mistakes:** The schematic bleeder chain is 4 x 680 kOhm = 2.72 MOhm on the HV link and 2 x 1 MOhm
 on the LV link (`dabtools/kicad_dab/design_dab.py`, R1-R4 and R5-R6), which gives 577 s and 484 s to
 60 V with the on-board capacitance alone, i.e. slower than the 300 s used in the calculation. The
-schematic values must be reconciled with `design_values.json` before a safety review (the external active
+schematic values must be reconciled with `04_Design_Calculations/design_values.json` before a safety review (the external active
 discharge of SAF-04 is a separate function). This is an inconsistency between two repository files, not
 a measured fault.
 

@@ -5,12 +5,12 @@
   "scipy": "1.18.1",
   "matplotlib": "3.11.2",
   "platform": "Linux-6.18.44-fc-v114-x86_64-with-glibc2.39",
-  "git_commit": "2816565889d4d11d9baf3442c5dda203625ab8dc",
-  "wall_time_s": 6.7,
+  "git_commit": "fe23bcde36cbddf2ea8e1af445bd7b1523dc8c20",
+  "wall_time_s": 4.4,
   "input_files": {
    "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f42717ab0d2f0b414addf6a331caaf3d51323f78e73851ebde253",
    "SiC_6k6_Industrial_DAB/11_Control_Algorithms/control_params.json": "7ddd3fafe463ac4f4c299778d046f65ff6887093722cdb476b036b5b837c04fa",
-   "Advanced_Research_2026/Adaptive_MPC/dab_mpc_lib.py": "ef0eb0e7e39581bdf1281d0057154ac4d62f0fff0e3e8d8964f0a98c688e2036"
+   "Advanced_Research_2026/Adaptive_MPC/dab_mpc_lib.py": "2edd62cdb634b26cd59f9cced640276c83e99760e3e36721916f257a4956674a"
   },
   "seeds": {
    "numpy_default": 20260101
@@ -27,8 +27,8 @@
   "scipy": "1.18.1",
   "matplotlib": "3.11.2",
   "platform": "Linux-6.18.44-fc-v114-x86_64-with-glibc2.39",
-  "git_commit": "b42279acbc8b91ab8066dd61289d45c0f26eac3f",
-  "wall_time_s": 128.4,
+  "git_commit": "fe23bcde36cbddf2ea8e1af445bd7b1523dc8c20",
+  "wall_time_s": 73.7,
   "input_files": {
    "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f42717ab0d2f0b414addf6a331caaf3d51323f78e73851ebde253",
    "SiC_6k6_Industrial_DAB/11_Control_Algorithms/control_params.json": "7ddd3fafe463ac4f4c299778d046f65ff6887093722cdb476b036b5b837c04fa",
@@ -50,13 +50,13 @@
   "scipy": "1.18.1",
   "matplotlib": "3.11.2",
   "platform": "Linux-6.18.44-fc-v114-x86_64-with-glibc2.39",
-  "git_commit": "85c5adc518f0fe3613388e062a6890b08f332652",
-  "wall_time_s": 345.1,
+  "git_commit": "fe23bcde36cbddf2ea8e1af445bd7b1523dc8c20",
+  "wall_time_s": 103.8,
   "input_files": {
    "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f42717ab0d2f0b414addf6a331caaf3d51323f78e73851ebde253",
    "SiC_6k6_Industrial_DAB/dabtools/dab/dab_model.py": "7a227db80b4c817edc33ec2ec4ed8676f3fcc13cd47e7c116d7c2874e711c6ea",
    "SiC_6k6_Industrial_DAB/dabtools/dab/devices.py": "bccad660fcf2d85f548d2d60ce37535f034e495e5cd8f94a772d562c9cca3960",
-   "Advanced_Research_2026/Adaptive_MPC/dab_mpc_lib.py": "ef0eb0e7e39581bdf1281d0057154ac4d62f0fff0e3e8d8964f0a98c688e2036"
+   "Advanced_Research_2026/Adaptive_MPC/dab_mpc_lib.py": "2edd62cdb634b26cd59f9cced640276c83e99760e3e36721916f257a4956674a"
   },
   "seeds": {
    "numpy_default": 20260101
@@ -78,8 +78,8 @@
   "scipy": "1.18.1",
   "matplotlib": "3.11.2",
   "platform": "Linux-6.18.44-fc-v114-x86_64-with-glibc2.39",
-  "git_commit": "ca67152a870b4e9fd4549005336dd91ef9fe1969",
-  "wall_time_s": 270.3,
+  "git_commit": "fe23bcde36cbddf2ea8e1af445bd7b1523dc8c20",
+  "wall_time_s": 227.0,
   "input_files": {
    "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f42717ab0d2f0b414addf6a331caaf3d51323f78e73851ebde253",
    "SiC_6k6_Industrial_DAB/11_Control_Algorithms/control_params.json": "7ddd3fafe463ac4f4c299778d046f65ff6887093722cdb476b036b5b837c04fa",

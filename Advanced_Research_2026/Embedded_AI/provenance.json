@@ -5,8 +5,8 @@
   "scipy": "1.18.1",
   "matplotlib": "3.11.2",
   "platform": "Linux-6.18.44-fc-v114-x86_64-with-glibc2.39",
-  "git_commit": "b42279acbc8b91ab8066dd61289d45c0f26eac3f",
-  "wall_time_s": 58.0,
+  "git_commit": "fe23bcde36cbddf2ea8e1af445bd7b1523dc8c20",
+  "wall_time_s": 53.1,
   "input_files": {
    "Advanced_Research_2026/Adaptive_MPC/results/empc_lut.npz": "4473a33adfb3b14cd4621881e6a11cc3307c1a0ddb3487eaa38c67eb9de11ebe",
    "Advanced_Research_2026/Adaptive_MPC/dab_mpc_lib.py": "2edd62cdb634b26cd59f9cced640276c83e99760e3e36721916f257a4956674a",
@@ -21,6 +21,8 @@
    "embedded_report.json",
    "empc_lut_q15.npz",
    "quantisation_errors.png",
+   "scheduling.json",
+   "scheduling_timing.png",
    "test_vectors_lut_q15.csv",
    "test_vectors_mlp_q15.csv",
    "tps_eps_map_MODEL.csv",
@@ -35,12 +37,12 @@
   "scipy": "1.18.1",
   "matplotlib": "3.11.2",
   "platform": "Linux-6.18.44-fc-v114-x86_64-with-glibc2.39",
-  "git_commit": "ca67152a870b4e9fd4549005336dd91ef9fe1969",
-  "wall_time_s": 0.4,
+  "git_commit": "fe23bcde36cbddf2ea8e1af445bd7b1523dc8c20",
+  "wall_time_s": 0.3,
   "input_files": {
    "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f42717ab0d2f0b414addf6a331caaf3d51323f78e73851ebde253",
    "SiC_6k6_Industrial_DAB/11_Control_Algorithms/control_params.json": "7ddd3fafe463ac4f4c299778d046f65ff6887093722cdb476b036b5b837c04fa",
-   "Advanced_Research_2026/Embedded_AI/results/embedded_report.json": "53bfd92823e39b584d2e4bae485a195f3ccf2b8ae9ad70e9c34be91e699cd44c"
+   "Advanced_Research_2026/Embedded_AI/results/embedded_report.json": "0b6ecb58146f3df30068c5bee82718329caf539b7bf5db58d02574aade473719"
   },
   "seeds": {
    "numpy_default": 20260101

@@ -1,6 +1,6 @@
 {
  "script": "Advanced_Research_2026/Physics_Informed_Models/surrogate_comparison.py",
- "generated_utc": "2026-10-10T03:37:44.869868+00:00",
+ "generated_utc": "2026-10-10T07:57:33.174108+00:00",
  "python": "3.13.16",
  "platform": "Linux-6.18.44-fc-v114-x86_64-with-glibc2.39",
  "packages": {
@@ -8,17 +8,17 @@
   "scipy": "1.18.1",
   "matplotlib": "3.11.2"
  },
- "git_commit": "85c5adc518f0fe3613388e062a6890b08f332652",
+ "git_commit": "fe23bcde36cbddf2ea8e1af445bd7b1523dc8c20",
  "input_sha256": {
   "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f42717ab0d2f0b414addf6a331caaf3d51323f78e73851ebde253",
   "SiC_6k6_Industrial_DAB/dabtools/dab/dab_model.py": "7a227db80b4c817edc33ec2ec4ed8676f3fcc13cd47e7c116d7c2874e711c6ea",
   "SiC_6k6_Industrial_DAB/dabtools/dab/devices.py": "bccad660fcf2d85f548d2d60ce37535f034e495e5cd8f94a772d562c9cca3960",
-  "Advanced_Research_2026/Physics_Informed_Models/surrogate_comparison.py": "ad07b98eefac4183978691ea081929d622ecbb453d6da5969a022f7c2f22b699"
+  "Advanced_Research_2026/Physics_Informed_Models/surrogate_comparison.py": "8cb4a8eb4b63304e636b6696b5f477e6761fe804081f0f0c46985580376720b4"
  },
  "seeds": {
   "global_seed": 2026
  },
- "wall_time_s": 1418.6809458732605,
+ "wall_time_s": 193.57533621788025,
  "ground_truth": "DABPoint N=4000; I_min from zvs_current_min with design C_oss,er and C_par",
  "outputs": [
   "extrapolation_set.csv",

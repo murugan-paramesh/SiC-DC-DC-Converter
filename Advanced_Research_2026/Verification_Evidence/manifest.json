@@ -30,5 +30,16 @@
  ],
  "Multiphysics_Models": [
   "electro_thermal_aging.py"
+ ],
+ "Adaptive_MPC": [
+  "build_explicit_mpc.py",
+  "run_benchmarks.py",
+  "run_adaptive_robust.py",
+  "zvs_maps.py"
+ ],
+ "Embedded_AI": [
+  "embedded_inference.py",
+  "fixed_point_ref.py",
+  "scheduling.py"
  ]
 }

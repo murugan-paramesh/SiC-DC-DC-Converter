@@ -146,6 +146,15 @@ class SafetyFilter:
         return best, dict(rejected=True, corrected=True, reason=reason + ["projected"], pre=pre)
 
 
+class PassThrough(SafetyFilter):
+    """Range clipping only - used to evaluate the deterministic references (PI+EPS, TPS) as they are."""
+
+    def __call__(self, ctx, proposal, ref):
+        phi = min(max(proposal[0], 0.0), PHI_MAX); d1 = min(max(proposal[1], D_MIN), 1.0); d2 = min(max(proposal[2], D_MIN), 1.0)
+        self.n_calls += 1
+        return (phi, d1, d2), dict(rejected=False, corrected=False, reason=[], pre=None)
+
+
 # ------------------------------------------------------------------ plant episodes
 def battery_load(V2set, R_int=0.05):
     return lambda v2, t: (v2 - V2set) / R_int
@@ -226,6 +235,15 @@ def main():
             TPS[ctx] = REF[ctx]
     res["zvs_feasible"] = {f"{c[0]:.0f}/{c[1]:.0f}/{c[2]:.0f}": feas[c] for c in CONTEXTS}
     print("  ZVS-feasible contexts:", sum(feas.values()), "/", len(CONTEXTS))
+    # validated anchor for the filter's projection and for the fallback: the EPS schedule when it passes the
+    # filter's own check, otherwise the analytical TPS table point (deterministic rule, see README)
+    ANCHOR = {}; anchor_src = {}
+    for ctx in CONTEXTS:
+        okp, oki, okz, _ = SafetyFilter(feas).check(ctx, REF[ctx])
+        ANCHOR[ctx] = REF[ctx] if (okp and oki and okz) else TPS[ctx]
+        anchor_src[f"{ctx[0]:.0f}/{ctx[1]:.0f}/{ctx[2]:.0f}"] = "EPS" if (okp and oki and okz) else "TPS (EPS fails the filter check)"
+    res["anchor_source"] = anchor_src
+    print("  anchors:", {k: v[:3] for k, v in anchor_src.items() if v != "EPS"}, flush=True)
 
     def ref_fn(V1, V2, P_dem):
         # nearest tabulated context (the references were computed on the context grid; during the transient
@@ -252,11 +270,11 @@ def main():
         pol = ResidualPolicy(theta, ref_fn); filt = SafetyFilter(feas_map)
         J, viol, fb = 0.0, 0.0, 0
         for ctx in CONTEXTS:
-            o = run_episode(ctx, pol, PERIODS_TRAIN, N_SUB_TRAIN, filt, REF[ctx], query_every_period=False)
+            o = run_episode(ctx, pol, PERIODS_TRAIN, N_SUB_TRAIN, filt, ANCHOR[ctx], query_every_period=False)
             J += o["Irms"] / ref_eval[ctx]["Irms"]
             viol += o["rejected"]; fb += int(o["fallback"])
         return J / len(CONTEXTS), viol / len(CONTEXTS), fb
-    ref_eval = {ctx: run_episode(ctx, lambda a, b, c, r=REF[ctx]: r, PERIODS_TRAIN, N_SUB_TRAIN, SafetyFilter(feas_map), REF[ctx]) for ctx in CONTEXTS}
+    ref_eval = {ctx: run_episode(ctx, lambda a, b, c, r=REF[ctx]: r, PERIODS_TRAIN, N_SUB_TRAIN, PassThrough(feas_map), REF[ctx]) for ctx in CONTEXTS}
     best_theta, best_J = mu.copy(), 1e9
     for g in range(GENS):
         thetas = mu + sig * rng.standard_normal((POP, ResidualPolicy.size))
@@ -281,7 +299,7 @@ def main():
     pol1 = ResidualPolicy(best_theta, ref_fn)
 
     # ---- M2: constrained REINFORCE over a discrete (D1, D2) set -------------------------------
-    print("M2 REINFORCE ...")
+    print("M2 REINFORCE ...", flush=True)
     DSET = [0.6, 0.7, 0.8, 0.9, 1.0]; ACTIONS = [(d1, d2) for d1 in DSET for d2 in DSET]
     ITERS, ALPHA = 60, 0.5
     logits = np.zeros((len(CONTEXTS), len(ACTIONS))); lam2 = 1.0; baseline = np.zeros(len(CONTEXTS)); hist2 = []
@@ -299,7 +317,7 @@ def main():
             p = np.exp(logits[ci] - logits[ci].max()); p /= p.sum()
             ai = rng.choice(len(ACTIONS), p=p)
             a = act_from_index(ctx, ai); filt = SafetyFilter(feas_map)
-            o = run_episode(ctx, lambda v1, v2, pd, a=a: a, PERIODS_TRAIN, N_SUB_TRAIN, filt, REF[ctx], query_every_period=False)
+            o = run_episode(ctx, lambda v1, v2, pd, a=a: a, PERIODS_TRAIN, N_SUB_TRAIN, filt, ANCHOR[ctx], query_every_period=False)
             viol = o["rejected"]
             R = -o["Irms"] / ref_eval[ctx]["Irms"] - lam2 * viol
             adv = R - baseline[ci]; baseline[ci] += 0.1 * adv
@@ -317,14 +335,14 @@ def main():
         return greedy2[ctx_key((V1, V2, P_dem))]
 
     # ---- evaluation on the plant (N_sub = 200, 60 periods, policy queried every period) ----------
-    print("evaluation ...")
+    print("evaluation ...", flush=True)
     methods = {"PI_EPS": lambda V1, V2, Pd: ref_fn(V1, V2, Pd), "TPS_analytical": lambda V1, V2, Pd: TPS[ctx_key((V1, V2, Pd))],
                "M1_CEM": pol1, "M2_REINFORCE": pol2}
     table = []; viol_total = {k: 0 for k in methods}; filt_stats = {}
     for mk, fn in methods.items():
-        filt = SafetyFilter(feas_map)
+        filt = SafetyFilter(feas_map) if mk.startswith("M") else PassThrough(feas_map)      # references are evaluated as they are
         for ctx in CONTEXTS:
-            o = run_episode(ctx, fn, PERIODS_EVAL, N_SUB_EVAL, filt, REF[ctx])
+            o = run_episode(ctx, fn, PERIODS_EVAL, N_SUB_EVAL, filt, ANCHOR[ctx])
             hard = dict(peak_gt_32A=o["Ipk"] > I_HARD, v2_out_of_limits=not (V2_LIM[0] <= o["v2_min"] and o["v2_max"] <= V2_LIM[1]),
                         hard_switch_where_feasible=feas[ctx] and o["zvs_edges"] < o["edges"], power_error_gt_3pct=abs(o["P"] - ctx[2]) > 0.03 * ctx[2])
             o.update(method=mk, V1=ctx[0], V2=ctx[1], P_dem=ctx[2], zvs_feasible=feas[ctx], hard_violations=int(sum(hard.values())), hard=hard)
@@ -336,11 +354,7 @@ def main():
     for mk in ("M1_CEM", "M2_REINFORCE"):
         fn = methods[mk]; bad = 0; pk = 0.0
         for ctx in CONTEXTS:
-            class NoFilter(SafetyFilter):
-                def __call__(self, ctx_, proposal, ref):
-                    phi = min(max(proposal[0], 0.0), PHI_MAX); d1 = min(max(proposal[1], D_MIN), 1.0); d2 = min(max(proposal[2], D_MIN), 1.0)
-                    return (phi, d1, d2), dict(rejected=False, corrected=False, reason=[], pre=None)
-            o = run_episode(ctx, fn, PERIODS_EVAL, N_SUB_EVAL, NoFilter(feas_map), REF[ctx], fallback=False)
+            o = run_episode(ctx, fn, PERIODS_EVAL, N_SUB_EVAL, PassThrough(feas_map), ANCHOR[ctx], fallback=False)
             bad += int(o["Ipk"] > I_HARD) + int(feas[ctx] and o["zvs_edges"] < o["edges"]) + int(abs(o["P"] - ctx[2]) > 0.03 * ctx[2]); pk = max(pk, o["Ipk"])
         raw[mk] = dict(violations_without_filter=bad, max_peak_A=pk)
     res["diagnostic_unfiltered"] = raw
@@ -355,7 +369,7 @@ def main():
     res["summary"] = summ
 
     # ---- transient test: 50 -> 100 % load step at 800/400 V, CV mode (PI), D from EPS vs from the M1 policy
-    print("transient ...")
+    print("transient ...", flush=True)
     def transient(use_policy):
         R_full = 400 ** 2 / P_RATED
         plant = DABPlant(L, n, fs, C1, C2, 800.0, 0.3, lambda v2, t: v2 / (R_full if t >= 0.002 else 2 * R_full), N_sub=N_SUB_EVAL); plant.v2 = 400.0

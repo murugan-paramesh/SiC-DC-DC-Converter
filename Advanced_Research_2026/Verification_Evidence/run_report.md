@@ -1,17 +1,15 @@
 # Advanced_Research_2026 toolchain run
 
-Started 2026-10-10T07:53:09.961303+00:00, finished 2026-10-10T07:54:19.075590+00:00.  Versions: {'python': '3.13.16', 'numpy': '2.5.3', 'scipy': '1.18.1', 'matplotlib': '3.11.2', 'pandas': '3.0.5', 'git_commit': 'ca67152a870b4e9fd4549005336dd91ef9fe1969'}
+Started 2026-10-10T07:57:25.771094+00:00, finished 2026-10-10T08:05:13.943914+00:00.  Versions: {'python': '3.13.16', 'numpy': '2.5.3', 'scipy': '1.18.1', 'matplotlib': '3.11.2', 'pandas': '3.0.5', 'git_commit': 'fe23bcde36cbddf2ea8e1af445bd7b1523dc8c20'}
 
 | Module | Script | Status | Wall (s) |
 |---|---|---|---|
-| SiC_Health_Monitoring | 01_generate_synthetic_data.py | PASS | 2.3 |
-| SiC_Health_Monitoring | 02_estimators_and_detection.py | PASS | 5.5 |
-| Active_Gate_Drive | gate_drive_analysis.py | PASS | 2.6 |
-| Reliability_Engineering | fta.py | PASS | 1.4 |
-| Reliability_Engineering | fmeda_lite.py | PASS | 0.3 |
-| Reliability_Engineering | state_machine_check.py | PASS | 1.5 |
-| HIL_Validation | sil_fault_injection.py | PASS | 52.5 |
-| Cybersecurity | cmac_replay_demo.py | PASS | 0.1 |
-| Multiphysics_Models | electro_thermal_aging.py | PASS | 2.5 |
+| Adaptive_MPC | build_explicit_mpc.py | PASS | 5.0 |
+| Adaptive_MPC | run_benchmarks.py | PASS | 227.9 |
+| Adaptive_MPC | run_adaptive_robust.py | PASS | 74.7 |
+| Adaptive_MPC | zvs_maps.py | PASS | 104.9 |
+| Embedded_AI | embedded_inference.py | PASS | 54.1 |
+| Embedded_AI | fixed_point_ref.py | PASS | 0.2 |
+| Embedded_AI | scheduling.py | PASS | 0.8 |
 
-Result files hashed in run_log.json: 66
+Result files hashed in run_log.json: 39

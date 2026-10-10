@@ -126,15 +126,15 @@ numerical test with a pass criterion that the verification script can read.
 enabled, the reference ramps to 400 V in 50 ms, then the load doubles at 80 ms and halves at 120 ms".
 The plots show the output voltage, the commanded power and the phase shift over time; a good result is
 a flat 400 V line with small bumps at the load steps.
-**Level 2 - Engineering:** Case 1 (`sim_startup_loadstep.png`, three panels V2, P_cmd, phi): v2 reaches
+**Level 2 - Engineering:** Case 1 (`05_Simulation/img/sim_startup_loadstep.png`, three panels V2, P_cmd, phi): v2 reaches
 396 V at 40.05 ms (the soft-start ramp from v2_start = 380 V), overshoot 0.38 %, final 400.0016 V; the
-50 % step dips 0.37 %. Case 2 (`sim_switching_waveforms.png`): bridge voltages, inductor current and the
-pulsating link currents of the last two periods. Case 3 (`sim_v1_dip.png`): V1 800 -> 720 V for 20 ms,
+50 % step dips 0.37 %. Case 2 (`05_Simulation/img/sim_switching_waveforms.png`): bridge voltages, inductor current and the
+pulsating link currents of the last two periods. Case 3 (`05_Simulation/img/sim_v1_dip.png`): V1 800 -> 720 V for 20 ms,
 V2 stays within 399.86-400.11 V because the modulator inverse uses the measured v1 (feedforward). Case
-4 (`sim_reversal.png`): P_ref ramped +6.6 -> -6.6 kW at 2 kW/ms into a 400 V / 0.1 Ohm battery; V1
+4 (`05_Simulation/img/sim_reversal.png`): P_ref ramped +6.6 -> -6.6 kW at 2 kW/ms into a 400 V / 0.1 Ohm battery; V1
 797.2-802.6 V, V2 398.2-401.8 V, no fault. Case 5 (short): phi saturates at 60 deg, peak 31.2 A, then
 V2_UV fault - the controller cannot hold the voltage, as expected; the 32 A hardware trip is assumed.
-Case 6 (`sim_deadbus_start.png`): LV link from 0 V with 10 % load and EPS matching - the current peak
+Case 6 (`05_Simulation/img/sim_deadbus_start.png`): LV link from 0 V with 10 % load and EPS matching - the current peak
 reaches 61.8 A and the controller faults with I_PK after v2 reaches only 93 V.
 **Level 3 - Research:** The dead-bus failure is the honest result of the current Python run and is
 reported as FAIL in `18_Verification/verification_report.md`; the C SIL harness runs the same scenario
