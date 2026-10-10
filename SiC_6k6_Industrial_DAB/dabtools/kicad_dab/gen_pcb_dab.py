@@ -63,7 +63,7 @@ P("PS5", BAR2, 48, 0); P("PS6", BAR2, 58, 0); P("PS7", BAR2, 68, 0); P("PS8", BA
 P("U6", BAR2, 100, 180); P("U7", BAR2, 114, 180); P("PS10", BAR2, 128, 0)
 # ------------------------------------------------------------------ control region (x 134-205)
 P("J10", 146, 150, 0); P("J11", 199.9, 150, 0); P("J12", 170, 150, 0)
-P("U8", 150, 62); P("U9", 150, 80); P("U10", 172, 62); P("U11", 172, 80); P("U12", 186, 44)   # 5 mm exit channels between the fan-out corridors
+P("U8", 150, 62); P("U9", 150, 80); P("U10", 180, 62); P("U11", 180, 80); P("U12", 186, 44)   # 14 mm exit channel between the U8/U9 and U10/U11 fan-out corridors (the sense-signal tracks between them sealed the U9 +5V stub at 22 mm pitch)
 P("D30", 146, 108); P("D31", 146, 114)   # clear of the CT1 secondary pins / body
 P("U13", 150, 212, 0); P("U14", 166, 212, 0); P("U15", 182, 212, 0)   # U15 tab pad clear of the y=202 passive row
 P("U16", 150, 190); P("J14", 141, 231, 0); P("J15", 192, 231, 0); P("J13", 160, 231, 0)

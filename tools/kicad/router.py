@@ -656,23 +656,31 @@ class NegotiatedRouter(Router):
         pending, still = still, []
         for net, terms in pending:
             self._unroute(st, net)
-            region = self._sealers_of(st, net, terms, reach=3.0)
-            snap = snapshot(); ok_all = False
-            if 0 < len(region) <= 30:
-                old = {v: st.paths[v] for v in region if v in st.paths}
-                for v in region: self._unroute(st, v)
-                cells, tracks, vias, ok = self._route_hard(st, net, terms, avoid=old)
-                if cells and ok:
-                    self._commit(st, net, cells, tracks, vias); ok_all = True
-                    for v in sorted(region, key=lambda n: -len(st.task_of[n])):
-                        tr = []
-                        if not hard_with_ripup(v, st.task_of[v], 2, {net}, tr):
-                            ok_all = False; log(f"    region re-route of {net}: {v} failed {tr[-3:]}"); break
-                self.failed_terms = []
+            ok_all = False; region = set()
+            for reach in (3.0, 5.0, 8.0):          # widen the region when a stack of tracks seals the terminal
+                region = self._sealers_of(st, net, terms, reach=reach)
+                snap = snapshot(); ok_all = False
+                if 0 < len(region) <= 40:
+                    old = {v: st.paths[v] for v in region if v in st.paths}
+                    for v in region: self._unroute(st, v)
+                    cells, tracks, vias, ok = self._route_hard(st, net, terms, avoid=old)
+                    if cells and ok:
+                        self._commit(st, net, cells, tracks, vias); ok_all = True
+                        for v in sorted(region, key=lambda n: -len(st.task_of[n])):
+                            tr = []
+                            if not hard_with_ripup(v, st.task_of[v], 2, {net}, tr):
+                                ok_all = False; log(f"    region re-route of {net} (reach {reach}): {v} failed {tr[-3:]}"); break
+                    else:
+                        log(f"    region re-route of {net} (reach {reach}, {len(region)} nets): still unreachable {self.failed_terms[:2]}")
+                    self.failed_terms = []
+                else:
+                    log(f"    region re-route of {net} (reach {reach}): region size {len(region)} not usable")
+                if ok_all: break
+                restore(snap); self._unroute(st, net)
             if ok_all:
                 log(f"    region re-route: {net} routed after re-routing {sorted(region)}")
             else:
-                restore(snap); self._unroute(st, net); still.append((net, terms))
+                self._unroute(st, net); still.append((net, terms))
         log(f"  hard pass 3 (region re-route): {len(pending) - len(still)} of {len(pending)} re-routed cleanly")
         for net, _ in still:
             st.owner_count[net] = ([], [], False)
