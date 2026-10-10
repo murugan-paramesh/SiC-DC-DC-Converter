@@ -94,9 +94,8 @@ with >= 300 ns blanking) on at least Q1 and Q5 is proposed, with requirements <=
 < 50 ppm/K gain drift, a sampled instantaneous current within 0.5 % and a temperature reference within
 1 K of Tj over the service life. `[Proposed]` (not in the schematic, not simulated at circuit level)
 
-**Alternatives considered:** Vth measurement by a gate current source at turn-on or an off-line pulse
-test at power-up (proposed only); junction-temperature estimation from a thermal model (worse: a 1 K slow
-bias gives 62 % false alarms at h = 0.5 %); gate-signature methods from the literature (L12, L39, L40).
+**Alternatives considered:** A Vth measurement circuit (proposed only); a junction-temperature model (a 1 K
+slow bias gives 62 % false alarms at h = 0.5 %); gate-signature methods (L12, L39, L40).
 
 **How to verify it:** Run `Advanced_Research_2026/SiC_Health_Monitoring/02_estimators_and_detection.py`
 (deterministic seeds, < 20 s) to reproduce the tables. Real verification needs power-cycled devices and
@@ -309,7 +308,7 @@ upgrade; and an independent OV comparator reference path for the LV link before 
 `python3 Advanced_Research_2026/HIL_Validation/sil_fault_injection.py`; real coverage needs fault
 insertion on hardware. `[Simulated]`
 
-**Common mistakes:** Counting protections as independent when they share a sensor; quoting SFF as a SIL.
+**Common mistakes:** Treating protections sharing a sensor as independent; SFF read as a SIL.
 
 **Interview explanation (30 s):** "The FMEDA showed that the LV over-voltage protection in hardware and
 firmware and the voltage regulation all read the same isolated amplifier. In simulation a 20 percent gain
@@ -374,10 +373,9 @@ state-input combinations: faults latch, only an explicit clear leaves FAULT, gat
 or soft start. The same cases fed to the real C code gave zero mismatches. The Python model differs in its
 protection layer, which we documented rather than hid."
 
-**Research-level explanation:** The check shows the value of an executable specification: the model found
-three undocumented Python/C differences that scenario simulation (HIL T17: Python stays in PRECHARGE_WAIT,
-C faults after 5 s) had only hinted at. Hardware-level evidence still requires timing and interrupt
-interleaving tests on the MCU, which is uncompiled for the target.
+**Research-level explanation:** The model found three undocumented Python/C differences that scenario
+simulation (HIL T17) had only hinted at. Timing and interrupt-interleaving evidence still needs the MCU,
+for which the HAL is uncompiled.
 
 ## Topic 6: Cybersecurity - IEC 62443 applicability, STRIDE and authenticated commands
 
@@ -428,8 +426,7 @@ PROT_DIS wired directly (an AND gate with a software input could mask it), and r
 band and the CMPSS threshold are software-configurable - secure boot, not CAN authentication, protects them.
 `[Proposed]` - nothing is implemented in `SiC_6k6_Industrial_DAB/10_Firmware/src/dab_comm.c`.
 
-**Alternatives considered:** Classic-CAN 8-byte variant (16-bit counter + 32-bit MAC, weaker); disabling the
-UART in operation.
+**Alternatives considered:** A weaker classic-CAN 8-byte variant; disabling the UART.
 
 **How to verify it:** `python3 Advanced_Research_2026/Cybersecurity/cmac_replay_demo.py` (< 1 s; exit 0 only
 if self-check and demo pass). A firmware implementation, key management and a penetration test do not

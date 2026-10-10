@@ -31,7 +31,7 @@ API but has never been compiled with the TI toolchain (`[Not yet tested]`; only 
 **Level 3 - Research:** The baseline documents an explicit one-step MPC with a disturbance observer that
 gives a 0.1 V dip instead of 1.5 V on the averaged model, kept as an option because the PI already meets
 the requirements. `Advanced_Research_2026/Adaptive_MPC/` goes further: a CCS-MPC with box constraints,
-an explicit look-up-table version (31 x 9 x 23 nodes, 25.7 kB in float32 or 12.8 kB in Q15), an
+an explicit look-up-table version (33 x 9 x 23 nodes, 27.3 kB in float32 or 13.7 kB in Q15), an
 adaptive variant with RLS on 1/L and a robust variant, all benchmarked on the switched plant. The open
 questions are the ones a simulation cannot close: ISR timing on the real MCU, the ADC chain's real gain
 errors, and the dead-bus start that fails in the Python plant.
@@ -403,10 +403,10 @@ with gcc only; pin mapping of the BoosterPack headers to be verified. The explic
 quadratic cost with a closed-form minimiser; 0.1 V dip vs 1.5 V (PI) and 0.0 ms vs 1.28 ms settling on
 the averaged model, ~30 multiply-adds per ISR.
 **Level 3 - Research:** `Advanced_Research_2026/Adaptive_MPC/build_explicit_mpc.py` tabulates a CCS-MPC
-law (horizon N = 8, weights q = 1, r = 2) on a 31 x 9 x 23 grid of (voltage error -60..60 V, V1
-650..850 V, estimated load power -7260..7260 W): 6417 entries, 25 668 bytes in float32 or 12 834 in Q15;
-the law saturates at 96.7 % of the nodes, the 600- vs 1200-iteration convergence check differs by 8e-8
-deg, and trilinear interpolation between nodes has an rms error of 3.8 deg (max 25.3 deg, p99 20.8 deg)
+law (horizon N = 8, weights q = 1, r = 16) on a 33 x 9 x 23 grid of (voltage error -12..12 V, V1
+650..850 V, estimated load power -7260..7260 W): 6831 entries, 27 324 bytes in float32 or 13 662 in Q15;
+30 % of the nodes are at the constraint, the 600- vs 1200-iteration convergence check differs by 2.4e-4
+deg, and trilinear interpolation between nodes has an rms error of 0.14 deg (max 0.85 deg, p99 0.55 deg)
 against the 0.36 deg PWM step (`Advanced_Research_2026/Adaptive_MPC/results/empc_lut_meta.json`). The
 library also provides FCS-MPC, adaptive (RLS on 1/L) and robust (L in 0.8-1.2 L_nom) variants
 benchmarked on the switched plant; a README for the module does not exist yet, so the numbers above are
@@ -547,8 +547,9 @@ A 50 % load step at 800 V / 400 V, following `10_Firmware/sil/sil_results.csv` a
    switched plant with EPS, quantisation and parameter error the advantage shrinks, and it depends on C2
    and the delay being known.
 2. Interpret the explicit-MPC table metadata.
-   6417 nodes, 25.7 kB float32 or 12.8 kB Q15; 96.7 % of nodes saturated (constraint-dominated); rms
-   interpolation error 3.8 deg against a 0.36 deg PWM step - the table is too coarse near the boundary.
+   6831 nodes, 27.3 kB float32 or 13.7 kB Q15; 30 % of nodes at the constraint; rms interpolation error
+   0.14 deg (max 0.85 deg) against a 0.36 deg PWM step - fine enough, because the error axis was narrowed
+   to +/-12 V where the law is unsaturated (an earlier +/-60 V grid saturated at 97 % of its nodes).
 3. How would an adaptive MPC use the twin's 1/L estimate?
    The linearisation gain g = dI2 / dphi and the feedforward phi0 scale with 1/L; updating them per
    period keeps the prediction unbiased under drift (E1 of the twin: 0.24 % final error on simulated data).
