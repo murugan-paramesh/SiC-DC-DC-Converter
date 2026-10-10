@@ -1,0 +1,80 @@
+board: /tmp/claude-0/-home-user-SiC-DC-DC-Converter/6e9bc7b2-f9ce-5c45-991e-ae4036e357ed/scratchpad/board_snapshot/SiC_DAB_6k6.kicad_pcb
+  footprints 261, zones 70, track segments 0, vias 0
+  pcbnew cross-check: {'available': True, 'version': '7.0.11', 'pads_compared': 731, 'max_pad_position_deviation_mm': 0.0, 'tracks_in_board': 0}
+  stack-up copper mid-depths (mm): F.Cu 0.04, In1.Cu 0.31, In2.Cu 0.88, In3.Cu 1.45, In4.Cu 2.02, B.Cu 2.29; board 2.32 mm
+
+== (a) Commutation loops ==
+  HV_leg_A (Q1/Q2, C5+C6): L_loop = 27.9 nH (upper bound 36.2 nH); packages 25.3 nH; plane pair 0.17 nH
+      Q1 drain lead                          bar                                      l= 15.00 w=  1.50 t= 0.60 mm  L=  9.57 nH  M= -3.26 nH
+      Q1 source lead                         bar                                      l= 15.00 w=  1.50 t= 0.60 mm  L=  9.57 nH  M= -3.26 nH
+      Q2 drain lead                          bar                                      l= 15.00 w=  1.50 t= 0.60 mm  L=  9.57 nH  M= -3.26 nH
+      Q2 source lead                         bar                                      l= 15.00 w=  1.50 t= 0.60 mm  L=  9.57 nH  M= -3.26 nH
+      SW_A strip B.Cu                        bar (free) / microstrip over In4 (image) l= 16.92 w=  3.00 t= 0.07 mm  L=  1.62 nH  M=  0.00 nH
+      Q1 drain pin to HV_P plane             round conductor                          l=  0.88 w=  1.50 t= 0.00 mm  L=  0.02 nH  M=  0.00 nH
+      Q2 source pin to HV_N plane            round conductor                          l=  0.31 w=  1.50 t= 0.00 mm  L=  0.00 nH  M=  0.00 nH
+      HV_P/HV_N plane pair                   mu0 h l / w_eff (/2 for two pairs)       l= 24.00 w= 51.08 t= 0.57 mm  L=  0.17 nH  M=  0.00 nH
+      C5+C6 ESL + pad vias (parallel)        ESL typ. + 2 vias, / n                   l=  0.88 w=  0.40 t= 0.00 mm  L=  0.85 nH  M=  0.00 nH
+  HV_leg_B (Q3/Q4, C7+C8): L_loop = 27.9 nH (upper bound 36.2 nH); packages 25.3 nH; plane pair 0.17 nH
+      Q3 drain lead                          bar                                      l= 15.00 w=  1.50 t= 0.60 mm  L=  9.57 nH  M= -3.26 nH
+      Q3 source lead                         bar                                      l= 15.00 w=  1.50 t= 0.60 mm  L=  9.57 nH  M= -3.26 nH
+      Q4 drain lead                          bar                                      l= 15.00 w=  1.50 t= 0.60 mm  L=  9.57 nH  M= -3.26 nH
+      Q4 source lead                         bar                                      l= 15.00 w=  1.50 t= 0.60 mm  L=  9.57 nH  M= -3.26 nH
+      SW_B strip B.Cu                        bar (free) / microstrip over In4 (image) l= 16.92 w=  3.00 t= 0.07 mm  L=  1.62 nH  M=  0.00 nH
+      Q3 drain pin to HV_P plane             round conductor                          l=  0.88 w=  1.50 t= 0.00 mm  L=  0.02 nH  M=  0.00 nH
+      Q4 source pin to HV_N plane            round conductor                          l=  0.31 w=  1.50 t= 0.00 mm  L=  0.00 nH  M=  0.00 nH
+      HV_P/HV_N plane pair                   mu0 h l / w_eff (/2 for two pairs)       l= 24.00 w= 51.08 t= 0.57 mm  L=  0.17 nH  M=  0.00 nH
+      C7+C8 ESL + pad vias (parallel)        ESL typ. + 2 vias, / n                   l=  0.88 w=  0.40 t= 0.00 mm  L=  0.85 nH  M=  0.00 nH
+  LV_leg_C (Q5/Q6, C13+C14): L_loop = 27.9 nH (upper bound 36.2 nH); packages 25.3 nH; plane pair 0.17 nH
+      Q5 drain lead                          bar                                      l= 15.00 w=  1.50 t= 0.60 mm  L=  9.57 nH  M= -3.26 nH
+      Q5 source lead                         bar                                      l= 15.00 w=  1.50 t= 0.60 mm  L=  9.57 nH  M= -3.26 nH
+      Q6 drain lead                          bar                                      l= 15.00 w=  1.50 t= 0.60 mm  L=  9.57 nH  M= -3.26 nH
+      Q6 source lead                         bar                                      l= 15.00 w=  1.50 t= 0.60 mm  L=  9.57 nH  M= -3.26 nH
+      SW_C strip B.Cu                        bar (free) / microstrip over In4 (image) l= 16.92 w=  3.00 t= 0.07 mm  L=  1.62 nH  M=  0.00 nH
+      Q5 drain pin to LV_P plane             round conductor                          l=  0.88 w=  1.50 t= 0.00 mm  L=  0.02 nH  M=  0.00 nH
+      Q6 source pin to LV_N plane            round conductor                          l=  0.31 w=  1.50 t= 0.00 mm  L=  0.00 nH  M=  0.00 nH
+      LV_P/LV_N plane pair                   mu0 h l / w_eff (/2 for two pairs)       l= 24.00 w= 51.08 t= 0.57 mm  L=  0.17 nH  M=  0.00 nH
+      C13+C14 ESL + pad vias (parallel)      ESL typ. + 2 vias, / n                   l=  0.88 w=  0.40 t= 0.00 mm  L=  0.85 nH  M=  0.00 nH
+  LV_leg_D (Q7/Q8, C15+C16): L_loop = 27.9 nH (upper bound 36.2 nH); packages 25.3 nH; plane pair 0.17 nH
+      Q7 drain lead                          bar                                      l= 15.00 w=  1.50 t= 0.60 mm  L=  9.57 nH  M= -3.26 nH
+      Q7 source lead                         bar                                      l= 15.00 w=  1.50 t= 0.60 mm  L=  9.57 nH  M= -3.26 nH
+      Q8 drain lead                          bar                                      l= 15.00 w=  1.50 t= 0.60 mm  L=  9.57 nH  M= -3.26 nH
+      Q8 source lead                         bar                                      l= 15.00 w=  1.50 t= 0.60 mm  L=  9.57 nH  M= -3.26 nH
+      SW_D strip B.Cu                        bar (free) / microstrip over In4 (image) l= 16.92 w=  3.00 t= 0.07 mm  L=  1.62 nH  M=  0.00 nH
+      Q7 drain pin to LV_P plane             round conductor                          l=  0.88 w=  1.50 t= 0.00 mm  L=  0.02 nH  M=  0.00 nH
+      Q8 source pin to LV_N plane            round conductor                          l=  0.31 w=  1.50 t= 0.00 mm  L=  0.00 nH  M=  0.00 nH
+      LV_P/LV_N plane pair                   mu0 h l / w_eff (/2 for two pairs)       l= 24.00 w= 51.08 t= 0.57 mm  L=  0.17 nH  M=  0.00 nH
+      C15+C16 ESL + pad vias (parallel)      ESL typ. + 2 vias, / n                   l=  0.88 w=  0.40 t= 0.00 mm  L=  0.85 nH  M=  0.00 nH
+
+  sensitivity (HV leg A):
+    h = 0.2 mm (single pair): plane section 0.12 nH, loop 27.9 nH
+    h = 0.5 mm (single pair): plane section 0.30 nH, loop 28.0 nH
+    h = 1.0 mm (single pair): plane section 0.59 nH, loop 28.3 nH
+    h = 1.6 mm (single pair): plane section 0.94 nH, loop 28.7 nH
+    h = 2.3 mm (single pair): plane section 1.36 nH, loop 29.1 nH
+    w_eff mode spread: w_eff = 51.1 mm, plane section 0.17 nH
+    w_eff mode span: w_eff = 27.1 mm, plane section 0.32 nH
+    lead length 10 mm: packages 15.9 nH, loop 18.5 nH
+    lead length 15 mm: packages 25.3 nH, loop 27.9 nH
+    lead length 20 mm: packages 34.7 nH, loop 37.4 nH
+
+== (b) Gate loops ==
+  Q1 <- U1: go 102.0 mm, return 93.0 mm (routed tracks: False), pair 80 nH @ s = 1.0 mm, package G/KS 12.6 nH, local 16.0 nH -> L_gate = 109 nH; R = 6.9 Ohm, Ciss = 1.9 nF -> zeta = 0.45, f_ring = 11.0 MHz
+  Q5 <- U3: go 23.2 mm, return 41.8 mm (routed tracks: False), pair 26 nH @ s = 1.0 mm, package G/KS 12.6 nH, local 16.0 nH -> L_gate = 56 nH; R = 5.8 Ohm, Ciss = 3.4 nF -> zeta = 0.72, f_ring = 11.6 MHz
+  gate pair spacing sensitivity: s=0.5 mm -> 82 nH (zeta 0.52), s=1.0 mm -> 109 nH (zeta 0.45), s=2.0 mm -> 136 nH (zeta 0.41), s=3.0 mm -> 151 nH (zeta 0.39), s=5.0 mm -> 170 nH (zeta 0.36)
+  if the pair were referenced to a KS-potential plane at 0.31 mm: trace part 67 nH
+
+== (c) Drain overshoot ==
+  HV_leg_A L=28 nH C3M0032120K: Vdc=800 V, I=9.8 A, tf=10 ns: L di/dt = 27 V, Z0 bound = 125 V -> Vos ~ 27 V, Vds,pk = 827 V, margin to 1200 V = 373 V
+  HV_leg_A L=28 nH C3M0032120K: Vdc=800 V, I=19.6 A, tf=10 ns: L di/dt = 55 V, Z0 bound = 251 V -> Vos ~ 55 V, Vds,pk = 855 V, margin to 1200 V = 345 V
+  HV_leg_A L=28 nH C3M0032120K: Vdc=800 V, I=32.0 A, tf=10 ns: L di/dt = 89 V, Z0 bound = 410 V -> Vos ~ 89 V, Vds,pk = 889 V, margin to 1200 V = 311 V
+  HV_leg_A L=28 nH C3M0032120K: Vdc=850 V, I=9.8 A, tf=10 ns: L di/dt = 27 V, Z0 bound = 125 V -> Vos ~ 27 V, Vds,pk = 877 V, margin to 1200 V = 323 V
+  HV_leg_A L=28 nH C3M0032120K: Vdc=850 V, I=19.6 A, tf=10 ns: L di/dt = 55 V, Z0 bound = 251 V -> Vos ~ 55 V, Vds,pk = 905 V, margin to 1200 V = 295 V
+  HV_leg_A L=28 nH C3M0032120K: Vdc=850 V, I=32.0 A, tf=10 ns: L di/dt = 89 V, Z0 bound = 410 V -> Vos ~ 89 V, Vds,pk = 939 V, margin to 1200 V = 261 V
+  LV_leg_C L=28 nH C3M0016120K: Vdc=400 V, I=19.5 A, tf=10 ns: L di/dt = 54 V, Z0 bound = 174 V -> Vos ~ 54 V, Vds,pk = 454 V, margin to 1200 V = 746 V
+  LV_leg_C L=28 nH C3M0016120K: Vdc=400 V, I=39.2 A, tf=10 ns: L di/dt = 109 V, Z0 bound = 350 V -> Vos ~ 109 V, Vds,pk = 509 V, margin to 1200 V = 691 V
+  LV_leg_C L=28 nH C3M0016120K: Vdc=400 V, I=64.0 A, tf=10 ns: L di/dt = 179 V, Z0 bound = 571 V -> Vos ~ 179 V, Vds,pk = 579 V, margin to 1200 V = 621 V
+  LV_leg_C L=28 nH C3M0016120K: Vdc=450 V, I=19.5 A, tf=10 ns: L di/dt = 54 V, Z0 bound = 174 V -> Vos ~ 54 V, Vds,pk = 504 V, margin to 1200 V = 696 V
+  LV_leg_C L=28 nH C3M0016120K: Vdc=450 V, I=39.2 A, tf=10 ns: L di/dt = 109 V, Z0 bound = 350 V -> Vos ~ 109 V, Vds,pk = 559 V, margin to 1200 V = 641 V
+  LV_leg_C L=28 nH C3M0016120K: Vdc=450 V, I=64.0 A, tf=10 ns: L di/dt = 179 V, Z0 bound = 571 V -> Vos ~ 179 V, Vds,pk = 629 V, margin to 1200 V = 571 V
+
+== (d) literature comparison written (typical ranges, not measured here) ==

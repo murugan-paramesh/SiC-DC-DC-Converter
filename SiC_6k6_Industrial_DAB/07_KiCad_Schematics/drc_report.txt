@@ -1,15 +1,35 @@
 ** Drc report for /home/user/SiC-DC-DC-Converter/SiC_6k6_Industrial_DAB/07_KiCad_Schematics/SiC_DAB_6k6.kicad_pcb **
-** Created on 2026-10-10 02:22:56 **
+** Created on 2026-10-10 03:02:05 **
 
-** Found 86 DRC violations **
+** Found 80 DRC violations **
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
-    @(170.0000 mm, 243.0000 mm): Circle on F.Silkscreen
-    @(170.0000 mm, 245.0000 mm): PCB Text 'CONTROL (SELV)' on F.Silkscreen
+    @(60.0000 mm, 245.0000 mm): PCB Text 'SiC 6.6 kW BIDIRECTIONAL DUAL ACTI...' on F.Silkscreen
+    @(53.0000 mm, 238.0000 mm): Rect on F.Silkscreen
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
-    @(170.0000 mm, 243.0000 mm): Circle on F.Silkscreen
+    @(60.0000 mm, 245.0000 mm): PCB Text 'SiC 6.6 kW BIDIRECTIONAL DUAL ACTI...' on F.Silkscreen
+    @(17.0000 mm, 238.0000 mm): Rect on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(60.0000 mm, 245.0000 mm): PCB Text 'SiC 6.6 kW BIDIRECTIONAL DUAL ACTI...' on F.Silkscreen
+    @(7.0000 mm, 243.0000 mm): Circle on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
     @(170.0000 mm, 241.0000 mm): PCB Text 'rev A  2026-10  open hardware' on F.Silkscreen
+    @(170.0000 mm, 243.0000 mm): Circle on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(170.0000 mm, 245.0000 mm): PCB Text 'CONTROL (SELV)' on F.Silkscreen
+    @(170.0000 mm, 243.0000 mm): Circle on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(150.5000 mm, 242.0000 mm): Circle on F.Silkscreen
+    @(170.0000 mm, 241.0000 mm): PCB Text 'rev A  2026-10  open hardware' on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(150.0000 mm, 84.5750 mm): Reference 'C159'
+    @(148.2500 mm, 84.8000 mm): Footprint Text '+' of C159
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
     @(280.0000 mm, 241.0000 mm): PCB Text 'DANGER: LV LINK 450 VDC' on F.Silkscreen
@@ -20,49 +40,12 @@
     @(283.0000 mm, 238.0000 mm): Rect on F.Silkscreen
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
-    @(60.0000 mm, 245.0000 mm): PCB Text 'SiC 6.6 kW BIDIRECTIONAL DUAL ACTI...' on F.Silkscreen
-    @(7.0000 mm, 243.0000 mm): Circle on F.Silkscreen
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
-    @(60.0000 mm, 245.0000 mm): PCB Text 'SiC 6.6 kW BIDIRECTIONAL DUAL ACTI...' on F.Silkscreen
-    @(17.0000 mm, 238.0000 mm): Rect on F.Silkscreen
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
-    @(148.2500 mm, 84.8000 mm): Footprint Text '+' of C159
-    @(150.0000 mm, 84.5750 mm): Reference 'C159'
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
-    @(144.4750 mm, 104.9000 mm): Line on F.Silkscreen
-    @(146.0000 mm, 105.4250 mm): Reference 'D30'
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
-    @(170.0000 mm, 241.0000 mm): PCB Text 'rev A  2026-10  open hardware' on F.Silkscreen
-    @(150.5000 mm, 242.0000 mm): Circle on F.Silkscreen
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
-    @(60.0000 mm, 245.0000 mm): PCB Text 'SiC 6.6 kW BIDIRECTIONAL DUAL ACTI...' on F.Silkscreen
-    @(53.0000 mm, 238.0000 mm): Rect on F.Silkscreen
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
-    @(170.0000 mm, 84.5750 mm): Reference 'C162'
-    @(168.2500 mm, 84.8000 mm): Footprint Text '+' of C162
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
     @(160.0000 mm, 84.5750 mm): Reference 'C160'
     @(158.2500 mm, 84.8000 mm): Footprint Text '+' of C160
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
-    @(93.0000 mm, 73.0000 mm): Circle on F.Silkscreen
-    @(24.5000 mm, 61.0000 mm): Rect on F.Silkscreen
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; Severity: warning
-    @(60.0000 mm, 241.0000 mm): PCB Text 'DANGER: HV LINK 850 VDC' on F.Silkscreen
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; Severity: warning
-    @(60.0000 mm, 245.0000 mm): PCB Text 'SiC 6.6 kW BIDIRECTIONAL DUAL ACTI...' on F.Silkscreen
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; Severity: warning
-    @(170.0000 mm, 245.0000 mm): PCB Text 'CONTROL (SELV)' on F.Silkscreen
+    @(170.0000 mm, 84.5750 mm): Reference 'C162'
+    @(168.2500 mm, 84.8000 mm): Footprint Text '+' of C162
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
     @(170.0000 mm, 241.0000 mm): PCB Text 'rev A  2026-10  open hardware' on F.Silkscreen
@@ -71,16 +54,34 @@
     @(280.0000 mm, 241.0000 mm): PCB Text 'DANGER: LV LINK 450 VDC' on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
-    @(53.4000 mm, 20.5000 mm): Line on F.Silkscreen
+    @(60.0000 mm, 241.0000 mm): PCB Text 'DANGER: HV LINK 850 VDC' on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
-    @(77.4000 mm, 20.5000 mm): Line on F.Silkscreen
+    @(170.0000 mm, 245.0000 mm): PCB Text 'CONTROL (SELV)' on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
-    @(306.0500 mm, 7.7000 mm): Rect on F.Silkscreen
+    @(60.0000 mm, 245.0000 mm): PCB Text 'SiC 6.6 kW BIDIRECTIONAL DUAL ACTI...' on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
-    @(238.0500 mm, 7.7000 mm): Rect on F.Silkscreen
+    @(31.4000 mm, 20.5000 mm): Line on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(68.0500 mm, 7.7000 mm): Rect on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(178.4000 mm, 222.5000 mm): Line on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(99.4000 mm, 20.5000 mm): Line on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(168.4000 mm, 222.5000 mm): Line on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(53.0000 mm, 238.0000 mm): Rect on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(284.0500 mm, 7.7000 mm): Rect on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
     @(17.0000 mm, 238.0000 mm): Rect on F.Silkscreen
@@ -89,67 +90,91 @@
     @(247.4000 mm, 20.5000 mm): Line on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
-    @(146.0000 mm, 105.4250 mm): Reference 'D30'
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; Severity: warning
-    @(260.0500 mm, 7.7000 mm): Rect on F.Silkscreen
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; Severity: warning
-    @(178.4000 mm, 222.5000 mm): Line on F.Silkscreen
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; Severity: warning
-    @(269.4000 mm, 20.5000 mm): Line on F.Silkscreen
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; Severity: warning
-    @(68.0500 mm, 7.7000 mm): Rect on F.Silkscreen
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; Severity: warning
-    @(99.4000 mm, 20.5000 mm): Line on F.Silkscreen
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; Severity: warning
-    @(22.0500 mm, 7.7000 mm): Rect on F.Silkscreen
+    @(90.0500 mm, 7.7000 mm): Rect on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
     @(293.4000 mm, 20.5000 mm): Line on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
+    @(315.4000 mm, 20.5000 mm): Line on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(269.4000 mm, 20.5000 mm): Line on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(53.4000 mm, 20.5000 mm): Line on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
     @(44.0500 mm, 7.7000 mm): Rect on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
-    @(284.0500 mm, 7.7000 mm): Rect on F.Silkscreen
+    @(22.0500 mm, 7.7000 mm): Rect on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
     @(283.0000 mm, 238.0000 mm): Rect on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
-    @(31.4000 mm, 20.5000 mm): Line on F.Silkscreen
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; Severity: warning
-    @(53.0000 mm, 238.0000 mm): Rect on F.Silkscreen
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; Severity: warning
-    @(315.4000 mm, 20.5000 mm): Line on F.Silkscreen
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; Severity: warning
-    @(90.0500 mm, 7.7000 mm): Rect on F.Silkscreen
-[silk_over_copper]: Silkscreen clipped by solder mask
-    Local override; Severity: warning
     @(243.0000 mm, 238.0000 mm): Rect on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
-    @(168.4000 mm, 222.5000 mm): Line on F.Silkscreen
-[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
-    Local override; Severity: error
-    @(134.0000 mm, 5.0000 mm): Zone [GND] on F.Cu
-    @(161.7500 mm, 90.0000 mm): PTH pad 2 [GND] of C160
-[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
-    Local override; Severity: error
-    @(134.0000 mm, 5.0000 mm): Zone [GND] on F.Cu
-    @(196.0000 mm, 194.2800 mm): PTH pad 8 [GND] of J16
+    @(77.4000 mm, 20.5000 mm): Line on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(260.0500 mm, 7.7000 mm): Rect on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(306.0500 mm, 7.7000 mm): Rect on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(238.0500 mm, 7.7000 mm): Rect on F.Silkscreen
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; Severity: warning
     @(0.0000 mm, 0.0000 mm): Rect on Edge.Cuts
     @(60.0000 mm, 245.0000 mm): PCB Text 'SiC 6.6 kW BIDIRECTIONAL DUAL ACTI...' on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(212.2000 mm, 124.0000 mm): Rect on Edge.Cuts
+    @(203.2000 mm, 124.4000 mm): Rect on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(210.9300 mm, 74.0000 mm): Rect on Edge.Cuts
+    @(203.2000 mm, 74.4000 mm): Rect on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(126.4700 mm, 64.0000 mm): Rect on Edge.Cuts
+    @(126.0000 mm, 64.0750 mm): Reference 'PS3'
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(126.4700 mm, 64.0000 mm): Rect on Edge.Cuts
+    @(135.8000 mm, 71.6000 mm): Rect on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(210.9300 mm, 54.0000 mm): Rect on Edge.Cuts
+    @(203.2000 mm, 54.4000 mm): Rect on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(125.2000 mm, 132.0000 mm): Rect on Edge.Cuts
+    @(126.0000 mm, 132.0750 mm): Reference 'PS9'
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(125.2000 mm, 132.0000 mm): Rect on Edge.Cuts
+    @(135.8000 mm, 139.6000 mm): Rect on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(126.4700 mm, 54.0000 mm): Rect on Edge.Cuts
+    @(126.0000 mm, 54.0750 mm): Reference 'PS2'
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(126.4700 mm, 54.0000 mm): Rect on Edge.Cuts
+    @(135.8000 mm, 61.6000 mm): Rect on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(126.4700 mm, 74.0000 mm): Rect on Edge.Cuts
+    @(126.0000 mm, 74.0750 mm): Reference 'PS4'
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(126.4700 mm, 74.0000 mm): Rect on Edge.Cuts
+    @(135.8000 mm, 81.6000 mm): Rect on F.Silkscreen
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; Severity: warning
     @(126.4700 mm, 44.0000 mm): Rect on Edge.Cuts
@@ -166,69 +191,30 @@
     Rule: board setup constraints silk; Severity: warning
     @(210.9300 mm, 44.0000 mm): Rect on Edge.Cuts
     @(203.2000 mm, 44.4000 mm): Rect on F.Silkscreen
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(210.9300 mm, 74.0000 mm): Rect on Edge.Cuts
-    @(203.2000 mm, 74.4000 mm): Rect on F.Silkscreen
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(212.2000 mm, 124.0000 mm): Rect on Edge.Cuts
-    @(203.2000 mm, 124.4000 mm): Rect on F.Silkscreen
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(125.2000 mm, 132.0000 mm): Rect on Edge.Cuts
-    @(126.0000 mm, 132.0750 mm): Reference 'PS9'
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(125.2000 mm, 132.0000 mm): Rect on Edge.Cuts
-    @(135.8000 mm, 139.6000 mm): Rect on F.Silkscreen
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(210.9300 mm, 54.0000 mm): Rect on Edge.Cuts
-    @(203.2000 mm, 54.4000 mm): Rect on F.Silkscreen
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(126.4700 mm, 64.0000 mm): Rect on Edge.Cuts
-    @(126.0000 mm, 64.0750 mm): Reference 'PS3'
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(126.4700 mm, 64.0000 mm): Rect on Edge.Cuts
-    @(135.8000 mm, 71.6000 mm): Rect on F.Silkscreen
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(126.4700 mm, 74.0000 mm): Rect on Edge.Cuts
-    @(126.0000 mm, 74.0750 mm): Reference 'PS4'
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(126.4700 mm, 74.0000 mm): Rect on Edge.Cuts
-    @(135.8000 mm, 81.6000 mm): Rect on F.Silkscreen
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(126.4700 mm, 54.0000 mm): Rect on Edge.Cuts
-    @(126.0000 mm, 54.0750 mm): Reference 'PS2'
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(126.4700 mm, 54.0000 mm): Rect on Edge.Cuts
-    @(135.8000 mm, 61.6000 mm): Rect on F.Silkscreen
-[courtyards_overlap]: Courtyards overlap
-    Rule: board setup constraints courtyard; Severity: error
-    @(93.0000 mm, 73.0000 mm): Footprint J3
-    @(54.5000 mm, 70.0000 mm): Footprint F1
 [track_dangling]: Track has unconnected end
     Local override; Severity: warning
     @(170.0000 mm, 162.7000 mm): Track [GPIO_SYNC] on F.Cu, length 4.0000 mm
 [track_dangling]: Track has unconnected end
     Local override; Severity: warning
-    @(152.7000 mm, 60.0950 mm): Track [+5V] on F.Cu, length 1.8000 mm
+    @(207.9000 mm, 24.4450 mm): Track [+5V] on F.Cu, length 4.4000 mm
 [track_dangling]: Track has unconnected end
     Local override; Severity: warning
-    @(131.1000 mm, 35.9050 mm): Track [+5V] on F.Cu, length 4.4000 mm
+    @(207.9000 mm, 18.0950 mm): Track [+5V] on F.Cu, length 2.2000 mm
 [track_dangling]: Track has unconnected end
     Local override; Severity: warning
-    @(131.1000 mm, 29.5550 mm): Track [+5V] on F.Cu, length 2.2000 mm
+    @(131.5000 mm, 122.0950 mm): Track [+5V] on F.Cu, length 2.2000 mm
 [track_dangling]: Track has unconnected end
     Local override; Severity: warning
-    @(207.5000 mm, 115.9050 mm): Track [+5V] on F.Cu, length 4.4000 mm
+    @(207.9000 mm, 38.4450 mm): Track [+5V] on F.Cu, length 4.4000 mm
+[track_dangling]: Track has unconnected end
+    Local override; Severity: warning
+    @(207.9000 mm, 32.0950 mm): Track [+5V] on F.Cu, length 2.2000 mm
+[track_dangling]: Track has unconnected end
+    Local override; Severity: warning
+    @(152.7000 mm, 79.3650 mm): Track [I2_REF_OUT] on F.Cu, length 3.6000 mm
+[track_dangling]: Track has unconnected end
+    Local override; Severity: warning
+    @(152.7000 mm, 78.0950 mm): Track [+5V] on F.Cu, length 1.8000 mm
 [track_dangling]: Track has unconnected end
     Local override; Severity: warning
     @(148.5400 mm, 167.7800 mm): Track [RESET_N] on F.Cu, length 4.0000 mm
@@ -252,104 +238,79 @@
     @(146.0000 mm, 157.6200 mm): Track [SPI_CLK] on F.Cu, length 4.0000 mm
 [track_dangling]: Track has unconnected end
     Local override; Severity: warning
+    @(131.1000 mm, 21.9050 mm): Track [+5V] on F.Cu, length 4.4000 mm
+[track_dangling]: Track has unconnected end
+    Local override; Severity: warning
+    @(131.1000 mm, 15.5550 mm): Track [+5V] on F.Cu, length 2.2000 mm
+[track_dangling]: Track has unconnected end
+    Local override; Severity: warning
     @(174.7000 mm, 80.6350 mm): Track [+5V] on F.Cu, length 1.8000 mm
 [track_dangling]: Track has unconnected end
     Local override; Severity: warning
     @(174.7000 mm, 78.0950 mm): Track [+5V] on F.Cu, length 1.8000 mm
 [track_dangling]: Track has unconnected end
     Local override; Severity: warning
-    @(152.7000 mm, 79.3650 mm): Track [I2_REF_OUT] on F.Cu, length 3.6000 mm
+    @(131.1000 mm, 35.9050 mm): Track [+5V] on F.Cu, length 4.4000 mm
 [track_dangling]: Track has unconnected end
     Local override; Severity: warning
-    @(152.7000 mm, 78.0950 mm): Track [+5V] on F.Cu, length 1.8000 mm
-[track_dangling]: Track has unconnected end
-    Local override; Severity: warning
-    @(131.5000 mm, 122.0950 mm): Track [+5V] on F.Cu, length 2.2000 mm
-[track_dangling]: Track has unconnected end
-    Local override; Severity: warning
-    @(174.7000 mm, 60.0950 mm): Track [+5V] on F.Cu, length 1.8000 mm
-[track_dangling]: Track has unconnected end
-    Local override; Severity: warning
-    @(207.9000 mm, 38.4450 mm): Track [+5V] on F.Cu, length 4.4000 mm
-[track_dangling]: Track has unconnected end
-    Local override; Severity: warning
-    @(207.9000 mm, 32.0950 mm): Track [+5V] on F.Cu, length 2.2000 mm
+    @(131.1000 mm, 29.5550 mm): Track [+5V] on F.Cu, length 2.2000 mm
 [track_dangling]: Track has unconnected end
     Local override; Severity: warning
     @(207.5000 mm, 101.9050 mm): Track [+5V] on F.Cu, length 4.4000 mm
 [track_dangling]: Track has unconnected end
     Local override; Severity: warning
-    @(131.1000 mm, 21.9050 mm): Track [+5V] on F.Cu, length 4.4000 mm
+    @(152.7000 mm, 60.0950 mm): Track [+5V] on F.Cu, length 1.8000 mm
 [track_dangling]: Track has unconnected end
     Local override; Severity: warning
-    @(131.1000 mm, 15.5550 mm): Track [+5V] on F.Cu, length 2.2000 mm
+    @(174.7000 mm, 60.0950 mm): Track [+5V] on F.Cu, length 1.8000 mm
 [track_dangling]: Track has unconnected end
     Local override; Severity: warning
     @(188.7000 mm, 40.1900 mm): Track [+5V] on F.Cu, length 1.8000 mm
 [track_dangling]: Track has unconnected end
     Local override; Severity: warning
-    @(207.9000 mm, 24.4450 mm): Track [+5V] on F.Cu, length 4.4000 mm
-[track_dangling]: Track has unconnected end
-    Local override; Severity: warning
-    @(207.9000 mm, 18.0950 mm): Track [+5V] on F.Cu, length 2.2000 mm
+    @(207.5000 mm, 115.9050 mm): Track [+5V] on F.Cu, length 4.4000 mm
 
 ** Found 40 unconnected pads **
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
+    @(174.7000 mm, 80.6350 mm): Track [+5V] on F.Cu, length 1.8000 mm
     @(174.7000 mm, 78.0950 mm): Track [+5V] on F.Cu, length 1.8000 mm
-    @(174.7000 mm, 80.6350 mm): Pad 6 [+5V] of U11 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(131.1000 mm, 21.9050 mm): Track [+5V] on F.Cu, length 4.4000 mm
-    @(139.2000 mm, 23.0000 mm): Pad 1 [+5V] of C101 on F.Cu
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(139.2000 mm, 37.0000 mm): Pad 1 [+5V] of C112 on F.Cu
-    @(131.1000 mm, 35.9050 mm): Track [+5V] on F.Cu, length 4.4000 mm
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(194.2000 mm, 106.0000 mm): Pad 1 [+5V] of C155 on F.Cu
     @(189.2000 mm, 106.0000 mm): Pad 1 [+5V] of C154 on F.Cu
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(184.2000 mm, 112.0000 mm): Pad 1 [+5V] of C156 on F.Cu
-    @(189.2000 mm, 112.0000 mm): Pad 1 [+5V] of C157 on F.Cu
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(149.2000 mm, 112.0000 mm): Pad 1 [+5V] of R155 on F.Cu
-    @(154.2000 mm, 112.0000 mm): Pad 1 [+5V] of R156 on F.Cu
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(154.2000 mm, 100.0000 mm): Pad 1 [+5V] of C150 on F.Cu
-    @(159.2000 mm, 100.0000 mm): Pad 1 [+5V] of C152 on F.Cu
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(189.2000 mm, 112.0000 mm): Pad 1 [+5V] of C157 on F.Cu
-    @(194.2000 mm, 112.0000 mm): Pad 1 [+5V] of C158 on F.Cu
+    @(194.2000 mm, 106.0000 mm): Pad 1 [+5V] of C155 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(154.2000 mm, 100.0000 mm): Pad 1 [+5V] of C150 on F.Cu
     @(149.2000 mm, 100.0000 mm): Pad 1 [+5V] of C147 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(207.9000 mm, 24.4450 mm): Track [+5V] on F.Cu, length 4.4000 mm
-    @(198.2000 mm, 23.0000 mm): Pad 1 [+5V] of C123 on F.Cu
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(207.9000 mm, 38.4450 mm): Track [+5V] on F.Cu, length 4.4000 mm
-    @(198.2000 mm, 37.0000 mm): Pad 1 [+5V] of C134 on F.Cu
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
     @(189.2000 mm, 112.0000 mm): Pad 1 [+5V] of C157 on F.Cu
-    @(189.2000 mm, 106.0000 mm): Pad 1 [+5V] of C154 on F.Cu
+    @(184.2000 mm, 112.0000 mm): Pad 1 [+5V] of C156 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(207.9000 mm, 38.4450 mm): Track [+5V] on F.Cu, length 4.4000 mm
-    @(207.9000 mm, 32.0950 mm): Track [+5V] on F.Cu, length 2.2000 mm
+    @(194.2000 mm, 112.0000 mm): Pad 1 [+5V] of C158 on F.Cu
+    @(189.2000 mm, 112.0000 mm): Pad 1 [+5V] of C157 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(131.1000 mm, 15.5550 mm): Track [+5V] on F.Cu, length 2.2000 mm
+    @(149.2000 mm, 112.0000 mm): Pad 1 [+5V] of R155 on F.Cu
+    @(154.2000 mm, 112.0000 mm): Pad 1 [+5V] of R156 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(154.2000 mm, 100.0000 mm): Pad 1 [+5V] of C150 on F.Cu
+    @(159.2000 mm, 100.0000 mm): Pad 1 [+5V] of C152 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(131.1000 mm, 35.9050 mm): Track [+5V] on F.Cu, length 4.4000 mm
+    @(141.2000 mm, 37.0000 mm): Pad 1 [+5V] of C112 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
     @(131.1000 mm, 21.9050 mm): Track [+5V] on F.Cu, length 4.4000 mm
+    @(141.2000 mm, 23.0000 mm): Pad 1 [+5V] of C101 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(194.2000 mm, 112.0000 mm): Pad 1 [+5V] of C158 on F.Cu
+    @(194.2000 mm, 106.0000 mm): Pad 1 [+5V] of C155 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(131.1000 mm, 29.5550 mm): Track [+5V] on F.Cu, length 2.2000 mm
@@ -360,6 +321,26 @@
     @(207.9000 mm, 18.0950 mm): Track [+5V] on F.Cu, length 2.2000 mm
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
+    @(207.9000 mm, 38.4450 mm): Track [+5V] on F.Cu, length 4.4000 mm
+    @(207.9000 mm, 32.0950 mm): Track [+5V] on F.Cu, length 2.2000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(131.1000 mm, 15.5550 mm): Track [+5V] on F.Cu, length 2.2000 mm
+    @(131.1000 mm, 21.9050 mm): Track [+5V] on F.Cu, length 4.4000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(188.7000 mm, 40.1900 mm): Track [+5V] on F.Cu, length 1.8000 mm
+    @(196.2000 mm, 37.0000 mm): Pad 1 [+5V] of C134 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(196.2000 mm, 23.0000 mm): Pad 1 [+5V] of C123 on F.Cu
+    @(207.9000 mm, 24.4450 mm): Track [+5V] on F.Cu, length 4.4000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(196.2000 mm, 37.0000 mm): Pad 1 [+5V] of C134 on F.Cu
+    @(207.9000 mm, 38.4450 mm): Track [+5V] on F.Cu, length 4.4000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
     @(131.1000 mm, 21.9050 mm): Track [+5V] on F.Cu, length 4.4000 mm
     @(131.1000 mm, 29.5550 mm): Track [+5V] on F.Cu, length 2.2000 mm
 [unconnected_items]: Missing connection between items
@@ -368,16 +349,12 @@
     @(207.9000 mm, 24.4450 mm): Track [+5V] on F.Cu, length 4.4000 mm
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(188.7000 mm, 40.1900 mm): Track [+5V] on F.Cu, length 1.8000 mm
-    @(198.2000 mm, 37.0000 mm): Pad 1 [+5V] of C134 on F.Cu
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
     @(207.5000 mm, 115.9050 mm): Track [+5V] on F.Cu, length 4.4000 mm
     @(194.2000 mm, 112.0000 mm): Pad 1 [+5V] of C158 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(194.2000 mm, 106.0000 mm): Pad 1 [+5V] of C155 on F.Cu
     @(207.5000 mm, 101.9050 mm): Track [+5V] on F.Cu, length 4.4000 mm
+    @(194.2000 mm, 106.0000 mm): Pad 1 [+5V] of C155 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(174.2000 mm, 112.0000 mm): Pad 1 [+5V] of R160 on F.Cu
@@ -385,63 +362,63 @@
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(164.2000 mm, 112.0000 mm): Pad 1 [+5V] of R158 on F.Cu
-    @(154.2000 mm, 112.0000 mm): Pad 1 [+5V] of R156 on F.Cu
+    @(174.2000 mm, 112.0000 mm): Pad 1 [+5V] of R160 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(174.2000 mm, 112.0000 mm): Pad 1 [+5V] of R160 on F.Cu
+    @(154.2000 mm, 112.0000 mm): Pad 1 [+5V] of R156 on F.Cu
     @(164.2000 mm, 112.0000 mm): Pad 1 [+5V] of R158 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(168.2500 mm, 90.0000 mm): PTH pad 1 [+5V] of C162
-    @(174.7000 mm, 80.6350 mm): Pad 6 [+5V] of U11 on F.Cu
+    @(174.7000 mm, 80.6350 mm): Track [+5V] on F.Cu, length 1.8000 mm
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(154.2000 mm, 100.0000 mm): Pad 1 [+5V] of C150 on F.Cu
-    @(154.2000 mm, 112.0000 mm): Pad 1 [+5V] of R156 on F.Cu
+    @(149.2000 mm, 100.0000 mm): Pad 1 [+5V] of C147 on F.Cu
+    @(149.2000 mm, 112.0000 mm): Pad 1 [+5V] of R155 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(205.3800 mm, 128.0000 mm): PTH pad 1 [+5V] of PS10
-    @(207.5000 mm, 115.9050 mm): Track [+5V] on F.Cu, length 4.4000 mm
+    @(207.5000 mm, 115.9050 mm): Pad 8 [+5V] of U7 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(159.2000 mm, 100.0000 mm): Pad 1 [+5V] of C152 on F.Cu
     @(168.2500 mm, 90.0000 mm): PTH pad 1 [+5V] of C162
+    @(159.2000 mm, 100.0000 mm): Pad 1 [+5V] of C152 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(133.6200 mm, 136.0000 mm): PTH pad 1 [+5V] of PS9
     @(131.5000 mm, 122.0950 mm): Track [+5V] on F.Cu, length 2.2000 mm
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
+    @(168.5400 mm, 212.0000 mm): PTH pad 3 [+5V] of U14
     @(184.3000 mm, 215.0000 mm): Pad 3 [+5V] of U15 on F.Cu
-    @(168.5400 mm, 212.0000 mm): PTH pad 3 [+5V] of U14
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(152.7000 mm, 78.0950 mm): Track [+5V] on F.Cu, length 1.8000 mm
     @(152.7000 mm, 60.0950 mm): Track [+5V] on F.Cu, length 1.8000 mm
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(174.7000 mm, 60.0950 mm): Track [+5V] on F.Cu, length 1.8000 mm
-    @(174.7000 mm, 78.0950 mm): Track [+5V] on F.Cu, length 1.8000 mm
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(168.2500 mm, 90.0000 mm): PTH pad 1 [+5V] of C162
     @(152.7000 mm, 78.0950 mm): Track [+5V] on F.Cu, length 1.8000 mm
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(159.6000 mm, 196.0000 mm): Pad 1 [+5V] of C163 on F.Cu
+    @(174.7000 mm, 78.0950 mm): Track [+5V] on F.Cu, length 1.8000 mm
+    @(174.7000 mm, 60.0950 mm): Track [+5V] on F.Cu, length 1.8000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(152.7000 mm, 78.0950 mm): Track [+5V] on F.Cu, length 1.8000 mm
+    @(168.2500 mm, 90.0000 mm): PTH pad 1 [+5V] of C162
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
     @(168.5400 mm, 212.0000 mm): PTH pad 3 [+5V] of U14
+    @(159.6000 mm, 196.0000 mm): Pad 1 [+5V] of C163 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(149.2000 mm, 112.0000 mm): Pad 1 [+5V] of R155 on F.Cu
     @(131.5000 mm, 122.0950 mm): Track [+5V] on F.Cu, length 2.2000 mm
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(205.3800 mm, 128.0000 mm): PTH pad 1 [+5V] of PS10
     @(199.9000 mm, 150.0000 mm): PTH pad 1 [+5V] of J11
+    @(205.3800 mm, 128.0000 mm): PTH pad 1 [+5V] of PS10
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(174.7000 mm, 60.0950 mm): Track [+5V] on F.Cu, length 1.8000 mm
-    @(188.7000 mm, 40.1900 mm): Pad 14 [+5V] of U12 on F.Cu
+    @(188.7000 mm, 40.1900 mm): Track [+5V] on F.Cu, length 1.8000 mm
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(140.0000 mm, 212.0000 mm): Pad 1 [+5V] of TP13 on F.Cu
@@ -449,7 +426,7 @@
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(152.7000 mm, 60.0950 mm): Track [+5V] on F.Cu, length 1.8000 mm
-    @(139.2000 mm, 37.0000 mm): Pad 1 [+5V] of C112 on F.Cu
+    @(141.2000 mm, 37.0000 mm): Pad 1 [+5V] of C112 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(159.6000 mm, 196.0000 mm): Pad 1 [+5V] of C163 on F.Cu

@@ -1,0 +1,41 @@
+== 1. Validation of the FD solver ==
+  foil leakage  h=0.40 mm  n=   5670  L_fd=71.948 nH/m  analytic=66.338  err=+8.456 %  (0.1 s)
+  foil leakage  h=0.20 mm  n=  22339  L_fd=66.525 nH/m  analytic=66.338  err=+0.282 %  (0.2 s)
+  foil leakage  h=0.10 mm  n=  89534  L_fd=66.296 nH/m  analytic=66.338  err=-0.065 %  (1.4 s)
+  foil leakage  h=0.05 mm  n= 356775  L_fd=66.313 nH/m  analytic=66.338  err=-0.038 %  (8.8 s)
+  Dowell check  f=100 kHz  m=3  Fr(FD+slab)=2.1111  Fr(Dowell)=2.1114  err=-0.02 %
+  Dowell check  f=300 kHz  m=3  Fr(FD+slab)=8.3379  Fr(Dowell)=8.3403  err=-0.03 %
+
+== 2. Wound E65/32/27 transformer (28:14 litz) ==
+  leakage breakdown: design formula 4.10 uH | 1-D actual layers, b = hw: 3.20 uH | 1-D with winding height 30.7 mm: 4.61 uH | FD full-height layers: 3.20 uH
+  P/2-S-P/2  h=0.05 mm  Llk_fd=7.611 uH  (source form 7.611)  analytic=4.098 uH  disc=+85.7 %
+             Fr1 100/300 kHz = 1.412/4.700   Fr2 = 1.567/6.093   design (strand Dowell) Fr1=1.038 Fr2=1.077   1-D Sullivan Fr1/Fr2@100k=1.281/1.281   Pcu=10.43 W (design 7.41)
+             radial need 12.81 mm vs window 11.7 mm -> bundle scale 0.905 (packing 0.61); axial margin 6.7 mm (design states 6 mm)
+             mesh convergence: h=0.20: 7.715 uH, h=0.10: 7.492 uH, h=0.05: 7.611 uH
+  P-S        h=0.10 mm  Llk_fd=20.367 uH  (source form 20.367)  analytic=16.392 uH  disc=+24.2 %
+             Fr1 100/300 kHz = 2.057/10.493   Fr2 = 2.539/14.827   design (strand Dowell) Fr1=1.153 Fr2=1.307   1-D Sullivan Fr1/Fr2@100k=2.093/2.093   Pcu=16.10 W (design 7.41)
+             radial need 12.66 mm vs window 11.7 mm -> bundle scale 0.918 (packing 0.59); axial margin 6.5 mm (design states 6 mm)
+  P-S-P-S    h=0.10 mm  Llk_fd=7.352 uH  (source form 7.352)  analytic=nan uH  disc=+nan %
+             Fr1 100/300 kHz = 1.412/4.702   Fr2 = 1.557/6.002   design (strand Dowell) Fr1=1.038 Fr2=1.077   1-D Sullivan Fr1/Fr2@100k=1.289/1.289   Pcu=10.40 W (design 7.41)
+             radial need 12.96 mm vs window 11.7 mm -> bundle scale 0.893 (packing 0.63); axial margin 7.0 mm (design states 6 mm)
+  P-S spacer sensitivity: +0.00 mm -> 20.37 uH (scale 0.918), +0.25 mm -> 21.13 uH (scale 0.897), +0.50 mm -> 22.65 uH (scale 0.875), +1.00 mm -> 24.92 uH (scale 0.833)
+
+== 3. Planar PCB-winding alternative ==
+  core: ELP64/10/50 (planar E64) pair  Ae=519 mm2  window 21.8 x 10.2 mm  (catalogue values recalled from the Ferroxcube planar E64/10/50 data; verify before use)
+  P1 1xELP64 30:15 3 boards PSPSPP   Llk=0.690 uH  Fr1/Fr2@100k=1.00/1.00  @300k=1.01/1.00  J1/J2=22/43 A/mm2  Pcu=77.2 W  Pcore=5.4 W  B=0.128 T  vol=86 cm3  fits=True  stack=7.91/10.2 mm
+  P2 2xELP64 16:8 3 boards PSPSPP    Llk=0.304 uH  Fr1/Fr2@100k=1.00/1.00  @300k=1.01/1.00  J1/J2=10/19 A/mm2  Pcu=28.1 W  Pcore=9.2 W  B=0.120 T  vol=172 cm3  fits=True  stack=7.91/10.2 mm
+  P3 2xELP64 16:8 2 boards PSPSPP    Llk=0.455 uH  Fr1/Fr2@100k=1.00/1.00  @300k=1.01/1.00  J1/J2=14/29 A/mm2  Pcu=42.2 W  Pcore=9.2 W  B=0.120 T  vol=172 cm3  fits=True  stack=5.11/10.2 mm
+  P4 2xELP64 16:8 3 boards PPPPSS    Llk=1.205 uH  Fr1/Fr2@100k=1.01/1.00  @300k=1.09/1.02  J1/J2=10/19 A/mm2  Pcu=28.2 W  Pcore=9.2 W  B=0.120 T  vol=172 cm3  fits=True  stack=6.02/10.2 mm
+  P5 2xELP64 16:8 4 boards PSPSPP 0.21mm P-S (basic ins.) Llk=0.135 uH  Fr1/Fr2@100k=1.00/1.00  @300k=1.01/1.00  J1/J2=7/14 A/mm2  Pcu=21.1 W  Pcore=9.2 W  B=0.120 T  vol=172 cm3  fits=True  stack=7.35/10.2 mm
+  P6 2xELP64 16:8 4 boards PSPSPP 0.42mm P-S stack 10.71 mm exceeds the 10.2 mm window: not solved (infeasible)
+
+== 4. Pareto study ==
+  W1 E65 P/2-S-P/2 (design)                                    P=  21.9 W  V=   130 cm3  Llk=  7.611 uH  cost~   61 EUR  fits=True  pareto=False
+  W2 E65 P-S                                                   P=  27.5 W  V=   130 cm3  Llk= 20.367 uH  cost~   61 EUR  fits=True  pareto=False
+  W3 E65 P-S-P-S                                               P=  21.8 W  V=   130 cm3  Llk=  7.352 uH  cost~   61 EUR  fits=True  pareto=True
+  P1 1xELP64 30:15 3 boards PSPSPP                             P=  82.6 W  V=    86 cm3  Llk=  0.690 uH  cost~  180 EUR  fits=True  pareto=True
+  P2 2xELP64 16:8 3 boards PSPSPP                              P=  37.3 W  V=   172 cm3  Llk=  0.304 uH  cost~  264 EUR  fits=True  pareto=False
+  P3 2xELP64 16:8 2 boards PSPSPP                              P=  51.4 W  V=   172 cm3  Llk=  0.455 uH  cost~  190 EUR  fits=True  pareto=False
+  P4 2xELP64 16:8 3 boards PPPPSS                              P=  37.5 W  V=   172 cm3  Llk=  1.205 uH  cost~  264 EUR  fits=True  pareto=False
+  P5 2xELP64 16:8 4 boards PSPSPP 0.21mm P-S (basic ins.)      P=  30.3 W  V=   172 cm3  Llk=  0.135 uH  cost~  338 EUR  fits=True  pareto=True
+  P6 2xELP64 16:8 4 boards PSPSPP 0.42mm P-S                   P=   nan W  V=   nan cm3  Llk=    nan uH  cost~  nan EUR  fits=False  pareto=False

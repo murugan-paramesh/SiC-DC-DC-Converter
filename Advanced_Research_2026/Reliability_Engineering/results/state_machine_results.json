@@ -1,0 +1,608 @@
+{
+ "states": [
+  "INIT",
+  "PRECHARGE_WAIT",
+  "SOFTSTART",
+  "RUN",
+  "FAULT"
+ ],
+ "inputs": [
+  "enable",
+  "precharge_ok",
+  "v1_low",
+  "v2_low",
+  "v1_ov",
+  "v2_ov",
+  "ipk_over",
+  "ot",
+  "driver_fault",
+  "hw_trip",
+  "comm_lost",
+  "ss_done",
+  "pc_timeout"
+ ],
+ "reachable_states": [
+  "FAULT",
+  "INIT",
+  "PRECHARGE_WAIT",
+  "RUN",
+  "SOFTSTART"
+ ],
+ "n_transitions_checked": 46080,
+ "successors": {
+  "INIT": [
+   "FAULT",
+   "INIT",
+   "PRECHARGE_WAIT"
+  ],
+  "PRECHARGE_WAIT": [
+   "FAULT",
+   "INIT",
+   "PRECHARGE_WAIT",
+   "SOFTSTART"
+  ],
+  "SOFTSTART": [
+   "FAULT",
+   "INIT",
+   "RUN",
+   "SOFTSTART"
+  ],
+  "RUN": [
+   "FAULT",
+   "INIT",
+   "RUN"
+  ],
+  "FAULT": [
+   "FAULT",
+   "INIT",
+   "PRECHARGE_WAIT"
+  ]
+ },
+ "properties": {
+  "P1_literal": {
+   "status": "FAIL",
+   "summary": [
+    {
+     "state": "INIT",
+     "fault_bits": [
+      "v1_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "INIT",
+     "fault_bits": [
+      "v2_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "INIT",
+     "fault_bits": [
+      "v1_low",
+      "v2_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "INIT",
+     "fault_bits": [
+      "comm_lost"
+     ],
+     "count": 16
+    },
+    {
+     "state": "INIT",
+     "fault_bits": [
+      "comm_lost",
+      "v1_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "INIT",
+     "fault_bits": [
+      "comm_lost",
+      "v2_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "INIT",
+     "fault_bits": [
+      "comm_lost",
+      "v1_low",
+      "v2_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "INIT",
+     "fault_bits": [
+      "pc_timeout"
+     ],
+     "count": 16
+    },
+    {
+     "state": "INIT",
+     "fault_bits": [
+      "pc_timeout",
+      "v1_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "INIT",
+     "fault_bits": [
+      "pc_timeout",
+      "v2_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "INIT",
+     "fault_bits": [
+      "pc_timeout",
+      "v1_low",
+      "v2_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "INIT",
+     "fault_bits": [
+      "comm_lost",
+      "pc_timeout"
+     ],
+     "count": 16
+    },
+    {
+     "state": "INIT",
+     "fault_bits": [
+      "comm_lost",
+      "pc_timeout",
+      "v1_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "INIT",
+     "fault_bits": [
+      "comm_lost",
+      "pc_timeout",
+      "v2_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "INIT",
+     "fault_bits": [
+      "comm_lost",
+      "pc_timeout",
+      "v1_low",
+      "v2_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "PRECHARGE_WAIT",
+     "fault_bits": [
+      "v1_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "PRECHARGE_WAIT",
+     "fault_bits": [
+      "v2_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "PRECHARGE_WAIT",
+     "fault_bits": [
+      "v1_low",
+      "v2_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "SOFTSTART",
+     "fault_bits": [
+      "v1_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "SOFTSTART",
+     "fault_bits": [
+      "v2_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "SOFTSTART",
+     "fault_bits": [
+      "v1_low",
+      "v2_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "SOFTSTART",
+     "fault_bits": [
+      "pc_timeout"
+     ],
+     "count": 16
+    },
+    {
+     "state": "SOFTSTART",
+     "fault_bits": [
+      "pc_timeout",
+      "v1_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "SOFTSTART",
+     "fault_bits": [
+      "pc_timeout",
+      "v2_low"
+     ],
+     "count": 16
+    },
+    {
+     "state": "SOFTSTART",
+     "fault_bits": [
+      "pc_timeout",
+      "v1_low",
+      "v2_low"
+     ],
+     "count": 16
+    }
+   ],
+   "n_violations": 456
+  },
+  "P1_conditional": {
+   "status": "PASS",
+   "n_violations": 0
+  },
+  "P2_fault_latched": {
+   "status": "PASS",
+   "n_violations": 0
+  },
+  "P3_gates_off_outside_run_softstart": {
+   "status": "PASS",
+   "n_violations": 0
+  },
+  "P4_no_deadlock": {
+   "status": "PASS",
+   "n_violations": 0
+  },
+  "P5_gates_imply_enable": {
+   "status": "PASS",
+   "n_violations": 0
+  }
+ },
+ "c_conformance": {
+  "status": "PASS",
+  "n_cases": 46080,
+  "n_mismatches": 0,
+  "examples": []
+ },
+ "python_reference_vs_c_model": {
+  "n_cases": 23040,
+  "n_mismatch_classes": 71,
+  "classes": [
+   {
+    "state": "INIT",
+    "c_model_next": "FAULT",
+    "python_next": "INIT",
+    "distinguishing_inputs": [
+     "driver_fault"
+    ],
+    "count": 32
+   },
+   {
+    "state": "INIT",
+    "c_model_next": "FAULT",
+    "python_next": "PRECHARGE_WAIT",
+    "distinguishing_inputs": [
+     "driver_fault",
+     "enable"
+    ],
+    "count": 32
+   },
+   {
+    "state": "INIT",
+    "c_model_next": "FAULT",
+    "python_next": "INIT",
+    "distinguishing_inputs": [
+     "hw_trip"
+    ],
+    "count": 32
+   },
+   {
+    "state": "INIT",
+    "c_model_next": "FAULT",
+    "python_next": "PRECHARGE_WAIT",
+    "distinguishing_inputs": [
+     "hw_trip",
+     "enable"
+    ],
+    "count": 32
+   },
+   {
+    "state": "INIT",
+    "c_model_next": "FAULT",
+    "python_next": "INIT",
+    "distinguishing_inputs": [
+     "driver_fault",
+     "hw_trip"
+    ],
+    "count": 32
+   },
+   {
+    "state": "INIT",
+    "c_model_next": "FAULT",
+    "python_next": "PRECHARGE_WAIT",
+    "distinguishing_inputs": [
+     "driver_fault",
+     "hw_trip",
+     "enable"
+    ],
+    "count": 32
+   },
+   {
+    "state": "INIT",
+    "c_model_next": "FAULT",
+    "python_next": "INIT",
+    "distinguishing_inputs": [
+     "driver_fault",
+     "pc_timeout"
+    ],
+    "count": 32
+   },
+   {
+    "state": "INIT",
+    "c_model_next": "FAULT",
+    "python_next": "PRECHARGE_WAIT",
+    "distinguishing_inputs": [
+     "driver_fault",
+     "pc_timeout",
+     "enable"
+    ],
+    "count": 32
+   },
+   {
+    "state": "INIT",
+    "c_model_next": "FAULT",
+    "python_next": "INIT",
+    "distinguishing_inputs": [
+     "hw_trip",
+     "pc_timeout"
+    ],
+    "count": 32
+   },
+   {
+    "state": "INIT",
+    "c_model_next": "FAULT",
+    "python_next": "PRECHARGE_WAIT",
+    "distinguishing_inputs": [
+     "hw_trip",
+     "pc_timeout",
+     "enable"
+    ],
+    "count": 32
+   },
+   {
+    "state": "INIT",
+    "c_model_next": "FAULT",
+    "python_next": "INIT",
+    "distinguishing_inputs": [
+     "driver_fault",
+     "hw_trip",
+     "pc_timeout"
+    ],
+    "count": 32
+   },
+   {
+    "state": "INIT",
+    "c_model_next": "FAULT",
+    "python_next": "PRECHARGE_WAIT",
+    "distinguishing_inputs": [
+     "driver_fault",
+     "hw_trip",
+     "pc_timeout",
+     "enable"
+    ],
+    "count": 32
+   },
+   {
+    "state": "SOFTSTART",
+    "c_model_next": "FAULT",
+    "python_next": "INIT",
+    "distinguishing_inputs": [
+     "driver_fault"
+    ],
+    "count": 16
+   },
+   {
+    "state": "SOFTSTART",
+    "c_model_next": "FAULT",
+    "python_next": "INIT",
+    "distinguishing_inputs": [
+     "hw_trip"
+    ],
+    "count": 16
+   },
+   {
+    "state": "SOFTSTART",
+    "c_model_next": "FAULT",
+    "python_next": "INIT",
+    "distinguishing_inputs": [
+     "driver_fault",
+     "hw_trip"
+    ],
+    "count": 16
+   },
+   {
+    "state": "SOFTSTART",
+    "c_model_next": "FAULT",
+    "python_next": "INIT",
+    "distinguishing_inputs": [
+     "driver_fault",
+     "pc_timeout"
+    ],
+    "count": 16
+   },
+   {
+    "state": "SOFTSTART",
+    "c_model_next": "FAULT",
+    "python_next": "INIT",
+    "distinguishing_inputs": [
+     "hw_trip",
+     "pc_timeout"
+    ],
+    "count": 16
+   },
+   {
+    "state": "SOFTSTART",
+    "c_model_next": "FAULT",
+    "python_next": "INIT",
+    "distinguishing_inputs": [
+     "driver_fault",
+     "hw_trip",
+     "pc_timeout"
+    ],
+    "count": 16
+   },
+   {
+    "state": "PRECHARGE_WAIT",
+    "c_model_next": "INIT",
+    "python_next": "PRECHARGE_WAIT",
+    "distinguishing_inputs": [],
+    "count": 12
+   },
+   {
+    "state": "PRECHARGE_WAIT",
+    "c_model_next": "FAULT",
+    "python_next": "PRECHARGE_WAIT",
+    "distinguishing_inputs": [
+     "driver_fault"
+    ],
+    "count": 12
+   },
+   {
+    "state": "PRECHARGE_WAIT",
+    "c_model_next": "FAULT",
+    "python_next": "PRECHARGE_WAIT",
+    "distinguishing_inputs": [
+     "driver_fault",
+     "enable"
+    ],
+    "count": 12
+   },
+   {
+    "state": "PRECHARGE_WAIT",
+    "c_model_next": "FAULT",
+    "python_next": "PRECHARGE_WAIT",
+    "distinguishing_inputs": [
+     "hw_trip"
+    ],
+    "count": 12
+   },
+   {
+    "state": "PRECHARGE_WAIT",
+    "c_model_next": "FAULT",
+    "python_next": "PRECHARGE_WAIT",
+    "distinguishing_inputs": [
+     "hw_trip",
+     "enable"
+    ],
+    "count": 12
+   },
+   {
+    "state": "PRECHARGE_WAIT",
+    "c_model_next": "FAULT",
+    "python_next": "PRECHARGE_WAIT",
+    "distinguishing_inputs": [
+     "driver_fault",
+     "hw_trip"
+    ],
+    "count": 12
+   },
+   {
+    "state": "PRECHARGE_WAIT",
+    "c_model_next": "FAULT",
+    "python_next": "PRECHARGE_WAIT",
+    "distinguishing_inputs": [
+     "driver_fault",
+     "hw_trip",
+     "enable"
+    ],
+    "count": 12
+   },
+   {
+    "state": "PRECHARGE_WAIT",
+    "c_model_next": "INIT",
+    "python_next": "PRECHARGE_WAIT",
+    "distinguishing_inputs": [
+     "pc_timeout"
+    ],
+    "count": 12
+   },
+   {
+    "state": "PRECHARGE_WAIT",
+    "c_model_next": "FAULT",
+    "python_next": "PRECHARGE_WAIT",
+    "distinguishing_inputs": [
+     "pc_timeout",
+     "enable"
+    ],
+    "count": 12
+   },
+   {
+    "state": "PRECHARGE_WAIT",
+    "c_model_next": "FAULT",
+    "python_next": "PRECHARGE_WAIT",
+    "distinguishing_inputs": [
+     "driver_fault",
+     "pc_timeout"
+    ],
+    "count": 12
+   },
+   {
+    "state": "PRECHARGE_WAIT",
+    "c_model_next": "FAULT",
+    "python_next": "PRECHARGE_WAIT",
+    "distinguishing_inputs": [
+     "driver_fault",
+     "pc_timeout",
+     "enable"
+    ],
+    "count": 12
+   },
+   {
+    "state": "PRECHARGE_WAIT",
+    "c_model_next": "FAULT",
+    "python_next": "PRECHARGE_WAIT",
+    "distinguishing_inputs": [
+     "hw_trip",
+     "pc_timeout"
+    ],
+    "count": 12
+   }
+  ]
+ },
+ "sil_harness": {
+  "status": "RUN",
+  "exit_code": 0,
+  "n_pass": 30,
+  "n_fail": 0,
+  "result_line": [
+   "RESULT: ALL PASS (0 failures)"
+  ],
+  "build_warnings": ""
+ }
+}

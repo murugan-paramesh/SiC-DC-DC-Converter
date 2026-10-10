@@ -1,0 +1,1290 @@
+{
+ "board": "/tmp/claude-0/-home-user-SiC-DC-DC-Converter/6e9bc7b2-f9ce-5c45-991e-ae4036e357ed/scratchpad/board_snapshot/SiC_DAB_6k6.kicad_pcb",
+ "board_sha256": "9797b822a2ca968b50d45d07e07c6e62897d21c42afa5653a4f331967c36f183",
+ "pcbnew_crosscheck": {
+  "available": true,
+  "version": "7.0.11",
+  "pads_compared": 731,
+  "max_pad_position_deviation_mm": 0.0,
+  "tracks_in_board": 0
+ },
+ "stackup_depth_mm": {
+  "F.Cu": 0.035,
+  "In1.Cu": 0.30500000000000005,
+  "In2.Cu": 0.8750000000000001,
+  "In3.Cu": 1.445,
+  "In4.Cu": 2.015,
+  "B.Cu": 2.2850000000000006
+ },
+ "board_thickness_mm": 2.3200000000000003,
+ "assumptions": {
+  "to247_lead_len_mm": 15.0,
+  "to247_lead_w_mm": 1.5,
+  "to247_lead_t_mm": 0.6,
+  "to247_pin_pitch_mm": 2.54,
+  "to247_pin_drill_mm": 1.5,
+  "cap_esl_nH": 1.2,
+  "via_drill_mm": 0.4,
+  "via_dia_mm": 0.8,
+  "gate_trace_w_mm": 0.5,
+  "gate_pair_spacing_mm": 1.0,
+  "ciss_nF": {
+   "C3M0032120K": 1.9,
+   "C3M0016120K": 3.4
+  },
+  "rg_int_ohm": {
+   "C3M0032120K": 2.6,
+   "C3M0016120K": 1.5
+  },
+  "driver_rout_ohm": 1.0,
+  "t_fall_ns": [
+   5.0,
+   10.0,
+   20.0,
+   40.0
+  ],
+  "note": "all entries are assumptions or recalled datasheet-typical values; none is measured"
+ },
+ "loops": {
+  "HV_leg_A": {
+   "top": "Q1",
+   "bottom": "Q2",
+   "caps": [
+    "C5",
+    "C6"
+   ],
+   "device": "C3M0032120K",
+   "segments": [
+    {
+     "segment": "Q1 drain lead",
+     "formula": "bar",
+     "l_mm": 15.0,
+     "w_mm": 1.5,
+     "t_mm": 0.6,
+     "L_self_nH": 9.571650110798332,
+     "M_nH": -3.258825537827724,
+     "note": "anti-parallel partner at 5.08 mm -> -M"
+    },
+    {
+     "segment": "Q1 source lead",
+     "formula": "bar",
+     "l_mm": 15.0,
+     "w_mm": 1.5,
+     "t_mm": 0.6,
+     "L_self_nH": 9.571650110798332,
+     "M_nH": -3.258825537827724,
+     "note": "anti-parallel partner at 5.08 mm -> -M"
+    },
+    {
+     "segment": "Q2 drain lead",
+     "formula": "bar",
+     "l_mm": 15.0,
+     "w_mm": 1.5,
+     "t_mm": 0.6,
+     "L_self_nH": 9.571650110798332,
+     "M_nH": -3.258825537827724,
+     "note": "anti-parallel partner at 5.08 mm -> -M"
+    },
+    {
+     "segment": "Q2 source lead",
+     "formula": "bar",
+     "l_mm": 15.0,
+     "w_mm": 1.5,
+     "t_mm": 0.6,
+     "L_self_nH": 9.571650110798332,
+     "M_nH": -3.258825537827724,
+     "note": "anti-parallel partner at 5.08 mm -> -M"
+    },
+    {
+     "segment": "SW_A strip B.Cu",
+     "formula": "bar (free) / microstrip over In4 (image)",
+     "l_mm": 16.919999999999995,
+     "w_mm": 3.0,
+     "t_mm": 0.07,
+     "L_self_nH": 1.6217007772496754,
+     "M_nH": 0.0,
+     "L_upper_nH": 9.95071385310209,
+     "note": "image plane at 0.27 mm; free-standing value 10.0 nH is the upper bound"
+    },
+    {
+     "segment": "Q1 drain pin to HV_P plane",
+     "formula": "round conductor",
+     "l_mm": 0.8750000000000001,
+     "w_mm": 1.5,
+     "t_mm": 0,
+     "L_self_nH": 0.017027125567760645,
+     "M_nH": 0.0,
+     "note": "pin section inside the board down to the first plane"
+    },
+    {
+     "segment": "Q2 source pin to HV_N plane",
+     "formula": "round conductor",
+     "l_mm": 0.30500000000000005,
+     "w_mm": 1.5,
+     "t_mm": 0,
+     "L_self_nH": 0.0,
+     "M_nH": 0.0,
+     "note": "pin section inside the board down to the first plane"
+    },
+    {
+     "segment": "HV_P/HV_N plane pair",
+     "formula": "mu0 h l / w_eff (/2 for two pairs)",
+     "l_mm": 24.0,
+     "w_mm": 51.08,
+     "t_mm": 0.5700000000000001,
+     "L_self_nH": 0.16827324785085507,
+     "M_nH": 0.0,
+     "note": "h = 0.57 mm, span of pins/pads 27.1 mm, 45-deg spreading, 2 pair(s)"
+    },
+    {
+     "segment": "C5+C6 ESL + pad vias (parallel)",
+     "formula": "ESL typ. + 2 vias, / n",
+     "l_mm": 0.8750000000000001,
+     "w_mm": 0.4,
+     "t_mm": 0,
+     "L_self_nH": 0.8483343975646666,
+     "M_nH": 0.0,
+     "note": "ESL 1.2 nH typical per 2220 part, 2 parts in parallel"
+    }
+   ],
+   "L_loop_nH": 27.906633840115393,
+   "L_loop_upper_nH": 36.235646915967806,
+   "L_package_pair_nH": 25.25129829188243,
+   "geometry": {
+    "y_dev_mm": 14.0,
+    "y_cap_mm": 38.0,
+    "span_mm": 27.080000000000002,
+    "strip_l_mm": 16.919999999999995,
+    "strip_w_mm": 3.0,
+    "plane_l_mm": 24.0,
+    "w_eff_mm": 51.08,
+    "h_pair_mm": 0.5700000000000001
+   },
+   "nets": {
+    "p": "HV_P",
+    "n": "HV_N"
+   }
+  },
+  "HV_leg_B": {
+   "top": "Q3",
+   "bottom": "Q4",
+   "caps": [
+    "C7",
+    "C8"
+   ],
+   "device": "C3M0032120K",
+   "segments": [
+    {
+     "segment": "Q3 drain lead",
+     "formula": "bar",
+     "l_mm": 15.0,
+     "w_mm": 1.5,
+     "t_mm": 0.6,
+     "L_self_nH": 9.571650110798332,
+     "M_nH": -3.2588255378277253,
+     "note": "anti-parallel partner at 5.08 mm -> -M"
+    },
+    {
+     "segment": "Q3 source lead",
+     "formula": "bar",
+     "l_mm": 15.0,
+     "w_mm": 1.5,
+     "t_mm": 0.6,
+     "L_self_nH": 9.571650110798332,
+     "M_nH": -3.2588255378277253,
+     "note": "anti-parallel partner at 5.08 mm -> -M"
+    },
+    {
+     "segment": "Q4 drain lead",
+     "formula": "bar",
+     "l_mm": 15.0,
+     "w_mm": 1.5,
+     "t_mm": 0.6,
+     "L_self_nH": 9.571650110798332,
+     "M_nH": -3.2588255378277253,
+     "note": "anti-parallel partner at 5.08 mm -> -M"
+    },
+    {
+     "segment": "Q4 source lead",
+     "formula": "bar",
+     "l_mm": 15.0,
+     "w_mm": 1.5,
+     "t_mm": 0.6,
+     "L_self_nH": 9.571650110798332,
+     "M_nH": -3.2588255378277253,
+     "note": "anti-parallel partner at 5.08 mm -> -M"
+    },
+    {
+     "segment": "SW_B strip B.Cu",
+     "formula": "bar (free) / microstrip over In4 (image)",
+     "l_mm": 16.92,
+     "w_mm": 3.0,
+     "t_mm": 0.07,
+     "L_self_nH": 1.621700777249676,
+     "M_nH": 0.0,
+     "L_upper_nH": 9.950713853102096,
+     "note": "image plane at 0.27 mm; free-standing value 10.0 nH is the upper bound"
+    },
+    {
+     "segment": "Q3 drain pin to HV_P plane",
+     "formula": "round conductor",
+     "l_mm": 0.8750000000000001,
+     "w_mm": 1.5,
+     "t_mm": 0,
+     "L_self_nH": 0.017027125567760645,
+     "M_nH": 0.0,
+     "note": "pin section inside the board down to the first plane"
+    },
+    {
+     "segment": "Q4 source pin to HV_N plane",
+     "formula": "round conductor",
+     "l_mm": 0.30500000000000005,
+     "w_mm": 1.5,
+     "t_mm": 0,
+     "L_self_nH": 0.0,
+     "M_nH": 0.0,
+     "note": "pin section inside the board down to the first plane"
+    },
+    {
+     "segment": "HV_P/HV_N plane pair",
+     "formula": "mu0 h l / w_eff (/2 for two pairs)",
+     "l_mm": 24.0,
+     "w_mm": 51.08,
+     "t_mm": 0.5700000000000001,
+     "L_self_nH": 0.16827324785085507,
+     "M_nH": 0.0,
+     "note": "h = 0.57 mm, span of pins/pads 27.1 mm, 45-deg spreading, 2 pair(s)"
+    },
+    {
+     "segment": "C7+C8 ESL + pad vias (parallel)",
+     "formula": "ESL typ. + 2 vias, / n",
+     "l_mm": 0.8750000000000001,
+     "w_mm": 0.4,
+     "t_mm": 0,
+     "L_self_nH": 0.8483343975646666,
+     "M_nH": 0.0,
+     "note": "ESL 1.2 nH typical per 2220 part, 2 parts in parallel"
+    }
+   ],
+   "L_loop_nH": 27.906633840115386,
+   "L_loop_upper_nH": 36.235646915967806,
+   "L_package_pair_nH": 25.251298291882428,
+   "geometry": {
+    "y_dev_mm": 14.0,
+    "y_cap_mm": 38.0,
+    "span_mm": 27.08,
+    "strip_l_mm": 16.92,
+    "strip_w_mm": 3.0,
+    "plane_l_mm": 24.0,
+    "w_eff_mm": 51.08,
+    "h_pair_mm": 0.5700000000000001
+   },
+   "nets": {
+    "p": "HV_P",
+    "n": "HV_N"
+   }
+  },
+  "LV_leg_C": {
+   "top": "Q5",
+   "bottom": "Q6",
+   "caps": [
+    "C13",
+    "C14"
+   ],
+   "device": "C3M0016120K",
+   "segments": [
+    {
+     "segment": "Q5 drain lead",
+     "formula": "bar",
+     "l_mm": 15.0,
+     "w_mm": 1.5,
+     "t_mm": 0.6,
+     "L_self_nH": 9.571650110798332,
+     "M_nH": -3.2588255378277196,
+     "note": "anti-parallel partner at 5.08 mm -> -M"
+    },
+    {
+     "segment": "Q5 source lead",
+     "formula": "bar",
+     "l_mm": 15.0,
+     "w_mm": 1.5,
+     "t_mm": 0.6,
+     "L_self_nH": 9.571650110798332,
+     "M_nH": -3.2588255378277196,
+     "note": "anti-parallel partner at 5.08 mm -> -M"
+    },
+    {
+     "segment": "Q6 drain lead",
+     "formula": "bar",
+     "l_mm": 15.0,
+     "w_mm": 1.5,
+     "t_mm": 0.6,
+     "L_self_nH": 9.571650110798332,
+     "M_nH": -3.2588255378277196,
+     "note": "anti-parallel partner at 5.08 mm -> -M"
+    },
+    {
+     "segment": "Q6 source lead",
+     "formula": "bar",
+     "l_mm": 15.0,
+     "w_mm": 1.5,
+     "t_mm": 0.6,
+     "L_self_nH": 9.571650110798332,
+     "M_nH": -3.2588255378277196,
+     "note": "anti-parallel partner at 5.08 mm -> -M"
+    },
+    {
+     "segment": "SW_C strip B.Cu",
+     "formula": "bar (free) / microstrip over In4 (image)",
+     "l_mm": 16.920000000000016,
+     "w_mm": 3.0,
+     "t_mm": 0.07,
+     "L_self_nH": 1.6217007772496774,
+     "M_nH": 0.0,
+     "L_upper_nH": 9.950713853102105,
+     "note": "image plane at 0.27 mm; free-standing value 10.0 nH is the upper bound"
+    },
+    {
+     "segment": "Q5 drain pin to LV_P plane",
+     "formula": "round conductor",
+     "l_mm": 0.8750000000000001,
+     "w_mm": 1.5,
+     "t_mm": 0,
+     "L_self_nH": 0.017027125567760645,
+     "M_nH": 0.0,
+     "note": "pin section inside the board down to the first plane"
+    },
+    {
+     "segment": "Q6 source pin to LV_N plane",
+     "formula": "round conductor",
+     "l_mm": 0.30500000000000005,
+     "w_mm": 1.5,
+     "t_mm": 0,
+     "L_self_nH": 0.0,
+     "M_nH": 0.0,
+     "note": "pin section inside the board down to the first plane"
+    },
+    {
+     "segment": "LV_P/LV_N plane pair",
+     "formula": "mu0 h l / w_eff (/2 for two pairs)",
+     "l_mm": 24.0,
+     "w_mm": 51.08000000000001,
+     "t_mm": 0.5700000000000001,
+     "L_self_nH": 0.168273247850855,
+     "M_nH": 0.0,
+     "note": "h = 0.57 mm, span of pins/pads 27.1 mm, 45-deg spreading, 2 pair(s)"
+    },
+    {
+     "segment": "C13+C14 ESL + pad vias (parallel)",
+     "formula": "ESL typ. + 2 vias, / n",
+     "l_mm": 0.8750000000000001,
+     "w_mm": 0.4,
+     "t_mm": 0,
+     "L_self_nH": 0.8483343975646666,
+     "M_nH": 0.0,
+     "note": "ESL 1.2 nH typical per 2220 part, 2 parts in parallel"
+    }
+   ],
+   "L_loop_nH": 27.90663384011541,
+   "L_loop_upper_nH": 36.235646915967834,
+   "L_package_pair_nH": 25.251298291882453,
+   "geometry": {
+    "y_dev_mm": 14.0,
+    "y_cap_mm": 38.0,
+    "span_mm": 27.080000000000013,
+    "strip_l_mm": 16.920000000000016,
+    "strip_w_mm": 3.0,
+    "plane_l_mm": 24.0,
+    "w_eff_mm": 51.08000000000001,
+    "h_pair_mm": 0.5700000000000001
+   },
+   "nets": {
+    "p": "LV_P",
+    "n": "LV_N"
+   }
+  },
+  "LV_leg_D": {
+   "top": "Q7",
+   "bottom": "Q8",
+   "caps": [
+    "C15",
+    "C16"
+   ],
+   "device": "C3M0016120K",
+   "segments": [
+    {
+     "segment": "Q7 drain lead",
+     "formula": "bar",
+     "l_mm": 15.0,
+     "w_mm": 1.5,
+     "t_mm": 0.6,
+     "L_self_nH": 9.571650110798332,
+     "M_nH": -3.258825537827732,
+     "note": "anti-parallel partner at 5.08 mm -> -M"
+    },
+    {
+     "segment": "Q7 source lead",
+     "formula": "bar",
+     "l_mm": 15.0,
+     "w_mm": 1.5,
+     "t_mm": 0.6,
+     "L_self_nH": 9.571650110798332,
+     "M_nH": -3.258825537827732,
+     "note": "anti-parallel partner at 5.08 mm -> -M"
+    },
+    {
+     "segment": "Q8 drain lead",
+     "formula": "bar",
+     "l_mm": 15.0,
+     "w_mm": 1.5,
+     "t_mm": 0.6,
+     "L_self_nH": 9.571650110798332,
+     "M_nH": -3.258825537827732,
+     "note": "anti-parallel partner at 5.08 mm -> -M"
+    },
+    {
+     "segment": "Q8 source lead",
+     "formula": "bar",
+     "l_mm": 15.0,
+     "w_mm": 1.5,
+     "t_mm": 0.6,
+     "L_self_nH": 9.571650110798332,
+     "M_nH": -3.258825537827732,
+     "note": "anti-parallel partner at 5.08 mm -> -M"
+    },
+    {
+     "segment": "SW_D strip B.Cu",
+     "formula": "bar (free) / microstrip over In4 (image)",
+     "l_mm": 16.920000000000016,
+     "w_mm": 3.0,
+     "t_mm": 0.07,
+     "L_self_nH": 1.6217007772496774,
+     "M_nH": 0.0,
+     "L_upper_nH": 9.950713853102105,
+     "note": "image plane at 0.27 mm; free-standing value 10.0 nH is the upper bound"
+    },
+    {
+     "segment": "Q7 drain pin to LV_P plane",
+     "formula": "round conductor",
+     "l_mm": 0.8750000000000001,
+     "w_mm": 1.5,
+     "t_mm": 0,
+     "L_self_nH": 0.017027125567760645,
+     "M_nH": 0.0,
+     "note": "pin section inside the board down to the first plane"
+    },
+    {
+     "segment": "Q8 source pin to LV_N plane",
+     "formula": "round conductor",
+     "l_mm": 0.30500000000000005,
+     "w_mm": 1.5,
+     "t_mm": 0,
+     "L_self_nH": 0.0,
+     "M_nH": 0.0,
+     "note": "pin section inside the board down to the first plane"
+    },
+    {
+     "segment": "LV_P/LV_N plane pair",
+     "formula": "mu0 h l / w_eff (/2 for two pairs)",
+     "l_mm": 24.0,
+     "w_mm": 51.079999999999984,
+     "t_mm": 0.5700000000000001,
+     "L_self_nH": 0.16827324785085512,
+     "M_nH": 0.0,
+     "note": "h = 0.57 mm, span of pins/pads 27.1 mm, 45-deg spreading, 2 pair(s)"
+    },
+    {
+     "segment": "C15+C16 ESL + pad vias (parallel)",
+     "formula": "ESL typ. + 2 vias, / n",
+     "l_mm": 0.8750000000000001,
+     "w_mm": 0.4,
+     "t_mm": 0,
+     "L_self_nH": 0.8483343975646666,
+     "M_nH": 0.0,
+     "note": "ESL 1.2 nH typical per 2220 part, 2 parts in parallel"
+    }
+   ],
+   "L_loop_nH": 27.90663384011536,
+   "L_loop_upper_nH": 36.23564691596779,
+   "L_package_pair_nH": 25.2512982918824,
+   "geometry": {
+    "y_dev_mm": 14.0,
+    "y_cap_mm": 38.0,
+    "span_mm": 27.079999999999988,
+    "strip_l_mm": 16.920000000000016,
+    "strip_w_mm": 3.0,
+    "plane_l_mm": 24.0,
+    "w_eff_mm": 51.079999999999984,
+    "h_pair_mm": 0.5700000000000001
+   },
+   "nets": {
+    "p": "LV_P",
+    "n": "LV_N"
+   }
+  }
+ },
+ "loop_sensitivity": [
+  {
+   "parameter": "plane spacing h (single pair)",
+   "value_mm": 0.2,
+   "L_plane_nH": 0.11808648971989827,
+   "L_loop_nH": 27.856447081984435
+  },
+  {
+   "parameter": "plane spacing h (single pair)",
+   "value_mm": 0.5,
+   "L_plane_nH": 0.29521622429974564,
+   "L_loop_nH": 28.033576816564285
+  },
+  {
+   "parameter": "plane spacing h (single pair)",
+   "value_mm": 1.0,
+   "L_plane_nH": 0.5904324485994913,
+   "L_loop_nH": 28.328793040864028
+  },
+  {
+   "parameter": "plane spacing h (single pair)",
+   "value_mm": 1.6,
+   "L_plane_nH": 0.9446919177591862,
+   "L_loop_nH": 28.683052510023725
+  },
+  {
+   "parameter": "plane spacing h (single pair)",
+   "value_mm": 2.3,
+   "L_plane_nH": 1.3579946317788298,
+   "L_loop_nH": 29.096355224043368
+  },
+  {
+   "parameter": "effective plane width (spread)",
+   "value_mm": 51.08,
+   "L_plane_nH": 0.16827324785085507,
+   "L_loop_nH": 27.906633840115393
+  },
+  {
+   "parameter": "effective plane width (span)",
+   "value_mm": 27.080000000000002,
+   "L_plane_nH": 0.31740758863447843,
+   "L_loop_nH": 28.055768180899015
+  },
+  {
+   "parameter": "TO-247 effective lead length",
+   "value_mm": 10.0,
+   "L_plane_nH": NaN,
+   "L_loop_nH": 18.534566161354135
+  },
+  {
+   "parameter": "TO-247 effective lead length",
+   "value_mm": 15.0,
+   "L_plane_nH": NaN,
+   "L_loop_nH": 27.906633840115393
+  },
+  {
+   "parameter": "TO-247 effective lead length",
+   "value_mm": 20.0,
+   "L_plane_nH": NaN,
+   "L_loop_nH": 37.35682451036509
+  }
+ ],
+ "gate_loops": {
+  "Q1": {
+   "device": "Q1",
+   "driver": "U1",
+   "routed_tracks_used": false,
+   "trace_width_mm": 0.5,
+   "pair_spacing_mm": 1.0,
+   "l_go_mm": 101.97500000000001,
+   "l_return_mm": 93.005,
+   "l_gate_local_mm": 11.290000000000003,
+   "l_ks_local_mm": 15.719999999999997,
+   "L_trace_pair_nH": 80.06637306505581,
+   "L_trace_pair_if_plane_referenced_nH": 67.32506643497875,
+   "L_package_gate_ks_nH": 12.625649145941214,
+   "L_local_nH": 15.991465507272931,
+   "L_cap_esl_nH": 0.6,
+   "L_gate_loop_nH": 109.28348771826995,
+   "R_total_ohm": 6.9,
+   "Ciss_nF": 1.9000000000000001,
+   "damping_ratio": 0.4549028127298555,
+   "R_critical_ohm": 15.168075041333218,
+   "f_ring_MHz": 11.045008584647334,
+   "vee_ks_caps": [
+    "C105",
+    "C106"
+   ]
+  },
+  "Q5": {
+   "device": "Q5",
+   "driver": "U3",
+   "routed_tracks_used": false,
+   "trace_width_mm": 0.5,
+   "pair_spacing_mm": 1.0,
+   "l_go_mm": 23.175,
+   "l_return_mm": 41.795,
+   "l_gate_local_mm": 11.289999999999992,
+   "l_ks_local_mm": 15.719999999999997,
+   "L_trace_pair_nH": 26.449209201815695,
+   "L_trace_pair_if_plane_referenced_nH": 22.433631994463894,
+   "L_package_gate_ks_nH": 12.625649145941226,
+   "L_local_nH": 15.991465507272931,
+   "L_cap_esl_nH": 0.6,
+   "L_gate_loop_nH": 55.66632385502985,
+   "R_total_ohm": 5.8,
+   "Ciss_nF": 3.4000000000000004,
+   "damping_ratio": 0.7167062396656289,
+   "R_critical_ohm": 8.092576398812886,
+   "f_ring_MHz": 11.568695820242338,
+   "vee_ks_caps": [
+    "C127",
+    "C128"
+   ]
+  }
+ },
+ "gate_sensitivity": [
+  {
+   "pair_spacing_mm": 0.5,
+   "L_trace_pair_nH": 53.23563631491432,
+   "L_gate_loop_nH": 82.45275096812847,
+   "damping_ratio": 0.5237129590942408
+  },
+  {
+   "pair_spacing_mm": 1.0,
+   "L_trace_pair_nH": 80.06637306505581,
+   "L_gate_loop_nH": 109.28348771826995,
+   "damping_ratio": 0.4549028127298555
+  },
+  {
+   "pair_spacing_mm": 2.0,
+   "L_trace_pair_nH": 106.69941755453405,
+   "L_gate_loop_nH": 135.9165322077482,
+   "damping_ratio": 0.40790568005078925
+  },
+  {
+   "pair_spacing_mm": 3.0,
+   "L_trace_pair_nH": 122.11606276490042,
+   "L_gate_loop_nH": 151.33317741811456,
+   "damping_ratio": 0.38657059894682105
+  },
+  {
+   "pair_spacing_mm": 5.0,
+   "L_trace_pair_nH": 141.25262339714234,
+   "L_gate_loop_nH": 170.46973805035648,
+   "damping_ratio": 0.36422709386513064
+  }
+ ],
+ "overshoot": {
+  "HV_leg_A": [
+   {
+    "V_dc": 800.0,
+    "I_A": 9.750000000000048,
+    "t_fall_ns": 5.0,
+    "didt_A_per_ns": 1.9500000000000095,
+    "Vos_Ldidt_V": 54.41793598822529,
+    "Vos_Z0_bound_V": 124.92054838331528,
+    "Vos_est_V": 54.41793598822529,
+    "Vds_peak_V": 854.4179359882253,
+    "margin_to_1200V_V": 345.5820640117747,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 800.0,
+    "I_A": 9.750000000000048,
+    "t_fall_ns": 10.0,
+    "didt_A_per_ns": 0.9750000000000048,
+    "Vos_Ldidt_V": 27.208967994112644,
+    "Vos_Z0_bound_V": 124.92054838331528,
+    "Vos_est_V": 27.208967994112644,
+    "Vds_peak_V": 827.2089679941126,
+    "margin_to_1200V_V": 372.79103200588736,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 800.0,
+    "I_A": 9.750000000000048,
+    "t_fall_ns": 20.0,
+    "didt_A_per_ns": 0.4875000000000024,
+    "Vos_Ldidt_V": 13.604483997056322,
+    "Vos_Z0_bound_V": 124.92054838331528,
+    "Vos_est_V": 13.604483997056322,
+    "Vds_peak_V": 813.6044839970564,
+    "margin_to_1200V_V": 386.3955160029437,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 800.0,
+    "I_A": 9.750000000000048,
+    "t_fall_ns": 40.0,
+    "didt_A_per_ns": 0.2437500000000012,
+    "Vos_Ldidt_V": 6.802241998528161,
+    "Vos_Z0_bound_V": 124.92054838331528,
+    "Vos_est_V": 6.802241998528161,
+    "Vds_peak_V": 806.8022419985282,
+    "margin_to_1200V_V": 393.1977580014718,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 800.0,
+    "I_A": 19.578124999999883,
+    "t_fall_ns": 5.0,
+    "didt_A_per_ns": 3.915624999999977,
+    "Vos_Ldidt_V": 109.2719131302012,
+    "Vos_Z0_bound_V": 250.84206269918644,
+    "Vos_est_V": 109.2719131302012,
+    "Vds_peak_V": 909.2719131302013,
+    "margin_to_1200V_V": 290.7280868697988,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 800.0,
+    "I_A": 19.578124999999883,
+    "t_fall_ns": 10.0,
+    "didt_A_per_ns": 1.9578124999999884,
+    "Vos_Ldidt_V": 54.6359565651006,
+    "Vos_Z0_bound_V": 250.84206269918644,
+    "Vos_est_V": 54.6359565651006,
+    "Vds_peak_V": 854.6359565651006,
+    "margin_to_1200V_V": 345.3640434348994,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 800.0,
+    "I_A": 19.578124999999883,
+    "t_fall_ns": 20.0,
+    "didt_A_per_ns": 0.9789062499999942,
+    "Vos_Ldidt_V": 27.3179782825503,
+    "Vos_Z0_bound_V": 250.84206269918644,
+    "Vos_est_V": 27.3179782825503,
+    "Vds_peak_V": 827.3179782825503,
+    "margin_to_1200V_V": 372.6820217174497,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 800.0,
+    "I_A": 19.578124999999883,
+    "t_fall_ns": 40.0,
+    "didt_A_per_ns": 0.4894531249999971,
+    "Vos_Ldidt_V": 13.65898914127515,
+    "Vos_Z0_bound_V": 250.84206269918644,
+    "Vos_est_V": 13.65898914127515,
+    "Vds_peak_V": 813.6589891412751,
+    "margin_to_1200V_V": 386.34101085872487,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 800.0,
+    "I_A": 32.0,
+    "t_fall_ns": 5.0,
+    "didt_A_per_ns": 6.4,
+    "Vos_Ldidt_V": 178.60245657673855,
+    "Vos_Z0_bound_V": 409.9956459760071,
+    "Vos_est_V": 178.60245657673855,
+    "Vds_peak_V": 978.6024565767385,
+    "margin_to_1200V_V": 221.39754342326145,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 800.0,
+    "I_A": 32.0,
+    "t_fall_ns": 10.0,
+    "didt_A_per_ns": 3.2,
+    "Vos_Ldidt_V": 89.30122828836927,
+    "Vos_Z0_bound_V": 409.9956459760071,
+    "Vos_est_V": 89.30122828836927,
+    "Vds_peak_V": 889.3012282883693,
+    "margin_to_1200V_V": 310.69877171163074,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 800.0,
+    "I_A": 32.0,
+    "t_fall_ns": 20.0,
+    "didt_A_per_ns": 1.6,
+    "Vos_Ldidt_V": 44.65061414418464,
+    "Vos_Z0_bound_V": 409.9956459760071,
+    "Vos_est_V": 44.65061414418464,
+    "Vds_peak_V": 844.6506141441846,
+    "margin_to_1200V_V": 355.34938585581534,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 800.0,
+    "I_A": 32.0,
+    "t_fall_ns": 40.0,
+    "didt_A_per_ns": 0.8,
+    "Vos_Ldidt_V": 22.32530707209232,
+    "Vos_Z0_bound_V": 409.9956459760071,
+    "Vos_est_V": 22.32530707209232,
+    "Vds_peak_V": 822.3253070720923,
+    "margin_to_1200V_V": 377.6746929279077,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 850.0,
+    "I_A": 9.750000000000048,
+    "t_fall_ns": 5.0,
+    "didt_A_per_ns": 1.9500000000000095,
+    "Vos_Ldidt_V": 54.41793598822529,
+    "Vos_Z0_bound_V": 124.92054838331528,
+    "Vos_est_V": 54.41793598822529,
+    "Vds_peak_V": 904.4179359882253,
+    "margin_to_1200V_V": 295.5820640117747,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 850.0,
+    "I_A": 9.750000000000048,
+    "t_fall_ns": 10.0,
+    "didt_A_per_ns": 0.9750000000000048,
+    "Vos_Ldidt_V": 27.208967994112644,
+    "Vos_Z0_bound_V": 124.92054838331528,
+    "Vos_est_V": 27.208967994112644,
+    "Vds_peak_V": 877.2089679941126,
+    "margin_to_1200V_V": 322.79103200588736,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 850.0,
+    "I_A": 9.750000000000048,
+    "t_fall_ns": 20.0,
+    "didt_A_per_ns": 0.4875000000000024,
+    "Vos_Ldidt_V": 13.604483997056322,
+    "Vos_Z0_bound_V": 124.92054838331528,
+    "Vos_est_V": 13.604483997056322,
+    "Vds_peak_V": 863.6044839970564,
+    "margin_to_1200V_V": 336.3955160029437,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 850.0,
+    "I_A": 9.750000000000048,
+    "t_fall_ns": 40.0,
+    "didt_A_per_ns": 0.2437500000000012,
+    "Vos_Ldidt_V": 6.802241998528161,
+    "Vos_Z0_bound_V": 124.92054838331528,
+    "Vos_est_V": 6.802241998528161,
+    "Vds_peak_V": 856.8022419985282,
+    "margin_to_1200V_V": 343.1977580014718,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 850.0,
+    "I_A": 19.578124999999883,
+    "t_fall_ns": 5.0,
+    "didt_A_per_ns": 3.915624999999977,
+    "Vos_Ldidt_V": 109.2719131302012,
+    "Vos_Z0_bound_V": 250.84206269918644,
+    "Vos_est_V": 109.2719131302012,
+    "Vds_peak_V": 959.2719131302013,
+    "margin_to_1200V_V": 240.7280868697988,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 850.0,
+    "I_A": 19.578124999999883,
+    "t_fall_ns": 10.0,
+    "didt_A_per_ns": 1.9578124999999884,
+    "Vos_Ldidt_V": 54.6359565651006,
+    "Vos_Z0_bound_V": 250.84206269918644,
+    "Vos_est_V": 54.6359565651006,
+    "Vds_peak_V": 904.6359565651006,
+    "margin_to_1200V_V": 295.3640434348994,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 850.0,
+    "I_A": 19.578124999999883,
+    "t_fall_ns": 20.0,
+    "didt_A_per_ns": 0.9789062499999942,
+    "Vos_Ldidt_V": 27.3179782825503,
+    "Vos_Z0_bound_V": 250.84206269918644,
+    "Vos_est_V": 27.3179782825503,
+    "Vds_peak_V": 877.3179782825503,
+    "margin_to_1200V_V": 322.6820217174497,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 850.0,
+    "I_A": 19.578124999999883,
+    "t_fall_ns": 40.0,
+    "didt_A_per_ns": 0.4894531249999971,
+    "Vos_Ldidt_V": 13.65898914127515,
+    "Vos_Z0_bound_V": 250.84206269918644,
+    "Vos_est_V": 13.65898914127515,
+    "Vds_peak_V": 863.6589891412751,
+    "margin_to_1200V_V": 336.34101085872487,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 850.0,
+    "I_A": 32.0,
+    "t_fall_ns": 5.0,
+    "didt_A_per_ns": 6.4,
+    "Vos_Ldidt_V": 178.60245657673855,
+    "Vos_Z0_bound_V": 409.9956459760071,
+    "Vos_est_V": 178.60245657673855,
+    "Vds_peak_V": 1028.6024565767386,
+    "margin_to_1200V_V": 171.39754342326145,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 850.0,
+    "I_A": 32.0,
+    "t_fall_ns": 10.0,
+    "didt_A_per_ns": 3.2,
+    "Vos_Ldidt_V": 89.30122828836927,
+    "Vos_Z0_bound_V": 409.9956459760071,
+    "Vos_est_V": 89.30122828836927,
+    "Vds_peak_V": 939.3012282883693,
+    "margin_to_1200V_V": 260.69877171163074,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 850.0,
+    "I_A": 32.0,
+    "t_fall_ns": 20.0,
+    "didt_A_per_ns": 1.6,
+    "Vos_Ldidt_V": 44.65061414418464,
+    "Vos_Z0_bound_V": 409.9956459760071,
+    "Vos_est_V": 44.65061414418464,
+    "Vds_peak_V": 894.6506141441846,
+    "margin_to_1200V_V": 305.34938585581534,
+    "f_ring_MHz": 73.07047725314983
+   },
+   {
+    "V_dc": 850.0,
+    "I_A": 32.0,
+    "t_fall_ns": 40.0,
+    "didt_A_per_ns": 0.8,
+    "Vos_Ldidt_V": 22.32530707209232,
+    "Vos_Z0_bound_V": 409.9956459760071,
+    "Vos_est_V": 22.32530707209232,
+    "Vds_peak_V": 872.3253070720923,
+    "margin_to_1200V_V": 327.6746929279077,
+    "f_ring_MHz": 73.07047725314983
+   }
+  ],
+  "LV_leg_C": [
+   {
+    "V_dc": 400.0,
+    "I_A": 19.500000000000096,
+    "t_fall_ns": 5.0,
+    "didt_A_per_ns": 3.900000000000019,
+    "Vos_Ldidt_V": 108.83587197645065,
+    "Vos_Z0_bound_V": 174.1222683527214,
+    "Vos_est_V": 108.83587197645065,
+    "Vds_peak_V": 508.8358719764507,
+    "margin_to_1200V_V": 691.1641280235493,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 400.0,
+    "I_A": 19.500000000000096,
+    "t_fall_ns": 10.0,
+    "didt_A_per_ns": 1.9500000000000095,
+    "Vos_Ldidt_V": 54.417935988225324,
+    "Vos_Z0_bound_V": 174.1222683527214,
+    "Vos_est_V": 54.417935988225324,
+    "Vds_peak_V": 454.41793598822534,
+    "margin_to_1200V_V": 745.5820640117747,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 400.0,
+    "I_A": 19.500000000000096,
+    "t_fall_ns": 20.0,
+    "didt_A_per_ns": 0.9750000000000048,
+    "Vos_Ldidt_V": 27.208967994112662,
+    "Vos_Z0_bound_V": 174.1222683527214,
+    "Vos_est_V": 27.208967994112662,
+    "Vds_peak_V": 427.20896799411264,
+    "margin_to_1200V_V": 772.7910320058874,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 400.0,
+    "I_A": 19.500000000000096,
+    "t_fall_ns": 40.0,
+    "didt_A_per_ns": 0.4875000000000024,
+    "Vos_Ldidt_V": 13.604483997056331,
+    "Vos_Z0_bound_V": 174.1222683527214,
+    "Vos_est_V": 13.604483997056331,
+    "Vds_peak_V": 413.6044839970563,
+    "margin_to_1200V_V": 786.3955160029436,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 400.0,
+    "I_A": 39.156249999999766,
+    "t_fall_ns": 5.0,
+    "didt_A_per_ns": 7.831249999999954,
+    "Vos_Ldidt_V": 218.5438262604025,
+    "Vos_Z0_bound_V": 349.6397471890345,
+    "Vos_est_V": 218.5438262604025,
+    "Vds_peak_V": 618.5438262604025,
+    "margin_to_1200V_V": 581.4561737395975,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 400.0,
+    "I_A": 39.156249999999766,
+    "t_fall_ns": 10.0,
+    "didt_A_per_ns": 3.915624999999977,
+    "Vos_Ldidt_V": 109.27191313020126,
+    "Vos_Z0_bound_V": 349.6397471890345,
+    "Vos_est_V": 109.27191313020126,
+    "Vds_peak_V": 509.27191313020126,
+    "margin_to_1200V_V": 690.7280868697987,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 400.0,
+    "I_A": 39.156249999999766,
+    "t_fall_ns": 20.0,
+    "didt_A_per_ns": 1.9578124999999884,
+    "Vos_Ldidt_V": 54.63595656510063,
+    "Vos_Z0_bound_V": 349.6397471890345,
+    "Vos_est_V": 54.63595656510063,
+    "Vds_peak_V": 454.6359565651006,
+    "margin_to_1200V_V": 745.3640434348994,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 400.0,
+    "I_A": 39.156249999999766,
+    "t_fall_ns": 40.0,
+    "didt_A_per_ns": 0.9789062499999942,
+    "Vos_Ldidt_V": 27.317978282550314,
+    "Vos_Z0_bound_V": 349.6397471890345,
+    "Vos_est_V": 27.317978282550314,
+    "Vds_peak_V": 427.3179782825503,
+    "margin_to_1200V_V": 772.6820217174497,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 400.0,
+    "I_A": 64.0,
+    "t_fall_ns": 5.0,
+    "didt_A_per_ns": 12.8,
+    "Vos_Ldidt_V": 357.20491315347726,
+    "Vos_Z0_bound_V": 571.4782140807238,
+    "Vos_est_V": 357.20491315347726,
+    "Vds_peak_V": 757.2049131534773,
+    "margin_to_1200V_V": 442.79508684652274,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 400.0,
+    "I_A": 64.0,
+    "t_fall_ns": 10.0,
+    "didt_A_per_ns": 6.4,
+    "Vos_Ldidt_V": 178.60245657673863,
+    "Vos_Z0_bound_V": 571.4782140807238,
+    "Vos_est_V": 178.60245657673863,
+    "Vds_peak_V": 578.6024565767386,
+    "margin_to_1200V_V": 621.3975434232614,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 400.0,
+    "I_A": 64.0,
+    "t_fall_ns": 20.0,
+    "didt_A_per_ns": 3.2,
+    "Vos_Ldidt_V": 89.30122828836932,
+    "Vos_Z0_bound_V": 571.4782140807238,
+    "Vos_est_V": 89.30122828836932,
+    "Vds_peak_V": 489.3012282883693,
+    "margin_to_1200V_V": 710.6987717116307,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 400.0,
+    "I_A": 64.0,
+    "t_fall_ns": 40.0,
+    "didt_A_per_ns": 1.6,
+    "Vos_Ldidt_V": 44.65061414418466,
+    "Vos_Z0_bound_V": 571.4782140807238,
+    "Vos_est_V": 44.65061414418466,
+    "Vds_peak_V": 444.65061414418466,
+    "margin_to_1200V_V": 755.3493858558154,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 450.0,
+    "I_A": 19.500000000000096,
+    "t_fall_ns": 5.0,
+    "didt_A_per_ns": 3.900000000000019,
+    "Vos_Ldidt_V": 108.83587197645065,
+    "Vos_Z0_bound_V": 174.1222683527214,
+    "Vos_est_V": 108.83587197645065,
+    "Vds_peak_V": 558.8358719764507,
+    "margin_to_1200V_V": 641.1641280235493,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 450.0,
+    "I_A": 19.500000000000096,
+    "t_fall_ns": 10.0,
+    "didt_A_per_ns": 1.9500000000000095,
+    "Vos_Ldidt_V": 54.417935988225324,
+    "Vos_Z0_bound_V": 174.1222683527214,
+    "Vos_est_V": 54.417935988225324,
+    "Vds_peak_V": 504.41793598822534,
+    "margin_to_1200V_V": 695.5820640117747,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 450.0,
+    "I_A": 19.500000000000096,
+    "t_fall_ns": 20.0,
+    "didt_A_per_ns": 0.9750000000000048,
+    "Vos_Ldidt_V": 27.208967994112662,
+    "Vos_Z0_bound_V": 174.1222683527214,
+    "Vos_est_V": 27.208967994112662,
+    "Vds_peak_V": 477.20896799411264,
+    "margin_to_1200V_V": 722.7910320058874,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 450.0,
+    "I_A": 19.500000000000096,
+    "t_fall_ns": 40.0,
+    "didt_A_per_ns": 0.4875000000000024,
+    "Vos_Ldidt_V": 13.604483997056331,
+    "Vos_Z0_bound_V": 174.1222683527214,
+    "Vos_est_V": 13.604483997056331,
+    "Vds_peak_V": 463.6044839970563,
+    "margin_to_1200V_V": 736.3955160029436,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 450.0,
+    "I_A": 39.156249999999766,
+    "t_fall_ns": 5.0,
+    "didt_A_per_ns": 7.831249999999954,
+    "Vos_Ldidt_V": 218.5438262604025,
+    "Vos_Z0_bound_V": 349.6397471890345,
+    "Vos_est_V": 218.5438262604025,
+    "Vds_peak_V": 668.5438262604025,
+    "margin_to_1200V_V": 531.4561737395975,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 450.0,
+    "I_A": 39.156249999999766,
+    "t_fall_ns": 10.0,
+    "didt_A_per_ns": 3.915624999999977,
+    "Vos_Ldidt_V": 109.27191313020126,
+    "Vos_Z0_bound_V": 349.6397471890345,
+    "Vos_est_V": 109.27191313020126,
+    "Vds_peak_V": 559.2719131302013,
+    "margin_to_1200V_V": 640.7280868697987,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 450.0,
+    "I_A": 39.156249999999766,
+    "t_fall_ns": 20.0,
+    "didt_A_per_ns": 1.9578124999999884,
+    "Vos_Ldidt_V": 54.63595656510063,
+    "Vos_Z0_bound_V": 349.6397471890345,
+    "Vos_est_V": 54.63595656510063,
+    "Vds_peak_V": 504.6359565651006,
+    "margin_to_1200V_V": 695.3640434348994,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 450.0,
+    "I_A": 39.156249999999766,
+    "t_fall_ns": 40.0,
+    "didt_A_per_ns": 0.9789062499999942,
+    "Vos_Ldidt_V": 27.317978282550314,
+    "Vos_Z0_bound_V": 349.6397471890345,
+    "Vos_est_V": 27.317978282550314,
+    "Vds_peak_V": 477.3179782825503,
+    "margin_to_1200V_V": 722.6820217174497,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 450.0,
+    "I_A": 64.0,
+    "t_fall_ns": 5.0,
+    "didt_A_per_ns": 12.8,
+    "Vos_Ldidt_V": 357.20491315347726,
+    "Vos_Z0_bound_V": 571.4782140807238,
+    "Vos_est_V": 357.20491315347726,
+    "Vds_peak_V": 807.2049131534773,
+    "margin_to_1200V_V": 392.79508684652274,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 450.0,
+    "I_A": 64.0,
+    "t_fall_ns": 10.0,
+    "didt_A_per_ns": 6.4,
+    "Vos_Ldidt_V": 178.60245657673863,
+    "Vos_Z0_bound_V": 571.4782140807238,
+    "Vos_est_V": 178.60245657673863,
+    "Vds_peak_V": 628.6024565767386,
+    "margin_to_1200V_V": 571.3975434232614,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 450.0,
+    "I_A": 64.0,
+    "t_fall_ns": 20.0,
+    "didt_A_per_ns": 3.2,
+    "Vos_Ldidt_V": 89.30122828836932,
+    "Vos_Z0_bound_V": 571.4782140807238,
+    "Vos_est_V": 89.30122828836932,
+    "Vds_peak_V": 539.3012282883693,
+    "margin_to_1200V_V": 660.6987717116307,
+    "f_ring_MHz": 50.92515768460122
+   },
+   {
+    "V_dc": 450.0,
+    "I_A": 64.0,
+    "t_fall_ns": 40.0,
+    "didt_A_per_ns": 1.6,
+    "Vos_Ldidt_V": 44.65061414418466,
+    "Vos_Z0_bound_V": 571.4782140807238,
+    "Vos_est_V": 44.65061414418466,
+    "Vds_peak_V": 494.65061414418466,
+    "margin_to_1200V_V": 705.3493858558154,
+    "f_ring_MHz": 50.92515768460122
+   }
+  ]
+ },
+ "literature": [
+  {
+   "item": "TO-247 package D-S partial inductance (one device)",
+   "typical_range_nH": "7 - 15",
+   "this_work_nH": "12.6",
+   "source": "typical range reported in literature / vendor application notes on TO-247 SiC layout; not measured here"
+  },
+  {
+   "item": "discrete TO-247 half-bridge commutation loop (PCB, MLCC decoupling)",
+   "typical_range_nH": "20 - 60",
+   "this_work_nH": "28 - 36",
+   "source": "typical range reported in literature, not measured here"
+  },
+  {
+   "item": "TO-247-4 (Kelvin) gate loop with driver within ~20 mm",
+   "typical_range_nH": "10 - 30",
+   "this_work_nH": "109",
+   "source": "typical range reported in literature, not measured here; this board places the driver ~100 mm away at the isolation barrier"
+  },
+  {
+   "item": "SMD (TO-263-7 / D2PAK-7) half-bridge loop",
+   "typical_range_nH": "5 - 15",
+   "this_work_nH": "n/a",
+   "source": "typical range reported in literature, not measured here"
+  },
+  {
+   "item": "power module (DBC, integrated DC link) loop",
+   "typical_range_nH": "2 - 10",
+   "this_work_nH": "n/a",
+   "source": "typical range reported in literature, not measured here"
+  }
+ ],
+ "wall_s": 0.8223578929901123,
+ "maturity": "L1 (analytical from geometry; no field solver, no measurement)"
+}

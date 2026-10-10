@@ -1,0 +1,35 @@
+DAB control core SIL test (fs=100000 Hz, L=64.0 uH, kp=1689, ki=1.27e+06)
+  startup: v2_end=400.00 overshoot=0.4% step dip=0.37% rise=0.01% state=3 fault=0
+PASS  scenario 1: reaches RUN without fault
+PASS  scenario 1: steady-state regulation within +/-1 % (EL-08)
+PASS  scenario 1: 50 % load step deviation < 3 % (EL-10)
+PASS  scenario 1: start-up overshoot < 5 %
+  reversal: v1 798.3..802.6  v2 398.2..401.1  state=3 fault=0
+PASS  scenario 2: reversal without fault
+PASS  scenario 2: full reverse phase shift reached within 20 ms (EL-11)
+PASS  scenario 2: link excursions < 5 % during reversal
+PASS  scenario 3: V1 over-voltage -> FAULT latched, gates off, logged
+PASS  scenario 3: fault stays latched
+PASS  scenario 3: re-faults while the condition persists
+PASS  scenario 3: inductor over-current -> FAULT latched, gates off, logged
+PASS  scenario 3: fault stays latched
+PASS  scenario 3: re-faults while the condition persists
+PASS  scenario 3: driver fault -> FAULT latched, gates off, logged
+PASS  scenario 3: fault stays latched
+PASS  scenario 3: re-faults while the condition persists
+PASS  scenario 3: communication loss -> FAULT latched, gates off, logged
+PASS  scenario 3: fault stays latched
+PASS  scenario 3: re-faults while the condition persists
+PASS  scenario 3: over-temperature -> FAULT latched, gates off, logged
+PASS  scenario 3: fault stays latched
+PASS  scenario 3: re-faults while the condition persists
+PASS  scenario 3: precharge timeout (5 s) -> FLT_PRECHARGE
+  dead-bus: v2_end=400.0 ipk_max=20.2 A fault=0
+PASS  scenario 4: dead-bus start reaches 400 V without fault
+PASS  scenario 4: inductor peak stays below the hardware limit (EPS matching)
+PASS  scenario 5: telemetry frame CRC-16 consistent
+PASS  scenario 5: CP command parsed
+PASS  scenario 5: out-of-range reference rejected
+PASS  scenario 5: unknown command rejected
+PASS  scenario 5: enable command
+RESULT: ALL PASS (0 failures)

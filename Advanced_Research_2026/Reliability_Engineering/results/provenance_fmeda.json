@@ -1,0 +1,12 @@
+{
+ "script": "fmeda_lite.py",
+ "python": "3.13.16",
+ "numpy": "2.5.3",
+ "git_commit": "480059cb65417df589d941641655e3d19e3f84d8",
+ "wall_time_s": 0.0,
+ "deterministic": "no random numbers",
+ "inputs": {
+  "SiC_6k6_Industrial_DAB/15_Safety_Reliability/02_FMEA.csv": "62165b72ef79e854",
+  "SiC_6k6_Industrial_DAB/16_BOM/bom.csv": "d72a9fc594c9c2eb"
+ }
+}

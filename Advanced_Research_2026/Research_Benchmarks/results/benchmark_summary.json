@@ -1,0 +1,44 @@
+{
+ "n_rows": 7,
+ "literature_ids": [
+  "L01",
+  "L06",
+  "L07",
+  "L23",
+  "L25"
+ ],
+ "confirmed_ids": [
+  "L01",
+  "L06",
+  "L07",
+  "L23"
+ ],
+ "unverified_ids": [
+  "L25"
+ ],
+ "ours": {
+  "dab": {
+   "eta_peak_pct": 98.66258065130532,
+   "eta_peak_load_pct": 80.0,
+   "eta_full_pct": 98.62273959273409,
+   "eta_worst_corner_pct": 97.92381156341922,
+   "power_density_kW_L_estimate": 1.1092436974789914,
+   "boxed_volume_L": 5.950000000000001
+  },
+  "psfb": {
+   "eta_peak_pct": 97.59417552423213,
+   "eta_peak_load_pct": 47.0,
+   "eta_full_pct": 97.05282908996797,
+   "power_density_kW_L_estimate": 1.1538461538461535,
+   "boxed_volume_L": 2.6000000000000005,
+   "loss_split_W": {
+    "fixed": 13.7,
+    "linear": 15.900000000000002,
+    "quadratic": 61.499999999999986,
+    "total": 91.1
+   }
+  }
+ },
+ "literature_db_entries": 29,
+ "literature_db_confirmed": 14
+}

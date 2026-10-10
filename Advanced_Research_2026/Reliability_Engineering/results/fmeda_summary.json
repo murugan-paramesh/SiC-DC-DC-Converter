@@ -1,0 +1,44 @@
+{
+ "OV_HV": {
+  "lambda_S_FIT": 6.5,
+  "lambda_DD_FIT": 19.9,
+  "lambda_DU_FIT": 36.8,
+  "DC": 0.351,
+  "SFF": 0.418
+ },
+ "OV_LV": {
+  "lambda_S_FIT": 6.5,
+  "lambda_DD_FIT": 19.36,
+  "lambda_DU_FIT": 36.54,
+  "DC": 0.346,
+  "SFF": 0.414
+ },
+ "OC": {
+  "lambda_S_FIT": 3.64,
+  "lambda_DD_FIT": 10.0,
+  "lambda_DU_FIT": 16.56,
+  "DC": 0.377,
+  "SFF": 0.452
+ },
+ "OT": {
+  "lambda_S_FIT": 0.8,
+  "lambda_DD_FIT": 10.0,
+  "lambda_DU_FIT": 11.4,
+  "DC": 0.467,
+  "SFF": 0.486
+ },
+ "INTERLOCK": {
+  "lambda_S_FIT": 38.5,
+  "lambda_DD_FIT": 0.0,
+  "lambda_DU_FIT": 17.5,
+  "DC": 0.0,
+  "SFF": 0.688
+ },
+ "DESAT_SC": {
+  "lambda_S_FIT": 8.0,
+  "lambda_DD_FIT": 0.0,
+  "lambda_DU_FIT": 3.0,
+  "DC": 0.0,
+  "SFF": 0.727
+ }
+}

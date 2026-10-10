@@ -1,0 +1,36 @@
+{
+ "script": "02_estimators_and_detection.py",
+ "python": "3.13.16",
+ "numpy": "2.5.3",
+ "matplotlib": "3.11.2",
+ "git_commit": "0810f0ff9ed3c424ed826de6e58a4073b1f3f24b",
+ "seed": 20261011,
+ "wall_time_s": 12.81,
+ "inputs": {
+  "Advanced_Research_2026/SiC_Health_Monitoring/01_generate_synthetic_data.py": "b2453efbe0af5242",
+  "SiC_6k6_Industrial_DAB/dabtools/dab/devices.py": "bccad660fcf2d85f",
+  "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f4271"
+ },
+ "outputs": [
+  "SYNTHETIC_generator_params.json",
+  "SYNTHETIC_meas_degrading_case_sensor.csv",
+  "SYNTHETIC_meas_degrading_heatsink_ntc.csv",
+  "SYNTHETIC_meas_degrading_junction_model.csv",
+  "SYNTHETIC_meas_healthy_case_sensor.csv",
+  "SYNTHETIC_meas_healthy_heatsink_ntc.csv",
+  "SYNTHETIC_meas_healthy_junction_model.csv",
+  "SYNTHETIC_mission_degrading.csv",
+  "SYNTHETIC_mission_healthy.csv",
+  "SYNTHETIC_truth_degrading.csv",
+  "SYNTHETIC_truth_healthy.csv",
+  "detection_results.json",
+  "detection_tables.md",
+  "fig_detection_vs_false_alarm.png",
+  "fig_estimators_demo.png",
+  "fig_sensor_requirement.png",
+  "fig_synthetic_truth.png",
+  "provenance.json",
+  "provenance_generator.json"
+ ],
+ "data_label": "SYNTHETIC"
+}

@@ -1,0 +1,29 @@
+{
+ "module": "Advanced_Research_2026/FEM_Magnetics",
+ "script": "run_fem_magnetics.py",
+ "python": "3.13.16",
+ "numpy": "2.5.3",
+ "scipy": "1.18.1",
+ "matplotlib": "3.11.2",
+ "git_commit": "480059cb65417df589d941641655e3d19e3f84d8",
+ "inputs": {
+  "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f42717ab0d2f0b414addf6a331caaf3d51323f78e73851ebde253",
+  "SiC_6k6_Industrial_DAB/dabtools/dab/magnetics.py": "50c89d1d9b83523dfc495e7ac232260243798c5ad9a4df5684dda67be29cca62",
+  "Advanced_Research_2026/FEM_Magnetics/fd_magnetostatic.py": "f760bb12888512e586402713a55ee8588e9e37b5c27c02145e05071883a7d450"
+ },
+ "wall_time_s": 122.05980443954468,
+ "generated": "2026-10-10 03:06:18",
+ "deterministic": true,
+ "outputs": [
+  "fem_results.json",
+  "fig_field_planar.png",
+  "fig_field_wound_interleaved.png",
+  "fig_field_wound_noninterleaved.png",
+  "fig_pareto.png",
+  "fig_validation_convergence.png",
+  "pareto_variants.csv",
+  "run_log.txt",
+  "validation_dowell.csv",
+  "validation_leakage_convergence.csv"
+ ]
+}

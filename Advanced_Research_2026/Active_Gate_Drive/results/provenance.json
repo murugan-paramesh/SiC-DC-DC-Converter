@@ -1,0 +1,24 @@
+{
+ "script": "gate_drive_analysis.py",
+ "python": "3.13.16",
+ "numpy": "2.5.3",
+ "matplotlib": "3.11.2",
+ "git_commit": "472e35cbd0b846b38f6315636ead0149a5f6fb99",
+ "wall_time_s": 2.73,
+ "deterministic": "no random numbers",
+ "inputs": {
+  "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f4271",
+  "SiC_6k6_Industrial_DAB/dabtools/dab/devices.py": "bccad660fcf2d85f",
+  "SiC_6k6_Industrial_DAB/16_BOM/bom.csv": "d72a9fc594c9c2eb",
+  "SiC_6k6_Industrial_DAB/07_KiCad_Schematics/gate_drive.kicad_sch": "763d6d7cbf357250"
+ },
+ "outputs": [
+  "fig_crosstalk_margin.png",
+  "fig_dvdt_vs_rg.png",
+  "fig_loss_vs_rg.png",
+  "fig_tradeoff_map.png",
+  "gate_drive_results.json",
+  "option_table.md",
+  "provenance.json"
+ ]
+}

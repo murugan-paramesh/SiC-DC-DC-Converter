@@ -1,0 +1,1653 @@
+{
+ "TE1_hazardous_voltage_accessible": {
+  "top": "TE1_hazardous_voltage_accessible",
+  "n_cut_sets": 6,
+  "min_order": 1,
+  "frequency_per_h": 1.600017523504e-08,
+  "frequency_per_year": 0.0001401615350589504,
+  "probability_10y": 0.0014006335465513997,
+  "cut_sets": [
+   {
+    "cut_set": [
+     "ISO_BIAS"
+    ],
+    "order": 1,
+    "frequency_per_h": 8e-09,
+    "unavailability": 3.8400000000000005e-07,
+    "share": 0.4999945239649746
+   },
+   {
+    "cut_set": [
+     "ISO_DRV"
+    ],
+    "order": 1,
+    "frequency_per_h": 4e-09,
+    "unavailability": 1.9200000000000003e-07,
+    "share": 0.2499972619824873
+   },
+   {
+    "cut_set": [
+     "ISO_AMC"
+    ],
+    "order": 1,
+    "frequency_per_h": 3.5000000000000003e-09,
+    "unavailability": 1.6800000000000002e-07,
+    "share": 0.2187476042346764
+   },
+   {
+    "cut_set": [
+     "ISO_PCB"
+    ],
+    "order": 1,
+    "frequency_per_h": 5e-10,
+    "unavailability": 2.4000000000000003e-08,
+    "share": 0.031249657747810914
+   },
+   {
+    "cut_set": [
+     "DEV_PAD",
+     "PE_BOND"
+    ],
+    "order": 2,
+    "frequency_per_h": 1.7520000000000003e-13,
+    "unavailability": 3.8368800000000003e-10,
+    "share": 1.0949880074832945e-05
+   },
+   {
+    "cut_set": [
+     "ACCESS",
+     "ACT_DIS",
+     "BLEED"
+    ],
+    "order": 3,
+    "frequency_per_h": 3.504000000000001e-17,
+    "unavailability": 7.673760000000001e-14,
+    "share": 2.1899760149665894e-09
+   }
+  ],
+  "fussell_vesely": {
+   "ISO_BIAS": 0.4999945239649746,
+   "ISO_DRV": 0.2499972619824873,
+   "ISO_AMC": 0.2187476042346764,
+   "ISO_PCB": 0.031249657747810914,
+   "DEV_PAD": 1.0949880074832945e-05,
+   "PE_BOND": 1.0949880074832945e-05,
+   "ACCESS": 2.1899760149665894e-09,
+   "ACT_DIS": 2.1899760149665894e-09,
+   "BLEED": 2.1899760149665894e-09
+  }
+ },
+ "TE2_uncontrolled_energy_overcurrent": {
+  "top": "TE2_uncontrolled_energy_overcurrent",
+  "n_cut_sets": 21,
+  "min_order": 2,
+  "frequency_per_h": 2.2001866052378163e-08,
+  "frequency_per_year": 0.0001927363466188327,
+  "probability_10y": 0.001925507293920603,
+  "cut_sets": [
+   {
+    "cut_set": [
+     "DRV_HIGH",
+     "NO_DESAT"
+    ],
+    "order": 2,
+    "frequency_per_h": 8e-09,
+    "unavailability": 3.8400000000000005e-07,
+    "share": 0.36360552241137234
+   },
+   {
+    "cut_set": [
+     "MCU",
+     "NO_DESAT"
+    ],
+    "order": 2,
+    "frequency_per_h": 5.000000000000001e-09,
+    "unavailability": 2.4000000000000003e-07,
+    "share": 0.22725345150710774
+   },
+   {
+    "cut_set": [
+     "NO_DESAT",
+     "XTALK"
+    ],
+    "order": 2,
+    "frequency_per_h": 5e-09,
+    "unavailability": 2.4000000000000003e-07,
+    "share": 0.2272534515071077
+   },
+   {
+    "cut_set": [
+     "DRV_UVLO_LOSS",
+     "NO_DESAT"
+    ],
+    "order": 2,
+    "frequency_per_h": 4e-09,
+    "unavailability": 1.9200000000000003e-07,
+    "share": 0.18180276120568617
+   },
+   {
+    "cut_set": [
+     "CT_FAIL",
+     "LOAD_SHORT"
+    ],
+    "order": 2,
+    "frequency_per_h": 9.7416e-13,
+    "unavailability": 4.625280000000001e-11,
+    "share": 4.4276244464032806e-05
+   },
+   {
+    "cut_set": [
+     "MCU",
+     "TZ_CFG"
+    ],
+    "order": 2,
+    "frequency_per_h": 5.000000000000001e-13,
+    "unavailability": 2.4000000000000004e-11,
+    "share": 2.2725345150710774e-05
+   },
+   {
+    "cut_set": [
+     "CTRL_FAIL",
+     "CT_FAIL"
+    ],
+    "order": 2,
+    "frequency_per_h": 1.94832e-13,
+    "unavailability": 9.250560000000002e-12,
+    "share": 8.855248892806561e-06
+   },
+   {
+    "cut_set": [
+     "CMP_OC",
+     "MCU"
+    ],
+    "order": 2,
+    "frequency_per_h": 5.535000000000001e-14,
+    "unavailability": 2.6280000000000005e-12,
+    "share": 2.515695708183683e-06
+   },
+   {
+    "cut_set": [
+     "CT_FAIL",
+     "MCU"
+    ],
+    "order": 2,
+    "frequency_per_h": 4.870800000000001e-14,
+    "unavailability": 2.3126400000000005e-12,
+    "share": 2.2138122232016407e-06
+   },
+   {
+    "cut_set": [
+     "CT_FAIL",
+     "XFMR_SAT"
+    ],
+    "order": 2,
+    "frequency_per_h": 4.8708e-14,
+    "unavailability": 2.3126400000000005e-12,
+    "share": 2.2138122232016403e-06
+   },
+   {
+    "cut_set": [
+     "LOGIC_OR",
+     "MCU"
+    ],
+    "order": 2,
+    "frequency_per_h": 4.4280000000000014e-14,
+    "unavailability": 2.1024000000000004e-12,
+    "share": 2.0125565665469463e-06
+   },
+   {
+    "cut_set": [
+     "FW_IPK",
+     "LOAD_SHORT",
+     "TZ_CFG"
+    ],
+    "order": 3,
+    "frequency_per_h": 9.600000000000003e-18,
+    "unavailability": 2.3040000000000006e-16,
+    "share": 4.3632662689364694e-10
+   },
+   {
+    "cut_set": [
+     "CTRL_FAIL",
+     "FW_IPK",
+     "TZ_CFG"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.9200000000000006e-18,
+    "unavailability": 4.6080000000000014e-17,
+    "share": 8.726532537872938e-11
+   },
+   {
+    "cut_set": [
+     "CMP_OC",
+     "FW_IPK",
+     "LOAD_SHORT"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.0569600000000001e-18,
+    "unavailability": 2.522880000000001e-17,
+    "share": 4.803956162099052e-11
+   },
+   {
+    "cut_set": [
+     "FW_IPK",
+     "LOAD_SHORT",
+     "LOGIC_OR"
+    ],
+    "order": 3,
+    "frequency_per_h": 8.455680000000002e-19,
+    "unavailability": 2.0183040000000006e-17,
+    "share": 3.8431649296792415e-11
+   },
+   {
+    "cut_set": [
+     "FW_IPK",
+     "TZ_CFG",
+     "XFMR_SAT"
+    ],
+    "order": 3,
+    "frequency_per_h": 4.800000000000001e-19,
+    "unavailability": 1.1520000000000003e-17,
+    "share": 2.1816331344682346e-11
+   },
+   {
+    "cut_set": [
+     "CMP_OC",
+     "CTRL_FAIL",
+     "FW_IPK"
+    ],
+    "order": 3,
+    "frequency_per_h": 2.1139200000000004e-19,
+    "unavailability": 5.0457600000000016e-18,
+    "share": 9.607912324198104e-12
+   },
+   {
+    "cut_set": [
+     "CTRL_FAIL",
+     "FW_IPK",
+     "LOGIC_OR"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.6911360000000001e-19,
+    "unavailability": 4.036608000000001e-18,
+    "share": 7.686329859358483e-12
+   },
+   {
+    "cut_set": [
+     "CMP_OC",
+     "FW_IPK",
+     "XFMR_SAT"
+    ],
+    "order": 3,
+    "frequency_per_h": 5.284800000000001e-20,
+    "unavailability": 1.2614400000000004e-18,
+    "share": 2.401978081049526e-12
+   },
+   {
+    "cut_set": [
+     "FW_IPK",
+     "LOGIC_OR",
+     "XFMR_SAT"
+    ],
+    "order": 3,
+    "frequency_per_h": 4.2278400000000004e-20,
+    "unavailability": 1.0091520000000003e-18,
+    "share": 1.9215824648396208e-12
+   },
+   {
+    "cut_set": [
+     "NO_DESAT",
+     "SW_PWM"
+    ],
+    "order": 2,
+    "frequency_per_h": 0.0,
+    "unavailability": 0.0001,
+    "share": 0.0
+   }
+  ],
+  "fussell_vesely": {
+   "NO_DESAT": 0.999915186631274,
+   "DRV_HIGH": 0.36360552241137234,
+   "MCU": 0.2272829189167564,
+   "XTALK": 0.2272534515071077,
+   "DRV_UVLO_LOSS": 0.18180276120568617,
+   "CT_FAIL": 5.755911780324265e-05,
+   "LOAD_SHORT": 4.4276767261870616e-05,
+   "TZ_CFG": 2.272589055899439e-05,
+   "CTRL_FAIL": 8.855353452374124e-06,
+   "CMP_OC": 2.515755757635709e-06,
+   "XFMR_SAT": 2.213838363093531e-06,
+   "LOGIC_OR": 2.012604606108567e-06,
+   "FW_IPK": 6.534972972642874e-10,
+   "SW_PWM": 0.0
+  }
+ },
+ "TE2b_overcurrent_and_fuse_fails": {
+  "top": "TE2b_overcurrent_and_fuse_fails",
+  "n_cut_sets": 21,
+  "min_order": 3,
+  "frequency_per_h": 1.9742426216880115e-13,
+  "frequency_per_year": 1.7294365365986981e-09,
+  "probability_10y": 1.7294365273201606e-08,
+  "cut_sets": [
+   {
+    "cut_set": [
+     "FUSE",
+     "NO_DESAT",
+     "SW_PWM"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.0000000000000002e-13,
+    "unavailability": 4.3800000000000004e-10,
+    "share": 0.5065233568632932
+   },
+   {
+    "cut_set": [
+     "DRV_HIGH",
+     "FUSE",
+     "NO_DESAT"
+    ],
+    "order": 3,
+    "frequency_per_h": 3.542400000000001e-14,
+    "unavailability": 1.6819200000000004e-12,
+    "share": 0.179430833935253
+   },
+   {
+    "cut_set": [
+     "FUSE",
+     "MCU",
+     "NO_DESAT"
+    ],
+    "order": 3,
+    "frequency_per_h": 2.2140000000000007e-14,
+    "unavailability": 1.0512000000000002e-12,
+    "share": 0.11214427120953313
+   },
+   {
+    "cut_set": [
+     "FUSE",
+     "NO_DESAT",
+     "XTALK"
+    ],
+    "order": 3,
+    "frequency_per_h": 2.2140000000000004e-14,
+    "unavailability": 1.0512000000000002e-12,
+    "share": 0.11214427120953312
+   },
+   {
+    "cut_set": [
+     "DRV_UVLO_LOSS",
+     "FUSE",
+     "NO_DESAT"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.7712000000000004e-14,
+    "unavailability": 8.409600000000002e-13,
+    "share": 0.0897154169676265
+   },
+   {
+    "cut_set": [
+     "CT_FAIL",
+     "FUSE",
+     "LOAD_SHORT"
+    ],
+    "order": 3,
+    "frequency_per_h": 4.3130736000000016e-18,
+    "unavailability": 2.0258726400000008e-16,
+    "share": 2.1846725182704492e-05
+   },
+   {
+    "cut_set": [
+     "FUSE",
+     "MCU",
+     "TZ_CFG"
+    ],
+    "order": 3,
+    "frequency_per_h": 2.2140000000000007e-18,
+    "unavailability": 1.0512000000000002e-16,
+    "share": 1.1214427120953313e-05
+   },
+   {
+    "cut_set": [
+     "CTRL_FAIL",
+     "CT_FAIL",
+     "FUSE"
+    ],
+    "order": 3,
+    "frequency_per_h": 8.626147200000002e-19,
+    "unavailability": 4.051745280000001e-17,
+    "share": 4.369345036540898e-06
+   },
+   {
+    "cut_set": [
+     "CMP_OC",
+     "FUSE",
+     "MCU"
+    ],
+    "order": 3,
+    "frequency_per_h": 2.4506100000000007e-19,
+    "unavailability": 1.1510640000000003e-17,
+    "share": 1.241291203562755e-06
+   },
+   {
+    "cut_set": [
+     "CT_FAIL",
+     "FUSE",
+     "MCU"
+    ],
+    "order": 3,
+    "frequency_per_h": 2.156536800000001e-19,
+    "unavailability": 1.0129363200000003e-17,
+    "share": 1.0923362591352246e-06
+   },
+   {
+    "cut_set": [
+     "CT_FAIL",
+     "FUSE",
+     "XFMR_SAT"
+    ],
+    "order": 3,
+    "frequency_per_h": 2.1565368000000005e-19,
+    "unavailability": 1.0129363200000003e-17,
+    "share": 1.0923362591352244e-06
+   },
+   {
+    "cut_set": [
+     "FUSE",
+     "LOGIC_OR",
+     "MCU"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.9604880000000005e-19,
+    "unavailability": 9.208512000000002e-18,
+    "share": 9.93032962850204e-07
+   },
+   {
+    "cut_set": [
+     "FUSE",
+     "FW_IPK",
+     "LOAD_SHORT",
+     "TZ_CFG"
+    ],
+    "order": 4,
+    "frequency_per_h": 4.227840000000001e-23,
+    "unavailability": 1.0091520000000002e-21,
+    "share": 2.1414997090809056e-10
+   },
+   {
+    "cut_set": [
+     "CTRL_FAIL",
+     "FUSE",
+     "FW_IPK",
+     "TZ_CFG"
+    ],
+    "order": 4,
+    "frequency_per_h": 8.45568e-24,
+    "unavailability": 2.0183040000000006e-22,
+    "share": 4.28299941816181e-11
+   },
+   {
+    "cut_set": [
+     "CMP_OC",
+     "FUSE",
+     "FW_IPK",
+     "LOAD_SHORT"
+    ],
+    "order": 4,
+    "frequency_per_h": 4.654713600000002e-24,
+    "unavailability": 1.1050214400000004e-22,
+    "share": 2.3577211579092248e-11
+   },
+   {
+    "cut_set": [
+     "FUSE",
+     "FW_IPK",
+     "LOAD_SHORT",
+     "LOGIC_OR"
+    ],
+    "order": 4,
+    "frequency_per_h": 3.723770880000002e-24,
+    "unavailability": 8.840171520000004e-23,
+    "share": 1.8861769263273798e-11
+   },
+   {
+    "cut_set": [
+     "FUSE",
+     "FW_IPK",
+     "TZ_CFG",
+     "XFMR_SAT"
+    ],
+    "order": 4,
+    "frequency_per_h": 2.11392e-24,
+    "unavailability": 5.0457600000000016e-23,
+    "share": 1.0707498545404525e-11
+   },
+   {
+    "cut_set": [
+     "CMP_OC",
+     "CTRL_FAIL",
+     "FUSE",
+     "FW_IPK"
+    ],
+    "order": 4,
+    "frequency_per_h": 9.309427200000002e-25,
+    "unavailability": 2.210042880000001e-23,
+    "share": 4.715442315818449e-12
+   },
+   {
+    "cut_set": [
+     "CTRL_FAIL",
+     "FUSE",
+     "FW_IPK",
+     "LOGIC_OR"
+    ],
+    "order": 4,
+    "frequency_per_h": 7.447541760000002e-25,
+    "unavailability": 1.768034304000001e-23,
+    "share": 3.772353852654759e-12
+   },
+   {
+    "cut_set": [
+     "CMP_OC",
+     "FUSE",
+     "FW_IPK",
+     "XFMR_SAT"
+    ],
+    "order": 4,
+    "frequency_per_h": 2.3273568000000006e-25,
+    "unavailability": 5.5251072000000024e-24,
+    "share": 1.1788605789546122e-12
+   },
+   {
+    "cut_set": [
+     "FUSE",
+     "FW_IPK",
+     "LOGIC_OR",
+     "XFMR_SAT"
+    ],
+    "order": 4,
+    "frequency_per_h": 1.8618854400000005e-25,
+    "unavailability": 4.4200857600000025e-24,
+    "share": 9.430884631636898e-13
+   }
+  ],
+  "fussell_vesely": {
+   "FUSE": 1.0,
+   "NO_DESAT": 0.9999581501852389,
+   "SW_PWM": 0.5065233568632932,
+   "DRV_HIGH": 0.179430833935253,
+   "MCU": 0.11215881229707964,
+   "XTALK": 0.11214427120953312,
+   "DRV_UVLO_LOSS": 0.0897154169676265,
+   "CT_FAIL": 2.8400742737515838e-05,
+   "LOAD_SHORT": 2.1846981771656245e-05,
+   "TZ_CFG": 1.1214694808416947e-05,
+   "CTRL_FAIL": 4.369396354331248e-06,
+   "CMP_OC": 1.2413206750772289e-06,
+   "XFMR_SAT": 1.092349088582812e-06,
+   "LOGIC_OR": 9.930565400617832e-07,
+   "FW_IPK": 3.207361896880707e-10
+  }
+ },
+ "TE3_thermal_runaway": {
+  "top": "TE3_thermal_runaway",
+  "n_cut_sets": 15,
+  "min_order": 3,
+  "frequency_per_h": 1.9188401688000003e-13,
+  "frequency_per_year": 1.6809039878688002e-09,
+  "probability_10y": 1.6809039715681706e-08,
+  "cut_sets": [
+   {
+    "cut_set": [
+     "FAN",
+     "HOST",
+     "NTC"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.4115513600000002e-13,
+    "unavailability": 6.630128640000001e-12,
+    "share": 0.7356273768662831
+   },
+   {
+    "cut_set": [
+     "FAN",
+     "FW_OT",
+     "HOST"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.2683520000000003e-14,
+    "unavailability": 3.027456000000001e-13,
+    "share": 0.0660999295628254
+   },
+   {
+    "cut_set": [
+     "CLOG",
+     "FW_OT",
+     "HOST"
+    ],
+    "order": 3,
+    "frequency_per_h": 9.802440000000002e-15,
+    "unavailability": 4.604256000000003e-13,
+    "share": 0.051085234504603
+   },
+   {
+    "cut_set": [
+     "CLOG",
+     "HOST",
+     "NTC"
+    ],
+    "order": 3,
+    "frequency_per_h": 6.9063840000000025e-15,
+    "unavailability": 1.0083320640000002e-11,
+    "share": 0.03599249229975783
+   },
+   {
+    "cut_set": [
+     "FAN",
+     "HOST",
+     "MCU"
+    ],
+    "order": 3,
+    "frequency_per_h": 6.3417600000000015e-15,
+    "unavailability": 1.5137280000000004e-13,
+    "share": 0.0330499647814127
+   },
+   {
+    "cut_set": [
+     "CLOG",
+     "HOST",
+     "MCU"
+    ],
+    "order": 3,
+    "frequency_per_h": 4.901220000000002e-15,
+    "unavailability": 2.302128000000001e-13,
+    "share": 0.025542617252301506
+   },
+   {
+    "cut_set": [
+     "AMB_HI",
+     "HOST",
+     "NTC"
+    ],
+    "order": 3,
+    "frequency_per_h": 4.705171200000002e-15,
+    "unavailability": 2.2100428800000005e-13,
+    "share": 0.024520912562209445
+   },
+   {
+    "cut_set": [
+     "FW_OT",
+     "HOST",
+     "TIM"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.9604880000000004e-15,
+    "unavailability": 9.208512000000002e-14,
+    "share": 0.010217046900920599
+   },
+   {
+    "cut_set": [
+     "HOST",
+     "NTC",
+     "TIM"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.3812768e-15,
+    "unavailability": 2.0166641280000003e-12,
+    "share": 0.007198498459951563
+   },
+   {
+    "cut_set": [
+     "HOST",
+     "MCU",
+     "TIM"
+    ],
+    "order": 3,
+    "frequency_per_h": 9.802440000000002e-16,
+    "unavailability": 4.6042560000000005e-14,
+    "share": 0.0051085234504602995
+   },
+   {
+    "cut_set": [
+     "AMB_HI",
+     "FW_OT",
+     "HOST"
+    ],
+    "order": 3,
+    "frequency_per_h": 4.2278400000000006e-16,
+    "unavailability": 1.0091520000000003e-14,
+    "share": 0.0022033309854275133
+   },
+   {
+    "cut_set": [
+     "AMB_HI",
+     "HOST",
+     "MCU"
+    ],
+    "order": 3,
+    "frequency_per_h": 2.1139200000000005e-16,
+    "unavailability": 5.045760000000002e-15,
+    "share": 0.0011016654927137567
+   },
+   {
+    "cut_set": [
+     "FW_OT",
+     "HOST",
+     "RDS_DEG"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.9604880000000002e-16,
+    "unavailability": 9.208512000000002e-15,
+    "share": 0.00102170469009206
+   },
+   {
+    "cut_set": [
+     "HOST",
+     "NTC",
+     "RDS_DEG"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.3812768e-16,
+    "unavailability": 2.016664128e-13,
+    "share": 0.0007198498459951564
+   },
+   {
+    "cut_set": [
+     "HOST",
+     "MCU",
+     "RDS_DEG"
+    ],
+    "order": 3,
+    "frequency_per_h": 9.802440000000002e-17,
+    "unavailability": 4.604256e-15,
+    "share": 0.00051085234504603
+   }
+  ],
+  "fussell_vesely": {
+   "HOST": 1.0,
+   "FAN": 0.8347772712105213,
+   "NTC": 0.8040591300341972,
+   "FW_OT": 0.13062724664386857,
+   "CLOG": 0.11262034405666232,
+   "MCU": 0.06531362332193429,
+   "AMB_HI": 0.027825909040350715,
+   "TIM": 0.02252406881133246,
+   "RDS_DEG": 0.0022524068811332464
+  }
+ },
+ "TE2_with_DESAT_driver": {
+  "top": "TE2_uncontrolled_energy_overcurrent",
+  "n_cut_sets": 21,
+  "min_order": 2,
+  "frequency_per_h": 2.2186605237816002e-10,
+  "frequency_per_year": 1.9435466188326817e-06,
+  "probability_10y": 1.9435277320845046e-05,
+  "cut_sets": [
+   {
+    "cut_set": [
+     "DRV_HIGH",
+     "NO_DESAT"
+    ],
+    "order": 2,
+    "frequency_per_h": 8.000000000000001e-11,
+    "unavailability": 3.840000000000001e-09,
+    "share": 0.3605779214191987
+   },
+   {
+    "cut_set": [
+     "MCU",
+     "NO_DESAT"
+    ],
+    "order": 2,
+    "frequency_per_h": 5.000000000000001e-11,
+    "unavailability": 2.4000000000000004e-09,
+    "share": 0.2253612008869992
+   },
+   {
+    "cut_set": [
+     "NO_DESAT",
+     "XTALK"
+    ],
+    "order": 2,
+    "frequency_per_h": 5e-11,
+    "unavailability": 2.4000000000000004e-09,
+    "share": 0.22536120088699918
+   },
+   {
+    "cut_set": [
+     "DRV_UVLO_LOSS",
+     "NO_DESAT"
+    ],
+    "order": 2,
+    "frequency_per_h": 4.0000000000000004e-11,
+    "unavailability": 1.9200000000000004e-09,
+    "share": 0.18028896070959935
+   },
+   {
+    "cut_set": [
+     "CT_FAIL",
+     "LOAD_SHORT"
+    ],
+    "order": 2,
+    "frequency_per_h": 9.7416e-13,
+    "unavailability": 4.625280000000001e-11,
+    "share": 0.004390757349121582
+   },
+   {
+    "cut_set": [
+     "MCU",
+     "TZ_CFG"
+    ],
+    "order": 2,
+    "frequency_per_h": 5.000000000000001e-13,
+    "unavailability": 2.4000000000000004e-11,
+    "share": 0.0022536120088699923
+   },
+   {
+    "cut_set": [
+     "CTRL_FAIL",
+     "CT_FAIL"
+    ],
+    "order": 2,
+    "frequency_per_h": 1.94832e-13,
+    "unavailability": 9.250560000000002e-12,
+    "share": 0.0008781514698243165
+   },
+   {
+    "cut_set": [
+     "CMP_OC",
+     "MCU"
+    ],
+    "order": 2,
+    "frequency_per_h": 5.535000000000001e-14,
+    "unavailability": 2.6280000000000005e-12,
+    "share": 0.00024947484938190814
+   },
+   {
+    "cut_set": [
+     "CT_FAIL",
+     "MCU"
+    ],
+    "order": 2,
+    "frequency_per_h": 4.870800000000001e-14,
+    "unavailability": 2.3126400000000005e-12,
+    "share": 0.00021953786745607914
+   },
+   {
+    "cut_set": [
+     "CT_FAIL",
+     "XFMR_SAT"
+    ],
+    "order": 2,
+    "frequency_per_h": 4.8708e-14,
+    "unavailability": 2.3126400000000005e-12,
+    "share": 0.00021953786745607912
+   },
+   {
+    "cut_set": [
+     "LOGIC_OR",
+     "MCU"
+    ],
+    "order": 2,
+    "frequency_per_h": 4.4280000000000014e-14,
+    "unavailability": 2.1024000000000004e-12,
+    "share": 0.00019957987950552653
+   },
+   {
+    "cut_set": [
+     "FW_IPK",
+     "LOAD_SHORT",
+     "TZ_CFG"
+    ],
+    "order": 3,
+    "frequency_per_h": 9.600000000000003e-18,
+    "unavailability": 2.3040000000000006e-16,
+    "share": 4.3269350570303856e-08
+   },
+   {
+    "cut_set": [
+     "CTRL_FAIL",
+     "FW_IPK",
+     "TZ_CFG"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.9200000000000006e-18,
+    "unavailability": 4.6080000000000014e-17,
+    "share": 8.653870114060771e-09
+   },
+   {
+    "cut_set": [
+     "CMP_OC",
+     "FW_IPK",
+     "LOAD_SHORT"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.0569600000000001e-18,
+    "unavailability": 2.522880000000001e-17,
+    "share": 4.763955497790454e-09
+   },
+   {
+    "cut_set": [
+     "FW_IPK",
+     "LOAD_SHORT",
+     "LOGIC_OR"
+    ],
+    "order": 3,
+    "frequency_per_h": 8.455680000000002e-19,
+    "unavailability": 2.0183040000000006e-17,
+    "share": 3.8111643982323635e-09
+   },
+   {
+    "cut_set": [
+     "FW_IPK",
+     "TZ_CFG",
+     "XFMR_SAT"
+    ],
+    "order": 3,
+    "frequency_per_h": 4.800000000000001e-19,
+    "unavailability": 1.1520000000000003e-17,
+    "share": 2.1634675285151927e-09
+   },
+   {
+    "cut_set": [
+     "CMP_OC",
+     "CTRL_FAIL",
+     "FW_IPK"
+    ],
+    "order": 3,
+    "frequency_per_h": 2.1139200000000004e-19,
+    "unavailability": 5.0457600000000016e-18,
+    "share": 9.527910995580909e-10
+   },
+   {
+    "cut_set": [
+     "CTRL_FAIL",
+     "FW_IPK",
+     "LOGIC_OR"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.6911360000000001e-19,
+    "unavailability": 4.036608000000001e-18,
+    "share": 7.622328796464725e-10
+   },
+   {
+    "cut_set": [
+     "CMP_OC",
+     "FW_IPK",
+     "XFMR_SAT"
+    ],
+    "order": 3,
+    "frequency_per_h": 5.284800000000001e-20,
+    "unavailability": 1.2614400000000004e-18,
+    "share": 2.381977748895227e-10
+   },
+   {
+    "cut_set": [
+     "FW_IPK",
+     "LOGIC_OR",
+     "XFMR_SAT"
+    ],
+    "order": 3,
+    "frequency_per_h": 4.2278400000000004e-20,
+    "unavailability": 1.0091520000000003e-18,
+    "share": 1.9055821991161812e-10
+   },
+   {
+    "cut_set": [
+     "NO_DESAT",
+     "SW_PWM"
+    ],
+    "order": 2,
+    "frequency_per_h": 0.0,
+    "unavailability": 1.0000000000000002e-06,
+    "share": 0.0
+   }
+  ],
+  "fussell_vesely": {
+   "NO_DESAT": 0.9915892839027964,
+   "DRV_HIGH": 0.3605779214191987,
+   "MCU": 0.2282834054922127,
+   "XTALK": 0.22536120088699918,
+   "DRV_UVLO_LOSS": 0.18028896070959935,
+   "CT_FAIL": 0.005707984553858056,
+   "LOAD_SHORT": 0.004390809193592048,
+   "TZ_CFG": 0.002253666095558205,
+   "CTRL_FAIL": 0.0008781618387184099,
+   "CMP_OC": 0.00024948080432628033,
+   "XFMR_SAT": 0.00021954045967960246,
+   "LOGIC_OR": 0.00019958464346102434,
+   "FW_IPK": 6.480558808290834e-08,
+   "SW_PWM": 0.0
+  }
+ },
+ "TE2_with_CT_plausibility": {
+  "top": "TE2_uncontrolled_energy_overcurrent",
+  "n_cut_sets": 21,
+  "min_order": 2,
+  "frequency_per_h": 2.2000627100378162e-08,
+  "frequency_per_year": 0.0001927254933993127,
+  "probability_10y": 0.0019253989706990993,
+  "cut_sets": [
+   {
+    "cut_set": [
+     "DRV_HIGH",
+     "NO_DESAT"
+    ],
+    "order": 2,
+    "frequency_per_h": 8e-09,
+    "unavailability": 3.8400000000000005e-07,
+    "share": 0.3636259986363066
+   },
+   {
+    "cut_set": [
+     "MCU",
+     "NO_DESAT"
+    ],
+    "order": 2,
+    "frequency_per_h": 5.000000000000001e-09,
+    "unavailability": 2.4000000000000003e-07,
+    "share": 0.22726624914769167
+   },
+   {
+    "cut_set": [
+     "NO_DESAT",
+     "XTALK"
+    ],
+    "order": 2,
+    "frequency_per_h": 5e-09,
+    "unavailability": 2.4000000000000003e-07,
+    "share": 0.22726624914769164
+   },
+   {
+    "cut_set": [
+     "DRV_UVLO_LOSS",
+     "NO_DESAT"
+    ],
+    "order": 2,
+    "frequency_per_h": 4e-09,
+    "unavailability": 1.9200000000000003e-07,
+    "share": 0.1818129993181533
+   },
+   {
+    "cut_set": [
+     "MCU",
+     "TZ_CFG"
+    ],
+    "order": 2,
+    "frequency_per_h": 5.000000000000001e-13,
+    "unavailability": 2.4000000000000004e-11,
+    "share": 2.272662491476917e-05
+   },
+   {
+    "cut_set": [
+     "CMP_OC",
+     "MCU"
+    ],
+    "order": 2,
+    "frequency_per_h": 5.535000000000001e-14,
+    "unavailability": 2.6280000000000005e-12,
+    "share": 2.515837378064947e-06
+   },
+   {
+    "cut_set": [
+     "LOGIC_OR",
+     "MCU"
+    ],
+    "order": 2,
+    "frequency_per_h": 4.4280000000000014e-14,
+    "unavailability": 2.1024000000000004e-12,
+    "share": 2.012669902451958e-06
+   },
+   {
+    "cut_set": [
+     "CT_FAIL",
+     "LOAD_SHORT"
+    ],
+    "order": 2,
+    "frequency_per_h": 2.1120000000000006e-14,
+    "unavailability": 5.068800000000002e-13,
+    "share": 9.599726363998497e-07
+   },
+   {
+    "cut_set": [
+     "CTRL_FAIL",
+     "CT_FAIL"
+    ],
+    "order": 2,
+    "frequency_per_h": 4.224000000000001e-15,
+    "unavailability": 1.0137600000000003e-13,
+    "share": 1.9199452727996993e-07
+   },
+   {
+    "cut_set": [
+     "CT_FAIL",
+     "XFMR_SAT"
+    ],
+    "order": 2,
+    "frequency_per_h": 1.0560000000000002e-15,
+    "unavailability": 2.5344000000000008e-14,
+    "share": 4.799863181999248e-08
+   },
+   {
+    "cut_set": [
+     "CT_FAIL",
+     "MCU"
+    ],
+    "order": 2,
+    "frequency_per_h": 1.0560000000000002e-15,
+    "unavailability": 2.5344000000000008e-14,
+    "share": 4.799863181999248e-08
+   },
+   {
+    "cut_set": [
+     "FW_IPK",
+     "LOAD_SHORT",
+     "TZ_CFG"
+    ],
+    "order": 3,
+    "frequency_per_h": 9.600000000000003e-18,
+    "unavailability": 2.3040000000000006e-16,
+    "share": 4.363511983635681e-10
+   },
+   {
+    "cut_set": [
+     "CTRL_FAIL",
+     "FW_IPK",
+     "TZ_CFG"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.9200000000000006e-18,
+    "unavailability": 4.6080000000000014e-17,
+    "share": 8.727023967271362e-11
+   },
+   {
+    "cut_set": [
+     "CMP_OC",
+     "FW_IPK",
+     "LOAD_SHORT"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.0569600000000001e-18,
+    "unavailability": 2.522880000000001e-17,
+    "share": 4.8042266939828833e-11
+   },
+   {
+    "cut_set": [
+     "FW_IPK",
+     "LOAD_SHORT",
+     "LOGIC_OR"
+    ],
+    "order": 3,
+    "frequency_per_h": 8.455680000000002e-19,
+    "unavailability": 2.0183040000000006e-17,
+    "share": 3.843381355186307e-11
+   },
+   {
+    "cut_set": [
+     "FW_IPK",
+     "TZ_CFG",
+     "XFMR_SAT"
+    ],
+    "order": 3,
+    "frequency_per_h": 4.800000000000001e-19,
+    "unavailability": 1.1520000000000003e-17,
+    "share": 2.1817559918178404e-11
+   },
+   {
+    "cut_set": [
+     "CMP_OC",
+     "CTRL_FAIL",
+     "FW_IPK"
+    ],
+    "order": 3,
+    "frequency_per_h": 2.1139200000000004e-19,
+    "unavailability": 5.0457600000000016e-18,
+    "share": 9.608453387965768e-12
+   },
+   {
+    "cut_set": [
+     "CTRL_FAIL",
+     "FW_IPK",
+     "LOGIC_OR"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.6911360000000001e-19,
+    "unavailability": 4.036608000000001e-18,
+    "share": 7.686762710372614e-12
+   },
+   {
+    "cut_set": [
+     "CMP_OC",
+     "FW_IPK",
+     "XFMR_SAT"
+    ],
+    "order": 3,
+    "frequency_per_h": 5.284800000000001e-20,
+    "unavailability": 1.2614400000000004e-18,
+    "share": 2.402113346991442e-12
+   },
+   {
+    "cut_set": [
+     "FW_IPK",
+     "LOGIC_OR",
+     "XFMR_SAT"
+    ],
+    "order": 3,
+    "frequency_per_h": 4.2278400000000004e-20,
+    "unavailability": 1.0091520000000003e-18,
+    "share": 1.9216906775931535e-12
+   },
+   {
+    "cut_set": [
+     "NO_DESAT",
+     "SW_PWM"
+    ],
+    "order": 2,
+    "frequency_per_h": 0.0,
+    "unavailability": 0.0001,
+    "share": 0.0
+   }
+  ],
+  "fussell_vesely": {
+   "NO_DESAT": 0.9999714962498433,
+   "DRV_HIGH": 0.3636259986363066,
+   "MCU": 0.22729355227851877,
+   "XTALK": 0.22726624914769164,
+   "DRV_UVLO_LOSS": 0.1818129993181533,
+   "TZ_CFG": 2.2727170353767125e-05,
+   "CMP_OC": 2.515897430898622e-06,
+   "LOGIC_OR": 2.0127179447188977e-06,
+   "CT_FAIL": 1.2479644273198047e-06,
+   "LOAD_SHORT": 9.60495463678705e-07,
+   "CTRL_FAIL": 1.9209909273574097e-07,
+   "XFMR_SAT": 4.802477318393524e-08,
+   "FW_IPK": 6.53534098569075e-10,
+   "SW_PWM": 0.0
+  }
+ },
+ "TE3_with_NTC_plausibility": {
+  "top": "TE3_thermal_runaway",
+  "n_cut_sets": 15,
+  "min_order": 3,
+  "frequency_per_h": 4.361358859200001e-14,
+  "frequency_per_year": 3.820550360659201e-10,
+  "probability_10y": 3.8205503205546165e-09,
+  "cut_sets": [
+   {
+    "cut_set": [
+     "FAN",
+     "FW_OT",
+     "HOST"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.2683520000000003e-14,
+    "unavailability": 3.027456000000001e-13,
+    "share": 0.29081578493007854
+   },
+   {
+    "cut_set": [
+     "CLOG",
+     "FW_OT",
+     "HOST"
+    ],
+    "order": 3,
+    "frequency_per_h": 9.802440000000002e-15,
+    "unavailability": 4.604256000000003e-13,
+    "share": 0.22475655676263367
+   },
+   {
+    "cut_set": [
+     "FAN",
+     "HOST",
+     "MCU"
+    ],
+    "order": 3,
+    "frequency_per_h": 6.3417600000000015e-15,
+    "unavailability": 1.5137280000000004e-13,
+    "share": 0.14540789246503927
+   },
+   {
+    "cut_set": [
+     "CLOG",
+     "HOST",
+     "MCU"
+    ],
+    "order": 3,
+    "frequency_per_h": 4.901220000000002e-15,
+    "unavailability": 2.302128000000001e-13,
+    "share": 0.11237827838131685
+   },
+   {
+    "cut_set": [
+     "FAN",
+     "HOST",
+     "NTC"
+    ],
+    "order": 3,
+    "frequency_per_h": 3.0440448000000004e-15,
+    "unavailability": 7.2658944e-14,
+    "share": 0.06979578838321884
+   },
+   {
+    "cut_set": [
+     "CLOG",
+     "HOST",
+     "NTC"
+    ],
+    "order": 3,
+    "frequency_per_h": 2.3525856000000006e-15,
+    "unavailability": 1.1050214400000003e-13,
+    "share": 0.053941573623032084
+   },
+   {
+    "cut_set": [
+     "FW_OT",
+     "HOST",
+     "TIM"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.9604880000000004e-15,
+    "unavailability": 9.208512000000002e-14,
+    "share": 0.04495131135252673
+   },
+   {
+    "cut_set": [
+     "HOST",
+     "MCU",
+     "TIM"
+    ],
+    "order": 3,
+    "frequency_per_h": 9.802440000000002e-16,
+    "unavailability": 4.6042560000000005e-14,
+    "share": 0.022475655676263365
+   },
+   {
+    "cut_set": [
+     "HOST",
+     "NTC",
+     "TIM"
+    ],
+    "order": 3,
+    "frequency_per_h": 4.705171199999999e-16,
+    "unavailability": 2.21004288e-14,
+    "share": 0.010788314724606412
+   },
+   {
+    "cut_set": [
+     "AMB_HI",
+     "FW_OT",
+     "HOST"
+    ],
+    "order": 3,
+    "frequency_per_h": 4.2278400000000006e-16,
+    "unavailability": 1.0091520000000003e-14,
+    "share": 0.009693859497669285
+   },
+   {
+    "cut_set": [
+     "AMB_HI",
+     "HOST",
+     "MCU"
+    ],
+    "order": 3,
+    "frequency_per_h": 2.1139200000000005e-16,
+    "unavailability": 5.045760000000002e-15,
+    "share": 0.0048469297488346426
+   },
+   {
+    "cut_set": [
+     "FW_OT",
+     "HOST",
+     "RDS_DEG"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.9604880000000002e-16,
+    "unavailability": 9.208512000000002e-15,
+    "share": 0.004495131135252672
+   },
+   {
+    "cut_set": [
+     "AMB_HI",
+     "HOST",
+     "NTC"
+    ],
+    "order": 3,
+    "frequency_per_h": 1.0146816000000002e-16,
+    "unavailability": 2.4219648000000003e-15,
+    "share": 0.0023265262794406284
+   },
+   {
+    "cut_set": [
+     "HOST",
+     "MCU",
+     "RDS_DEG"
+    ],
+    "order": 3,
+    "frequency_per_h": 9.802440000000002e-17,
+    "unavailability": 4.604256e-15,
+    "share": 0.0022475655676263365
+   },
+   {
+    "cut_set": [
+     "HOST",
+     "NTC",
+     "RDS_DEG"
+    ],
+    "order": 3,
+    "frequency_per_h": 4.7051712e-17,
+    "unavailability": 2.21004288e-15,
+    "share": 0.0010788314724606413
+   }
+  ],
+  "fussell_vesely": {
+   "HOST": 1.0,
+   "FW_OT": 0.574712643678161,
+   "FAN": 0.5060194657783367,
+   "CLOG": 0.39107640876698263,
+   "MCU": 0.2873563218390805,
+   "NTC": 0.13793103448275862,
+   "TIM": 0.07821528175339651,
+   "AMB_HI": 0.016867315525944556,
+   "RDS_DEG": 0.00782152817533965
+  }
+ },
+ "basic_events": {
+  "ISO_DRV": {
+   "description": "gate-driver isolation breakdown (8 x UCC21520, reinforced)",
+   "rate_or_prob": 4e-09,
+   "mode": "detected",
+   "note": "class value for reinforced digital isolators, assumption"
+  },
+  "ISO_BIAS": {
+   "description": "gate-bias DC-DC isolation breakdown (8 x R12P21503D, basic-class part - open item 15.1-4)",
+   "rate_or_prob": 8e-09,
+   "mode": "detected",
+   "note": "assumption"
+  },
+  "ISO_AMC": {
+   "description": "isolated amplifier / isolated 5 V supply breakdown (3 x AMC1301 + PS9/PS10)",
+   "rate_or_prob": 3.5000000000000003e-09,
+   "mode": "detected",
+   "note": "assumption"
+  },
+  "ISO_PCB": {
+   "description": "PCB barrier tracking (contamination, 16 mm barrier, slots)",
+   "rate_or_prob": 5e-10,
+   "mode": "detected",
+   "note": "assumption"
+  },
+  "DEV_PAD": {
+   "description": "TO-247 insulating pad breakdown to the earthed heatsink (8 pads)",
+   "rate_or_prob": 4e-09,
+   "mode": "latent",
+   "note": "assumption; revealed by hipot/PE test"
+  },
+  "PE_BOND": {
+   "description": "PE bonding of heatsinks / chassis open (3 lugs, bonded through chassis)",
+   "rate_or_prob": 5e-09,
+   "mode": "latent",
+   "note": "assumption; revealed by bonding test"
+  },
+  "BLEED": {
+   "description": "bleeder chain open (HV or LV, 1.4 MOhm, SAF-04)",
+   "rate_or_prob": 4.0000000000000007e-10,
+   "mode": "latent",
+   "note": "film resistors, open mode"
+  },
+  "ACT_DIS": {
+   "description": "external active discharge fails (system interface)",
+   "rate_or_prob": 1e-08,
+   "mode": "latent",
+   "note": "assumption"
+  },
+  "ACCESS": {
+   "description": "access to terminals within 5 min of de-energising, without voltage check (procedure violation)",
+   "rate_or_prob": 0.001,
+   "mode": "demand",
+   "note": "human-factor probability per access, assumption"
+  },
+  "DRV_HIGH": {
+   "description": "gate-driver output stuck high / logic failure (8 channels)",
+   "rate_or_prob": 8e-09,
+   "mode": "detected",
+   "note": "10 % of 10 FIT per driver"
+  },
+  "DRV_UVLO_LOSS": {
+   "description": "gate bias loss without UVLO action (partial-on)",
+   "rate_or_prob": 4e-09,
+   "mode": "detected",
+   "note": "assumption"
+  },
+  "XTALK": {
+   "description": "crosstalk false turn-on (design-margin event, see Active_Gate_Drive)",
+   "rate_or_prob": 5e-09,
+   "mode": "detected",
+   "note": "placeholder; depends on the -3/-4 V bias decision"
+  },
+  "SW_PWM": {
+   "description": "firmware/HAL PWM configuration error producing overlap (systematic)",
+   "rate_or_prob": 0.0001,
+   "mode": "demand",
+   "note": "probability per release, assumption (no systematic-capability assessment)"
+  },
+  "MCU": {
+   "description": "C2000 latch-up / runaway not caught by the watchdog",
+   "rate_or_prob": 5.000000000000001e-09,
+   "mode": "detected",
+   "note": "50 FIT, 90 % watchdog coverage assumed"
+  },
+  "CTRL_FAIL": {
+   "description": "control law demands excessive current (sensor gain fault, saturation, EPS limit error)",
+   "rate_or_prob": 2e-08,
+   "mode": "detected",
+   "note": "aggregate of V1/V2 sensing failures, assumption"
+  },
+  "XFMR_SAT": {
+   "description": "transformer / inductor saturation (DC bias, over-flux)",
+   "rate_or_prob": 5e-09,
+   "mode": "detected",
+   "note": "assumption"
+  },
+  "LOAD_SHORT": {
+   "description": "external short at the LV or HV port",
+   "rate_or_prob": 1.0000000000000001e-07,
+   "mode": "detected",
+   "note": "system-level event, assumption"
+  },
+  "CMP_OC": {
+   "description": "OC comparator (LM393) no-trip failure",
+   "rate_or_prob": 2.5e-09,
+   "mode": "latent",
+   "note": "stuck mode 50 %"
+  },
+  "CT_FAIL": {
+   "description": "CT open / burden / rectifier failure (reads zero)",
+   "rate_or_prob": 2.2000000000000003e-09,
+   "mode": "latent",
+   "note": "no plausibility check in rev A (FMEA open item)"
+  },
+  "LOGIC_OR": {
+   "description": "74HC32 / PROT_DIS wiring failure",
+   "rate_or_prob": 2e-09,
+   "mode": "latent",
+   "note": "assumption"
+  },
+  "TZ_CFG": {
+   "description": "EPWM trip-zone not armed (software/HAL)",
+   "rate_or_prob": 0.0001,
+   "mode": "demand",
+   "note": "systematic, probability per release"
+  },
+  "FW_IPK": {
+   "description": "firmware I_PK check fails (ADC path, MCU)",
+   "rate_or_prob": 1e-08,
+   "mode": "detected",
+   "note": "shares the CT; independent only of the comparator"
+  },
+  "FUSE": {
+   "description": "semiconductor fuse fails to clear within the coordinated I2t",
+   "rate_or_prob": 1e-09,
+   "mode": "latent",
+   "note": "assumption; plus coordination uncertainty"
+  },
+  "NO_DESAT": {
+   "description": "rev A driver has no DESAT / short-circuit detection (house event)",
+   "rate_or_prob": 1.0,
+   "mode": "house",
+   "note": "TRUE for UCC21520 rev A; FALSE with the UCC21710 upgrade"
+  },
+  "FAN": {
+   "description": "fan failure (2 fans, either)",
+   "rate_or_prob": 3e-05,
+   "mode": "detected",
+   "note": "MTTF ~65 kh class, assumption; no tachometer in rev A"
+  },
+  "CLOG": {
+   "description": "heatsink / filter clogging (airflow loss)",
+   "rate_or_prob": 5.000000000000001e-07,
+   "mode": "latent",
+   "note": "environmental, assumption"
+  },
+  "TIM": {
+   "description": "thermal-interface degradation (pad dry-out, pressure loss)",
+   "rate_or_prob": 1.0000000000000001e-07,
+   "mode": "latent",
+   "note": "assumption"
+  },
+  "AMB_HI": {
+   "description": "ambient above 55 C in the cabinet",
+   "rate_or_prob": 1.0000000000000002e-06,
+   "mode": "detected",
+   "note": "site-dependent, assumption"
+  },
+  "RDS_DEG": {
+   "description": "device degradation raising losses (bond-wire fatigue, see SiC_Health_Monitoring)",
+   "rate_or_prob": 1e-08,
+   "mode": "latent",
+   "note": "assumption"
+  },
+  "NTC": {
+   "description": "heatsink NTC open / off the heatsink (reads cold)",
+   "rate_or_prob": 2.4e-09,
+   "mode": "latent",
+   "note": "open mode 60 %; no plausibility check"
+  },
+  "FW_OT": {
+   "description": "firmware OT trip / derating not executed (ADC channel, MCU)",
+   "rate_or_prob": 1e-08,
+   "mode": "detected",
+   "note": "assumption"
+  },
+  "HOST": {
+   "description": "supervisory host does not act on the CAN temperature telemetry",
+   "rate_or_prob": 1.0000000000000001e-07,
+   "mode": "latent",
+   "note": "assumption"
+  }
+ },
+ "parameters": {
+  "MTTR_h": 48.0,
+  "proof_test_h": 8760.0,
+  "mission_h": 87600.0
+ }
+}

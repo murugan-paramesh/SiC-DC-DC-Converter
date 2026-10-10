@@ -1,0 +1,31 @@
+{
+ "module": "Advanced_Research_2026/Parasitic_Extraction",
+ "script": "extract_parasitics.py",
+ "python": "3.13.16",
+ "numpy": "2.5.3",
+ "scipy": "1.18.1",
+ "matplotlib": "3.11.2",
+ "pcbnew": "7.0.11",
+ "git_commit": "2816565889d4d11d9baf3442c5dda203625ab8dc",
+ "inputs": {
+  "board (path used)": "/tmp/claude-0/-home-user-SiC-DC-DC-Converter/6e9bc7b2-f9ce-5c45-991e-ae4036e357ed/scratchpad/board_snapshot/SiC_DAB_6k6.kicad_pcb",
+  "board sha256": "9797b822a2ca968b50d45d07e07c6e62897d21c42afa5653a4f331967c36f183",
+  "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f42717ab0d2f0b414addf6a331caaf3d51323f78e73851ebde253",
+  "SiC_6k6_Industrial_DAB/dabtools/dab/devices.py": "bccad660fcf2d85f548d2d60ce37535f034e495e5cd8f94a772d562c9cca3960",
+  "SiC_6k6_Industrial_DAB/17_Manufacturing/stackup.md": "a186d8525c5d4669eb8046db08f72aa4374a12524abc48d844cd599993eaaf6e"
+ },
+ "wall_time_s": 0.8223578929901123,
+ "generated": "2026-10-10 03:07:46",
+ "deterministic": true,
+ "outputs": [
+  "fig_loop_geometry_HV.png",
+  "fig_overshoot.png",
+  "gate_loop_sensitivity.csv",
+  "literature_comparison.csv",
+  "loop_segments.csv",
+  "overshoot.csv",
+  "parasitics.json",
+  "run_log.txt",
+  "sensitivity.csv"
+ ]
+}

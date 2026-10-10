@@ -1,0 +1,54 @@
+{
+ "seed": 20261010,
+ "device": "C3M0032120K",
+ "hours": 26280,
+ "Ipk1_nom": 9.750000000000048,
+ "Irms1_nom": 9.229094243508206,
+ "Rth_sink": 0.22,
+ "Rth_tim": 0.35,
+ "RthJC": 0.45,
+ "P_sw_nom": 0.9,
+ "alpha": 4.4,
+ "Ea_eV": 0.08,
+ "k_EOL": 0.05,
+ "gamma": 1.5,
+ "EOL_years_target": 2.5,
+ "a_vth": 0.08,
+ "tau_vth_h": 100.0,
+ "f_ch": 0.4,
+ "Vgs_on": 15.0,
+ "Vth0": 2.5,
+ "vds_lsb": 0.0003931707317073171,
+ "vds_gain_err": 0.003,
+ "vds_gain_tc": 5e-05,
+ "vds_offset": 0.0002,
+ "vds_offset_tc": 3e-06,
+ "vds_noise": 0.001,
+ "id_lsb": 0.009765625,
+ "id_gain_err": 0.01,
+ "id_gain_tc": 0.0001,
+ "id_noise": 0.03,
+ "T_sensors": {
+  "heatsink_ntc": {
+   "bias": "P_dev*(RthJC+Rth_tim)",
+   "noise": 1.0
+  },
+  "case_sensor": {
+   "bias": "P_dev*RthJC",
+   "noise": 0.5
+  },
+  "junction_model": {
+   "bias": "slow N(0,1K)",
+   "noise": 0.5
+  }
+ },
+ "note": "SYNTHETIC - literature-typical orders of magnitude, not measured; see README",
+ "A_calibrated": 157573.76334410667,
+ "EOL_hour_degrading": 21899,
+ "dR_pct_at_3y_degrading": 7.076736374881443,
+ "dVth_V_at_3y": 0.19370066623022084,
+ "Tj_range_C": [
+  20.468485935119777,
+  52.71446622785785
+ ]
+}

@@ -1,0 +1,39 @@
+{
+ "module": "Advanced_Research_2026/Robust_Optimization",
+ "script": "robust_optimize.py",
+ "generated_utc": "2026-10-10T03:06:43Z",
+ "python": "3.13.16",
+ "numpy": "2.5.3",
+ "scipy": "1.18.1",
+ "matplotlib": "3.11.2",
+ "git_commit": "480059cb65417df589d941641655e3d19e3f84d8",
+ "input_hashes_sha256_16": {
+  "SiC_6k6_Industrial_DAB/dabtools/dab/dab_model.py": "7a227db80b4c817e",
+  "SiC_6k6_Industrial_DAB/dabtools/dab/losses.py": "76eb51f6209ae98d",
+  "SiC_6k6_Industrial_DAB/dabtools/dab/magnetics.py": "50c89d1d9b83523d",
+  "SiC_6k6_Industrial_DAB/dabtools/dab/devices.py": "bccad660fcf2d85f",
+  "SiC_6k6_Industrial_DAB/04_Design_Calculations/design_values.json": "71f9d6528c7f4271",
+  "SiC_6k6_Industrial_DAB/12_Optimization/optimization_results.json": "2a0b5af84867e78b",
+  "Advanced_Research_2026/Robust_Optimization/dab_eval.py": "17e9956604b2707a",
+  "Advanced_Research_2026/Robust_Optimization/robust_optimize.py": "4954f9d790912d87"
+ },
+ "seed": 20261010,
+ "population": 24,
+ "generations": 8,
+ "lhs_samples_uncertainty": 6,
+ "bo_init": 8,
+ "bo_iterations": 6,
+ "n_evaluations": {
+  "nominal": 216,
+  "robust": 216,
+  "cc": 216,
+  "nominal_strict": 216,
+  "robust_strict": 216,
+  "cc_strict": 216,
+  "grid": 8640,
+  "bo": 70
+ },
+ "quick_mode": true,
+ "wall_time_s": 173.32799100875854,
+ "maturity": "L2"
+}

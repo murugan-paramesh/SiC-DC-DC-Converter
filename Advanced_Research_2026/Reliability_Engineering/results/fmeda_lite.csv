@@ -1,0 +1,53 @@
+function,component,lambda_class_FIT,failure_mode,mode_share,effect,class,diagnostic_or_justification
+OV_HV,divider R129/R130 (5 x 1M),1.0,open,0.9,V1 reads ~0: no OV trip; firmware V1_UV in RUN trips,DD,UV window in RUN reveals a dead channel (not in PRECHARGE_WAIT)
+OV_HV,divider R129/R130 (5 x 1M),1.0,drift > 5 %,0.1,OV threshold shifted; no diagnostic,DU,no reference check
+OV_HV,AMC1301 U5,10.0,fail low / output stuck,0.4,no OV trip (both HW and FW use the same channel),DD,UV window in RUN
+OV_HV,AMC1301 U5,10.0,fail high,0.3,spurious OV trip,S,-
+OV_HV,AMC1301 U5,10.0,gain drift,0.3,threshold shifted,DU,no plausibility vs the LV side / power model
+OV_HV,isolated 5 V PS9,20.0,output loss,1.0,AMC output to common-mode level: reads mid-scale,DU,mid-scale reading is inside the UV/OV window
+OV_HV,TLV9062 U8 (diff-to-SE),5.0,stuck / open,1.0,no OV trip or spurious,DD,UV window (fail low) - half of the modes assumed detected
+OV_HV,LM393 U11 comparator,5.0,no trip (stuck low),0.5,hardware OV path lost; firmware path remains,DU,no pulse test of the comparator
+OV_HV,LM393 U11 comparator,5.0,spurious trip,0.5,safe,S,-
+OV_HV,threshold resistor R159 8.2k,0.2,open / drift,1.0,HW threshold wrong,DU,-
+OV_HV,74HC32 / PROT_DIS net,2.0,stuck inactive,0.5,HW trips do not reach the drivers/TZ,DU,no TZ read-back test at start-up in rev A
+OV_HV,74HC32 / PROT_DIS net,2.0,stuck active,0.5,gates held off (safe),S,-
+OV_HV,C2000 ADC channel / ISR,20.0,wrong conversion / ISR stall,0.5,firmware OV lost; watchdog + HW comparator remain,DD,"watchdog, HW comparator independent"
+OV_HV,C2000 ADC channel / ISR,20.0,latent register corruption,0.5,threshold constant corrupted,DU,no RAM/flash CRC check in rev A
+OV_LV,divider R134/R135 (2 x 1M),0.4,open,0.9,V2 reads 0: V2_UV in RUN trips,DD,UV window in RUN
+OV_LV,divider R134/R135 (2 x 1M),0.4,drift,0.1,threshold shifted,DU,-
+OV_LV,AMC1301 U6,10.0,fail low,0.4,no OV trip,DD,UV window in RUN
+OV_LV,AMC1301 U6,10.0,fail high,0.3,spurious trip,S,-
+OV_LV,AMC1301 U6,10.0,gain drift,0.3,regulated voltage wrong AND OV threshold shifted (common cause),DU,regulation uses the same channel: a -20 % gain fault drives V2 to 500 V with the firmware blind; only the HW comparator at 490 V (same AMC!) - see HIL_Validation T16
+OV_LV,isolated 5 V PS10,20.0,output loss,1.0,reads mid-scale,DU,-
+OV_LV,TLV9062 U8/U9,5.0,stuck / open,1.0,,DD,UV window
+OV_LV,LM393 U11 comparator,5.0,no trip,0.5,HW OV lost,DU,no pulse test
+OV_LV,LM393 U11 comparator,5.0,spurious,0.5,safe,S,-
+OV_LV,74HC32 / PROT_DIS net,2.0,stuck inactive,0.5,,DU,-
+OV_LV,74HC32 / PROT_DIS net,2.0,stuck active,0.5,,S,-
+OV_LV,C2000 ADC channel / ISR,20.0,conversion / stall,0.5,,DD,watchdog
+OV_LV,C2000 ADC channel / ISR,20.0,latent corruption,0.5,,DU,-
+OC,CT1 (1:100) + one-turn lead,1.0,open secondary / lead off,0.8,reads 0: no OC detection at all (HW and FW share the CT),DU,FMEA open item: plausibility check vs power model not implemented
+OC,CT1 (1:100) + one-turn lead,1.0,ratio drift / saturation,0.2,threshold shifted,DU,-
+OC,burden R141 6.2R,0.2,open,0.7,burden open: CT voltage rises -> spurious trip (safe) or damage,S,-
+OC,burden R141 6.2R,0.2,short,0.3,reads 0: no OC detection,DU,-
+OC,rectifier D30/D31 + peak hold,2.0,open / short,1.0,reads 0 or stuck,DU,-
+OC,LM393 U10 comparator,5.0,no trip,0.5,HW OC lost; FW I_PK (10 us) remains,DU,no pulse test
+OC,LM393 U10 comparator,5.0,spurious,0.5,safe,S,-
+OC,74HC32 / PROT_DIS net,2.0,stuck inactive,0.5,,DU,-
+OC,74HC32 / PROT_DIS net,2.0,stuck active,0.5,,S,-
+OC,C2000 TZ1 / ADC / ISR,20.0,TZ not armed / ISR stall,0.5,FW path lost; HW comparator -> driver DIS pins still acts (PROT_DIS wired to the drivers directly),DD,driver DIS path independent of the MCU
+OC,C2000 TZ1 / ADC / ISR,20.0,latent corruption,0.5,,DU,-
+OT,NTC J18/J19 (10k),2.0,open / detached,0.6,reads cold: OT undetected,DU,no plausibility check (temperature vs loss model); proposed in README
+OT,NTC J18/J19 (10k),2.0,short,0.4,reads hot: spurious trip,S,-
+OT,pull-up / filter,0.2,open,1.0,reads hot (safe) or cold depending on topology,DU,assumed cold
+OT,C2000 ADC / ISR,20.0,stall,0.5,watchdog -> gates off,DD,watchdog
+OT,C2000 ADC / ISR,20.0,latent corruption,0.5,,DU,-
+INTERLOCK,PC817 U18/U19,5.0,LED open / CTR loss,0.7,precharge_ok never true -> PRECHARGE timeout -> FAULT (safe),S,-
+INTERLOCK,PC817 U18/U19,5.0,transistor short,0.3,precharge_ok stuck true: soft start into an un-precharged link; v1 > 600 V guard still required,DU,no self-test of the input
+INTERLOCK,contactor feedback contact (external),50.0,welded / wrong wiring,0.3,false precharge_ok,DU,-
+INTERLOCK,contactor feedback contact (external),50.0,open,0.7,timeout -> FAULT,S,-
+INTERLOCK,firmware guard v1 > LIM_V1_UV,1.0,constant corruption,1.0,,DU,-
+DESAT_SC,UCC21520 (no DESAT) - fuse F1/F2 only,1.0,fuse fails to clear,1.0,device destruction / case rupture on a shoot-through,DU,rev A has no short-circuit detection: all shoot-through events rely on the fuse; the UCC21710 upgrade adds DESAT (<1 us)
+DESAT_SC,driver UVLO (UCC21520),10.0,UVLO lost,0.2,partial-on device,DU,-
+DESAT_SC,driver UVLO (UCC21520),10.0,spurious UVLO,0.3,gates off (safe),S,-
+DESAT_SC,driver UVLO (UCC21520),10.0,other,0.5,no effect on protection,S,-

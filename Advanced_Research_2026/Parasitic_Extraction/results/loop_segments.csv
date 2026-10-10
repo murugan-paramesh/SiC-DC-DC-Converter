@@ -1,0 +1,37 @@
+loop,segment,formula,l_mm,w_mm,t_mm,L_self_nH,M_nH,note
+HV_leg_A,Q1 drain lead,bar,15.000,1.500,0.600,9.572,-3.259,anti-parallel partner at 5.08 mm -> -M
+HV_leg_A,Q1 source lead,bar,15.000,1.500,0.600,9.572,-3.259,anti-parallel partner at 5.08 mm -> -M
+HV_leg_A,Q2 drain lead,bar,15.000,1.500,0.600,9.572,-3.259,anti-parallel partner at 5.08 mm -> -M
+HV_leg_A,Q2 source lead,bar,15.000,1.500,0.600,9.572,-3.259,anti-parallel partner at 5.08 mm -> -M
+HV_leg_A,SW_A strip B.Cu,bar (free) / microstrip over In4 (image),16.920,3.000,0.070,1.622,0.000,image plane at 0.27 mm; free-standing value 10.0 nH is the upper bound
+HV_leg_A,Q1 drain pin to HV_P plane,round conductor,0.875,1.500,0.000,0.017,0.000,pin section inside the board down to the first plane
+HV_leg_A,Q2 source pin to HV_N plane,round conductor,0.305,1.500,0.000,0.000,0.000,pin section inside the board down to the first plane
+HV_leg_A,HV_P/HV_N plane pair,mu0 h l / w_eff (/2 for two pairs),24.000,51.080,0.570,0.168,0.000,"h = 0.57 mm, span of pins/pads 27.1 mm, 45-deg spreading, 2 pair(s)"
+HV_leg_A,C5+C6 ESL + pad vias (parallel),"ESL typ. + 2 vias, / n",0.875,0.400,0.000,0.848,0.000,"ESL 1.2 nH typical per 2220 part, 2 parts in parallel"
+HV_leg_B,Q3 drain lead,bar,15.000,1.500,0.600,9.572,-3.259,anti-parallel partner at 5.08 mm -> -M
+HV_leg_B,Q3 source lead,bar,15.000,1.500,0.600,9.572,-3.259,anti-parallel partner at 5.08 mm -> -M
+HV_leg_B,Q4 drain lead,bar,15.000,1.500,0.600,9.572,-3.259,anti-parallel partner at 5.08 mm -> -M
+HV_leg_B,Q4 source lead,bar,15.000,1.500,0.600,9.572,-3.259,anti-parallel partner at 5.08 mm -> -M
+HV_leg_B,SW_B strip B.Cu,bar (free) / microstrip over In4 (image),16.920,3.000,0.070,1.622,0.000,image plane at 0.27 mm; free-standing value 10.0 nH is the upper bound
+HV_leg_B,Q3 drain pin to HV_P plane,round conductor,0.875,1.500,0.000,0.017,0.000,pin section inside the board down to the first plane
+HV_leg_B,Q4 source pin to HV_N plane,round conductor,0.305,1.500,0.000,0.000,0.000,pin section inside the board down to the first plane
+HV_leg_B,HV_P/HV_N plane pair,mu0 h l / w_eff (/2 for two pairs),24.000,51.080,0.570,0.168,0.000,"h = 0.57 mm, span of pins/pads 27.1 mm, 45-deg spreading, 2 pair(s)"
+HV_leg_B,C7+C8 ESL + pad vias (parallel),"ESL typ. + 2 vias, / n",0.875,0.400,0.000,0.848,0.000,"ESL 1.2 nH typical per 2220 part, 2 parts in parallel"
+LV_leg_C,Q5 drain lead,bar,15.000,1.500,0.600,9.572,-3.259,anti-parallel partner at 5.08 mm -> -M
+LV_leg_C,Q5 source lead,bar,15.000,1.500,0.600,9.572,-3.259,anti-parallel partner at 5.08 mm -> -M
+LV_leg_C,Q6 drain lead,bar,15.000,1.500,0.600,9.572,-3.259,anti-parallel partner at 5.08 mm -> -M
+LV_leg_C,Q6 source lead,bar,15.000,1.500,0.600,9.572,-3.259,anti-parallel partner at 5.08 mm -> -M
+LV_leg_C,SW_C strip B.Cu,bar (free) / microstrip over In4 (image),16.920,3.000,0.070,1.622,0.000,image plane at 0.27 mm; free-standing value 10.0 nH is the upper bound
+LV_leg_C,Q5 drain pin to LV_P plane,round conductor,0.875,1.500,0.000,0.017,0.000,pin section inside the board down to the first plane
+LV_leg_C,Q6 source pin to LV_N plane,round conductor,0.305,1.500,0.000,0.000,0.000,pin section inside the board down to the first plane
+LV_leg_C,LV_P/LV_N plane pair,mu0 h l / w_eff (/2 for two pairs),24.000,51.080,0.570,0.168,0.000,"h = 0.57 mm, span of pins/pads 27.1 mm, 45-deg spreading, 2 pair(s)"
+LV_leg_C,C13+C14 ESL + pad vias (parallel),"ESL typ. + 2 vias, / n",0.875,0.400,0.000,0.848,0.000,"ESL 1.2 nH typical per 2220 part, 2 parts in parallel"
+LV_leg_D,Q7 drain lead,bar,15.000,1.500,0.600,9.572,-3.259,anti-parallel partner at 5.08 mm -> -M
+LV_leg_D,Q7 source lead,bar,15.000,1.500,0.600,9.572,-3.259,anti-parallel partner at 5.08 mm -> -M
+LV_leg_D,Q8 drain lead,bar,15.000,1.500,0.600,9.572,-3.259,anti-parallel partner at 5.08 mm -> -M
+LV_leg_D,Q8 source lead,bar,15.000,1.500,0.600,9.572,-3.259,anti-parallel partner at 5.08 mm -> -M
+LV_leg_D,SW_D strip B.Cu,bar (free) / microstrip over In4 (image),16.920,3.000,0.070,1.622,0.000,image plane at 0.27 mm; free-standing value 10.0 nH is the upper bound
+LV_leg_D,Q7 drain pin to LV_P plane,round conductor,0.875,1.500,0.000,0.017,0.000,pin section inside the board down to the first plane
+LV_leg_D,Q8 source pin to LV_N plane,round conductor,0.305,1.500,0.000,0.000,0.000,pin section inside the board down to the first plane
+LV_leg_D,LV_P/LV_N plane pair,mu0 h l / w_eff (/2 for two pairs),24.000,51.080,0.570,0.168,0.000,"h = 0.57 mm, span of pins/pads 27.1 mm, 45-deg spreading, 2 pair(s)"
+LV_leg_D,C15+C16 ESL + pad vias (parallel),"ESL typ. + 2 vias, / n",0.875,0.400,0.000,0.848,0.000,"ESL 1.2 nH typical per 2220 part, 2 parts in parallel"
