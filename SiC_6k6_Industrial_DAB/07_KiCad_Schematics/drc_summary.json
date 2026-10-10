@@ -1,21 +1,13 @@
 {
- "failed_terminals": [
-  [
-   "+5V",
-   0,
-   0
-  ]
- ],
+ "failed_terminals": [],
  "drc_kinds": {
   "silk_overlap": 11,
   "silk_over_copper": 27,
   "silk_edge_clearance": 16,
-  "track_dangling": 26,
-  "unconnected_items": 40
+  "track_dangling": 9
  },
  "severities": {
-  "warning": 80,
-  "error": 40
+  "warning": 63
  },
- "unconnected": 40
+ "unconnected": 0
 }
