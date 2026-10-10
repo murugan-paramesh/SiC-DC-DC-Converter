@@ -1,3 +1,13 @@
 {
- "Digital_Twin": ["observability.py", "run_twin_study.py", "supervisory.py"]
+ "Digital_Twin": [
+  "observability.py",
+  "run_twin_study.py",
+  "supervisory.py"
+ ],
+ "FEM_Magnetics": [
+  "run_fem_magnetics.py"
+ ],
+ "Parasitic_Extraction": [
+  "extract_parasitics.py"
+ ]
 }

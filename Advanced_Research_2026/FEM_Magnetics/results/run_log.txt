@@ -1,8 +1,8 @@
 == 1. Validation of the FD solver ==
   foil leakage  h=0.40 mm  n=   5670  L_fd=71.948 nH/m  analytic=66.338  err=+8.456 %  (0.1 s)
-  foil leakage  h=0.20 mm  n=  22339  L_fd=66.525 nH/m  analytic=66.338  err=+0.282 %  (0.2 s)
-  foil leakage  h=0.10 mm  n=  89534  L_fd=66.296 nH/m  analytic=66.338  err=-0.065 %  (1.4 s)
-  foil leakage  h=0.05 mm  n= 356775  L_fd=66.313 nH/m  analytic=66.338  err=-0.038 %  (8.8 s)
+  foil leakage  h=0.20 mm  n=  22339  L_fd=66.525 nH/m  analytic=66.338  err=+0.282 %  (0.3 s)
+  foil leakage  h=0.10 mm  n=  89534  L_fd=66.296 nH/m  analytic=66.338  err=-0.065 %  (2.0 s)
+  foil leakage  h=0.05 mm  n= 356775  L_fd=66.313 nH/m  analytic=66.338  err=-0.038 %  (14.0 s)
   Dowell check  f=100 kHz  m=3  Fr(FD+slab)=2.1111  Fr(Dowell)=2.1114  err=-0.02 %
   Dowell check  f=300 kHz  m=3  Fr(FD+slab)=8.3379  Fr(Dowell)=8.3403  err=-0.03 %
 

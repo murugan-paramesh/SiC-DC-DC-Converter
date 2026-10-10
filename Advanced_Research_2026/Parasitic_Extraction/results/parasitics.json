@@ -1,6 +1,6 @@
 {
- "board": "/tmp/claude-0/-home-user-SiC-DC-DC-Converter/6e9bc7b2-f9ce-5c45-991e-ae4036e357ed/scratchpad/board_snapshot/SiC_DAB_6k6.kicad_pcb",
- "board_sha256": "9797b822a2ca968b50d45d07e07c6e62897d21c42afa5653a4f331967c36f183",
+ "board": "/home/user/SiC-DC-DC-Converter/SiC_6k6_Industrial_DAB/07_KiCad_Schematics/SiC_DAB_6k6.kicad_pcb",
+ "board_sha256": "cc570a39eabf5f589e47fbfb7d7e41bab7215cc5b875560410f28cc67a038fa3",
  "pcbnew_crosscheck": {
   "available": true,
   "version": "7.0.11",
@@ -1285,6 +1285,6 @@
    "source": "typical range reported in literature, not measured here"
   }
  ],
- "wall_s": 0.8223578929901123,
+ "wall_s": 3.7296977043151855,
  "maturity": "L1 (analytical from geometry; no field solver, no measurement)"
 }

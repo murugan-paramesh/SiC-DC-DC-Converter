@@ -1,0 +1,114 @@
+{
+ "started": "2026-10-10T03:11:15.039608+00:00",
+ "versions": {
+  "python": "3.13.16",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "matplotlib": "3.11.2",
+  "pandas": "3.0.5",
+  "git_commit": "85c5adc518f0fe3613388e062a6890b08f332652"
+ },
+ "modules": {
+  "FEM_Magnetics": {
+   "scripts": [
+    {
+     "script": "run_fem_magnetics.py",
+     "status": "PASS",
+     "wall_s": 232.0,
+     "tail": "  Llk=  0.455 uH  cost~  190 EUR  fits=True  pareto=False\n  P4 2xELP64 16:8 3 boards PPPPSS                              P=  37.5 W  V=   172 cm3  Llk=  1.205 uH  cost~  264 EUR  fits=True  pareto=False\n  P5 2xELP64 16:8 4 boards PSPSPP 0.21mm P-S (basic ins.)      P=  30.3 W  V=   172 cm3  Llk=  0.135 uH  cost~  338 EUR  fits=True  pareto=True\n  P6 2xELP64 16:8 4 boards PSPSPP 0.42mm P-S                   P=   nan W  V=   nan cm3  Llk=    nan uH  cost~  nan EUR  fits=False  pareto=False\n\nwall time 229.1 s; results in /home/user/SiC-DC-DC-Converter/Advanced_Research_2026/FEM_Magnetics/results\n"
+    }
+   ],
+   "results": {
+    "fem_results.json": {
+     "sha256_16": "2e455035517cb3ce",
+     "bytes": 22696
+    },
+    "fig_field_planar.png": {
+     "sha256_16": "dc8fe8387d9cff78",
+     "bytes": 436351
+    },
+    "fig_field_wound_interleaved.png": {
+     "sha256_16": "61987f99be4fc85d",
+     "bytes": 359521
+    },
+    "fig_field_wound_noninterleaved.png": {
+     "sha256_16": "07ac3bf940609c41",
+     "bytes": 336269
+    },
+    "fig_pareto.png": {
+     "sha256_16": "80d7e34de6711631",
+     "bytes": 102891
+    },
+    "fig_validation_convergence.png": {
+     "sha256_16": "e86deb3c462d061d",
+     "bytes": 51786
+    },
+    "pareto_variants.csv": {
+     "sha256_16": "1adc2992d92e211a",
+     "bytes": 2585
+    },
+    "run_log.txt": {
+     "sha256_16": "43df6046ac3e6c8f",
+     "bytes": 4861
+    },
+    "validation_dowell.csv": {
+     "sha256_16": "717bbd848069a347",
+     "bytes": 196
+    },
+    "validation_leakage_convergence.csv": {
+     "sha256_16": "8b58d717112b5105",
+     "bytes": 504
+    }
+   }
+  },
+  "Parasitic_Extraction": {
+   "scripts": [
+    {
+     "script": "extract_parasitics.py",
+     "status": "PASS",
+     "wall_s": 7.1,
+     "tail": " A, tf=10 ns: L di/dt = 54 V, Z0 bound = 174 V -> Vos ~ 54 V, Vds,pk = 504 V, margin to 1200 V = 696 V\n  LV_leg_C L=28 nH C3M0016120K: Vdc=450 V, I=39.2 A, tf=10 ns: L di/dt = 109 V, Z0 bound = 350 V -> Vos ~ 109 V, Vds,pk = 559 V, margin to 1200 V = 641 V\n  LV_leg_C L=28 nH C3M0016120K: Vdc=450 V, I=64.0 A, tf=10 ns: L di/dt = 179 V, Z0 bound = 571 V -> Vos ~ 179 V, Vds,pk = 629 V, margin to 1200 V = 571 V\n\n== (d) literature comparison written (typical ranges, not measured here) ==\n\nwall time 3.7 s; results in /home/user/SiC-DC-DC-Converter/Advanced_Research_2026/Parasitic_Extraction/results\n"
+    }
+   ],
+   "results": {
+    "fig_loop_geometry_HV.png": {
+     "sha256_16": "256406434c09cc81",
+     "bytes": 67815
+    },
+    "fig_overshoot.png": {
+     "sha256_16": "c046906e9ad7c6f6",
+     "bytes": 89897
+    },
+    "gate_loop_sensitivity.csv": {
+     "sha256_16": "f1fd29646d3e17f0",
+     "bytes": 371
+    },
+    "literature_comparison.csv": {
+     "sha256_16": "1a769c15b60997d1",
+     "bytes": 777
+    },
+    "loop_segments.csv": {
+     "sha256_16": "e2d2d2dd89752929",
+     "bytes": 4705
+    },
+    "overshoot.csv": {
+     "sha256_16": "850804de39038411",
+     "bytes": 4107
+    },
+    "parasitics.json": {
+     "sha256_16": "5ba518071e8ac928",
+     "bytes": 35450
+    },
+    "run_log.txt": {
+     "sha256_16": "1c273d6fe9a37e2e",
+     "bytes": 9230
+    },
+    "sensitivity.csv": {
+     "sha256_16": "f8339320e8175248",
+     "bytes": 746
+    }
+   }
+  }
+ },
+ "finished": "2026-10-10T03:15:15.132125+00:00"
+}

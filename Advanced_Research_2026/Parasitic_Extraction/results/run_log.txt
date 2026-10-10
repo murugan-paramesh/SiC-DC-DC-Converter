@@ -1,4 +1,4 @@
-board: /tmp/claude-0/-home-user-SiC-DC-DC-Converter/6e9bc7b2-f9ce-5c45-991e-ae4036e357ed/scratchpad/board_snapshot/SiC_DAB_6k6.kicad_pcb
+board: /home/user/SiC-DC-DC-Converter/SiC_6k6_Industrial_DAB/07_KiCad_Schematics/SiC_DAB_6k6.kicad_pcb
   footprints 261, zones 70, track segments 0, vias 0
   pcbnew cross-check: {'available': True, 'version': '7.0.11', 'pads_compared': 731, 'max_pad_position_deviation_mm': 0.0, 'tracks_in_board': 0}
   stack-up copper mid-depths (mm): F.Cu 0.04, In1.Cu 0.31, In2.Cu 0.88, In3.Cu 1.45, In4.Cu 2.02, B.Cu 2.29; board 2.32 mm

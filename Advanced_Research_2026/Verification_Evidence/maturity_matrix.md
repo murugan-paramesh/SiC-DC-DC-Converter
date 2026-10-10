@@ -22,5 +22,14 @@ No deliverable in this repository is above L3: there is no hardware, no HIL benc
 | Engineering baseline | DAB KiCad schematic (5 sheets) and netlist consistency | **L3** | 18_Verification/verification_report.md | pinouts flagged for datasheet verification |
 | Engineering baseline | DAB 6-layer PCB (generated placement/routing, DRC) | **L2** | 07_KiCad_Schematics/drc_summary.json (latest run) | becomes L3 only at 0 DRC errors / 0 unconnected; silk warnings remain |
 | Engineering baseline | Thermal, EMI/EMC, safety (insulation coordination), FMEA, BOM, manufacturing outputs | **L1-L2** | 13_, 14_, 15_, 16_, 17_ folders | no measurement, no pre-compliance test, no certification |
-| Research 2026 | Literature database 2022-2026 | **L0** | Advanced_Research_2026/Literature_Database/ | see verification_status per entry; several specification-named papers not confirmed |
+| Research 2026 | Literature database 2022-2026 | **L0 (record)** | Advanced_Research_2026/Literature_Database/ | 57 entries: 43 confirmed from search snippets, 12 partially, 2 not found; no full texts accessible (publisher hosts blocked); the specification-named 'DAB digital twin TIM 2025' is IECON 2024 (Bayindir et al.), the Kiel APEC 2025 98 % figure is only a snippet |
 | Research 2026 | Digital twin: observability, RLS/EKF/Bayes estimation, Coss estimator, thermal observer, supervisory | **L2 (L3 code)** | Advanced_Research_2026/Digital_Twin/results/ | transition-time sensor is a proposal; no hardware |
+| Research 2026 | FEM_Magnetics: 2-D finite-difference magnetostatics (leakage, proximity, planar vs wound, Pareto) | **L1-L2** | Advanced_Research_2026/FEM_Magnetics/results/ (validation vs closed form -0.04 %, Dowell -0.03 %) | 2-D approximation, no 3-D/commercial FEM, no measurement; finds proximity factors 1.41/1.57 vs the design's 1.04/1.08 and a litz packing problem (12.8 mm needed vs 11.7 mm window) |
+| Research 2026 | Parasitic_Extraction: commutation-loop and gate-loop partial inductance from the board geometry, overshoot margin | **L1** | Advanced_Research_2026/Parasitic_Extraction/results/parasitics.json (27.9 nH loop, 109/56 nH gate loops) | closed-form partial inductances, package inductance from literature-typical values, no field solver or measurement |
+
+## Last toolchain run (2026-10-10T03:11:15 UTC, commit 85c5adc518)
+
+| Module | Script | Status | Wall (s) |
+|---|---|---|---|
+| FEM_Magnetics | run_fem_magnetics.py | PASS | 232.0 |
+| Parasitic_Extraction | extract_parasitics.py | PASS | 7.1 |

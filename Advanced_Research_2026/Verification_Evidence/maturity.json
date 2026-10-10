@@ -1,15 +1,97 @@
 {
- "scale": {"L0": "concept / document only", "L1": "analytical model or calculation", "L2": "simulation-validated (scripts run, results in the repository)", "L3": "software-verified (automated checks pass: DRC, netlist, SIL, unit tests)", "L4": "HIL-verified (not available here)", "L5": "hardware-validated (not available here)", "L6": "publication-ready with evidence (none)"},
+ "scale": {
+  "L0": "concept / document only",
+  "L1": "analytical model or calculation",
+  "L2": "simulation-validated (scripts run, results in the repository)",
+  "L3": "software-verified (automated checks pass: DRC, netlist, SIL, unit tests)",
+  "L4": "HIL-verified (not available here)",
+  "L5": "hardware-validated (not available here)",
+  "L6": "publication-ready with evidence (none)"
+ },
  "deliverables": [
-  {"area": "Engineering baseline", "item": "PSFB 3 kW reference design: schematic, 4-layer PCB, gerbers", "level": "L3", "evidence": "hardware/kicad/drc_summary.json (0 errors), hardware/outputs/", "not_verified": "no hardware"},
-  {"area": "Engineering baseline", "item": "DAB requirements, envelope, RTM", "level": "L1", "evidence": "SiC_6k6_Industrial_DAB/00_Requirements/", "not_verified": "customer review"},
-  {"area": "Engineering baseline", "item": "DAB mathematical model and design calculations", "level": "L2", "evidence": "03_Mathematical_Models, 04_Design_Calculations/design_values.json", "not_verified": "2 oz copper loss estimate dominates; device data from memory (verified=False)"},
-  {"area": "Engineering baseline", "item": "DAB switched simulation (Python plant + controller) and ngspice model", "level": "L2", "evidence": "05_Simulation/switched_results.json, spice/spice_results.json", "not_verified": "ideal switches, no dead time in the Python plant; pulse-asymmetry defect fixed 2026-10-10"},
-  {"area": "Engineering baseline", "item": "DAB firmware control core + SIL harness", "level": "L3", "evidence": "10_Firmware/sil/sil_results.csv (35 checks)", "not_verified": "C2000 HAL never compiled with the TI toolchain (L0-L1)"},
-  {"area": "Engineering baseline", "item": "DAB KiCad schematic (5 sheets) and netlist consistency", "level": "L3", "evidence": "18_Verification/verification_report.md", "not_verified": "pinouts flagged for datasheet verification"},
-  {"area": "Engineering baseline", "item": "DAB 6-layer PCB (generated placement/routing, DRC)", "level": "L2", "evidence": "07_KiCad_Schematics/drc_summary.json (latest run)", "not_verified": "becomes L3 only at 0 DRC errors / 0 unconnected; silk warnings remain"},
-  {"area": "Engineering baseline", "item": "Thermal, EMI/EMC, safety (insulation coordination), FMEA, BOM, manufacturing outputs", "level": "L1-L2", "evidence": "13_, 14_, 15_, 16_, 17_ folders", "not_verified": "no measurement, no pre-compliance test, no certification"},
-  {"area": "Research 2026", "item": "Literature database 2022-2026", "level": "L0", "evidence": "Advanced_Research_2026/Literature_Database/", "not_verified": "see verification_status per entry; several specification-named papers not confirmed"},
-  {"area": "Research 2026", "item": "Digital twin: observability, RLS/EKF/Bayes estimation, Coss estimator, thermal observer, supervisory", "level": "L2 (L3 code)", "evidence": "Advanced_Research_2026/Digital_Twin/results/", "not_verified": "transition-time sensor is a proposal; no hardware"}
+  {
+   "area": "Engineering baseline",
+   "item": "PSFB 3 kW reference design: schematic, 4-layer PCB, gerbers",
+   "level": "L3",
+   "evidence": "hardware/kicad/drc_summary.json (0 errors), hardware/outputs/",
+   "not_verified": "no hardware"
+  },
+  {
+   "area": "Engineering baseline",
+   "item": "DAB requirements, envelope, RTM",
+   "level": "L1",
+   "evidence": "SiC_6k6_Industrial_DAB/00_Requirements/",
+   "not_verified": "customer review"
+  },
+  {
+   "area": "Engineering baseline",
+   "item": "DAB mathematical model and design calculations",
+   "level": "L2",
+   "evidence": "03_Mathematical_Models, 04_Design_Calculations/design_values.json",
+   "not_verified": "2 oz copper loss estimate dominates; device data from memory (verified=False)"
+  },
+  {
+   "area": "Engineering baseline",
+   "item": "DAB switched simulation (Python plant + controller) and ngspice model",
+   "level": "L2",
+   "evidence": "05_Simulation/switched_results.json, spice/spice_results.json",
+   "not_verified": "ideal switches, no dead time in the Python plant; pulse-asymmetry defect fixed 2026-10-10"
+  },
+  {
+   "area": "Engineering baseline",
+   "item": "DAB firmware control core + SIL harness",
+   "level": "L3",
+   "evidence": "10_Firmware/sil/sil_results.csv (35 checks)",
+   "not_verified": "C2000 HAL never compiled with the TI toolchain (L0-L1)"
+  },
+  {
+   "area": "Engineering baseline",
+   "item": "DAB KiCad schematic (5 sheets) and netlist consistency",
+   "level": "L3",
+   "evidence": "18_Verification/verification_report.md",
+   "not_verified": "pinouts flagged for datasheet verification"
+  },
+  {
+   "area": "Engineering baseline",
+   "item": "DAB 6-layer PCB (generated placement/routing, DRC)",
+   "level": "L2",
+   "evidence": "07_KiCad_Schematics/drc_summary.json (latest run)",
+   "not_verified": "becomes L3 only at 0 DRC errors / 0 unconnected; silk warnings remain"
+  },
+  {
+   "area": "Engineering baseline",
+   "item": "Thermal, EMI/EMC, safety (insulation coordination), FMEA, BOM, manufacturing outputs",
+   "level": "L1-L2",
+   "evidence": "13_, 14_, 15_, 16_, 17_ folders",
+   "not_verified": "no measurement, no pre-compliance test, no certification"
+  },
+  {
+   "area": "Research 2026",
+   "item": "Literature database 2022-2026",
+   "level": "L0 (record)",
+   "evidence": "Advanced_Research_2026/Literature_Database/",
+   "not_verified": "57 entries: 43 confirmed from search snippets, 12 partially, 2 not found; no full texts accessible (publisher hosts blocked); the specification-named 'DAB digital twin TIM 2025' is IECON 2024 (Bayindir et al.), the Kiel APEC 2025 98 % figure is only a snippet"
+  },
+  {
+   "area": "Research 2026",
+   "item": "Digital twin: observability, RLS/EKF/Bayes estimation, Coss estimator, thermal observer, supervisory",
+   "level": "L2 (L3 code)",
+   "evidence": "Advanced_Research_2026/Digital_Twin/results/",
+   "not_verified": "transition-time sensor is a proposal; no hardware"
+  },
+  {
+   "area": "Research 2026",
+   "item": "FEM_Magnetics: 2-D finite-difference magnetostatics (leakage, proximity, planar vs wound, Pareto)",
+   "level": "L1-L2",
+   "evidence": "Advanced_Research_2026/FEM_Magnetics/results/ (validation vs closed form -0.04 %, Dowell -0.03 %)",
+   "not_verified": "2-D approximation, no 3-D/commercial FEM, no measurement; finds proximity factors 1.41/1.57 vs the design's 1.04/1.08 and a litz packing problem (12.8 mm needed vs 11.7 mm window)"
+  },
+  {
+   "area": "Research 2026",
+   "item": "Parasitic_Extraction: commutation-loop and gate-loop partial inductance from the board geometry, overshoot margin",
+   "level": "L1",
+   "evidence": "Advanced_Research_2026/Parasitic_Extraction/results/parasitics.json (27.9 nH loop, 109/56 nH gate loops)",
+   "not_verified": "closed-form partial inductances, package inductance from literature-typical values, no field solver or measurement"
+  }
  ]
 }
