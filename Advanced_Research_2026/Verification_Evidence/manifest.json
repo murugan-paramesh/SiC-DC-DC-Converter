@@ -41,5 +41,20 @@
   "embedded_inference.py",
   "fixed_point_ref.py",
   "scheduling.py"
+ ],
+ "Robust_Optimization": [
+  "robust_optimize.py"
+ ],
+ "Uncertainty_Quantification": [
+  "uq_baseline.py"
+ ],
+ "Physics_Informed_Models": [
+  "surrogate_comparison.py"
+ ],
+ "Safe_RL_Research": [
+  "safe_rl_modulation.py"
+ ],
+ "Research_Benchmarks": [
+  "benchmark_table.py"
  ]
 }

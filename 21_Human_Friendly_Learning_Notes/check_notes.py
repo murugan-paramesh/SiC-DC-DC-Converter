@@ -18,6 +18,21 @@ QBLOCKS = ["### Basic (10)", "### Intermediate (10)", "### Advanced / research (
 PITCH = ["**30 s:**", "**2 min:**", "**10 min outline:**"]
 TAGS = {"[Implemented]", "[Simulated]", "[Verified]", "[Proposed]", "[Not yet tested]"}
 PATH_RE = re.compile(r"`([A-Za-z0-9_./\-]+\.(?:py|md|json|csv|c|h|kicad_pcb|kicad_sch|kicad_dru|png|txt|mk|ini)|[A-Za-z0-9_\-]+(?:/[A-Za-z0-9_.\-]+)+/?)`")
+# index of every file and directory in the repository (relative, '/'-separated) so that a short
+# reference such as `design_values.json` or `results/twin_study.json` is accepted when a real file ends
+# with it; a name that matches nothing in the repository is reported as unknown.
+INDEX = []
+for root, dirs, files in os.walk(REPO):
+    dirs[:] = [d for d in dirs if d not in (".git", "__pycache__", "textbook")]
+    rel = os.path.relpath(root, REPO).replace(os.sep, "/")
+    INDEX.append(rel + "/")
+    INDEX += [(rel + "/" + f) if rel != "." else f for f in files]
+def exists_somewhere(p):
+    p = p.rstrip("/")
+    for c in (os.path.join(REPO, p), os.path.join(HERE, p), os.path.join(REPO, "SiC_6k6_Industrial_DAB", p)):
+        if os.path.exists(c): return True
+    tail = "/" + p
+    return any(x.rstrip("/").endswith(tail) or x.rstrip("/") == p for x in INDEX)
 ok_all = True; rows = []
 chapters = sorted(glob.glob(os.path.join(HERE, "[0-2][0-9]_*.md")))
 expected = {f"{i:02d}" for i in range(0, 21)}
@@ -45,8 +60,7 @@ for ch in chapters:
     bad_paths = []
     for m in PATH_RE.finditer(txt):
         p = m.group(1)
-        cands = [os.path.join(REPO, p), os.path.join(HERE, p), os.path.join(REPO, "SiC_6k6_Industrial_DAB", p)]
-        if not any(os.path.exists(c) for c in cands): bad_paths.append(p)
+        if not exists_somewhere(p): bad_paths.append(p)
     bad_paths = sorted(set(bad_paths))
     if bad_paths: probs.append(f"{len(bad_paths)} unknown paths: {bad_paths[:6]}")
     tags = set(re.findall(r"\[(?:Implemented|Simulated|Verified|Proposed|Not yet tested)\]", txt))

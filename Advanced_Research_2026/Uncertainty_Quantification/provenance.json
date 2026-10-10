@@ -1,12 +1,12 @@
 {
  "module": "Advanced_Research_2026/Uncertainty_Quantification",
  "script": "uq_baseline.py",
- "generated_utc": "2026-10-10T07:45:54Z",
+ "generated_utc": "2026-10-10T10:08:02Z",
  "python": "3.13.16",
  "numpy": "2.5.3",
  "scipy": "1.18.1",
  "matplotlib": "3.11.2",
- "git_commit": "8321de57c23433aa2f82f051017aedcd1714cf54",
+ "git_commit": "921fc9bf0c04956a6f15c1d26fee0dc2c857de35",
  "input_hashes_sha256_16": {
   "SiC_6k6_Industrial_DAB/dabtools/dab/dab_model.py": "7a227db80b4c817e",
   "SiC_6k6_Industrial_DAB/dabtools/dab/losses.py": "76eb51f6209ae98d",
@@ -33,6 +33,6 @@
   "corners": 33
  },
  "quick_mode": false,
- "wall_time_s": 47.82561445236206,
+ "wall_time_s": 26.576239585876465,
  "maturity": "L2"
 }
