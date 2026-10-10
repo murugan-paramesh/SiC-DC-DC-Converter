@@ -21,7 +21,7 @@
    "adaptive": 27,
    "fallback": 0
   },
-  "wall_s": 6.0137529373168945,
+  "wall_s": 2.7025253772735596,
   "caveat": "switched simulation with the project's plant; ZVS judged by the charge-based current criterion at the sensed edge; no hardware"
  },
  "rows": [

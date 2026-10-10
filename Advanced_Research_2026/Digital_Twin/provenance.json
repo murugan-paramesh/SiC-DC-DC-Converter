@@ -3,14 +3,14 @@
  "python": "3.13.16",
  "numpy": "2.5.3",
  "matplotlib": "3.11.2",
- "git_commit": "0810f0ff9ed3c424ed826de6e58a4073b1f3f24b",
+ "git_commit": "3a7ed16e4f30784f9a8a927432d848e20baa3815",
  "inputs": {
   "04_Design_Calculations/design_values.json": "71f9d6528c7f4271",
   "11_Control_Algorithms/control_params.json": "7ddd3fafe463ac4f",
   "dabtools/dab/sim_switched.py": "0aa6ec0b6449437d",
-  "dabtools/dab/control.py": "ea8d367e381c5474"
+  "dabtools/dab/control.py": "4fce64a75da1a596"
  },
  "seed": 20261010,
- "wall_s": 42.59795022010803,
+ "wall_s": 17.36530375480652,
  "data_origin": "SIMULATED (switched plant), no hardware"
 }
