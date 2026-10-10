@@ -40,7 +40,7 @@ for i, y in zip((1, 2, 3, 4), (100, 139, 178, 217)):
 P("J4", 104, 52); P("J3", 95, 73); P("J9", 100, 150)   # J3 above C1 (courtyard 0.5 mm clear of the F1 holder), west of the SW_A_CT strip (x 103-109)
 P("R1", 106, 170); P("R2", 106, 177); P("R3", 106, 184); P("R4", 106, 191)
 P("CY1", 24, 241, 0); P("CY2", 60, 241, 0); P("J21", 14, 125, 0)   # PE lug: >= 8.5 mm from HV pads (J2 stud, C1); the HV_N pour recedes by rule
-P("TP1", 96, 86); P("TP2", 104, 64); P("TP3", 30, 56)   # TP1 on the SW_A stud pour, TP3 clear of the fuse stud
+P("TP1", 96, 86); P("TP2", 110, 64); P("TP3", 30, 56)   # TP1 on the SW_A stud pour, TP2 clear of the J3 pad halo, TP3 clear of the fuse stud
 # ------------------------------------------------------------------ HV barrier (x = 126)
 P("U1", BAR1, 20, 180); P("U2", BAR1, 34, 180)
 P("PS1", BAR1, 48, 180); P("PS2", BAR1, 58, 180); P("PS3", BAR1, 68, 180); P("PS4", BAR1, 78, 180)

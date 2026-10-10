@@ -28,10 +28,16 @@ class DABPlant:
         """Bridge voltages over one period for the commanded (phi, D1, D2); returns arrays (N_sub)."""
         th = (np.arange(self.N_sub) + 0.5) / self.N_sub * 2 * math.pi
         def three(amp, D, shift):
+            # Positive pulse centred on pi/2 with D*pi width; the negative pulse is the positive one
+            # rolled by exactly N_sub/2 cells so that both half periods have the same number of cells.
+            # (Building the two pulses from independent float comparisons can make them differ by one
+            # cell when a pulse edge falls on a cell centre, which injects a DC volt-second per period
+            # and - through R_s - a large DC inductor current: found in the 2026 twin study, E3.)
             x = (th - shift) % (2 * math.pi); h = D * math.pi / 2
+            pos = (x > math.pi / 2 - h + 1e-9) & (x <= math.pi / 2 + h + 1e-9)
             v = np.zeros_like(x)
-            v[(x > math.pi / 2 - h) & (x <= math.pi / 2 + h)] = amp
-            v[(x > 3 * math.pi / 2 - h) & (x <= 3 * math.pi / 2 + h)] = -amp
+            v[pos] = amp
+            v[np.roll(pos, self.N_sub // 2)] = -amp
             return v
         return three(1.0, D1, 0.0), three(1.0, D2, phi)
 

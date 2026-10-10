@@ -1,0 +1,16 @@
+{
+ "script": "run_twin_study.py",
+ "python": "3.13.16",
+ "numpy": "2.5.3",
+ "matplotlib": "3.11.2",
+ "git_commit": "0810f0ff9ed3c424ed826de6e58a4073b1f3f24b",
+ "inputs": {
+  "04_Design_Calculations/design_values.json": "71f9d6528c7f4271",
+  "11_Control_Algorithms/control_params.json": "7ddd3fafe463ac4f",
+  "dabtools/dab/sim_switched.py": "0aa6ec0b6449437d",
+  "dabtools/dab/control.py": "ea8d367e381c5474"
+ },
+ "seed": 20261010,
+ "wall_s": 42.59795022010803,
+ "data_origin": "SIMULATED (switched plant), no hardware"
+}

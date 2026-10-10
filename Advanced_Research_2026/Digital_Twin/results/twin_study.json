@@ -1,0 +1,79 @@
+{
+ "E1": {
+  "description": "true L = 0.8 L_nom (tolerance case) then +15 % drift between 60 and 90 ms; estimators start at L_nom",
+  "rls": {
+   "conv_2pct_ms": 0.010000000000000002,
+   "final_err_pct": 0.23551774378292034,
+   "err_pct_at_50ms": 0.247557585912217,
+   "one_sigma_pct_final": 0.8558253260695871
+  },
+  "ekf": {
+   "conv_2pct_ms": 0.010000000000000002,
+   "final_err_pct": 0.25382019647519627,
+   "err_pct_at_50ms": 0.26373448707133207
+  },
+  "bayes": {
+   "final_err_pct": -11.19565217391304,
+   "credible95_width_pct_final": 0.0,
+   "note": "sequential grid posterior assumes a constant parameter -> it does not track the drift (reference only)"
+  },
+  "bias_sources": "AC loop resistance R_s = 0.3 Ohm (lossless regressor), ADC quantisation, gain errors of the v1/v2/i2 chains (fixed per unit, drawn from SENSOR); the modulator time quantisation (N_sub = 200 steps per period in the plant, 2000 in the C2000 ePWM) is removed by evaluating the regressor on the applied switching pattern"
+ },
+ "E2": {
+  "description": "steady state at 100/30/10 % load, true L = 0.9 L_nom, statistics over the last 2000 periods",
+  "results": {
+   "100 %": {
+    "gated": {
+     "mean_err_pct": 0.5935050262131377,
+     "std_pct": 0.004540103021884565,
+     "updates": 4000
+    },
+    "ungated": {
+     "mean_err_pct": 0.5935050262131377,
+     "std_pct": 0.004540103021884565,
+     "updates": 4000
+    }
+   },
+   "30 %": {
+    "gated": {
+     "mean_err_pct": -0.8659939737860299,
+     "std_pct": 0.009508116368607442,
+     "updates": 3490
+    },
+    "ungated": {
+     "mean_err_pct": -0.8342421671513898,
+     "std_pct": 0.010654770908535937,
+     "updates": 4000
+    }
+   },
+   "10 %": {
+    "gated": {
+     "mean_err_pct": -0.488144748623498,
+     "std_pct": 0.0,
+     "updates": 141
+    },
+    "ungated": {
+     "mean_err_pct": -0.7922311736754133,
+     "std_pct": 0.0328668718220434,
+     "updates": 4000
+    }
+   }
+  },
+  "g_min_A_H": "2.5e-4 A*H (regressor threshold -> updates gated below ~25 % load)"
+ },
+ "E3": {
+  "description": "true Coss_er = 1.2 x datasheet, true L = 0.85 L_nom, 50 % load; transition-time sensor synthetic with 5 ns rms noise",
+  "final_err_pct_with_estimated_L": 4.501449950382597,
+  "final_err_pct_with_nominal_L": -11.633114800640742,
+  "note": "the Coss estimate inherits the L error one-to-one through I_edge; without the sensor Coss is unobservable (observability.json)"
+ },
+ "E4": {
+  "description": "loss steps 6 -> 14 -> 4 W per device; observer has +15 % RthJC and +10 % loss-estimate error; NTC noise 1 K",
+  "Tj_error_K": {
+   "max_abs": 14.428354517221173,
+   "rms": 1.1436280125040283,
+   "steady_after_step": 1.6484854887532565
+  },
+  "note": "Tj is not measurable; the error is dominated by the RthJC and loss-model errors, not by the NTC noise -> calibration need, see Multiphysics_Models"
+ }
+}
