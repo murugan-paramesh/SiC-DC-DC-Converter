@@ -1,12 +1,12 @@
 {
  "module": "Advanced_Research_2026/Robust_Optimization",
  "script": "robust_optimize.py",
- "generated_utc": "2026-10-10T08:04:49Z",
+ "generated_utc": "2026-10-10T10:21:17Z",
  "python": "3.13.16",
  "numpy": "2.5.3",
  "scipy": "1.18.1",
  "matplotlib": "3.11.2",
- "git_commit": "fe23bcde36cbddf2ea8e1af445bd7b1523dc8c20",
+ "git_commit": "37ed6009e5d4d02e835a2eb121e5adde64330ba9",
  "input_hashes_sha256_16": {
   "SiC_6k6_Industrial_DAB/dabtools/dab/dab_model.py": "7a227db80b4c817e",
   "SiC_6k6_Industrial_DAB/dabtools/dab/losses.py": "76eb51f6209ae98d",
@@ -34,6 +34,6 @@
   "bo": 250
  },
  "quick_mode": false,
- "wall_time_s": 620.1438894271851,
+ "wall_time_s": 512.5674786567688,
  "maturity": "L2"
 }

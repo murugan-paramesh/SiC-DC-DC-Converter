@@ -11,7 +11,7 @@ Writes next to this script:
     ch18_crosstalk_margin.png   quasi-static crosstalk margin at the worst ZVS corner per gate-drive option
 Sources:
     Advanced_Research_2026/Adaptive_MPC/results/c2000_feasibility.json
-    Advanced_Research_2026/Embedded_AI/results/embedded_report.json (wcet section) - values also in the README table
+    Advanced_Research_2026/Embedded_AI/results/embedded_report.json (wcet.paths)
     Advanced_Research_2026/Physics_Informed_Models/results/metrics.json
     Advanced_Research_2026/Reliability_Engineering/results/fta_cutsets.json
     Advanced_Research_2026/Active_Gate_Drive/results/gate_drive_results.json
@@ -43,35 +43,28 @@ def clean(ax):
 
 def fig_wcet():
     c2k = load("Adaptive_MPC", "results", "c2000_feasibility.json")["controllers"]
-    rows = [(name, v["wcet_us"]) for name, v in c2k.items()]
-    # Embedded_AI inference paths (README table 3.1 / embedded_report.json "wcet")
-    try:
-        w = load("Embedded_AI", "results", "embedded_report.json")["wcet"]
-        extra = []
-        for key, label in (("lut_q15", "Q15 explicit-MPC LUT (Embedded_AI)"),
-                           ("mlp_q15", "MLP 3-16-16-3 Q15 (Embedded_AI)")):
-            if key in w and isinstance(w[key], dict) and "us" in w[key]:
-                extra.append((label, w[key]["us"]))
-        rows += extra
-    except (KeyError, OSError):
-        pass
-    rows.sort(key=lambda r: r[1])
-    names = [r[0] for r in rows]
-    vals = [r[1] for r in rows]
-    colors = [GREEN if v <= 10.0 else ORANGE for v in vals]
-    fig, ax = plt.subplots(figsize=(7.2, 0.42 * len(rows) + 1.2))
-    ax.barh(range(len(rows)), vals, color=colors, height=0.6)
-    ax.axvline(10.0, color=RED, lw=1.2, ls="--")
-    ax.text(10.4, len(rows) - 0.6, "10 us ISR budget (100 kHz)", color=RED, fontsize=8, va="top")
-    for i, v in enumerate(vals):
-        ax.text(v * 1.08, i, f"{v:.1f} us  {'fits' if v <= 10 else 'does not fit'}", va="center", fontsize=7.5)
-    ax.set_yticks(range(len(rows)))
-    ax.set_yticklabels(names, fontsize=8)
-    ax.set_xscale("log")
-    ax.set_xlim(0.3, 400)
-    ax.set_xlabel("estimated WCET per update on a 200 MHz C28x (us, log scale) - L1 instruction-count estimate")
-    ax.set_title("Which controller fits the 10 us control ISR? (estimate, no toolchain, no hardware)", fontsize=9.5)
-    clean(ax)
+    ai = load("Embedded_AI", "results", "embedded_report.json")["wcet"]["paths"]
+    panels = [("Adaptive_MPC: whole update incl. 120-cycle ISR overhead",
+               [(k, v["wcet_us"]) for k, v in c2k.items()]),
+              ("Embedded_AI: inference path only (ISR overhead excluded)",
+               [(k, v["us"]) for k, v in ai.items()])]
+    fig, axes = plt.subplots(2, 1, figsize=(8.8, 6.4))
+    for ax, (title, rows) in zip(axes, panels):
+        rows = sorted(rows, key=lambda r: r[1])
+        vals = [r[1] for r in rows]
+        ax.barh(range(len(rows)), vals, color=[GREEN if v <= 10.0 else ORANGE for v in vals], height=0.6)
+        ax.axvline(10.0, color=RED, lw=1.2, ls="--")
+        ax.text(10.5, -0.5, "10 us ISR budget", color=RED, fontsize=7.5, va="bottom")
+        for i, v in enumerate(vals):
+            ax.text(v * 1.08, i, f"{v:.2f} us  {'fits' if v <= 10 else 'does not fit'}", va="center", fontsize=7.5)
+        ax.set_yticks(range(len(rows)))
+        ax.set_yticklabels([r[0] for r in rows], fontsize=7.5)
+        ax.set_xscale("log")
+        ax.set_xlim(0.3, 2000)
+        ax.set_title(title, fontsize=9)
+        clean(ax)
+    axes[1].set_xlabel("estimated us per update, 200 MHz C28x (log), L1 estimate")
+    fig.suptitle("Which controller fits the 10 us control ISR? (estimates; no toolchain, no hardware)", fontsize=9.5)
     fig.tight_layout()
     fig.savefig(os.path.join(HERE, "ch17_wcet_budget.png"), dpi=150)
     plt.close(fig)
@@ -89,15 +82,15 @@ def fig_surrogates():
     fig, ax = plt.subplots(figsize=(7.2, 3.6))
     ax.barh(range(len(vals)), vals, color=colors, height=0.6)
     ax.axvline(1.0, color=GREY, lw=1.0, ls=":")
-    ax.text(1.05, -0.6, "1 % of range", color=GREY, fontsize=7.5)
+    ax.text(1.05, 0.35, "1 % of range", color=GREY, fontsize=7.5)
     for i, v in enumerate(vals):
         ax.text(v * 1.1, i, f"{v:.2f} %", va="center", fontsize=7.5)
     ax.set_yticks(range(len(vals)))
     ax.set_yticklabels(names, fontsize=8)
     ax.set_xscale("log")
     ax.set_xlim(0.05, 120)
-    ax.set_xlabel("worst-output RMSE on 2000 random test points (% of output range, log scale), 6912 training points")
-    ax.set_title("Surrogates of the DAB steady-state map: the analytical model wins (simulation only)", fontsize=9.5)
+    ax.set_xlabel("worst-output RMSE, 2000 random test points (% of range, log), 6912 training points")
+    ax.set_title("DAB steady-state map surrogates: the analytical model wins (simulation)", fontsize=9.5)
     clean(ax)
     fig.tight_layout()
     fig.savefig(os.path.join(HERE, "ch17_surrogate_accuracy.png"), dpi=150)
@@ -109,7 +102,7 @@ def fig_te2():
     rows = [("rev A (UCC21520, no DESAT)", d["TE2_uncontrolled_energy_overcurrent"]["frequency_per_year"]),
             ("rev A + CT plausibility check", d["TE2_with_CT_plausibility"]["frequency_per_year"]),
             ("DESAT driver (UCC21710 class, 99 % coverage assumed)", d["TE2_with_DESAT_driver"]["frequency_per_year"])]
-    fig, ax = plt.subplots(figsize=(7.2, 2.4))
+    fig, ax = plt.subplots(figsize=(7.6, 2.6))
     vals = [r[1] for r in rows]
     ax.barh(range(3), vals, color=[ORANGE, ORANGE, GREEN], height=0.55)
     for i, v in enumerate(vals):
@@ -118,8 +111,8 @@ def fig_te2():
     ax.set_yticklabels([r[0] for r in rows], fontsize=8)
     ax.set_xscale("log")
     ax.set_xlim(1e-7, 1e-2)
-    ax.set_xlabel("TE2 frequency (/year, log scale) - ASSUMED class failure rates, relative comparison only")
-    ax.set_title("Fault tree TE2 (shoot-through not interrupted in time): the missing DESAT dominates", fontsize=9.5)
+    ax.set_xlabel("TE2 frequency per year (log); ASSUMED rates, relative only")
+    ax.set_title("Fault tree TE2: the missing DESAT detection dominates", fontsize=9.5)
     clean(ax)
     fig.tight_layout()
     fig.savefig(os.path.join(HERE, "ch18_te2_variants.png"), dpi=150)
@@ -140,11 +133,11 @@ def fig_crosstalk():
             ax.text(v + (0.15 if v >= 0 else -0.15), i, f"{v:+.1f} V", va="center",
                     ha="left" if v >= 0 else "right", fontsize=7.5)
         ax.set_title(title, fontsize=9)
-        ax.set_xlim(-7.5, 4.5)
-        ax.set_xlabel("margin to Vth,min(150 C) at worst ZVS corner (V)")
+        ax.set_xlim(-8.5, 4.5)
         clean(ax)
     axes[0].set_yticks(range(len(opts)))
     axes[0].set_yticklabels(opts, fontsize=7.5)
+    fig.supxlabel("induced gate-voltage margin to Vth,min(150 C) at the worst ZVS corner (V)", fontsize=8.5)
     fig.suptitle("Crosstalk (false turn-on) margin per gate-drive option - L1 analytic model, below 0 = re-conduction",
                  fontsize=9)
     fig.tight_layout()

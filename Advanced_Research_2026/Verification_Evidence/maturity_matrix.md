@@ -41,14 +41,12 @@ No deliverable in this repository is above L3: there is no hardware, no HIL benc
 | Research 2026 | Research_Benchmarks: 14-row comparison vs published 6.6 kW-class work, methodology for a fair measured comparison | **L1** | Research_Benchmarks/results/, benchmark_methodology.md | our numbers calculated, theirs measured; only confirmed literature entries quoted |
 | Research 2026 | Research_Publications: four manuscript outlines with abstracts drafted from the repository results | **L0** | Research_Publications/ | not submitted; each needs its named validation step first |
 
-## Last toolchain run (2026-10-10T07:57:25 UTC, commit fe23bcde36)
+## Last toolchain run (2026-10-10T10:07:24 UTC, commit 921fc9bf0c)
 
 | Module | Script | Status | Wall (s) |
 |---|---|---|---|
-| Adaptive_MPC | build_explicit_mpc.py | PASS | 5.0 |
-| Adaptive_MPC | run_benchmarks.py | PASS | 227.9 |
-| Adaptive_MPC | run_adaptive_robust.py | PASS | 74.7 |
-| Adaptive_MPC | zvs_maps.py | PASS | 104.9 |
-| Embedded_AI | embedded_inference.py | PASS | 54.1 |
-| Embedded_AI | fixed_point_ref.py | PASS | 0.2 |
-| Embedded_AI | scheduling.py | PASS | 0.8 |
+| Research_Benchmarks | benchmark_table.py | PASS | 2.6 |
+| Uncertainty_Quantification | uq_baseline.py | PASS | 32.7 |
+| Physics_Informed_Models | surrogate_comparison.py | PASS | 113.3 |
+| Safe_RL_Research | safe_rl_modulation.py | PASS | 168.0 |
+| Robust_Optimization | robust_optimize.py | PASS | 514.0 |

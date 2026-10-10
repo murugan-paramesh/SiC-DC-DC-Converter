@@ -1,224 +1,262 @@
 {
- "started": "2026-10-10T07:57:25.771094+00:00",
+ "started": "2026-10-10T10:07:24.758670+00:00",
  "versions": {
   "python": "3.13.16",
   "numpy": "2.5.3",
   "scipy": "1.18.1",
   "matplotlib": "3.11.2",
   "pandas": "3.0.5",
-  "git_commit": "fe23bcde36cbddf2ea8e1af445bd7b1523dc8c20"
+  "git_commit": "921fc9bf0c04956a6f15c1d26fee0dc2c857de35"
  },
  "modules": {
-  "Adaptive_MPC": {
+  "Research_Benchmarks": {
    "scripts": [
     {
-     "script": "build_explicit_mpc.py",
+     "script": "benchmark_table.py",
      "status": "PASS",
-     "wall_s": 5.0,
-     "tail": "grid (33, 9, 23), 6831 nodes, solver time 3.1 s, convergence 600 vs 1200 it: 0.0002 deg\n{\n \"max\": 0.8487993552773161,\n \"rms\": 0.1379286792105026,\n \"p99\": 0.5470416844478477,\n \"pwm_step_deg\": 0.36000000000000004,\n \"n_samples\": 3000\n} saturated fraction 0.3027375201288245\ndone in 4.4 s\n"
-    },
-    {
-     "script": "run_benchmarks.py",
-     "status": "PASS",
-     "wall_s": 227.9,
-     "tail": " 2.07 us    20.7 % of ISR\nWCET CCS-MPC                2467 ops    5804 cycles   29.02 us   290.2 % of ISR\nWCET FCS-MPC                8040 ops   19654 cycles   98.27 us   982.7 % of ISR\nWCET Explicit-MPC            136 ops     466 cycles    2.33 us    23.3 % of ISR\nWCET Adaptive-MPC           2812 ops    6650 cycles   33.25 us   332.5 % of ISR\nWCET Robust-MPC             2467 ops    5804 cycles   29.02 us   290.2 % of ISR\nWCET CCS-MPC N=5 K=10        897 ops    2224 cycles   11.12 us   111.2 % of ISR\nWCET CCS-MPC N=8 K=40       4767 ops   11044 cycles   55.22 us   552.2 % of ISR\ndone in 227 s\n"
-    },
-    {
-     "script": "run_adaptive_robust.py",
-     "status": "PASS",
-     "wall_s": 74.7,
-     "tail": " 22.19 A  violations(24 A) 0  hw(32 A) 0\nL = 1.0 L_nom  Robust-MPC    peak dev 0.157 %  Ipk 19.43 A  violations(24 A) 0  hw(32 A) 0\nL = 1.0 L_nom  PI            peak dev 1.219 %  Ipk 17.73 A  violations(24 A) 0  hw(32 A) 0\nL = 1.2 L_nom  CCS-MPC       peak dev 0.175 %  Ipk 20.10 A  violations(24 A) 0  hw(32 A) 0\nL = 1.2 L_nom  Adaptive-MPC  peak dev 0.168 %  Ipk 20.13 A  violations(24 A) 0  hw(32 A) 0\nL = 1.2 L_nom  Robust-MPC    peak dev 1.758 %  Ipk 16.58 A  violations(24 A) 0  hw(32 A) 0\nL = 1.2 L_nom  PI            peak dev 4.879 %  Ipk 14.55 A  violations(24 A) 0  hw(32 A) 0\ndone in 74 s\n"
-    },
-    {
-     "script": "zvs_maps.py",
-     "status": "PASS",
-     "wall_s": 104.9,
-     "tail": "        fwd hard  41.6 %  rev hard  41.0 %  fwd worst corner 650/300 V up to 100 % load\nnominal/EPS            fwd hard  47.0 %  rev hard  46.7 %  fwd worst corner 650/450 V up to 80 % load\nnominal/SPS            fwd hard  46.3 %  rev hard  46.0 %  fwd worst corner 650/450 V up to 90 % load\nworst/EPS              fwd hard  43.8 %  rev hard  43.2 %  fwd worst corner 650/300 V up to 100 % load\nworst/SPS              fwd hard  42.7 %  rev hard  42.4 %  fwd worst corner 650/300 V up to 100 % load\nedge current for 150 ns: {'HV_800V': 2.6666666666666665, 'LV_400V': 2.8000000000000003}\ndone in 104 s\n"
+     "wall_s": 2.6,
+     "tail": "   \"eta_full_pct\": 98.62273959273409,\n   \"eta_worst_corner_pct\": 97.92381156341922,\n   \"power_density_kW_L_estimate\": 1.1092436974789914,\n   \"boxed_volume_L\": 5.950000000000001\n  },\n  \"psfb\": {\n   \"eta_peak_pct\": 97.59417552423213,\n   \"eta_peak_load_pct\": 47.0,\n   \"eta_full_pct\": 97.05282908996797,\n   \"power_density_kW_L_estimate\": 1.1538461538461535,\n   \"boxed_volume_L\": 2.6000000000000005,\n   \"loss_split_W\": {\n    \"fixed\": 13.7,\n    \"linear\": 15.900000000000002,\n    \"quadratic\": 61.499999999999986,\n    \"total\": 91.1\n   }\n  }\n },\n \"literature_db_entries\": 57,\n \"literature_db_confirmed\": 43\n}\n"
     }
    ],
    "results": {
-    "adaptive_rls_convergence.png": {
-     "sha256_16": "80995a0421c8f817",
-     "bytes": 98394
-    },
-    "adaptive_robust_constraints.png": {
-     "sha256_16": "ca7c561bd2719b00",
-     "bytes": 170472
-    },
-    "adaptive_robust_metrics.csv": {
-     "sha256_16": "3498bf9772f0f817",
-     "bytes": 2387
-    },
-    "adaptive_summary.json": {
-     "sha256_16": "1f777aacdee5b9ca",
-     "bytes": 7268
-    },
-    "benchmark_ccs_r_sweep.csv": {
-     "sha256_16": "e6faa597d7b4e7d6",
-     "bytes": 1237
-    },
-    "benchmark_ccs_r_sweep.png": {
-     "sha256_16": "5a895aea509652a9",
-     "bytes": 78444
-    },
-    "benchmark_metrics.csv": {
-     "sha256_16": "a175fab1b813a114",
-     "bytes": 6793
-    },
-    "benchmark_metrics_bars.png": {
-     "sha256_16": "b7e3697d5ef28bbf",
-     "bytes": 131972
-    },
-    "benchmark_modulators.csv": {
-     "sha256_16": "48dd74737760b349",
-     "bytes": 1781
-    },
-    "benchmark_modulators.png": {
-     "sha256_16": "d2e866dfc09771e3",
-     "bytes": 161874
-    },
-    "benchmark_step_load_step_down.png": {
-     "sha256_16": "4d7cee1919d5d725",
-     "bytes": 259630
-    },
-    "benchmark_step_load_step_up.png": {
-     "sha256_16": "eaf3d1171164b122",
-     "bytes": 266263
-    },
-    "benchmark_step_reversal.png": {
-     "sha256_16": "4d85a5744474bad3",
-     "bytes": 127984
-    },
-    "benchmark_step_soft_start.png": {
-     "sha256_16": "726d9c49a183f6ff",
-     "bytes": 239357
-    },
-    "benchmark_step_v1_step.png": {
-     "sha256_16": "0ac1c4f52df048f4",
-     "bytes": 231910
-    },
     "benchmark_summary.json": {
-     "sha256_16": "54276d3facfa2ff6",
-     "bytes": 21860
+     "sha256_16": "78ab17ea32679c7c",
+     "bytes": 993
     },
-    "c2000_feasibility.json": {
-     "sha256_16": "f21454fc87d7e904",
-     "bytes": 4619
+    "benchmark_table.csv": {
+     "sha256_16": "de6d6074d6b8f39c",
+     "bytes": 9832
     },
-    "empc_lut.npz": {
-     "sha256_16": "4473a33adfb3b14c",
-     "bytes": 56162
+    "benchmark_table.md": {
+     "sha256_16": "22140a6a40441d76",
+     "bytes": 7971
     },
-    "empc_lut_meta.json": {
-     "sha256_16": "1c2d7b72d4a647de",
-     "bytes": 1477
-    },
-    "empc_lut_slices.png": {
-     "sha256_16": "f8404bed2910fa1a",
-     "bytes": 137958
-    },
-    "zvs_dead_time_summary.json": {
-     "sha256_16": "04a9741f9698350d",
-     "bytes": 302
-    },
-    "zvs_dead_time_table.csv": {
-     "sha256_16": "9793d195376463a1",
-     "bytes": 12029
-    },
-    "zvs_dead_time_table.png": {
-     "sha256_16": "9ac9b6d641f27a14",
-     "bytes": 87814
-    },
-    "zvs_maps.csv": {
-     "sha256_16": "ce82b844d126814e",
-     "bytes": 3183474
-    },
-    "zvs_maps_nominal.png": {
-     "sha256_16": "a30ae9f5bd0bf809",
-     "bytes": 527208
-    },
-    "zvs_maps_worst_tolerance.png": {
-     "sha256_16": "2189792be9c320d2",
-     "bytes": 537725
-    },
-    "zvs_min_load.png": {
-     "sha256_16": "6eba13f7a1227c0e",
-     "bytes": 199032
-    },
-    "zvs_summary.json": {
-     "sha256_16": "50cf636eb6177478",
-     "bytes": 8572
+    "fig_benchmark.png": {
+     "sha256_16": "396684d65054b64a",
+     "bytes": 205063
     }
    }
   },
-  "Embedded_AI": {
+  "Uncertainty_Quantification": {
    "scripts": [
     {
-     "script": "embedded_inference.py",
+     "script": "uq_baseline.py",
      "status": "PASS",
-     "wall_s": 54.1,
-     "tail": "       141 ops    348 cycles   1.74 us  17.4 %\nWCET MLP 3-16-16-3 Q15 (int32 MAC, int64 acc)                      1231 ops   2596 cycles  12.98 us 129.8 %\nWCET MLP 3-16-16-3 float32 (FPU32)                                 1164 ops   2398 cycles  11.99 us 119.9 %\nWCET analytic SPS inverse + EPS matching (float)                     35 ops    118 cycles   0.59 us   5.9 %\nWCET PI + analytic inverse + EPS (firmware today)                    46 ops    144 cycles   0.72 us   7.2 %\nWCET observer + explicit LUT + EPS + DC-free (proposed ISR core)    133 ops    342 cycles   1.71 us  17.1 %\ndone in 53 s\n"
-    },
-    {
-     "script": "fixed_point_ref.py",
-     "status": "PASS",
-     "wall_s": 0.2,
-     "tail": "test_vectors_lut_q15.csv: 263 vectors, bit-exact match = True\ntest_vectors_mlp_q15.csv: 227 vectors, bit-exact match = True\n"
-    },
-    {
-     "script": "scheduling.py",
-     "status": "PASS",
-     "wall_s": 0.8,
-     "tail": "{\"cpu_load_estimate\": 0.367} ISR total us 3.2199999999999998\ndone in 0.3 s\n"
+     "wall_s": 32.7,
+     "tail": "uns, 8 s\nconvergence study: 16 s\ntotal model runs 107683, 22 s\ndone in 27 s\neta_nom: nominal 98.643, MC mean 98.606 std 0.048 q05 98.527 q95 98.682\nSobol ST eta_nom (PCE): {'kL': np.float64(0.141), 'kCoss': np.float64(0.0), 'kRds': np.float64(0.257), 'kCore': np.float64(0.524), 'Tamb': np.float64(0.079)}  Saltelli: {'kL': np.float64(0.139), 'kCoss': np.float64(0.0), 'kRds': np.float64(0.262), 'kCore': np.float64(0.499), 'Tamb': np.float64(0.082)}\nSobol ST zvs1 (PCE): {'kL': np.float64(0.89), 'kCoss': np.float64(0.11), 'kRds': np.float64(0.0), 'kCore': np.float64(0.0), 'Tamb': np.float64(0.0)}\n"
     }
    ],
    "results": {
-    "embedded_report.json": {
-     "sha256_16": "0b6ecb58146f3df3",
-     "bytes": 7702
+    "convergence.png": {
+     "sha256_16": "899f6f8aa89f1d61",
+     "bytes": 231625
     },
-    "empc_lut_q15.npz": {
-     "sha256_16": "c350f25e42e268f6",
-     "bytes": 15524
+    "corner_analysis.csv": {
+     "sha256_16": "9bbffad3a6647b3f",
+     "bytes": 16733
     },
-    "quantisation_errors.png": {
-     "sha256_16": "e4dcc31be4427969",
-     "bytes": 98692
+    "histograms.png": {
+     "sha256_16": "24d28b4fe55f4192",
+     "bytes": 291483
     },
-    "scheduling.json": {
-     "sha256_16": "e77d7c6ce57237ff",
-     "bytes": 2020
+    "mc_samples.csv": {
+     "sha256_16": "93d3b7cd1e0008b6",
+     "bytes": 2001348
     },
-    "scheduling_timing.png": {
-     "sha256_16": "8d1c5c9f3887baa4",
-     "bytes": 89553
+    "pce_coefficients_order3.csv": {
+     "sha256_16": "10ff5434e859924c",
+     "bytes": 10475
     },
-    "test_vectors_lut_q15.csv": {
-     "sha256_16": "a3361cc3def18efc",
-     "bytes": 6706
+    "run_log.txt": {
+     "sha256_16": "54d18f547f8d7ae8",
+     "bytes": 1213
     },
-    "test_vectors_mlp_q15.csv": {
-     "sha256_16": "6df21ce547eee746",
-     "bytes": 8520
+    "sobol_convergence.png": {
+     "sha256_16": "4bd6780701c0dc3e",
+     "bytes": 130456
     },
-    "tps_eps_map_MODEL.csv": {
-     "sha256_16": "a407f90fc0c01143",
-     "bytes": 153397
+    "sobol_indices.png": {
+     "sha256_16": "470cf71b8acd3d3e",
+     "bytes": 179398
     },
-    "tps_map_vs_mlp.png": {
-     "sha256_16": "46bbec7925b9843b",
-     "bytes": 140873
+    "uq_summary.json": {
+     "sha256_16": "f24d524ab0148e2d",
+     "bytes": 53186
+    }
+   }
+  },
+  "Physics_Informed_Models": {
+   "scripts": [
+    {
+     "script": "surrogate_comparison.py",
+     "status": "PASS",
+     "wall_s": 113.3,
+     "tail": " 2.641 3.806 3.699]  (1.2 s)\nGP_rbf n=864: rmse % range [0.233 0.792 2.077 3.26  1.72 ]  (2.1 s)\nGP_rbf n=3200: rmse % range [0.132 0.441 1.685 1.032 0.938]  (3.5 s)\nGP_rbf n=6912: rmse % range [0.12  0.331 1.72  0.979 0.736]  (3.3 s)\ndone in 112 s\n[\n[\n\"A2_analytic_tps_piecewise\",\n0.11597863672974003\n],\n[\n\"MLP_plain\",\n0.588954214624976\n],\n[\n\"HYB_sps_plus_residual\",\n0.6458554880990485\n],\n[\n\"PINN_physics_loss\",\n0.7966754722815151\n],\n[\n\"LUT_multilinear\",\n1.5653454877243376\n],\n[\n\"GP_rbf\",\n1.7200313751181298\n],\n[\n\"P3_polynomial\",\n3.0971741786504614\n],\n[\n\"A1_sps_closed_form\",\n29.073446881741276\n]\n]\n"
+    }
+   ],
+   "results": {
+    "extrapolation_set.csv": {
+     "sha256_16": "cdb041b290e0b474",
+     "bytes": 100532
     },
-    "tps_mlp_q15.npz": {
-     "sha256_16": "a6628d9caa0afab1",
-     "bytes": 4898
+    "fig_data_efficiency.png": {
+     "sha256_16": "455211f0296bda84",
+     "bytes": 171332
     },
-    "wcet_memory.png": {
-     "sha256_16": "b9c0084c76aef250",
-     "bytes": 81277
+    "fig_extrapolation.png": {
+     "sha256_16": "9aa7f7388cbf1d88",
+     "bytes": 64343
+    },
+    "fig_parity.png": {
+     "sha256_16": "4a0699af7c7196ef",
+     "bytes": 174860
+    },
+    "ground_truth_grid_6x6x12x4x4.csv": {
+     "sha256_16": "38cb2213cc5e0070",
+     "bytes": 1735057
+    },
+    "metrics.json": {
+     "sha256_16": "68fa58623525bfac",
+     "bytes": 26747
+    },
+    "metrics_table.md": {
+     "sha256_16": "5555cbeac43a040d",
+     "bytes": 2693
+    },
+    "parity_A2_test.csv": {
+     "sha256_16": "95a997e37141369e",
+     "bytes": 504323
+    },
+    "parity_GP_rbf_test.csv": {
+     "sha256_16": "cbb883089659d982",
+     "bytes": 504322
+    },
+    "parity_HYB_sps_plus_residual_test.csv": {
+     "sha256_16": "94ae643615cde1b8",
+     "bytes": 504319
+    },
+    "parity_LUT_multilinear_test.csv": {
+     "sha256_16": "b3aa13523c4e4e4e",
+     "bytes": 504290
+    },
+    "parity_MLP_plain_test.csv": {
+     "sha256_16": "c0e76bba0340150d",
+     "bytes": 504335
+    },
+    "parity_P3_polynomial_test.csv": {
+     "sha256_16": "d3693fce0e6a378b",
+     "bytes": 504335
+    },
+    "parity_PINN_physics_loss_test.csv": {
+     "sha256_16": "989e32b5bee589b7",
+     "bytes": 504332
+    },
+    "test_set_random.csv": {
+     "sha256_16": "0be2f297ac872b28",
+     "bytes": 502249
+    }
+   }
+  },
+  "Safe_RL_Research": {
+   "scripts": [
+    {
+     "script": "safe_rl_modulation.py",
+     "status": "PASS",
+     "wall_s": 168.0,
+     "tail": " \"mean_abs_P_err_pct\": 2.11921726805006\n }\n}\ntransient: {\n \"PI_EPS\": {\n  \"dip_V\": 1.464951983896583,\n  \"settle_ms\": 0.009999999998746689,\n  \"max_ipk\": 12.018331771733235,\n  \"fallback_periods\": 0,\n  \"filter_rejected\": 0,\n  \"filter_calls\": 0\n },\n \"PI_with_M1_duties\": {\n  \"dip_V\": 1.4964634573433386,\n  \"settle_ms\": 0.009999999998746689,\n  \"max_ipk\": 12.06792383972916,\n  \"fallback_periods\": 377,\n  \"filter_rejected\": 3,\n  \"filter_calls\": 223\n },\n \"note\": \"CV mode, 800/400 V, 50->100 % resistive step at 2 ms; phi from the PI, duties from EPS or from the M1 policy through the filter\"\n}\ndone in 167 s\n"
+    }
+   ],
+   "results": {
+    "fig_rl_vs_analytical.png": {
+     "sha256_16": "a9da6c2e7708dbe1",
+     "bytes": 159758
+    },
+    "fig_transient.png": {
+     "sha256_16": "a9ed0a81c1f41897",
+     "bytes": 69062
+    },
+    "m1_policy_theta.npy": {
+     "sha256_16": "cb49944768f54f0f",
+     "bytes": 1048
+    },
+    "m2_logits.npy": {
+     "sha256_16": "f164f44297927a33",
+     "bytes": 3728
+    },
+    "results_table.md": {
+     "sha256_16": "462f44d864772ebb",
+     "bytes": 3963
+    },
+    "rl_results.json": {
+     "sha256_16": "46c8e0e5817cbfa2",
+     "bytes": 62647
+    }
+   }
+  },
+  "Robust_Optimization": {
+   "scripts": [
+    {
+     "script": "robust_optimize.py",
+     "status": "PASS",
+     "wall_s": 514.0,
+     "tail": " },\n  \"dominating_examples\": \"...\"\n },\n \"survive\": {\n  \"robust\": {\n   \"n_nominal_front\": 305,\n   \"n_feasible_under_mode\": 55\n  },\n  \"cc\": {\n   \"n_nominal_front\": 305,\n   \"n_feasible_under_mode\": 73\n  },\n  \"nominal_strict\": {\n   \"n_nominal_front\": 305,\n   \"n_feasible_under_mode\": 120\n  },\n  \"robust_strict\": {\n   \"n_nominal_front\": 305,\n   \"n_feasible_under_mode\": 0\n  },\n  \"cc_strict\": {\n   \"n_nominal_front\": 305,\n   \"n_feasible_under_mode\": 0\n  }\n },\n \"hv\": {\n  \"nominal\": 0.69066,\n  \"robust\": 0.26713,\n  \"cc\": 0.52367,\n  \"nominal_strict\": 0.68038,\n  \"robust_strict\": 0.0,\n  \"cc_strict\": 0.0\n }\n}\n"
+    }
+   ],
+   "results": {
+    "bo_front.csv": {
+     "sha256_16": "8130885b4971e85e",
+     "bytes": 3651
+    },
+    "convergence.json": {
+     "sha256_16": "2cebe59ffe9d655b",
+     "bytes": 12538
+    },
+    "convergence_hypervolume.png": {
+     "sha256_16": "6082076efd214fed",
+     "bytes": 122597
+    },
+    "decision_variables.png": {
+     "sha256_16": "a11dfda158e7f57c",
+     "bytes": 151592
+    },
+    "grid_front_reevaluated.csv": {
+     "sha256_16": "10adfd4251440daf",
+     "bytes": 6047
+    },
+    "knee_and_baseline.json": {
+     "sha256_16": "d8c2cc76e85dd7d3",
+     "bytes": 21558
+    },
+    "mission_profile_ASSUMED.csv": {
+     "sha256_16": "d6fb83bb2260286a",
+     "bytes": 377
+    },
+    "mission_profile_Tj.png": {
+     "sha256_16": "b97e8af7e43d6a8f",
+     "bytes": 78072
+    },
+    "pareto_2d.png": {
+     "sha256_16": "ac6733545084c7fa",
+     "bytes": 322077
+    },
+    "pareto_3d.png": {
+     "sha256_16": "42168dbf6375151b",
+     "bytes": 210250
+    },
+    "pareto_fronts.csv": {
+     "sha256_16": "f963f211cc56344e",
+     "bytes": 227491
+    },
+    "run_log.txt": {
+     "sha256_16": "5dc9e120663287ef",
+     "bytes": 3369
+    },
+    "uncertainty_samples_LHS.csv": {
+     "sha256_16": "e606d411805ee412",
+     "bytes": 1009
     }
    }
   }
  },
- "finished": "2026-10-10T08:05:13.943914+00:00"
+ "finished": "2026-10-10T10:21:17.793673+00:00"
 }
