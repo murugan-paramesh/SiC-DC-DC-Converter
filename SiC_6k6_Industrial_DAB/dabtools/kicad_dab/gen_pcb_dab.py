@@ -34,7 +34,7 @@ def P(ref, x, y, r=0): PL[ref] = (x, y, r)
 for q, qx in zip((1, 2, 3, 4), (30, 52, 76, 98)):
     P(f"Q{q}", qx, 14, 0)
 P("C5", 36, 38); P("C6", 46, 38); P("C7", 82, 38); P("C8", 96, 38)   # HV_P pads clear of the SW_B strip so the plane via fits
-P("J1", 14, 70); P("F1", 53, 70); P("J2", 14, 100)   # fuse holder courtyard between the J1 stud and the SW_A lug
+P("J1", 14, 70); P("F1", 54.5, 70); P("J2", 14, 100)   # fuse holder courtyard between the J1 stud and the SW_A lug
 for i, y in zip((1, 2, 3, 4), (100, 139, 178, 217)):
     P(f"C{i}", 60, y, 0)
 P("J4", 104, 52); P("J3", 93, 73); P("J9", 100, 150)   # J3 above C1, west of the SW_A_CT strip (x 103-109)
@@ -237,7 +237,7 @@ def config():
     fan.update({"U5": (2.2, 4.4, 0.3), "U6": (2.2, 4.4, 0.3), "U7": (2.2, 4.4, 0.3), "U8": (1.8, 3.6, 0.3), "U9": (1.8, 3.6, 0.3), "U10": (1.8, 3.6, 0.3), "U11": (1.8, 3.6, 0.3), "U12": (1.8, 3.6, 0.3), "U16": (1.8, 3.6, 0.3), "U17": (1.8, 3.6, 0.3)})
     # 2.54 mm pin-header fields (BoosterPack 2x10, interlock/relay 1x08) get the same stub fan-out so a
     # track running along a pin column cannot seal the other pins
-    fan.update({"J10": (2.0, 4.0, 0.3), "J12": (2.0, 4.0, 0.3), "J16": (2.0, 4.0, 0.3)})   # J11's outer column faces the barrier: no stubs there
+    fan.update({"J10": (2.0, 4.0, 0.3), "J12": (2.0, 4.0, 0.3)})   # J11 faces the barrier, J16 carries one net on alternate pins: no stubs there
     # module output faces: 1.5 mm bands where tracks run straight out (no vertical moves, no vias) so one
     # module pin's track cannot seal its neighbours' exits
     exit_bands = [(116.5, 42, 118.0, 84), (221.0, 42, 222.5, 84), (116.5, 131, 118.0, 141), (221.0, 123, 222.5, 133)]

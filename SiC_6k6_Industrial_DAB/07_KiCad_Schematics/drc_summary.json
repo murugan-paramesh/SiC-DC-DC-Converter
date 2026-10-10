@@ -1,12 +1,7 @@
 {
  "failed_terminals": [
   [
-   "+5V",
-   0,
-   0
-  ],
-  [
-   "GPIO_RELAY1",
+   "+24V",
    0,
    0
   ]
@@ -14,15 +9,14 @@
  "drc_kinds": {
   "silk_overlap": 13,
   "silk_over_copper": 28,
-  "starved_thermal": 1,
   "silk_edge_clearance": 16,
   "courtyards_overlap": 1,
-  "track_dangling": 19,
-  "unconnected_items": 41
+  "track_dangling": 13,
+  "unconnected_items": 7
  },
  "severities": {
-  "warning": 76,
-  "error": 43
+  "warning": 70,
+  "error": 8
  },
- "unconnected": 41
+ "unconnected": 7
 }
