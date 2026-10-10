@@ -146,8 +146,8 @@ light-load region it is genuine cross-conduction.
 
 ![crosstalk margin](img/ch18_crosstalk_margin.png)
 
-*Figure 18-2 (`img/make_figs_ch18_18.py` is not a file - see `img/make_figs_ch17_18.py`; data from the
-module's gate_drive_results.json): worst-corner ZVS crosstalk margin per option.*
+*Figure 18-2 (`img/make_figs_ch17_18.py`, data from the module's gate_drive_results.json): worst-corner
+ZVS crosstalk margin per option.*
 
 **Example from our converter:** `Advanced_Research_2026/Active_Gate_Drive/results/option_table.md`:
 
@@ -297,10 +297,9 @@ SIL fault injection (`Advanced_Research_2026/HIL_Validation/README.md`, test T03
 V2 sensor drives the true V2 to 473.9 V with no trip while the firmware reads 379 V; a -25 % fault would
 exceed 480 V with nothing tripping. T10: the AMC1301 clips at 500 V, only 4 % above the 480 V trip. `[Simulated]`
 
-**Engineering calculations:** OV LV: DC = 19.4 / (19.4 + 36.5) = 35 %. Gain fault: the loop regulates the
-reading to 400 V, so true V2 = 400 / (1 - 0.2) = 500 V in steady state; the 473.9 V reported is the value
-within the simulated window - either way above the 400 V set point by the fault factor, invisible to every
-protection that uses the same channel.
+**Engineering calculations:** OV LV: DC = 19.4 / (19.4 + 36.5) = 35 %. Gain fault: the reading is
+0.8 x 473.9 V = 379 V, so the loop, the firmware OV check and the hardware OV comparator all see a
+normal-looking voltage while the true link is 18 % above its 400 V reference.
 
 **Design decision made in this project:** Proposed diagnostics, each converting named DU modes into DD:
 CT plausibility (|i_pk| vs the SPS power model at the commanded phi); a comparator pulse test at start-up;
