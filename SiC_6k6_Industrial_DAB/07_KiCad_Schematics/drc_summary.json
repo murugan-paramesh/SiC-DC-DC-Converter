@@ -1,25 +1,22 @@
 {
  "failed_terminals": [
   [
-   "GD_Q5",
+   "VDD_Q8",
    0,
    0
   ]
  ],
  "drc_kinds": {
-  "silk_overlap": 17,
-  "silk_over_copper": 30,
-  "solder_mask_bridge": 2,
-  "starved_thermal": 4,
+  "silk_overlap": 13,
+  "silk_over_copper": 28,
   "silk_edge_clearance": 16,
-  "courtyards_overlap": 4,
-  "clearance": 1,
+  "courtyards_overlap": 3,
   "track_dangling": 2,
-  "unconnected_items": 7
+  "unconnected_items": 3
  },
  "severities": {
-  "warning": 65,
-  "error": 18
+  "warning": 59,
+  "error": 6
  },
- "unconnected": 7
+ "unconnected": 3
 }
