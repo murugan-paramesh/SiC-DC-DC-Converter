@@ -18,7 +18,7 @@ separate branch can be cut from the tag at any time without losing anything).
 | Simulations | Python switched plant + controller in the loop (regulation, load step, reversal, dead-bus start); ngspice behavioural switching model (P, I_rms, ZVS at all 8 edges) | `05_Simulation/` | L2 |
 | Magnetics | E65 transformer 28:14, E55 inductor; Steinmetz/iGSE, Dowell/litz, leakage and capacitance estimates | `06_Magnetics/` | L1-L2 (no FEM) |
 | KiCad schematic | 5 sheets, 261 components, netlist = design database | `07_KiCad_Schematics/` | L3 |
-| 6-layer PCB | generated placement/planes/pours; auto-routed with the in-house negotiated router; latest DRC: 8 errors (one net unrouted at a header, one courtyard touch), 0 clearance errors; routing run 24 in progress | `07_KiCad_Schematics/drc_summary.json` | L2 -> L3 when 0 errors |
+| 6-layer PCB | generated placement/planes/pours; auto-routed with the in-house negotiated router; DRC 0 errors / 0 unconnected since routing run 27 (2026-10-10), 63 silkscreen/stub warnings | `07_KiCad_Schematics/drc_summary.json`, `08_KiCad_PCB/README.md` | L3 |
 | Firmware | portable C control core (PI + modulator inverse, EPS matching, soft start, state machine, protections, CRC telemetry), SIL harness 35 checks pass; C2000 HAL written, not compiled | `10_Firmware/` | L3 (core), L0-L1 (HAL) |
 | Control design | PI loop design, SPS/EPS/DPS/TPS comparison, explicit MPC as alternative | `11_Control_Algorithms/` | L2 |
 | Optimisation | exhaustive grid over (fs, L, n, Bpk), Pareto front | `12_Optimization/` | L2 |
@@ -102,7 +102,7 @@ factor and excitation gating required; (4) no hardware: all claims stay at L2/L3
 
 ## 4. Execution sequence (sec. 29 priorities)
 
-1. Finish the DAB PCB (routing run in progress), exports, verification, report - *before anything else*.
+1. Finish the DAB PCB (done: run 27, 0 DRC errors), exports, verification, report - *before anything else*.
 2. Research baseline validation: re-run the full chain under `Verification_Evidence/run_all.py` with provenance.
 3. Primary contributions: `Digital_Twin/` (estimation + observability), `Adaptive_MPC/` (controllers + benchmarks + WCET), `FEM_Magnetics/` + `Robust_Optimization/` (magnetics/control co-optimisation).
 4. Extensions: `SiC_Health_Monitoring/`, `Active_Gate_Drive/`, `Uncertainty_Quantification/`, `Physics_Informed_Models/`, `Multiphysics_Models/`, `Parasitic_Extraction/`.

@@ -54,11 +54,21 @@ class DABController:
         self.v2_start = 0.0
         self.log = []
         self.D_min = 0.12
+        self.gates_enabled = False        # see pwm_enabled
         self.phi_dead_comp = 0.0          # rad, set from t_dead: 2*pi*fs*t_dead*0.5 (edge-average); 0 = disabled
         self.use_eps = True
 
     # --- helpers ------------------------------------------------------------
     V2_FLOOR = 40.0        # V: below this the power command is interpreted as a current command at the floor voltage
+
+    @property
+    def pwm_enabled(self):
+        """Mirror of the C core's cmd.gates_enabled: True only when step() produced a regulated
+        command (SOFTSTART/RUN path), False on every early return (INIT, PRECHARGE_WAIT, FAULT,
+        disabled, and the transition period into SOFTSTART). A plant model must apply D1 = D2 = 0
+        (bridges off) when this is False instead of the returned (0, 1, 1), otherwise it switches a
+        full square wave into a dead bus (found by 18_Verification, 2026-10-10)."""
+        return self.gates_enabled
 
     def phi_from_power(self, P, v1, v2):
         """
@@ -101,7 +111,8 @@ class DABController:
 
     # --- main ISR -----------------------------------------------------------
     def step(self, m, enable=True):
-        """m: dict(v1, v2, i_pk, T, precharge_ok). Returns (phi, D1, D2)."""
+        """m: dict(v1, v2, i_pk, T, precharge_ok). Returns (phi, D1, D2); see pwm_enabled."""
+        self.gates_enabled = False
         f = self.check_protection(m)
         if f and self.state != "FAULT":
             self.state, self.fault = "FAULT", f
@@ -142,4 +153,5 @@ class DABController:
             d = self.n * m["v2"] / max(m["v1"], 1.0)
             self.D1, self.D2 = self.tps_table(d, P_cmd)
         self.log.append((self.state, P_cmd, self.phi))
+        self.gates_enabled = True
         return self.phi, self.D1, self.D2

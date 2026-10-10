@@ -28,6 +28,12 @@ SHEETS = [("hv", "HV Port and HV Bridge", "hv_bridge.kicad_sch"),
 POWER_NETS = {"HV_P", "HV_N", "LV_P", "LV_N", "GND", "+12V", "+5V", "+3V3", "+24V"}
 GROUND_NETS = {"HV_N", "LV_N", "GND"}
 
+# Nets that intentionally have a single pin: BoosterPack / expansion-header pins brought out for future
+# use (SPI, I2C, reset, sync) and the unused second reference-buffer output of U9.  They are documented
+# here so that the ERC-lite check in 18_Verification can distinguish them from wiring mistakes; the PCB
+# generator still gives them a short fan-out stub (reported by KiCad as a "dangling track" warning).
+RESERVED_SINGLE_PIN_NETS = {"SPI_CLK", "SPI_CS", "SPI_MISO", "SPI_MOSI", "I2C_SCL", "I2C_SDA", "RESET_N", "GPIO_SYNC", "I2_REF_OUT"}
+
 HV_POWER = {"HV_IN", "HV_P", "HV_N", "SW_A", "SW_B", "SW_A_CT"}   # SW_A_CT: inductor lead after the CT loop (same potential class as SW_A)
 LV_POWER = {"LV_IN", "LV_P", "LV_N", "SW_C", "SW_D", "SH_N"}   # SH_N: LV- port terminal behind the 1 mOhm shunt (16.5 A path)
 

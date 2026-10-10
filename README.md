@@ -15,6 +15,12 @@ Shared tooling: `tools/kicad/` (symbol/footprint generators, hierarchical schema
 Quick start (PSFB): `python3 tools/psfb_design.py && python3 -m tools.kicad.gen_schematic && python3 -m tools.kicad.gen_pcb`.
 Quick start (DAB): see `SiC_6k6_Industrial_DAB/README.md`.
 
+2026 research upgrade: `Advanced_Research_2026/` (gap analysis, verified literature database, digital twin,
+adaptive MPC, FEM-lite magnetics, parasitic extraction, robust optimisation, UQ, health monitoring, gate drive,
+reliability, HIL plan, cybersecurity, benchmarks, publication drafts, maturity matrix - every module states
+its maturity level and what it could not verify; nothing is above L3). Beginner-to-expert learning notes with
+viva questions and the combined textbook: `21_Human_Friendly_Learning_Notes/`.
+
 Safety: both designs carry hazardous voltages (420 V / 850 V DC). No prototype should be energised
 before an independent engineering review and an approved laboratory procedure
 (`SiC_6k6_Industrial_DAB/20_Experimental_Test_Plan/`).

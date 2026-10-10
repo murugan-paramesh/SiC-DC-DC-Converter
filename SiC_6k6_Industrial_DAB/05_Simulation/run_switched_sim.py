@@ -39,6 +39,8 @@ def run(case, periods, load_fn, v1_fn=lambda t: 800.0, mode="CV", P_ref=0.0, v2_
         plant.V1_src = v1_fn(plant.t)
         m = dict(v1=plant.v1, v2=plant.v2, i_pk=plant.ipk, T=40, precharge_ok=True)
         phi, D1, D2 = ctl.step(m, enable=(k >= enable_at))
+        if not ctl.pwm_enabled:
+            D1 = D2 = 0.0                      # PWM outputs off outside SOFTSTART/RUN (as the HAL does)
         rec = plant.run_period(phi, D1, D2, record=(k >= periods - record_last))
         if rec: rec_last += rec
         t_log.append(plant.t); v2_log.append(plant.v2); v1_log.append(plant.v1); phi_log.append(math.degrees(phi)); state_log.append(ctl.state)

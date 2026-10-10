@@ -57,7 +57,9 @@ unver = sorted({c.value for c in D.build() if not c.pin_verified})
 rec("component pinouts flagged for datasheet verification", "INFO", ", ".join(unver))
 # 5. ERC-lite on the DAB design: every net has >= 2 pins, power-in pins have a source
 nets = D.nets_of(D.build()); singles = [n for n, p in nets.items() if len(p) < 2 and not n.startswith("NC_")]
-rec("ERC-lite: no single-pin nets", "PASS" if not singles else "FAIL", str(singles))
+unexpected = [n for n in singles if n not in D.RESERVED_SINGLE_PIN_NETS]
+rec("ERC-lite: no single-pin nets except the documented reserved header pins", "PASS" if not unexpected else "FAIL",
+    f"unexpected {unexpected}; reserved (design_dab.RESERVED_SINGLE_PIN_NETS): {sorted(set(singles) & D.RESERVED_SINGLE_PIN_NETS)}")
 # 6. PCB DRC summaries
 for name, path in (("DAB", os.path.join(DAB, "07_KiCad_Schematics", "drc_summary.json")), ("PSFB", os.path.join(REPO, "hardware", "kicad", "drc_summary.json"))):
     if os.path.exists(path):

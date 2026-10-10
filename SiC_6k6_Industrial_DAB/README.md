@@ -16,8 +16,8 @@ repository root is the preserved baseline (`Legacy_PSFB_Baseline/README.md`).
 | `04_Design_Calculations/` | `dab_design.py` -> `design_values.json`, `design_report.md`, derating/ZVS maps, loss budget, DC link, protection thresholds | script run |
 | `05_Simulation/` | closed-loop switched model (`run_switched_sim.py`), ngspice switching model (`gen_spice.py`), results + plots | both run; agree with analysis |
 | `06_Magnetics/` | transformer/inductor design, core comparison, insulation, test procedure | script run |
-| `07_KiCad_Schematics/` | **KiCad 7 project** `SiC_DAB_6k6.kicad_pro` (5 sheets, 259 components) + the 6-layer PCB `SiC_DAB_6k6.kicad_pcb`, libraries, DRC report | netlist export = design database; DRC via pcbnew (see 18) |
-| `08_KiCad_PCB/` | layout description and stack-up pointers (the PCB file lives with the project in 07) | - |
+| `07_KiCad_Schematics/` | **KiCad 7 project** `SiC_DAB_6k6.kicad_pro` (5 sheets, 261 components) + the 6-layer PCB `SiC_DAB_6k6.kicad_pcb`, libraries, DRC report | netlist export = design database; DRC via pcbnew: **0 errors, 0 unconnected** (run 27, see 08 and 18) |
+| `08_KiCad_PCB/` | layout description, run history, board images (the PCB file lives with the project in 07) | DRC 0 errors / 0 unconnected, 63 silkscreen/stub warnings |
 | `09_Component_Libraries/` | pointer to `07_KiCad_Schematics/lib/` and the generators | pin-existence check |
 | `10_Firmware/` | portable C control core, protocol, C2000 HAL (not compiled), SIL harness (`make test`) | 35 SIL checks pass (gcc) |
 | `11_Control_Algorithms/` | loop design, modulation comparison, MPC alternative, `control_params.json` | script run |
